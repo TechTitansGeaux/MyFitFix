@@ -1,9 +1,9 @@
 const path = require('path');
 
 module.exports = {
-  entry: './client/src/index.jsx',
+  entry: '.client/src/index.jsx',
   output: {
-    filename: 'main.js',
+    filename: 'build.js',
     path: path.resolve(__dirname, 'dist'),
   },
 };

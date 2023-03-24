@@ -1,3 +1,6 @@
+# Node/NPM
 node_modules
-client/dist/
+
+# Project
+client/dist
 .env
