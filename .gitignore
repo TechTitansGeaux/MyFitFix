@@ -1,3 +1,10 @@
+<<<<<<< HEAD
 node_modules
+=======
+# Node/NPM
+node_modules
+
+# Project
+>>>>>>> ba0ce2a6d5cf369f1544f11306c1de210ffc2aac
 client/dist
 .env
