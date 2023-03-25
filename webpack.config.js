@@ -1,14 +1,12 @@
 const path = require('path');
 
-
+const dist = path.join(__dirname, '/client/dist');
 
 module.exports = {
-  mode: 'development',
-  watch: true,
-  entry:  path.resolve(__dirname, 'client', 'src', 'index.jsx'),
+  entry: './client/src/index.jsx',
   output: {
     filename: 'build.js',
-    path: path.resolve(__dirname, 'client', 'dist'),
+    path: dist,
   },
   resolve: {
     extensions: ['*', '.js', '.jsx'],
