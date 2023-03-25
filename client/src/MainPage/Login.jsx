@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import React from 'react';
 import jwt_decode from 'jwt-decode';
+import { Link } from 'react-router-dom';
 
 function Login() {
 
@@ -11,8 +12,9 @@ function Login() {
   const handleCallbackResponse = (response) => {
     const userObject = jwt_decode(response.credential);
     setUser(userObject);
-    console.log(userObject);
     document.getElementById('signInDiv').hidden = true;
+    document.getElementById('dashButton').hidden = false;
+
   }
 
   //This will handle the sign out functionality
@@ -57,6 +59,9 @@ function Login() {
             <h3>{user.name}</h3>
           </div>
         }
+        <Link to="/dashboard" user={user}>
+          <button id="dashButton" hidden>Got to Dashboard</button>
+        </Link>
       </main>
     </>
   )
