@@ -4,5 +4,6 @@ node_modules
 
 # Project
 client/dist/build.js
+client/dist/build.js.LICENSE.txt
 
 .env
