@@ -2,7 +2,7 @@
 
 const path = require('path');
 const express = require('express');
-//TODO: FIX 
+//TODO: FIX
 // const { Tasks } = require('./db');
 
 
@@ -18,8 +18,11 @@ app.use(express.json()); // Parse the request body
 app.use(express.urlencoded({ extended: true })); // Parses url
 //TODO: FIX
 app.use(express.static(distPath)); // Statically serve up client directory
+app.set('view engine', 'ejs');
 
-
+app.get('/', (req, res) => {
+  res.render('login');
+})
 
 
 
