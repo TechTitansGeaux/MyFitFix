@@ -65,7 +65,7 @@ const googleUser = function (passport) {
 }
 
 
-    // if user is authenticated the redirected to next page else redirect to login page
+    // middleware if user is authenticated the redirected to next page else redirect to login page
    const ensureAuth = function (req, res, next) {
       if (req.isAuthenticated()) {
         return next()
@@ -73,7 +73,7 @@ const googleUser = function (passport) {
         res.redirect('/')
       }
     }
-    // if user is authenticated and going to login page then redirected to home page if not authenticated redirected to login page  .
+    //  middleware if user is authenticated and going to login page then redirected to home page if not authenticated redirected to login page  .
    const ensureGuest = function (req, res, next) {
       if (!req.isAuthenticated()) {
         return next();

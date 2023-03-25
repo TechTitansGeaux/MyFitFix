@@ -10,6 +10,10 @@ const app = express();
 
 const { ensureAuth, ensureGuest } = require('./auth.js');
 
+
+
+
+
 router.get('/', ensureGuest ,(req, res) => {
   res.render('login')
 })
