@@ -24,6 +24,10 @@ app.get('/', (req, res) => {
   res.render('login');
 })
 
+//This handles ANY other file that is not defined, to route to our index.html file, rendering our different React pages (Dashboard, Journal, etc.)
+app.get('*', (req, res) => {                       
+  res.sendFile(path.resolve( 'client', 'dist', 'index.html'));                               
+});
 
 
 
