@@ -7,3 +7,5 @@ client/dist/build.js
 client/dist/build.js.LICENSE.txt
 
 .env
+
+server/config/keys.js

@@ -1,43 +1,45 @@
-
 const express = require('express');
-const mongoose=require('mongoose');
-const dotenv = require('dotenv');
+const authRoutes = require('./routes/auth-routes');
+const profileRoutes = require('./routes/profile-routes');
+const passportSetup = require('./config/passport-setup');
+const mongoose = require('mongoose');
+const keys = require('./config/keys');
+const cookieSession = require('cookie-session');
 const passport = require('passport');
-const session = require('express-session');
-const router = require('express').Router();
 
 const app = express();
 
-const { ensureAuth, ensureGuest } = require('./auth.js');
 
+//Set up view engine
+app.set('view engine', 'ejs');
 
+app.use(cookieSession({
+  maxAge: 24 * 60 * 60 * 1000,
+  keys: [keys.session.cookieKey]
+}));
 
+//Initialize passport
+app.use(passport.initialize());
+app.use(passport.session());
 
+//Connect to mongodb
+// mongoose.connect(keys.mongodb.dbURI)
+//   .then(() => {
+//     console.log('connected to mongodb');
+//   })
+//   .catch((err) => {
+//     console.error(err);
+//   })
 
-router.get('/', ensureGuest ,(req, res) => {
-  res.render('login')
+//Setup routes
+app.use('/auth', authRoutes);
+app.use('/profile', profileRoutes);
+
+//Create home route
+app.get('/', (req, res) => {
+  res.render('home', { user: req.user });
 })
 
-router.get('/log',ensureAuth, async(req,res)=>{
-  res.render('index',{ userinfo:req.user })
+app.listen(8020, () => {
+  console.log('app now listening for request on port 8020');
 })
-
-router.get('/google', passport.authenticate('google', { scope: ['profile','email'] }))
-
-router.get(
-  '/google/callback',
-  passport.authenticate('google', { failureRedirect: '/' }),
-  (req, res) => {
-    res.redirect('/log')
-  }
-)
-
-router.get('/logout', (req, res) => {
-  req.logout()
-  res.redirect('/')
-})
-
-
-module.exports = router;
-
-
