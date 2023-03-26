@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import React from 'react';
 import jwt_decode from 'jwt-decode';
 import { Link } from 'react-router-dom';
+import CLIENT_ID from './config.js';
 
 function Login() {
 
@@ -29,7 +30,7 @@ function Login() {
 
     // Initializes the Google Account on render
     google.accounts.id.initialize({
-      client_id: "878530699205-du9u24dirbogfho5eir32e4en2av93sc.apps.googleusercontent.com",
+      client_id: CLIENT_ID,
       callback: handleCallbackResponse
     })
 

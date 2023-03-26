@@ -2,9 +2,13 @@
 
 const path = require('path');
 const express = require('express');
+const dotenv = require('dotenv');
 //TODO: FIX
 // const { Tasks } = require('./db');
 
+dotenv.config({
+  path: path.resolve(__dirname, '../.env'),
+});
 
 const port = 8020;
 //TODO: FIX DIST
