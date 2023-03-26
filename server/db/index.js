@@ -9,8 +9,9 @@ mongoose.connect(mongoUri)
 
 const UserSchema = new Schema({
   name: String,
-  dailyEntryId: String,
-  googleId: { type: String, unique: true, required: true }
+  dailyEntryId: {type: mongoose.Schema.Types.ObjectId, ref: 'Entries'},
+  googleId: { type: String, unique: true, required: true },
+  thumbnail: String
 });
 
 const DailyEntrySchema = new Schema({
