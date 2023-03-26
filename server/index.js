@@ -2,12 +2,11 @@
 
 const path = require('path');
 const express = require('express');
-//TODO: FIX
-// const { Tasks } = require('./db');
 
-
+const passport = require('passport');
+//const userAuth = require('./routes')
+const session = require('express-session')
 const port = 8020;
-//TODO: FIX DIST
 const distPath = path.resolve(__dirname, '..', 'client', 'dist');
 
 const app = express();
@@ -18,12 +17,15 @@ app.use(express.json()); // Parse the request body
 app.use(express.urlencoded({ extended: true })); // Parses url
 //TODO: FIX
 app.use(express.static(distPath)); // Statically serve up client directory
-app.set('view engine', 'ejs');
+// app.set('view engine', 'ejs');
 
-app.get('/', (req, res) => {
-  res.render('login');
-})
 
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(require('./routesindex'))
+app.use('/auth', require('./auth'))
 
 
 
@@ -33,3 +35,6 @@ app.listen(port, () => {
   Listening at: http://127.0.0.1:${port}
   `);
 });
+
+
+// module.exports.isLoggedIn = isLoggedIn;
