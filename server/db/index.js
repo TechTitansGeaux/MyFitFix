@@ -36,9 +36,17 @@ const CaloriesBurnedSchema = new Schema({
   duration: Number
 });
 
+const JournalEntrySchema = new Schema({
+  entry: String,
+  date: {type: Date, unique: true}
+});
+
+
+
 module.exports = {
   User: model('User', UserSchema),
   Entries: model('Entries', DailyEntrySchema),
   CaloriesIn: model('CaloriesIn', CaloriesInSchema),
-  CaloriesBurned: model('CaloriesBurned', CaloriesBurnedSchema)
+  CaloriesBurned: model('CaloriesBurned', CaloriesBurnedSchema),
+  Journal: model('Journal', JournalEntrySchema)
 };
