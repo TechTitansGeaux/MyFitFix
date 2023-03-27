@@ -28,8 +28,11 @@ app.use('/auth', authRoutes);
 app.use('/dashboard', dashboardRoutes);
 
 //Create home route
-app.get('/', (req, res) => {
-  res.render('home', { user: req.user });
+// app.get('/', (req, res) => {
+//   res.render('/profile', { user: req.user });
+// })
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve('client', 'dist', 'index.html'));
 })
 
 app.listen(8020, () => {
