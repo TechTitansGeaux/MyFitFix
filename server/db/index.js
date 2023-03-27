@@ -9,23 +9,31 @@ mongoose.connect(mongoUri)
 
 const UserSchema = new Schema({
   name: String,
-  dailyEntryId: { type: mongoose.Schema.Types.ObjectId, ref: 'Entries' },
-  googleId: { type: String, unique: true, required: true },
-  thumbnail: String
+  dailyEntryId: { type: mongoose.Schema.Types.ObjectId, ref: 'Entries' }
 });
 
 const DailyEntrySchema = new Schema({
-  CaloriesIn: Number,
-  CaloriesBurned: Number,
-  Journal: String,
-  Date: { type: Date, unique: true, required: true },
-
+  caloriesIn: { type: mongoose.Schema.Types.ObjectId, ref: 'CaloriesIn' },
+  caloriesBurned: { type: mongoose.Schema.Types.ObjectId, ref: 'CaloriesBurned' },
+  journal: String,
+  date: { type: Date, unique: true, required: true }
 });
 
-const User = mongoose.model('User', UserSchema);
-const Entries = mongoose.model('Entries', DailyEntrySchema)
+const CaloriesInSchema = new Schema({
+  foodItem: String,
+  weightInGrams: Number,
+  calories: Number,
+})
+
+const CaloriesBurnedSchema = new Schema({
+  workout: String,
+  currentWeight: Number,
+  duration: Number
+});
 
 module.exports = {
-  User,
-  Entries
+  User: model('User', UserSchema),
+  Entries: model('Entries', DailyEntrySchema),
+  CaloriesIn: model('CaloriesIn', CaloriesInSchema),
+  CaloriesBurned: model('CaloriesBurned', CaloriesBurnedSchema)
 };
