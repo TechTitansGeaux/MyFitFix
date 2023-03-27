@@ -36,9 +36,22 @@ const CaloriesBurnedSchema = new Schema({
   duration: Number
 });
 
+const ExerciseSchema = new Schema({
+    name: {type: String, unique: true},
+    type: String,
+    muscle: String,
+    difficulty: String,
+    instructions: String,
+    sets: Number,
+    reps: Number
+}
+
+)
+
 module.exports = {
   User: model('User', UserSchema),
   Entries: model('Entries', DailyEntrySchema),
   CaloriesIn: model('CaloriesIn', CaloriesInSchema),
-  CaloriesBurned: model('CaloriesBurned', CaloriesBurnedSchema)
+  CaloriesBurned: model('CaloriesBurned', CaloriesBurnedSchema),
+  Exercise: model('Exercise', ExerciseSchema )
 };
