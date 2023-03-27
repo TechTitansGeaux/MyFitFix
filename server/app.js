@@ -32,6 +32,11 @@ app.get('/', (req, res) => {
   res.render('home', { user: req.user });
 })
 
+//This handles ANY other file that is not defined, to route to our index.html file, rendering our different React pages (Dashboard, Journal, etc.)
+app.get('*', (req, res) => {                       
+  res.sendFile(path.resolve( 'client', 'dist', 'index.html'));                               
+});
+
 app.listen(8020, () => {
   console.log('app now listening for request at:', 'http://localhost:8020');
 })

@@ -4,6 +4,7 @@ const dist = path.join(__dirname, '/client/dist');
 
 module.exports = {
   entry: './client/src/index.jsx',
+  watch: true,
   output: {
     filename: 'build.js',
     path: dist,
