@@ -5,7 +5,7 @@ import { Route, Routes } from 'react-router-dom';
 import Login from './Login.jsx';
 import Home from './Home.jsx';
 import JournalEntry from './JournalEntry.jsx';
-import WorkoutPlanner from './WorkoutPlan.jsx';
+import WorkoutPlanner from '../WorkoutPage/WorkoutPlan.jsx';
 
 function App() {
 
