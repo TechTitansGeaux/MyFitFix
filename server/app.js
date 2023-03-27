@@ -1,5 +1,6 @@
 const express = require('express');
 const authRoutes = require('./routes/auth-routes');
+const journalRoutes = require('./routes/journal-routes');
 const dashboardRoutes = require('./routes/dashboard-routes');
 const passportSetup = require('./config/passport-setup');
 const mongoose = require('mongoose');
@@ -12,12 +13,16 @@ const path = require('path');
 const CLIENT_PATH = path.join(__dirname, '..', 'client', 'dist');
 const app = express();
 
+
 //Set up view engine
 app.use(express.static(CLIENT_PATH));
 app.use(cookieSession({
   maxAge: 24 * 60 * 60 * 1000,
   keys: [keys.session.cookieKey]
 }));
+
+app.use(express.json()); // Parse the request body
+app.use(express.urlencoded({ extended: true })); // Parses url
 
 //Initialize passport
 app.use(passport.initialize());
@@ -26,6 +31,7 @@ app.use(passport.session());
 //Setup routes
 app.use('/auth', authRoutes);
 app.use('/dashboard', dashboardRoutes);
+app.use('/journal-entry', journalRoutes);
 
 //Create home route
 // app.get('/', (req, res) => {
