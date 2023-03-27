@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const axios = require('axios');
-const keys = require('../config/keys.js')
+const keys = require('../config/keys.js');
+const { CaloriesIn } = require('../db/index.js');
 
 router.get('/food', (req, res) => {
   const { q } = req.query;
@@ -21,6 +22,16 @@ router.get('/food', (req, res) => {
       console.error('Failed to fetch:', err);
       res.sendStatus(500);
     });
+});
+
+router.post('/food', (req, res) => {
+  const { name, calories, weight } = req.body;
+  const newCalorie = new CaloriesIn({
+    foodItem: name,
+    weightInGrams: weight,
+    calories: calories,
+  });
+  newCalorie.save();
 })
 
 module.exports = router;

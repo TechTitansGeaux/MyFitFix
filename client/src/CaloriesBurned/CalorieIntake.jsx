@@ -7,10 +7,20 @@ function CalorieIntake() {
   const [calories, setCalories] = useState(0);
   const [cTotal, setCTotal] = useState(0);
 
+  //Sends a Get request to the nutrition api, and a POST request to the db with the data received from the api
   const handleApiRequest = (event) => {
     axios.get('/nutrition/food', { params: { q: `${weight}g ${product}` } })
       .then((response) => {
-        console.log(response.data.items);
+        const name = response.data.items[0].name;
+        const calories = response.data.items[0].calories;
+        const weight = response.data.items[0].serving_size_g;
+
+        axios.post('nutrition/food', { name: name, calories: calories, weight: weight })
+          .then((result) => {
+          })
+          .catch(() => {
+            console.error('Failed to send request:', err);
+          })
       })
       .catch((err) => {
         console.error('Failed request to server:', err);

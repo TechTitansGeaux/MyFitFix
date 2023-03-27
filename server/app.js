@@ -5,6 +5,7 @@ const nutritionRoutes = require('./routes/nutrition-routes');
 const passportSetup = require('./config/passport-setup');
 const keys = require('./config/keys');
 const cookieSession = require('cookie-session');
+const bodyParser = require('body-parser');
 const passport = require('passport');
 const path = require('path');
 
@@ -18,6 +19,8 @@ app.use(cookieSession({
   maxAge: 24 * 60 * 60 * 1000,
   keys: [keys.session.cookieKey]
 }));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 //Initialize passport
 app.use(passport.initialize());
