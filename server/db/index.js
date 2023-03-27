@@ -22,6 +22,11 @@ const DailyEntrySchema = new Schema({
 
 });
 
+const CaloriesConsumed = new Schema({
+  itemName: String,
+
+})
+
 const User = mongoose.model('User', UserSchema);
 const Entries = mongoose.model('Entries', DailyEntrySchema)
 

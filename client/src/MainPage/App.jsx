@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import Login from './Login.jsx';
 import Home from './Home.jsx';
 import JournalEntry from './JournalEntry.jsx';
+import CalorieTable from './CalorieTable.jsx'
 
 function App() {
 
@@ -13,7 +14,7 @@ function App() {
       <Route path='/' element={<Login />} />
       <Route path='/home' element={<Home />} />
       <Route path='/journal-entry' element={<JournalEntry />} />
-
+      <Route path='/tracker' element={<CalorieTable />} />
     </Routes>
   )
 }
