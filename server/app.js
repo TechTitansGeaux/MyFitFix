@@ -1,8 +1,8 @@
 const express = require('express');
 const authRoutes = require('./routes/auth-routes');
 const dashboardRoutes = require('./routes/dashboard-routes');
+const nutritionRoutes = require('./routes/nutrition-routes');
 const passportSetup = require('./config/passport-setup');
-const mongoose = require('mongoose');
 const keys = require('./config/keys');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
@@ -26,17 +26,14 @@ app.use(passport.session());
 //Setup routes
 app.use('/auth', authRoutes);
 app.use('/dashboard', dashboardRoutes);
-
-//Create home route
-// app.get('/', (req, res) => {
-//   res.render('home', { user: req.user });
-// })
+app.use('/nutrition', nutritionRoutes);
 
 //This handles ANY other file that is not defined, to route to our index.html file, rendering our different React pages (Dashboard, Journal, etc.)
 app.get('*', (req, res) => {
   res.sendFile(path.resolve('client', 'dist', 'index.html'));
 });
 
+//Listens to the app server convos (aka listening to request)
 app.listen(8020, () => {
   console.log('app now listening for request at:', 'http://localhost:8020');
 })
