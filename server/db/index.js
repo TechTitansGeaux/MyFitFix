@@ -9,7 +9,7 @@ mongoose.connect(mongoUri)
 
 const UserSchema = new Schema({
   name: String,
-  // dailyEntryId: {type: mongoose.Schema.Types.ObjectId, ref: 'Entries'},
+  dailyEntryId: { type: mongoose.Schema.Types.ObjectId, ref: 'Entries' },
   googleId: { type: String, unique: true, required: true },
   thumbnail: String
 });
@@ -22,7 +22,10 @@ const DailyEntrySchema = new Schema({
 
 });
 
+const User = mongoose.model('User', UserSchema);
+const Entries = mongoose.model('Entries', DailyEntrySchema)
+
 module.exports = {
-  User: model('User', UserSchema),
-  Entries: model('Entries', DailyEntrySchema),
+  User,
+  Entries
 };
