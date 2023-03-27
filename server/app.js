@@ -1,54 +1,37 @@
 const express = require('express');
+const authRoutes = require('./routes/auth-routes');
+const dashboardRoutes = require('./routes/dashboard-routes');
+const passportSetup = require('./config/passport-setup');
+const mongoose = require('mongoose');
+const keys = require('./config/keys');
+const cookieSession = require('cookie-session');
+const passport = require('passport');
 const path = require('path');
-// const mongoose = require('mongoose');
-// const dotenv = require('dotenv');
-// const passport = require('passport');
-// const session = require('express-session');
-// const router = require('express').Router();
 
+
+const CLIENT_PATH = path.join(__dirname, '..', 'client', 'dist');
 const app = express();
 
-const distPath = path.resolve(__dirname, '..', 'client', 'dist');
+//Set up view engine
+app.use(express.static(CLIENT_PATH));
+app.use(cookieSession({
+  maxAge: 24 * 60 * 60 * 1000,
+  keys: [keys.session.cookieKey]
+}));
 
+//Initialize passport
+app.use(passport.initialize());
+app.use(passport.session());
 
-app.use(express.static(distPath)); // Statically serve up client directory
+//Setup routes
+app.use('/auth', authRoutes);
+app.use('/dashboard', dashboardRoutes);
 
-// const { ensureAuth, ensureGuest } = require('./auth.js');
-
-
-
-
-
-// router.get('/', ensureGuest, (req, res) => {
-//   res.render('login')
-// })
-
-// router.get('/log', ensureAuth, async (req, res) => {
-//   res.render('index', { userinfo: req.user })
-// })
-
-// router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }))
-
-// router.get(
-//   '/google/callback',
-//   passport.authenticate('google', { failureRedirect: '/' }),
-//   (req, res) => {
-//     res.redirect('/log')
-//   }
-// )
-
-// router.get('/logout', (req, res) => {
-//   req.logout()
-//   res.redirect('/')
-// })
-
-
-// module.exports = router;
+//Create home route
+app.get('/', (req, res) => {
+  res.render('home', { user: req.user });
+})
 
 app.listen(8020, () => {
-  console.log(`
-  Listening at: http://127.0.0.1:${8020}
-  `);
-});
-
-module.exports = app;
+  console.log('app now listening for request at:', 'http://localhost:8020');
+})

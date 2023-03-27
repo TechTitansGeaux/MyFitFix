@@ -5,5 +5,7 @@ node_modules
 # Project
 client/dist/build.js
 client/dist/build.js.LICENSE.txt
-client/src/MainPage/config.js
+
 .env
+
+server/config/keys.js
