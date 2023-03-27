@@ -9,7 +9,7 @@ mongoose.connect(mongoUri)
 
 const UserSchema = new Schema({
   name: String,
-  dailyEntryId: {type: mongoose.Schema.Types.ObjectId, ref: 'Entries'},
+  // dailyEntryId: {type: mongoose.Schema.Types.ObjectId, ref: 'Entries'},
   googleId: { type: String, unique: true, required: true },
   thumbnail: String
 });
