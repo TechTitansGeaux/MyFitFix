@@ -1,10 +1,9 @@
 import React from 'react';
 
-function Home(props) {
-  console.log(props);
+function Home() {
   return (
     <div>
-      Hello User
+      <h1>Welcome to the Dashboard</h1>
     </div>
   )
 }
