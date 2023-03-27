@@ -1,6 +1,7 @@
 const express = require('express');
 const authRoutes = require('./routes/auth-routes');
 const dashboardRoutes = require('./routes/dashboard-routes');
+const cbRoutes = require('./routes/cb-routes');
 const passportSetup = require('./config/passport-setup');
 const mongoose = require('mongoose');
 const keys = require('./config/keys');
@@ -26,6 +27,7 @@ app.use(passport.session());
 //Setup routes
 app.use('/auth', authRoutes);
 app.use('/dashboard', dashboardRoutes);
+app.use('/cb', cbRoutes);
 
 //Create home route
 // app.get('/', (req, res) => {

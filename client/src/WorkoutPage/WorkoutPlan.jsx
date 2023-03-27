@@ -4,7 +4,7 @@ function WorkoutPlanner () {
 
 const workoutState = [];
 
-const workouts, setWorkouts = useState(workoutState);
+// const workouts, setWorkouts = useState(workoutState);
 
 
 
