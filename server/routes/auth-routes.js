@@ -13,6 +13,10 @@ router.get('/logout', (req, res) => {
   res.redirect('/');
 })
 
+router.get('/home', (req, res) => {
+  res.render('/home');
+})
+
 //Auth with google
 router.get('/google', passport.authenticate('google', {
   scope: ['profile']
@@ -23,5 +27,7 @@ router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
   // res.send(req.user);
   res.redirect('/home');
 })
+
+
 
 module.exports = router;

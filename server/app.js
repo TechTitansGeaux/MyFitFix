@@ -28,8 +28,12 @@ app.use('/auth', authRoutes);
 app.use('/dashboard', dashboardRoutes);
 
 //Create home route
-app.get('/', (req, res) => {
-  res.render('home', { user: req.user });
+// app.get('/', (req, res) => {
+//   res.render('home', { user: req.user });
+// })
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve( 'client', 'dist', 'index.html'));
 })
 
 //This handles ANY other file that is not defined, to route to our index.html file, rendering our different React pages (Dashboard, Journal, etc.)
