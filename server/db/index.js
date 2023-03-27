@@ -19,6 +19,11 @@ const DailyEntrySchema = new Schema({
   date: { type: Date, unique: true, required: true }
 });
 
+const CaloriesConsumed = new Schema({
+  itemName: String,
+
+})
+
 const CaloriesInSchema = new Schema({
   foodItem: String,
   weightInGrams: Number,

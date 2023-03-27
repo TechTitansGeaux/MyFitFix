@@ -32,13 +32,9 @@ app.use('/dashboard', dashboardRoutes);
 //   res.render('home', { user: req.user });
 // })
 
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve( 'client', 'dist', 'index.html'));
-})
-
 //This handles ANY other file that is not defined, to route to our index.html file, rendering our different React pages (Dashboard, Journal, etc.)
-app.get('*', (req, res) => {                       
-  res.sendFile(path.resolve( 'client', 'dist', 'index.html'));                               
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve('client', 'dist', 'index.html'));
 });
 
 app.listen(8020, () => {
