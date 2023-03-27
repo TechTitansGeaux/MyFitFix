@@ -17,6 +17,10 @@ const passport = require('passport');
 //   res.send('home');
 // })
 
+router.get('/home', (req, res) => {
+  res.render('/home');
+})
+
 //Auth with google
 router.get('/google', passport.authenticate('google', {
   scope: ['profile']
@@ -26,6 +30,8 @@ router.get('/google', passport.authenticate('google', {
 router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
   res.redirect('/home');
 });
+
+
 
 
 
