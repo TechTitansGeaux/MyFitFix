@@ -10,6 +10,8 @@ import JournalEntry from './JournalEntry.jsx';
 
 function App() {
 
+
+
   return (
     <Routes>
       <Route path='/' element={<Login />} />
