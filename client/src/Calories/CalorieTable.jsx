@@ -1,6 +1,6 @@
 import React from 'react';
 import CalorieIntake from './CalorieIntake.jsx'
-import CaloriesBurned from '../CaloriesBurned/CaloriesBurned.jsx'
+import CaloriesBurned from './CaloriesBurned.jsx'
 
 function CalorieTable() {
   return (

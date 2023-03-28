@@ -19,11 +19,6 @@ const DailyEntrySchema = new Schema({
   date: { type: Date, unique: true, required: true }
 });
 
-const CaloriesConsumed = new Schema({
-  itemName: String,
-
-})
-
 const CaloriesInSchema = new Schema({
   foodItem: String,
   weightInGrams: Number,
@@ -48,10 +43,18 @@ const ExerciseSchema = new Schema({
 
 )
 
+const JournalEntrySchema = new Schema({
+  entry: String,
+  date: {type: Date, unique: true}
+});
+
+
+
 module.exports = {
   User: model('User', UserSchema),
   Entries: model('Entries', DailyEntrySchema),
   CaloriesIn: model('CaloriesIn', CaloriesInSchema),
   CaloriesBurned: model('CaloriesBurned', CaloriesBurnedSchema),
-  Exercise: model('Exercise', ExerciseSchema )
+  Exercise: model('Exercise', ExerciseSchema),
+  Journal: model('Journal', JournalEntrySchema)
 };

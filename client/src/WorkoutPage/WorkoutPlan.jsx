@@ -4,7 +4,7 @@ import WorkoutList from './WorkoutList';
 import WorkoutSearch from './WorkoutSearch';
 
 
-function WorkoutPlanner () {
+function WorkoutPlanner() {
 
 const [ exercises, setExercises] = useState(data);
 
