@@ -11,17 +11,14 @@ function SearchList({ exerciseData }){
 // useEffect(() => {
 
 // })
-
-
+// {  exerciseData.map((search, index) => {
+// })}
 return(
   <div className="search-list">
     <button type="button" onClick={(e) => handleNext(e)}>Next</button>
     <button type="button" onClick={(e) => handlePrevious(e)}>Previous</button>
     <button type="button" onClick={(e) => handleSave(e)}>Save Exercise</button>
-
-{  exerciseData.map((search, index) => {
-  return <SearchEntry search={search} key={index} exerciseData={exerciseData}/>
-})}
+  <SearchEntry exerciseData={exerciseData}/>
 </div>
 )
 }

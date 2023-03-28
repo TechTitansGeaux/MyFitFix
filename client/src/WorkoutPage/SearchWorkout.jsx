@@ -13,7 +13,7 @@ function SearchWorkout(){
  axios.get('/workout/exercise', { params: {muscle: `${muscle}`} })
   .then((response) => {
    console.log(response.data);
-   setExerciseData(response.data);
+   setExerciseData(response.data[0]);
   }).catch((error) => {
    console.error('cannot get:', error);
   });
