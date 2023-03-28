@@ -15,9 +15,6 @@ function SearchList({ exerciseData }){
 // })}
 return(
   <div className="search-list">
-    <button type="button" onClick={(e) => handleNext(e)}>Next</button>
-    <button type="button" onClick={(e) => handlePrevious(e)}>Previous</button>
-    <button type="button" onClick={(e) => handleSave(e)}>Save Exercise</button>
   <SearchEntry exerciseData={exerciseData}/>
 </div>
 )

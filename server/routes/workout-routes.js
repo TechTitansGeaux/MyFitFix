@@ -15,11 +15,11 @@ router.get('/exercise', (req, res) => {
     };
     axios.request(options)
     .then((response) => {
-      console.log(response);
+     // console.log(response);
       res.status(200)
       res.send(response.data);
     }).catch((error) => {
-      console.error('failed to get:', error);
+      //console.error('failed to get:', error);
       res.sendStatus(500);
     });
 
