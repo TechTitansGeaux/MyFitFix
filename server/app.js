@@ -3,8 +3,9 @@ const authRoutes = require('./routes/auth-routes');
 const journalRoutes = require('./routes/journal-routes');
 const dashboardRoutes = require('./routes/dashboard-routes');
 const cbRoutes = require('./routes/cb-routes');
+const nutritionRoutes = require('./routes/nutrition-routes')
+const workoutRoutes = require('./routes/workout-routes')
 const passportSetup = require('./config/passport-setup');
-//const keys = require('./config/keys');
 const dotenv = require('dotenv');
 const cookieSession = require('cookie-session');
 const bodyParser = require('body-parser');
@@ -25,9 +26,6 @@ app.use(cookieSession({
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(express.json()); // Parse the request body
-app.use(express.urlencoded({ extended: true })); // Parses url
-
 //Initialize passport
 app.use(passport.initialize());
 app.use(passport.session());
@@ -36,7 +34,9 @@ app.use(passport.session());
 app.use('/auth', authRoutes);
 app.use('/dashboard', dashboardRoutes);
 app.use('/journal-entry', journalRoutes);
+app.use('/nutrition', nutritionRoutes);
 app.use('/cb', cbRoutes);
+app.use('/workout', workoutRoutes);
 
 //Create home route
 // app.get('/', (req, res) => {
