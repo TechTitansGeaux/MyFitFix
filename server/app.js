@@ -4,7 +4,7 @@ const journalRoutes = require('./routes/journal-routes');
 const dashboardRoutes = require('./routes/dashboard-routes');
 const cbRoutes = require('./routes/cb-routes');
 const passportSetup = require('./config/passport-setup');
-const keys = require('./config/keys');
+//const keys = require('./config/keys');
 const dotenv = require('dotenv');
 const cookieSession = require('cookie-session');
 const bodyParser = require('body-parser');
@@ -20,7 +20,7 @@ const app = express();
 app.use(express.static(CLIENT_PATH));
 app.use(cookieSession({
   maxAge: 24 * 60 * 60 * 1000,
-  keys: [keys.session.cookieKey]
+  keys: [process.env.cookieKey]
 }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
