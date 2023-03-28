@@ -4,6 +4,7 @@ const journalRoutes = require('./routes/journal-routes');
 const dashboardRoutes = require('./routes/dashboard-routes');
 const cbRoutes = require('./routes/cb-routes');
 const nutritionRoutes = require('./routes/nutrition-routes')
+const workoutRoutes = require('./routes/workout-routes')
 const passportSetup = require('./config/passport-setup');
 const dotenv = require('dotenv');
 const cookieSession = require('cookie-session');
@@ -35,6 +36,7 @@ app.use('/dashboard', dashboardRoutes);
 app.use('/journal-entry', journalRoutes);
 app.use('/nutrition', nutritionRoutes);
 app.use('/cb', cbRoutes);
+app.use('/workout', workoutRoutes);
 
 //Create home route
 // app.get('/', (req, res) => {
