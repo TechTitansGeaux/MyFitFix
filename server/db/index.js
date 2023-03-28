@@ -35,6 +35,7 @@ const ExerciseSchema = new Schema({
     name: {type: String, unique: true},
     type: String,
     muscle: String,
+    equipment: String,
     difficulty: String,
     instructions: String,
     sets: Number,

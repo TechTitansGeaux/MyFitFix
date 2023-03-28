@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import data from "./data.json";
 import WorkoutList from './WorkoutList';
-// import WorkoutSearch from './WorkoutSearch';
+import SearchWorkout from './SearchWorkout.jsx';
 
 
 
@@ -17,7 +17,7 @@ const [ exercises, setExercises] = useState(data);
     <h2 align='left'>Search for Exercises</h2>
     <h3 align='right'> Add Exercises To Your Workout</h3>
     <div className='workoutSearch'>
-      {/* <WorkoutSearch /> */}
+       <SearchWorkout />
     </div>
     <div className='workout'>
      <WorkoutList exercises={exercises}/>

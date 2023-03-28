@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 
-const WorkoutEntry = ( {exercise} ) => {
+function WorkoutEntry( {exercise} ){
 
 const sets = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 const reps = []

@@ -3,7 +3,7 @@ import WorkoutEntry from "./WorkoutEntry";
 
 
 
-const WorkoutList = ({ exercises }) => {
+function WorkoutList({ exercises }){
 
 return(
   <div className="exercise-list">

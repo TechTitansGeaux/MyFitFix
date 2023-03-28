@@ -3,6 +3,7 @@ const authRoutes = require('./routes/auth-routes');
 const journalRoutes = require('./routes/journal-routes');
 const dashboardRoutes = require('./routes/dashboard-routes');
 const cbRoutes = require('./routes/cb-routes');
+const workoutRoutes = require('./routes/workout-routes')
 const passportSetup = require('./config/passport-setup');
 //const keys = require('./config/keys');
 const dotenv = require('dotenv');
@@ -37,6 +38,7 @@ app.use('/auth', authRoutes);
 app.use('/dashboard', dashboardRoutes);
 app.use('/journal-entry', journalRoutes);
 app.use('/cb', cbRoutes);
+app.use('/workout', workoutRoutes);
 
 //Create home route
 // app.get('/', (req, res) => {
