@@ -1,11 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import FoodList from './FoodList';
 
 function CalorieIntake() {
   const [weight, setWeight] = useState(0);
   const [product, setProduct] = useState('');
   const [calories, setCalories] = useState(0);
-  const [cTotal, setCTotal] = useState(0);
+  const [food, setFood] = useState([]);
+  const [finished, setFinished] = useState(false);
+
+  //Set food state to be an array of the ingredients tied to the user
+  const getAllFoodItems = () => {
+    axios.get('/nutrition/product')
+      .then((result) => {
+        const foodItems = result.data;
+        setFood(foodItems);
+
+      })
+      .catch((err) => {
+        console.error('Failed to request:', err);
+      });
+  }
+
+  //Renders the page on visit dynamically once
+  useEffect(() => {
+    if (finished) {
+      return;
+    }
+    getAllFoodItems();
+  }, [finished])
 
   //Sends a Get request to the nutrition api, and a POST request to the db with the data received from the api
   const handleApiRequest = (event) => {
@@ -16,8 +39,7 @@ function CalorieIntake() {
         const weight = response.data.items[0].serving_size_g;
 
         axios.post('nutrition/food', { name: name, calories: calories, weight: weight })
-          .then((result) => {
-          })
+          .then(getAllFoodItems())
           .catch(() => {
             console.error('Failed to send request:', err);
           })
@@ -27,9 +49,11 @@ function CalorieIntake() {
       })
   }
 
+
+
   return (
     <div>
-      <h3>Meal Tracker</h3>
+      <h2>Meal Tracker</h2>
       <form>
         Weight(g):<input type='number' onChange={e => setWeight(e.target.value)}></input>
         Product:<input type='text' onChange={e => setProduct(e.target.value)}></input>
@@ -39,6 +63,10 @@ function CalorieIntake() {
         <div className='txt-data'>Product</div>
         <div className='txt-data'>Weight(g)</div>
         <div className='txt-data'>Calories</div>
+        {food.map((item) => <FoodList item={item} key={`${item._id}`} />)}
+      </div>
+      <div>
+        <h3>Total Calories Consumed: {calories}</h3>
       </div>
     </div>
   )
