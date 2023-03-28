@@ -29,7 +29,9 @@ const CaloriesInSchema = new Schema({
 const CaloriesBurnedSchema = new Schema({
   workout: String,
   currentWeight: Number,
-  duration: Number
+  duration: Number,
+  caloriesBurned: Number,
+  date: { type: Date, unique: true, required: true }
 });
 
 const ExerciseSchema = new Schema({
