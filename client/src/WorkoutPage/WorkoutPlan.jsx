@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import data from "./data.json";
 import WorkoutList from './WorkoutList';
-import WorkoutSearch from './workoutSearch';
+import WorkoutSearch from './WorkoutSearch';
 
 
 function WorkoutPlanner () {
