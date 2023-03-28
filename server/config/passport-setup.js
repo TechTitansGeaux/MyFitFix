@@ -28,7 +28,6 @@ passport.use(
     clientSecret: process.env.clientSecret
   }, (accessToken, refreshToken, profile, done) => {
     //Passport callback function
-
     //Check if user already exist in our db
     User.findOne({ googleId: profile.id })
       .then((currentUser) => {
