@@ -32,7 +32,6 @@ router.post('/food', (req, res) => {
     calories: calories,
     user: _id
   });
-  console.log(newCalorie);
   newCalorie.save();
   res.sendStatus(201);
 })

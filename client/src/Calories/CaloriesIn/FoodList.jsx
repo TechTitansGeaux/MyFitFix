@@ -1,11 +1,12 @@
 import React from 'react'
 
 function FoodList(props) {
+  const { item } = props;
   return (
-    <div className='txt-table'>
-      <div className='txt-data'>Product</div>
-      <div className='txt-data'>Weight(g)</div>
-      <div className='txt-data'>Calories</div>
+    <div>
+      <div>{item.foodItem}</div>
+      <div>{item.weightInGrams}</div>
+      <div>{item.calories}</div>
     </div>
   )
 }
