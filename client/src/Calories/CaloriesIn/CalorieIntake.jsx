@@ -15,16 +15,14 @@ function CalorieIntake() {
       .then((result) => {
         const foodItems = result.data;
         setFood(foodItems);
-        foodItems.forEach((item) => {
-          setCalories(calories + item.calories);
-        })
+
       })
       .catch((err) => {
         console.error('Failed to request:', err);
       });
   }
 
-  //Renders the page on visit dynamically
+  //Renders the page on visit dynamically once
   useEffect(() => {
     if (finished) {
       return;
