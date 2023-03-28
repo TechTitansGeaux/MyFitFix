@@ -1,6 +1,5 @@
 const router = require('express').Router();
 const axios = require('axios');
-const keys = require('../config/keys.js');
 const { CaloriesIn } = require('../db/index.js');
 
 router.get('/food', (req, res) => {
@@ -10,7 +9,7 @@ router.get('/food', (req, res) => {
     method: 'GET',
     params: { query: q },
     headers: {
-      'X-Api-Key': keys.nutrition.apiKey
+      'X-Api-Key': process.env.nutritionApi
     }
   };
   axios(options)
@@ -26,12 +25,28 @@ router.get('/food', (req, res) => {
 
 router.post('/food', (req, res) => {
   const { name, calories, weight } = req.body;
+  const { _id } = req.user;
   const newCalorie = new CaloriesIn({
     foodItem: name,
     weightInGrams: weight,
     calories: calories,
+    user: _id
   });
+  console.log(newCalorie);
   newCalorie.save();
+  res.sendStatus(201);
+})
+
+router.get('/product', (req, res) => {
+  const { _id } = req.user;
+  CaloriesIn.find({ user: _id })
+    .then((ingredients) => {
+      res.status(200).send(ingredients);
+    })
+    .catch((err) => {
+      console.error('Failed to fetch from db:', err);
+      res.sendStatus(500);
+    })
 })
 
 module.exports = router;

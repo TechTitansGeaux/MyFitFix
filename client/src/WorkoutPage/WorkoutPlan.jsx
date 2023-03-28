@@ -18,9 +18,6 @@ function WorkoutPlanner() {
       <div className='workoutSearch'>
         {/* <WorkoutSearch /> */}
       </div>
-      <div className='workout'>
-        <WorkoutList exercises={exercises} />
-      </div>
     </div>
   )
 }
