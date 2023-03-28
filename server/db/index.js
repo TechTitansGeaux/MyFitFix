@@ -9,7 +9,7 @@ mongoose.connect(mongoUri)
 
 const UserSchema = new Schema({
   name: String,
-  dailyEntryId: { type: mongoose.Schema.Types.ObjectId, ref: 'Entries' }
+  dailyEntryId: { type: mongoose.Schema.Types.ObjectId, ref: 'Entries', default: null }
 });
 
 const DailyEntrySchema = new Schema({
@@ -23,6 +23,7 @@ const CaloriesInSchema = new Schema({
   foodItem: String,
   weightInGrams: Number,
   calories: Number,
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 })
 
 const CaloriesBurnedSchema = new Schema({
@@ -34,20 +35,31 @@ const CaloriesBurnedSchema = new Schema({
 });
 
 const ExerciseSchema = new Schema({
+<<<<<<< HEAD
     name: {type: String, unique: true},
     type: String,
     muscle: String,
+    equipment: String,
     difficulty: String,
     instructions: String,
     sets: Number,
     reps: Number
+=======
+  name: { type: String, unique: true },
+  type: String,
+  muscle: String,
+  difficulty: String,
+  instructions: String,
+  sets: Number,
+  reps: Number
+>>>>>>> 9a9487810a3493bdbccc210cbcf05fbc0f17256e
 }
 
 )
 
 const JournalEntrySchema = new Schema({
   entry: String,
-  date: {type: Date, unique: true}
+  date: { type: Date, unique: true }
 });
 
 
