@@ -5,6 +5,7 @@ const dashboardRoutes = require('./routes/dashboard-routes');
 const cbRoutes = require('./routes/cb-routes');
 const passportSetup = require('./config/passport-setup');
 const keys = require('./config/keys');
+const dotenv = require('dotenv');
 const cookieSession = require('cookie-session');
 const bodyParser = require('body-parser');
 const passport = require('passport');
