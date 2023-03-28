@@ -35,7 +35,6 @@ const CaloriesBurnedSchema = new Schema({
 });
 
 const ExerciseSchema = new Schema({
-<<<<<<< HEAD
     name: {type: String, unique: true},
     type: String,
     muscle: String,
@@ -44,15 +43,6 @@ const ExerciseSchema = new Schema({
     instructions: String,
     sets: Number,
     reps: Number
-=======
-  name: { type: String, unique: true },
-  type: String,
-  muscle: String,
-  difficulty: String,
-  instructions: String,
-  sets: Number,
-  reps: Number
->>>>>>> 9a9487810a3493bdbccc210cbcf05fbc0f17256e
 }
 
 )
