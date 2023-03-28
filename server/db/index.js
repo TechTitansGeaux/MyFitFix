@@ -43,9 +43,7 @@ const ExerciseSchema = new Schema({
     instructions: String,
     sets: Number,
     reps: Number
-}
-
-)
+})
 
 const JournalEntrySchema = new Schema({
   entry: String,
