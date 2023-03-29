@@ -63,7 +63,7 @@ function CalorieIntake() {
         <div className='txt-data'>Product</div>
         <div className='txt-data'>Weight(g)</div>
         <div className='txt-data'>Calories</div>
-        {food.map((item) => <FoodList item={item} key={`${item._id}`} />)}
+        {/* {food.map((item) => <FoodList item={item} key={`${item._id}`} />)} */}
       </div>
       <div>
         <h3>Total Calories Consumed: {calories}</h3>
