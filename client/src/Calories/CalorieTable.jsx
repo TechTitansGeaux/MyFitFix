@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom'
 import CalorieIntake from './CaloriesIn/CalorieIntake.jsx'
-import CaloriesBurned from './CaloriesBurned.jsx'
+import CaloriesBurned from './CaloriesBurned/CaloriesBurned.jsx'
 
 function CalorieTable() {
 
