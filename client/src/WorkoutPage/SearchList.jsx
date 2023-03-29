@@ -5,10 +5,10 @@ import SearchEntry from "./SearchEntry";
 
 function SearchList( { exerciseResults }){
 
-// const [workout, setWorkout] = useState(0);
-// const prevRef = useRef();
+  // const [workout, setWorkout] = useState(0);
+  // const prevRef = useRef();
 
-// useEffect(() => {
+  // useEffect(() => {
 
 // })
 // {  exerciseData.map((search, index) => {

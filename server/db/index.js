@@ -9,6 +9,8 @@ mongoose.connect(mongoUri)
 
 const UserSchema = new Schema({
   name: String,
+  googleId: { type: String, unique: true },
+  thumbnail: String,
   dailyEntryId: { type: mongoose.Schema.Types.ObjectId, ref: 'Entries', default: null }
 });
 
@@ -20,22 +22,25 @@ const DailyEntrySchema = new Schema({
 });
 
 const CaloriesInSchema = new Schema({
-  foodItem: String,
-  weightInGrams: Number,
-  calories: Number,
-  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+  foodList: { type: Array, default: [] },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  date: { type: String, unique: true, required: true }
 })
 
 const CaloriesBurnedSchema = new Schema({
   workout: String,
   currentWeight: Number,
-  duration: Number
+  duration: Number,
+  caloriesBurned: Number,
+  date: { type: Date, unique: true, required: true },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 });
 
 const ExerciseSchema = new Schema({
   name: { type: String, unique: true },
   type: String,
   muscle: String,
+  equipment: String,
   difficulty: String,
   instructions: String,
   sets: Number,

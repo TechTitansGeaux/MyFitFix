@@ -29,6 +29,10 @@ router.get('/google', passport.authenticate('google', {
 //Callback route for google
 router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
   res.redirect('/home');
+ 
+  // Sending current user's Google ID back to any component 
+  //Additional comments: for some reason, it will not let me send back the googleId property by itself, so I have to send back the entire user object
+  res.send(res.user); 
 });
 
 
