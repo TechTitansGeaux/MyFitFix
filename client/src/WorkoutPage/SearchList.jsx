@@ -1,23 +1,24 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import SearchEntry from "./SearchEntry";
 
 
 
-function SearchList({ exerciseData }){
+function SearchList({ exerciseData }) {
 
-// const [workout, setWorkout] = useState(0);
-// const prevRef = useRef();
+  // const [workout, setWorkout] = useState(0);
+  // const prevRef = useRef();
 
-// useEffect(() => {
+  // useEffect(() => {
 
-// })
-// {  exerciseData.map((search, index) => {
-// })}
-return(
-  <div className="search-list">
-  <SearchEntry exerciseData={exerciseData}/>
-</div>
-)
+  // })
+  // {  exerciseData.map((search, index) => {
+  // })}
+  console.log(exercise);
+  return (
+    <div className="search-list">
+      <SearchEntry exerciseData={exerciseData} />
+    </div>
+  )
 }
 
 export default SearchList;
