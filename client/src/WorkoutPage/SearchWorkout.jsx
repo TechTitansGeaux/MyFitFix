@@ -4,26 +4,8 @@ import SearchList from "./SearchList";
 
 
 
-function SearchWorkout(){
+function SearchWorkout( {exerciseResults} ){
 
-  const [muscle, setMuscle] = useState('');
-  //const [workout, setWorkout] = useState({})
-  const [exerciseResults, setExerciseResults] = useState([]);
-  //let counter = 0;
-  // let workout = {};
-
-  const handleSearch = (e) => {
- axios.get('/workout/exercise', { params: {muscle: `${muscle}`} })
-  .then((response) => {
-   console.log('line19', response.data);
-   setExerciseResults(response.data);
-  //set workout takes in the 0 index of the results data and has a counter property which we then can use to increments index
-   //setWorkout(exerciseResults);
-   //console.log(workout);
-  }).catch((error) => {
-   console.error('cannot get:', error);
-  });
-}
 
 // const handleNext = () => {
 //   counter++;
@@ -55,11 +37,8 @@ function SearchWorkout(){
 
 
 return (
-  <div className="search-input">
-    <form>
-      <input type="text" placeholder="Bicep" onChange={e => {setMuscle(e.target.value)}}/>
-      <button type="button" onClick={(e) => handleSearch(e)}>Search</button>
-    </form>
+
+  <div className="search-list">
   <SearchList exerciseResults={exerciseResults} />
   </div>
 )

@@ -16,7 +16,7 @@ function SearchEntry( {workout} ){
   }
 
 const handleSave = () => {
-axios.post('workout/exercises', {
+axios.post('workout/exercise', {
   name: workout.name,
   type: workout.type,
   muscle: workout.equipment,
@@ -26,12 +26,12 @@ axios.post('workout/exercises', {
   reps: 0
 })
  .then((data) => {
-  console.log("posted workout to db:", data)
+  //console.log("posted workout to db:", data)
       })
   .then(toggleSave())
   .then(handleCheck())
   .catch((err) => {
-        console.error('failed to post workout to db:', err);
+       // console.error('failed to post workout to db:', err);
       });
 }
 
@@ -51,9 +51,9 @@ axios.post('workout/exercises', {
     :
     <></>
   }
-   <button onClick={handleSave} workout={workout} className="btn btn-primary">Save Workout</button>
+   <button onClick={handleSave} workout={workout} className="btn btn-primary">Save Exercise</button>
    <p>
-      {checked ? 'Saved' : 'Not Saved'}
+      {checked ? 'Saved' : ''}
     </p>
     </div>
   )

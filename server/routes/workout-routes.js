@@ -25,7 +25,7 @@ router.get('/exercise', (req, res) => {
 
   })
 
-router.post('/exercises', (req, res) => {
+router.post('/exercise', (req, res) => {
 const { name, type, muscle, equipment, difficulty, instructions } = req.body;
 //console.log(req, 'routes, hi');
 Exercise.create({
@@ -48,6 +48,17 @@ Exercise.create({
 })
 })
 
-
+router.get('/workout', (req, res) => {
+  //console.log(req, 'routes, hi');
+  Exercise.find({})
+  .then((exerciseObj) => {
+    //console.log("retrieved from db:", exerciseObj);
+    res.status(200).send(exerciseObj)
+  })
+  .catch((err)=>{
+    //console.error("failed to retrieve from db:", err)
+    res.sendStatus(500);
+  })
+  })
 
   module.exports = router;

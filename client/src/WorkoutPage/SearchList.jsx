@@ -19,7 +19,7 @@ function SearchList( { exerciseResults }){
 return(
   <div className="search-list">
      {  exerciseResults.map((workout, index) => {
-  return<SearchEntry workout={workout} key={index} />
+  return <SearchEntry workout={workout} key={index} />
  })}
 </div>
 )

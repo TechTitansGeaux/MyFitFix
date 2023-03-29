@@ -11,9 +11,16 @@ for(let i = 1; i < 31; i++){
 
 const [toggle, setToggle] = useState(false);
 
+
 const toggleDetails = () => {
 setToggle(!toggle)
 }
+
+
+
+  // const handleAdd = () => {
+  //   setToggleAdd(!toggleAdd)
+  // }
 
   return (
     <div className="exercise-entry">
