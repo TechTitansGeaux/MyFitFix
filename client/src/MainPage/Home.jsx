@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
 
 function Home() {
@@ -10,11 +10,13 @@ function Home() {
       <h1>Welcome to the Dashboard</h1>
 
       <div className="journal-button">
-        <button id="addJournal" onClick={() =>  navigate('/journal-entry')}>Add Journal Entry</button>
+        <button id="addJournal" onClick={() => navigate('/journal-entry')}>Add Journal Entry</button>
+        <button id="calorieTracker" onClick={() => navigate('/tracker')}>Track Your Calories</button>
+        <button id="workoutPlanner" onClick={() => navigate('/workout-planner')}>Plan Your Workout</button>
       </div>
 
     </div>
-  
+
 
   )
 }
