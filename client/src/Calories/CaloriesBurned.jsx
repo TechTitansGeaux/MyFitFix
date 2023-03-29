@@ -9,15 +9,11 @@ function CaloriesBurned() {
   const [burned, setBurned] = useState(0);
   const [date, setDate] = useState('');
 
-  //function handles date change
-  // const handleDateChange = (event) => {
-  //   setDate(event.target.value);
-  // }
-
   //function to clear in put fields on button click
   const clearFields = () => {
     document.getElementById("input1").value = '';
     document.getElementById("input2").value = '';
+    document.getElementById("cb-date").value = '';
   }
 
   //Axios requests to the server.

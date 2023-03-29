@@ -3,7 +3,8 @@ require('dotenv').config();
 const axios = require('axios');
 const { User, Entries, CaloriesIn, CaloriesBurned } = require('../db/index.js');
 
-
+//Start variable to set to incoming caloriesBurned number from the API.
+//Set it outside th GET and Axios functions so it's not limited by function scope.
 let burn = 0;
 
 router.get('/caloriesBurned', (req, res) => {
@@ -31,6 +32,8 @@ const { activity, weight, duration } = req.query;
 
 })
 
+//POST to the DB. Includes activity (weight lifting - light) current weight, duration,
+//# calories burned, and date
 router.post('/caloriesBurned', (req, res) => {
   console.log('HELLOO', req.body);
   const { activity, weight, duration, date } = req.body;
