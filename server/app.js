@@ -13,6 +13,7 @@ const passport = require('passport');
 const path = require('path');
 
 
+
 const CLIENT_PATH = path.join(__dirname, '..', 'client', 'dist');
 const app = express();
 
@@ -23,8 +24,8 @@ app.use(cookieSession({
   maxAge: 24 * 60 * 60 * 1000,
   keys: [process.env.cookieKey]
 }));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 //Initialize passport
 app.use(passport.initialize());

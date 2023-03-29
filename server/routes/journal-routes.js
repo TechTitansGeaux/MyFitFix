@@ -40,4 +40,25 @@ router.get('/:date', (req, res) => {
             })
 })
 
+// This will DELETE the specific journal entry from the date from the database 
+router.delete('/:date', (req, res) => {
+    const { date } = req.params;
+
+        Journal.findOneAndRemove({date: date})
+            .then((entry) => {
+                // If the entry exists, delete the journal entry  
+                if (entry) {
+                    res.sendStatus(200)
+                // If the entry does not exist, it cannot be found and cannot be deleted 
+                } else {
+                    res.sendStatus(404)
+                }
+            })
+            .catch((err) => {
+                res.sendStatus(500);
+            })
+})
+
+
+
 module.exports = router;
