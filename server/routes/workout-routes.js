@@ -25,8 +25,9 @@ router.get('/exercise', (req, res) => {
 
   })
 
-router.post('/exercise', (req, res) => {
+router.post('/exercises', (req, res) => {
 const { name, type, muscle, equipment, difficulty, instructions } = req.body;
+//console.log(req, 'routes, hi');
 Exercise.create({
   name: name,
   type: type,
@@ -46,6 +47,7 @@ Exercise.create({
   res.sendStatus(500);
 })
 })
+
 
 
   module.exports = router;

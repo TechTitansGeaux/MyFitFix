@@ -5,24 +5,23 @@ import SearchWorkout from './SearchWorkout.jsx';
 
 
 
-// const getExercises = () => {
-// axios.get('')
-//       .then(({ data }) => {
-//         this.setState({
-//           transactions: data
-//         });
-//       })
-//       .catch((err) => {
-//         console.error('failed to get transaction', err);
-//       });
-//   }
+
 
 
 function WorkoutPlanner() {
 
 const [ exercises, setExercises] = useState(data);
 
-
+const getAllExercises = () => {
+axios.get('/workout/exercises')
+  .then(({data}) => {
+console.log("able to get exercises from db:", data);
+   setExercises(data);
+  })
+  .catch((err) => {
+    console.error('failed to get exercises from db:', err)
+  })
+}
 
     return (
   <div>

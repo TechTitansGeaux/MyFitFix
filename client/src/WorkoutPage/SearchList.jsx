@@ -1,9 +1,9 @@
-import React, {useState} from "react";
+import React from "react";
 import SearchEntry from "./SearchEntry";
 
 
 
-function SearchList({ exerciseData }){
+function SearchList( { exerciseResults }){
 
 // const [workout, setWorkout] = useState(0);
 // const prevRef = useRef();
@@ -13,9 +13,14 @@ function SearchList({ exerciseData }){
 // })
 // {  exerciseData.map((search, index) => {
 // })}
+
+//console.log(props);
+
 return(
   <div className="search-list">
-  <SearchEntry exerciseData={exerciseData}/>
+     {  exerciseResults.map((workout, index) => {
+  return<SearchEntry workout={workout} key={index} />
+ })}
 </div>
 )
 }

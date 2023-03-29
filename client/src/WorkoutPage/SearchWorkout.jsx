@@ -7,33 +7,37 @@ import SearchList from "./SearchList";
 function SearchWorkout(){
 
   const [muscle, setMuscle] = useState('');
-  const [exerciseData, setExerciseData] = useState([]);
-  //const [workout, setWorkout] = ([])
+  //const [workout, setWorkout] = useState({})
+  const [exerciseResults, setExerciseResults] = useState([]);
+  //let counter = 0;
+  // let workout = {};
 
   const handleSearch = (e) => {
  axios.get('/workout/exercise', { params: {muscle: `${muscle}`} })
   .then((response) => {
-  // console.log(response.data);
-   setExerciseData(response.data[0]);
+   console.log('line19', response.data);
+   setExerciseResults(response.data);
+  //set workout takes in the 0 index of the results data and has a counter property which we then can use to increments index
+   //setWorkout(exerciseResults);
+   //console.log(workout);
   }).catch((error) => {
-   //console.error('cannot get:', error);
+   console.error('cannot get:', error);
   });
 }
 
-// const handleNext = (e) => {
-//  exerciseData.filter((el, index) => {
-//       sete(el[index] + 1);
-//  })
+// const handleNext = () => {
+//   counter++;
+//   setWorkout(exerciseResults[counter]);
+//   console.log(workout, counter);
 // }
 
-// const handlePrevious = (e) => {
-//   exerciseData.filter((el, index) => {
-//     if(index >= 0){
-//     setWorkout(el[index] - 1);
-//     }
-// })
-
+// const handlePrevious = () => {
+//   counter--;
+//   setWorkout(exerciseResults[counter]);
+//   console.log(workout, counter);
 // }
+{/* <button type="button" onClick={() => handleNext()}>Next</button>
+    <button type="button" onClick={() => handlePrevious()}>Previous</button> */}
 
 // const handleSave = (e) => {
 //     axios.post('/workout/exercise', {
@@ -56,10 +60,7 @@ return (
       <input type="text" placeholder="Bicep" onChange={e => {setMuscle(e.target.value)}}/>
       <button type="button" onClick={(e) => handleSearch(e)}>Search</button>
     </form>
-    <button type="button" onClick={(e) => handleNext(e)}>Next</button>
-    <button type="button" onClick={(e) => handlePrevious(e)}>Previous</button>
-    <button type="button" onClick={(e) => handleSave(e)}>Save Exercise</button>
-  <SearchList exerciseData={exerciseData}>{exerciseData}</SearchList>
+  <SearchList exerciseResults={exerciseResults} />
   </div>
 )
 }

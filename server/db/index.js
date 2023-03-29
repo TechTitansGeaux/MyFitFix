@@ -29,22 +29,10 @@ const CaloriesInSchema = new Schema({
 const CaloriesBurnedSchema = new Schema({
   workout: String,
   currentWeight: Number,
-  duration: Number,
-  caloriesBurned: Number,
-  date: { type: Date, unique: true, required: true }
+  duration: Number
 });
 
 const ExerciseSchema = new Schema({
-<<<<<<< HEAD
-    name: {type: String, unique: true},
-    type: String,
-    muscle: String,
-    equipment: String,
-    difficulty: String,
-    instructions: String,
-    sets: Number,
-    reps: Number
-=======
   name: { type: String, unique: true },
   type: String,
   muscle: String,
@@ -52,10 +40,13 @@ const ExerciseSchema = new Schema({
   instructions: String,
   sets: Number,
   reps: Number
->>>>>>> 9a9487810a3493bdbccc210cbcf05fbc0f17256e
 }
-
 )
+
+const WorkoutEntrySchema = new Schema({
+exercise: {type: mongoose.Schema.Types.ObjectId, unique:true, ref: 'Exercise'},
+date: {type: Date, unique: true, required: true}
+})
 
 const JournalEntrySchema = new Schema({
   entry: String,
@@ -70,5 +61,6 @@ module.exports = {
   CaloriesIn: model('CaloriesIn', CaloriesInSchema),
   CaloriesBurned: model('CaloriesBurned', CaloriesBurnedSchema),
   Exercise: model('Exercise', ExerciseSchema),
+  Workout: model('Workout', WorkoutEntrySchema),
   Journal: model('Journal', JournalEntrySchema)
 };
