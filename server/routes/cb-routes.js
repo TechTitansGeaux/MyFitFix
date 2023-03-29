@@ -32,13 +32,14 @@ const { activity, weight, duration } = req.query;
 })
 
 router.post('/caloriesBurned', (req, res) => {
-  console.log(req.body);
-  const { activity, weight, duration } = req.body;
+  console.log('HELLOO', req.body);
+  const { activity, weight, duration, date } = req.body;
   const newCB = new CaloriesBurned({
     workout: activity,
     currentWeight: weight,
     duration: duration,
-    caloriesBurned: burn
+    caloriesBurned: burn,
+    date: date
   })
   newCB.save();
 })

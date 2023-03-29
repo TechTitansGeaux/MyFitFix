@@ -10,9 +10,9 @@ function CaloriesBurned() {
   const [date, setDate] = useState('');
 
   //function handles date change
-  const handleDateChange = (event) => {
-    setDate(event.target.value);
-  }
+  // const handleDateChange = (event) => {
+  //   setDate(event.target.value);
+  // }
 
   //function to clear in put fields on button click
   const clearFields = () => {
@@ -28,7 +28,7 @@ function CaloriesBurned() {
       .then((response) => {
         console.log('Successful GET', response.data);
 
-        axios.post('/cb/caloriesBurned', {activity: 'lifting', weight: `${weight}`, duration: `${time}`, burned: setBurned(response.data.total_calories)})
+        axios.post('/cb/caloriesBurned', {date: date, activity: 'lifting', weight: `${weight}`, duration: `${time}`, burned: setBurned(response.data.total_calories)})
           .then((result) => {
             console.log(result);
           })
@@ -54,7 +54,7 @@ function CaloriesBurned() {
           name="cb-date"
           min="2020-01-01"
           max="2050-01-01"
-          onChange={handleDateChange}>
+          onChange={ event => setDate(event.target.value)}>
         </input>
 
         Current Weight (lbs):
@@ -65,6 +65,7 @@ function CaloriesBurned() {
       </form>
       <div className="txt-table">
        {/* <h3>Workout</h3> */}
+       <div className="txt-data">Date: {date}</div>
         <div className="txt-data">Current Weight: {weight}</div>
         <div className="txt-data">Total Time: {time}</div>
         <div className="txt-data">Calories Burned: {burned}</div>
