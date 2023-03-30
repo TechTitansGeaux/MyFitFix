@@ -45,6 +45,12 @@ const ExerciseSchema = new Schema({
   instructions: String,
   sets: Number,
   reps: Number
+}
+)
+
+const WorkoutEntrySchema = new Schema({
+exercise: {type: mongoose.Schema.Types.ObjectId, unique:true, ref: 'Exercise'},
+date: {type: Date, unique: true, required: true}
 })
 
 const JournalEntrySchema = new Schema({
@@ -60,5 +66,6 @@ module.exports = {
   CaloriesIn: model('CaloriesIn', CaloriesInSchema),
   CaloriesBurned: model('CaloriesBurned', CaloriesBurnedSchema),
   Exercise: model('Exercise', ExerciseSchema),
+  Workout: model('Workout', WorkoutEntrySchema),
   Journal: model('Journal', JournalEntrySchema)
 };

@@ -11,19 +11,26 @@ for(let i = 1; i < 31; i++){
 
 const [toggle, setToggle] = useState(false);
 
+
 const toggleDetails = () => {
 setToggle(!toggle)
 }
 
+
+
+  // const handleAdd = () => {
+  //   setToggleAdd(!toggleAdd)
+  // }
+
   return (
     <div className="exercise-entry">
-    <select>
+    <select> SETS
       <option> 0 </option>
     {sets.map((set, index) => {
       return <option set={set} key={index}>{set}</option>
     })}
     </select>
-    <select>
+    <select> REPS
       <option> 0 </option>
     {reps.map((rep, index) => {
       return <option rep={rep} key={index}>{rep}</option>
