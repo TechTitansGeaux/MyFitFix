@@ -36,11 +36,18 @@ const { activity, weight, duration } = req.query;
 //POST to the DB. Includes activity (weight lifting - light) current weight, duration,
 //# calories burned, and date
 router.post('/caloriesBurned', (req, res) => {
-  // console.log('HELLOO', req.user);
   const { activity, weight, duration, date } = req.body;
-  console.log(req.body);
+  const { _id } = req.user;
 
-  CaloriesBurned.replaceOne({ date: date }, { activity: activity, currentWeight: weight, duration: duration, caloriesBurned: burn, date: date }, {upsert: true})
+  CaloriesBurned.replaceOne({ date: date }, {
+    activity: activity,
+    currentWeight: weight,
+    duration: duration,
+    caloriesBurned: burn,
+    date: date,
+    user: _id,
+  },
+    {upsert: true})
     .then(() => {
       console.log('Yay, we POSTed');
       res.sendStatus(201);
@@ -52,21 +59,39 @@ router.post('/caloriesBurned', (req, res) => {
 })
 
 
-
-
+//GET from DB to see previous entries and update them
 router.get('/caloriesBurned/:date', (req, res) => {
   const { date } = req.params;
-  // console.log(req)
-  CaloriesBurned.find({date: date})
+  const { _id } = req.user;
+
+  CaloriesBurned.find({ date: date, user: _id })
     .then((dailyEntry) => {
-      // const { caloriesBurned } = dailyEntry[0];
-      console.log('Successful GET', dailyEntry);
-      // if(dailyEntry) {
         res.send(dailyEntry);
-      // }
     })
     .catch((err) => {
       console.log('Failed GET', err);
+      res.sendStatus(500);
+    })
+})
+
+
+//DELETE entry from DB
+router.delete('/caloriesBurned/:date', (req, res) => {
+  const { date } = req.params;
+  const { _id } = req.user;
+
+  CaloriesBurned.deleteOne({ date: date, user: _id })
+    .then(({ deletedCount }) => {
+      console.log({deletedCount})
+      if (deletedCount) {
+        res.status(200).send({ deletedCount });
+      } else {
+        console.log('404')
+        res.sendStatus(404);
+      }
+    })
+    .catch((err) => {
+      console.log('Failed to DELETE', err);
       res.sendStatus(500);
     })
 })

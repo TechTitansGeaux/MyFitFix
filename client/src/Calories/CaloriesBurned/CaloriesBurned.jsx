@@ -15,10 +15,9 @@ function CaloriesBurned() {
   const clearFields = () => {
     document.getElementById("input1").value = '';
     document.getElementById("input2").value = '';
-    // document.getElementById("cb-date").value = '';
   }
 
-  //Axios requests to the server.
+  //Axios requests to the server. After information is received from API, it posts it to the DB
   const requestHandler = () => {
     axios.get('/cb/caloriesBurned', {
       params: {activity: 'lifting', weight: `${weight}`, duration: `${time}`}
@@ -45,13 +44,13 @@ function CaloriesBurned() {
       })
   }
 
-
+//function to handled function on clicking "Burn!" button
  const onClickFunctions = () => {
   requestHandler();
   clearFields()
  }
 
-
+ //function finds previous entries to view and/or edit.
   const findEntry = () => {
     axios.get(`/cb/caloriesBurned/${date}`)
       .then((responseObj) => {
@@ -76,6 +75,7 @@ function CaloriesBurned() {
       })
   }
 
+  //update the date view
   const update = (event) => {
     setDate(event);
   }
@@ -83,6 +83,21 @@ function CaloriesBurned() {
   useEffect(() => {
     findEntry()
   }, [date])
+
+
+  //DELETE entry from DB
+  const deleteEntry = () => {
+    axios.delete(`/cb/caloriesBurned/${date}`)
+      .then(() => {
+          setDate(date);
+          setWeight(0);
+          setTime(0);
+          setBurned('No data for this date');
+      })
+      .catch((err) => {
+        console.log('Could not DELETE task:', err);
+      });
+  }
 
   return (
     <div>
@@ -92,12 +107,8 @@ function CaloriesBurned() {
           type="date"
           id="cb-date"
           name="cb-date"
-          min="2020-01-01"
-          max="2050-01-01"
           value={date}
-          // ref={inputRefDate}
           onChange={(event) => update(event.target.value)}
-
           >
         </input>
 
@@ -109,11 +120,13 @@ function CaloriesBurned() {
         <button type="button" onClick={ (event) => onClickFunctions(event) }>Burn!</button>
       </form>
       <div className="txt-table">
-       {/* <h3>Workout</h3> */}
        <div className="txt-data">Date: {date}</div>
         <div className="txt-data">Current Weight: {weight}</div>
         <div className="txt-data">Total Time: {time}</div>
         <div className="txt-data">Calories Burned: {burned}</div>
+      </div>
+      <div>
+      <button type="button" onClick={ (event) => deleteEntry(event) } >Delete</button>
       </div>
     </div>
   )
