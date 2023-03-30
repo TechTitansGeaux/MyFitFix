@@ -5,15 +5,17 @@ const { Journal } = require('../db/index.js');
 // This will SAVE journal entry on selected date into the database
 router.post('/', (req, res) => {
     const {entry, date} = req.body;
+    const { _id } = req.user
+    console.log(req);
 
-    Journal.findOneAndUpdate({date: date}, {entry: entry})
+    Journal.findOneAndUpdate({user: _id, date: date}, {entry: entry})
         .then((entryBody) => {
     // If this journal entry already exists in the database, just update the entry 
             if (entryBody) {
                 res.sendStatus(200);
     // If it does not exist in the database, create a new document for it 
             } else {
-                Journal.create({entry: entry, date: date});
+                Journal.create({user: _id, entry: entry, date: date});
             }
     })
         // If entering the database was not successful, send back a 500 status code
@@ -27,8 +29,9 @@ router.post('/', (req, res) => {
 // This will RETRIEVE the specific journal entry from this date from the database 
 router.get('/:date', (req, res) => {
     const { date } = req.params;
+    const { _id } = req.user
 
-        Journal.find({date: date})
+        Journal.find({user: _id, date: date})
             .then((entry) => {
                 // If the entry exists, send the journal entry back 
                 if (entry) {
@@ -43,8 +46,9 @@ router.get('/:date', (req, res) => {
 // This will DELETE the specific journal entry from the date from the database 
 router.delete('/:date', (req, res) => {
     const { date } = req.params;
+    const { _id } = req.user;
 
-        Journal.findOneAndRemove({date: date})
+        Journal.findOneAndRemove({user: _id, date: date})
             .then((entry) => {
                 // If the entry exists, delete the journal entry  
                 if (entry) {
