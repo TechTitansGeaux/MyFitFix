@@ -10,12 +10,12 @@ let burn = 0;
 
 router.get('/caloriesBurned', (req, res) => {
 
-const { activity, weight, duration } = req.query;
+  const { activity, weight, duration } = req.query;
 
   const options = {
     method: 'GET',
     url: 'https://api.api-ninjas.com/v1/caloriesburned',
-    params: {activity: activity, weight: weight, duration: duration},
+    params: { activity: activity, weight: weight, duration: duration },
     headers: {
       'X-Api-Key': process.env.CALORIES_BURNED_API,
     }
@@ -27,9 +27,9 @@ const { activity, weight, duration } = req.query;
       res.status(200).send(response.data[1]);
     })
     .catch(function (error) {
-    console.error("EMOTIONAL DAAAAMAGE");
-    res.sendStatus(500);
-  });
+      console.error("EMOTIONAL DAAAAMAGE");
+      res.sendStatus(500);
+    });
 
 })
 
@@ -47,7 +47,7 @@ router.post('/caloriesBurned', (req, res) => {
     date: date,
     user: _id,
   },
-    {upsert: true})
+    { upsert: true })
     .then(() => {
       console.log('Yay, we POSTed');
       res.sendStatus(201);
@@ -66,7 +66,7 @@ router.get('/caloriesBurned/:date', (req, res) => {
 
   CaloriesBurned.find({ date: date, user: _id })
     .then((dailyEntry) => {
-        res.send(dailyEntry);
+      res.send(dailyEntry);
     })
     .catch((err) => {
       console.log('Failed GET', err);
@@ -82,7 +82,7 @@ router.delete('/caloriesBurned/:date', (req, res) => {
 
   CaloriesBurned.deleteOne({ date: date, user: _id })
     .then(({ deletedCount }) => {
-      console.log({deletedCount})
+      console.log({ deletedCount })
       if (deletedCount) {
         res.status(200).send({ deletedCount });
       } else {
@@ -96,9 +96,4 @@ router.delete('/caloriesBurned/:date', (req, res) => {
     })
 })
 
-
-
-
-
 module.exports = router;
-

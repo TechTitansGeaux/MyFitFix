@@ -20,7 +20,7 @@ function CaloriesBurned() {
   //Axios requests to the server. After information is received from API, it posts it to the DB
   const requestHandler = () => {
     axios.get('/cb/caloriesBurned', {
-      params: {activity: 'lifting', weight: `${weight}`, duration: `${time}`}
+      params: { activity: 'lifting', weight: `${weight}`, duration: `${time}` }
     })
       .then((response) => {
         console.log('Successful GET', response.data);
@@ -30,7 +30,8 @@ function CaloriesBurned() {
           activity: 'lifting',
           weight: `${weight}`,
           duration: `${time}`,
-          burned: setBurned(response.data.total_calories)})
+          burned: setBurned(response.data.total_calories)
+        })
           .then((result) => {
             console.log('Success?', result);
           })
@@ -44,18 +45,18 @@ function CaloriesBurned() {
       })
   }
 
-//function to handled function on clicking "Burn!" button
- const onClickFunctions = () => {
-  requestHandler();
-  clearFields()
- }
+  //function to handled function on clicking "Burn!" button
+  const onClickFunctions = () => {
+    requestHandler();
+    clearFields()
+  }
 
- //function finds previous entries to view and/or edit.
+  //function finds previous entries to view and/or edit.
   const findEntry = () => {
     axios.get(`/cb/caloriesBurned/${date}`)
       .then((responseObj) => {
         console.log('Success!', responseObj);
-        if(responseObj.data.length > 0) {
+        if (responseObj.data.length > 0) {
           const { date, currentWeight, duration, caloriesBurned } = responseObj.data[0];
           setDate(date);
           setWeight(currentWeight);
@@ -89,10 +90,10 @@ function CaloriesBurned() {
   const deleteEntry = () => {
     axios.delete(`/cb/caloriesBurned/${date}`)
       .then(() => {
-          setDate(date);
-          setWeight(0);
-          setTime(0);
-          setBurned('No data for this date');
+        setDate(date);
+        setWeight(0);
+        setTime(0);
+        setBurned('No data for this date');
       })
       .catch((err) => {
         console.log('Could not DELETE task:', err);
@@ -109,24 +110,24 @@ function CaloriesBurned() {
           name="cb-date"
           value={date}
           onChange={(event) => update(event.target.value)}
-          >
+        >
         </input>
 
         Current Weight (lbs):
-        <input type="number" id="input1" onChange={ event => setWeight(event.target.value) }></input>
+        <input type="number" id="input1" onChange={event => setWeight(event.target.value)}></input>
         Total Time (minutes):
-        <input type="number" id="input2" onChange={ event => setTime(event.target.value) } ></input>
+        <input type="number" id="input2" onChange={event => setTime(event.target.value)} ></input>
 
-        <button type="button" onClick={ (event) => onClickFunctions(event) }>Burn!</button>
+        <button type="button" onClick={(event) => onClickFunctions(event)}>Burn!</button>
       </form>
       <div className="txt-table">
-       <div className="txt-data">Date: {date}</div>
+        <div className="txt-data">Date: {date}</div>
         <div className="txt-data">Current Weight: {weight}</div>
         <div className="txt-data">Total Time: {time}</div>
         <div className="txt-data">Calories Burned: {burned}</div>
       </div>
       <div>
-      <button type="button" onClick={ (event) => deleteEntry(event) } >Delete</button>
+        <button type="button" onClick={(event) => deleteEntry(event)} >Delete</button>
       </div>
     </div>
   )
