@@ -17,7 +17,7 @@ const UserSchema = new Schema({
 const DailyEntrySchema = new Schema({
   caloriesIn: { type: mongoose.Schema.Types.ObjectId, ref: 'CaloriesIn' },
   caloriesBurned: { type: mongoose.Schema.Types.ObjectId, ref: 'CaloriesBurned' },
-  journal: String,
+  journal: { type: mongoose.Schema.Types.ObjectId, ref: 'Journal' },
   date: { type: Date, unique: true, required: true }
 });
 
@@ -48,6 +48,7 @@ const ExerciseSchema = new Schema({
 })
 
 const JournalEntrySchema = new Schema({
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   entry: String,
   date: { type: Date, unique: true }
 });
