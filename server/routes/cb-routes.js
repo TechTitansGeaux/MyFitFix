@@ -26,7 +26,7 @@ const { activity, weight, duration } = req.query;
       res.status(200).send(response.data[1]);
     })
     .catch(function (error) {
-    console.error("BIG FAIL");
+    console.error("EMOTIONAL DAAAAMAGE");
     res.sendStatus(500);
   });
 
@@ -37,54 +37,73 @@ const { activity, weight, duration } = req.query;
 router.post('/caloriesBurned', (req, res) => {
   // console.log('HELLOO', req.user);
   const { activity, weight, duration, date } = req.body;
+  console.log(req.body);
 
-  const newCB = new CaloriesBurned({
-    workout: activity,
-    currentWeight: weight,
-    duration: duration,
-    caloriesBurned: burn,
-    date: date
-  })
-  newCB.save()
+  CaloriesBurned.replaceOne({ date: date }, { activity: activity, currentWeight: weight, duration: duration, caloriesBurned: burn, date: date }, {upsert: true})
     .then(() => {
+      console.log('Yay, we POSTed');
       res.sendStatus(201);
     })
     .catch((err) => {
-      console.log('Failed to POST', err);
+      console.log('Sound like Unemplooyyment', err);
       res.sendStatus(500);
     })
+
+  // const newCB = new CaloriesBurned({
+  //   workout: activity,
+  //   currentWeight: weight,
+  //   duration: duration,
+  //   caloriesBurned: burn,
+  //   date: date
+  // })
+  // newCB.save()
+  //   .then(() => {
+  //     res.sendStatus(201);
+  //   })
+  //   .catch((err) => {
+  //     console.log('Failed to POST', err);
+  //     res.sendStatus(500);
+  //   })
 })
 
+// router.get('/caloriesBurned/:date', (req, res) => {
+//   const { date } = req.params;
+//   // console.log(req)
+//   CaloriesBurned.find({date: date})
+//     .then((dailyEntry) => {
+//       // const { caloriesBurned } = dailyEntry[0];
+//       console.log('Successful GET', dailyEntry);
+//       if(dailyEntry.length > 0) {
+//         res.status(200).send(dailyEntry);
+//       } 
+//       else {
+//         console.log('Entry does not exist', dailyEntry)
+//         res.status(404).send(dailyEntry);
+//       }
+//     })
+//     .catch((err) => {
+//       console.log('Failed GET', err);
+//       res.sendStatus(500);
+//     })
+// })
+
+
 router.get('/caloriesBurned/:date', (req, res) => {
-  const { date  } = req.params;
+  const { date } = req.params;
   // console.log(req)
   CaloriesBurned.find({date: date})
     .then((dailyEntry) => {
+      // const { caloriesBurned } = dailyEntry[0];
       console.log('Successful GET', dailyEntry);
-      if(dailyEntry) {
-        res.status(200).send(dailyEntry);
-      } else {
-        res.sendStatus(404);
-      }
+      // if(dailyEntry) {
+        res.send(dailyEntry);
+      // }
     })
     .catch((err) => {
       console.log('Failed GET', err);
       res.sendStatus(500);
     })
 })
-
-
-// router.put('/caloriesBurned/:date', (req, res) => {
-//   console.log('WHAT????', req.params)
-//   .then((data) => {
-//     console.log('Successful GET', data);
-//     res.sendStatus(200);
-//   })
-//   .catch((err) => {
-//     console.log('Failed GET', err);
-//     res.sendStatus(500);
-//   })
-// })
 
 
 
