@@ -67,7 +67,7 @@ function CaloriesBurned() {
           setDate(date);
           setWeight(0);
           setTime(0);
-          setBurned('No data for this date');
+          setBurned('No entry for this date');
         }
       })
       .catch((err) => {
