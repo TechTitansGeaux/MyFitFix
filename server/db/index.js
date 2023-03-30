@@ -45,7 +45,7 @@ user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
 const JournalEntrySchema = new Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   entry: String,
-  date: { type: Date, unique: true }
+  date:  {type: Date, unique: false} 
 });
 
 
