@@ -15,7 +15,7 @@ function CalorieIntake() {
   const getAllFoodItems = () => {
     axios.get('/nutrition/product')
       .then((result) => {
-        console.log(result);
+        // console.log(result);
         const foodList = result.data[0].foodList;
         setFood(foodList);
       })
