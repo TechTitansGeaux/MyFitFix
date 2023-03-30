@@ -37,7 +37,7 @@ const handleSearch = (e) => {
       setExerciseResults(response.data)
     })
     .catch((err) => {
-      console.error('cannot get:', err);
+     // console.error('cannot get:', err);
     });
 }
 
