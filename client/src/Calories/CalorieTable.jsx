@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom'
 import CalorieIntake from './CaloriesIn/CalorieIntake.jsx'
-// import CaloriesBurned from './CaloriesBurned/CaloriesBurned.jsx'
+import CaloriesBurned from './CaloriesBurned/CaloriesBurned.jsx'
 
 function CalorieTable() {
 
@@ -16,7 +16,7 @@ function CalorieTable() {
       </div>
       <h1>Calories Burned</h1>
       <div>
-        {/* <CaloriesBurned /> */}
+        <CaloriesBurned />
       </div>
     </div>
   )
