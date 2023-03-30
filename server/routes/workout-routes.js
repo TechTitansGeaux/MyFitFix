@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const axios = require('axios');
-const { Exercise } = require('../db/index.js');
-
+const { Workout } = require('../db/index.js');
+//this is an api call to get the exercises data from the API
 router.get('/exercise', (req, res) => {
  const { muscle } = req.query;
     const options = {
@@ -25,40 +25,49 @@ router.get('/exercise', (req, res) => {
 
   })
 
-router.post('/exercise', (req, res) => {
-const { name, type, muscle, equipment, difficulty, instructions } = req.body;
-//console.log(req, 'routes, hi');
-Exercise.create({
-  name: name,
-  type: type,
-  muscle: muscle,
-  equipment: equipment,
-  difficulty: difficulty,
-  instructions: instructions,
-  sets: 0,
-  reps: 0
-})
-.then((data) => {
-  //console.log("saved to db:", data);
-  res.sendStatus(201);
-})
-.catch((err)=>{
-  //console.error("failed to save to db:", err)
-  res.sendStatus(500);
-})
-})
+//this allows you to post a daily workout entry
+    router.post('/workouts', (req, res) => {
+    const { workoutArr, currDate } = req.body;
+    const { _id } = req.user;
 
-router.get('/workout', (req, res) => {
-  //console.log(req, 'routes, hi');
-  Exercise.find({})
-  .then((exerciseObj) => {
-    //console.log("retrieved from db:", exerciseObj);
-    res.status(200).send(exerciseObj)
+    const newWorkouts = new Workout({
+      exercise: workoutArr,
+      date: currDate,
+      user: _id
+    }).save()
+    .then((dataArr) => {
+      //console.log("saved to db:", dataArr);
+      res.sendStatus(201);
+    })
+    .catch((err)=>{
+      //console.error("failed to save to db:", err)
+      res.sendStatus(500);
+    })
+  });
+
+  // this allows you to get a specific workout entry from a specific date
+  router.get('/workouts/date', (req, res) => {
+    //console.log(req, 'routes, hi');
+    const { date } = req.params
+    Workout.findOne({date})
+    .then((workoutObj) => {
+      //console.log("retrieved from db:", workoutObj);
+      res.status(200).send(workoutObj)
+    })
+    .catch((err)=>{
+      //console.error("failed to retrieve from db:", err)
+      res.sendStatus(500);
+    })
+    })
+
+  router.put('/update', (req, res) => {
+    // console.log(req.body);
+    const { reps, set, name , date } = req.body;
+    const { _id } = req.user;
+
+    Workout.find({ user: _id, date: date })
+      .then()
   })
-  .catch((err)=>{
-    //console.error("failed to retrieve from db:", err)
-    res.sendStatus(500);
-  })
-  })
+
 
   module.exports = router;
