@@ -6,6 +6,7 @@ function SearchEntry( {workout} ){
 
   const [toggle, setToggle] = useState(true);
   const [checked, setChecked] = useState(false);
+  const [toggleDetail, setToggleDetail] = useState(true);
 
   const toggleSave = () => {
   setToggle(!toggle)
@@ -14,6 +15,10 @@ function SearchEntry( {workout} ){
   const handleCheck = () => {
     setChecked(!checked)
   }
+
+  const toggleDetails = () => {
+    setToggleDetail(!toggleDetail)
+    }
 
 const handleSave = () => {
 axios.post('workout/exercise', {
@@ -40,6 +45,8 @@ axios.post('workout/exercise', {
   return (
     <div className="search-data">
     <div className="result-data">{workout.name}</div>
+    { toggleDetail ?
+    <div className="result-entry">
     { toggle ?
     <ul className="result-data-list">
     <li className="result-data">{workout.type}</li>
@@ -50,8 +57,14 @@ axios.post('workout/exercise', {
     </ul>
     :
     <></>
-  }
-   <button onClick={handleSave} workout={workout} className="btn btn-primary">Save Exercise</button>
+}
+</div>
+:
+<></>
+}
+   <button onClick={handleSave} workout={workout} className="btn btn-primary">Add Exercise to Workout</button>
+   <button onClick={toggleDetails} workout={workout} className="btn btn-primary">Show/Hide Details</button>
+
    <p>
       {checked ? 'Saved' : ''}
     </p>

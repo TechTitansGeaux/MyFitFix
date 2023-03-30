@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import data from "./data.json";
 import WorkoutList from './WorkoutList';
 import SearchWorkout from './SearchWorkout.jsx';
@@ -11,12 +11,13 @@ function WorkoutPlanner() {
 const [exercises, setExercises] = useState([]);
 const [muscle, setMuscle] = useState('');
 const [exerciseResults, setExerciseResults] = useState([]);
+const [finished, setFinished] = useState(false);
 
 const getAllExercises = () => {
 axios.get('/workout/workout')
   .then(({data}) => {
-//console.log("able to get exercises from db:", data);
-   setExercises(data);
+    console.log("able to get exercises from db:", data);
+    setExercises(data);
   })
   .catch((err) => {
    // console.error('failed to get exercises from db:', err)
@@ -35,6 +36,15 @@ axios.get('/workout/workout')
   // console.error('cannot get:', error);
   });
 }
+
+useEffect(() => {
+  if (!finished) {
+    setFinished(true)
+    console.log('infinite');
+    return;
+  }
+  getAllExercises();
+}, [finished])
 
 
     return (

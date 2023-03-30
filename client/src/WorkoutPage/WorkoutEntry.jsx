@@ -24,6 +24,8 @@ setToggle(!toggle)
 
   return (
     <div className="exercise-entry">
+    <div className="exercise-container">
+    <div className="exercise-name">{exercise.name} </div>
     <select> SETS
       <option> 0 </option>
     {sets.map((set, index) => {
@@ -36,9 +38,6 @@ setToggle(!toggle)
       return <option rep={rep} key={index}>{rep}</option>
     })}
     </select>
-    <div className="exercise-container">
-    <div className="exercise-name">{exercise.name} </div>
-    <button onClick={toggleDetails} className="btn btn-primary"> Show Details</button>
       {toggle ?
       <ul className="exercise data">
     <li className="exercise-data">{exercise.type}</li>
@@ -51,6 +50,7 @@ setToggle(!toggle)
     <></>
       }
     </div>
+    <button onClick={toggleDetails} className="btn btn-primary"> Show Details</button>
     </div>
   )
 };

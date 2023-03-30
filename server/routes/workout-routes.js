@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const axios = require('axios');
-const { Exercise } = require('../db/index.js');
-
+const { Exercise, Workout } = require('../db/index.js');
+//this is an api call to get the exercises data from the API
 router.get('/exercise', (req, res) => {
  const { muscle } = req.query;
     const options = {
@@ -24,7 +24,7 @@ router.get('/exercise', (req, res) => {
     });
 
   })
-
+// This allows you to post an exercise into the db
 router.post('/exercise', (req, res) => {
 const { name, type, muscle, equipment, difficulty, instructions } = req.body;
 //console.log(req, 'routes, hi');
@@ -47,7 +47,7 @@ Exercise.create({
   res.sendStatus(500);
 })
 })
-
+// this gets all saved exercises from the db
 router.get('/workout', (req, res) => {
   //console.log(req, 'routes, hi');
   Exercise.find({})
@@ -60,5 +60,32 @@ router.get('/workout', (req, res) => {
     res.sendStatus(500);
   })
   })
+//this grabs a single exercise from the db with the request param being the name property
+  router.get('/workout/name', (req, res) => {
+    //console.log(req, 'routes, hi');
+    const { name } = req.params
+    Exercise.findOne({name: name})
+    .then((obj) => {
+      //console.log("retrieved from db:", exerciseObj);
+      res.status(200).send(obj)
+    })
+    .catch((err)=>{
+      //console.error("failed to retrieve from db:", err)
+      res.sendStatus(500);
+    })
+    })
+//this allows you to post a daily workout entry
+    router.post('/workouts', (req, res) => {
+    const { workoutArr } = req.body;
+    Workout.create({ workoutArr })
+    .then((dataArr) => {
+      console.log("saved to db:", dataArr);
+      res.sendStatus(201);
+    })
+    .catch((err)=>{
+      console.error("failed to save to db:", err)
+      res.sendStatus(500);
+    })
+  });
 
   module.exports = router;
