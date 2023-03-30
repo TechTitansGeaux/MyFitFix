@@ -96,9 +96,5 @@ router.delete('/caloriesBurned/:date', (req, res) => {
     })
 })
 
-
-
-
-
 module.exports = router;
 
