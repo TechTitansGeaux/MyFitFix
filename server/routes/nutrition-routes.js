@@ -40,7 +40,8 @@ router.post('/food', (req, res) => {
 //Handler to fetch the foodList from the db
 router.get('/product', (req, res) => {
   const { _id } = req.user;
-  CaloriesIn.find({ user: _id })
+  const { q } = req.query
+  CaloriesIn.findOne({ user: _id, date: q })
     .then((ingredients) => {
       res.status(200).send(ingredients);
     })

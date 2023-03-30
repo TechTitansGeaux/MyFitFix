@@ -9,12 +9,12 @@ let burn = 0;
 
 router.get('/caloriesBurned', (req, res) => {
 
-const { activity, weight, duration } = req.query;
+  const { activity, weight, duration } = req.query;
 
   const options = {
     method: 'GET',
     url: 'https://api.api-ninjas.com/v1/caloriesburned',
-    params: {activity: activity, weight: weight, duration: duration},
+    params: { activity: activity, weight: weight, duration: duration },
     headers: {
       'X-Api-Key': process.env.CALORIES_BURNED_API,
     }
@@ -26,9 +26,9 @@ const { activity, weight, duration } = req.query;
       res.status(200).send(response.data[1]);
     })
     .catch(function (error) {
-    console.error("BIG FAIL");
-    res.sendStatus(500);
-  });
+      console.error("BIG FAIL");
+      res.sendStatus(500);
+    });
 
 })
 
@@ -56,12 +56,12 @@ router.post('/caloriesBurned', (req, res) => {
 })
 
 router.get('/caloriesBurned/:date', (req, res) => {
-  const { date  } = req.params;
+  const { date } = req.params;
   // console.log(req)
-  CaloriesBurned.find({date: date})
+  CaloriesBurned.find({ date: date })
     .then((dailyEntry) => {
       console.log('Successful GET', dailyEntry);
-      if(dailyEntry) {
+      if (dailyEntry) {
         res.status(200).send(dailyEntry);
       } else {
         res.sendStatus(404);
@@ -92,22 +92,22 @@ router.get('/caloriesBurned/:date', (req, res) => {
 
 
 
-  // CaloriesBurned.replaceOne({ date: date }, {
-  //   workout: activity,
-  //   currentWeight: weight,
-  //   duration: duration,
-  //   CaloriesBurned: burn,
-  //   date: date
-  // },
-  // { upsert: true })
-  //   .then(() => {
-  //     // console.log('Sucessfully CREATED a catergory', category);
-  //     res.sendStatus(201);
-  //   })
-  //   .catch((err) => {
-  //     console.log('Failed to CREATE a category', err);
-  //     res.sendStatus(500);
-  //   });
+// CaloriesBurned.replaceOne({ date: date }, {
+//   workout: activity,
+//   currentWeight: weight,
+//   duration: duration,
+//   CaloriesBurned: burn,
+//   date: date
+// },
+// { upsert: true })
+//   .then(() => {
+//     // console.log('Sucessfully CREATED a catergory', category);
+//     res.sendStatus(201);
+//   })
+//   .catch((err) => {
+//     console.log('Failed to CREATE a category', err);
+//     res.sendStatus(500);
+//   });
 
 
 module.exports = router;
