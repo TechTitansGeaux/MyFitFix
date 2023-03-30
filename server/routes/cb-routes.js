@@ -2,6 +2,7 @@ const router = require('express').Router();
 require('dotenv').config();
 const axios = require('axios');
 const { User, Entries, CaloriesIn, CaloriesBurned } = require('../db/index.js');
+//const StevenHeErrorLogs = require('Steven He');
 
 //Start variable to set to incoming caloriesBurned number from the API.
 //Set it outside th GET and Axios functions so it's not limited by function scope.
@@ -48,44 +49,9 @@ router.post('/caloriesBurned', (req, res) => {
       console.log('Sound like Unemplooyyment', err);
       res.sendStatus(500);
     })
-
-  // const newCB = new CaloriesBurned({
-  //   workout: activity,
-  //   currentWeight: weight,
-  //   duration: duration,
-  //   caloriesBurned: burn,
-  //   date: date
-  // })
-  // newCB.save()
-  //   .then(() => {
-  //     res.sendStatus(201);
-  //   })
-  //   .catch((err) => {
-  //     console.log('Failed to POST', err);
-  //     res.sendStatus(500);
-  //   })
 })
 
-// router.get('/caloriesBurned/:date', (req, res) => {
-//   const { date } = req.params;
-//   // console.log(req)
-//   CaloriesBurned.find({date: date})
-//     .then((dailyEntry) => {
-//       // const { caloriesBurned } = dailyEntry[0];
-//       console.log('Successful GET', dailyEntry);
-//       if(dailyEntry.length > 0) {
-//         res.status(200).send(dailyEntry);
-//       } 
-//       else {
-//         console.log('Entry does not exist', dailyEntry)
-//         res.status(404).send(dailyEntry);
-//       }
-//     })
-//     .catch((err) => {
-//       console.log('Failed GET', err);
-//       res.sendStatus(500);
-//     })
-// })
+
 
 
 router.get('/caloriesBurned/:date', (req, res) => {
@@ -107,26 +73,6 @@ router.get('/caloriesBurned/:date', (req, res) => {
 
 
 
-
-
-
-
-  // CaloriesBurned.replaceOne({ date: date }, {
-  //   workout: activity,
-  //   currentWeight: weight,
-  //   duration: duration,
-  //   CaloriesBurned: burn,
-  //   date: date
-  // },
-  // { upsert: true })
-  //   .then(() => {
-  //     // console.log('Sucessfully CREATED a catergory', category);
-  //     res.sendStatus(201);
-  //   })
-  //   .catch((err) => {
-  //     console.log('Failed to CREATE a category', err);
-  //     res.sendStatus(500);
-  //   });
 
 
 module.exports = router;
