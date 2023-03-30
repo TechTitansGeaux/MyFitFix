@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import moment from 'moment';
 
 function JournalEntry () {
   // Creating variable 'navigate' to re-direct to other pages through react-routing
@@ -9,7 +10,7 @@ function JournalEntry () {
   //----REACT HOOKS: SETTING STATE-----
 
   // Creating a state variable named 'date' that is changed through our function setDate, when a user clicks a specific date on calendar
-      const [date, setDate] = useState(''); 
+      const [date, setDate] = useState(moment().format("YYYY-MM-DD"));  // Using moment, the initial date of the calendar would be the date of today 
 
   // Creating a state variable named 'entry' that is changed through our function setEntry, when a user types in their journal entry
       const [entry, setEntry] = useState('');
@@ -22,10 +23,10 @@ function JournalEntry () {
 
    // This function retrieves the current user's google ID
 
-   const currentUser = () => {
-    axios.get('auth/google/redirect')
-      .then((res) => { console.log(res)})
-   }
+  //  const currentUser = () => {
+  //   axios.get('auth/google/redirect')
+  //     .then((res) => { console.log(res)})
+  //  }
 
   // This function loads a previous journal entry from the DB into the current textbox 
   const showEntry = (date) => {
@@ -78,9 +79,9 @@ function JournalEntry () {
     }
  }
 
- useEffect(() => {
-  currentUser(); 
- })
+//  useEffect(() => {
+//   currentUser(); 
+//  })
 
     
     return (
@@ -97,6 +98,7 @@ function JournalEntry () {
                   name="journal-start"
                 min="2023-01-01" 
                 max="2026-01-01"
+                value={date}
                 onChange={(e) => {setDate(e.target.value); showEntry(e.target.value);}}>
                 </input>
 
