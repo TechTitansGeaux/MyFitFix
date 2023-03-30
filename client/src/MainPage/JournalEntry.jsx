@@ -23,10 +23,6 @@ function JournalEntry () {
 
    // This function retrieves the current user's google ID
 
-  //  const currentUser = () => {
-  //   axios.get('auth/google/redirect')
-  //     .then((res) => { console.log(res)})
-  //  }
 
   // This function loads a previous journal entry from the DB into the current textbox 
   const showEntry = (date) => {
@@ -35,9 +31,7 @@ function JournalEntry () {
       if ({ data }) {
         // If there is a journal entry in the DB, matching the choice of date that the user clicked, display that text
         setEntryBox(data[0].entry)
-      } else {
-        setEntryBox('')
-      }
+      } 
     })
     .catch((err) => {
       // If there is NO journal entry in the DB, matching the choice of date that the user click, the text box should be empty
@@ -79,10 +73,11 @@ function JournalEntry () {
     }
  }
 
-//  useEffect(() => {
-//   currentUser(); 
-//  })
-
+    useEffect((e) => {
+      if (date === moment().format("YYYY-MM-DD")) {
+        showEntry(date);
+      }
+    }, [])
     
     return (
         <div>
