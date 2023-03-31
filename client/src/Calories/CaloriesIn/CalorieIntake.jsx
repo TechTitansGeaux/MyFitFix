@@ -114,37 +114,56 @@ function CalorieIntake() {
   }, [food]);
 
   return (
-    <div>
-      <h2>Meal Tracker:
-        <input
-          type="date"
-          id="caloriesIn"
-          name="caloriesInDate"
-          value={date}
-          onChange={(e) => {
-            handleDateChange(e.target.value);
-          }}
-        ></input>
-      </h2>
+    <div className="bg-white py-8 px-6 shadow rounded-lg sm:px-10">
+      <h1>Meal Tracker</h1>
+      <input
+        type="date"
+        id="caloriesIn"
+        name="caloriesInDate"
+        value={date}
+        className="drop-shadow-md ml-2 border-2 "
+        onChange={(e) => {
+          handleDateChange(e.target.value);
+        }}
+      ></input>
       <form>
-        Weight(g):<input id='foodWeight' type='number' onChange={e => setWeight(e.target.value)}></input>
-        Product:<input id='foodProduct' type='text' onChange={e => setProduct(e.target.value)}></input>
-        <button type='button' onClick={() => {
-          handleApiRequest()
-          clearFields();
-        }}>Submit</button>
+        <div>
+          <label for="Measurement" className="block text-md font-medium">Product Weight (g):</label>
+          <input id='foodWeight' className="drop-shadow-md ml-2 mr-2 border-2" type='number' onChange={e => setWeight(e.target.value)}></input>
+        </div>
+        <div>
+          <label for="Ingredient" className="block text-md font-medium">Ingredient:</label>
+          <input id='foodProduct' className="w-full border border-sky-300 rounded-lg shadow-lg" type='text' onChange={e => setProduct(e.target.value)}></input>
+          <button className="drop-shadow-md ml-2 border-2 w-20 bg-gray-300" type='button' onClick={() => {
+            handleApiRequest()
+            clearFields();
+          }}>Submit</button>
+        </div>
       </form>
-      <div className='txt-table' onChange={() => setTotalCal()}>
-        <div className='txt-data'>Product</div>
-        <div className='txt-data'>Weight(g)</div>
-        <div className='txt-data'>Calories</div>
-        {food.map((item) => <FoodList item={item} key={`${item.name}`} handleDeleteOneEntry={handleDeleteOneEntry} />)}
+      <div className="bg-white py-8 px-6 shadow rounded-lg sm:px-10" onChange={() => setTotalCal()}>
+        <div className="flex items-center">
+          <div>
+            <div className='pr-10 font-medium'>Product</div>
+            {food.map(item => <div className="pl-3">{item.name}</div>)}
+            <br></br>
+          </div>
+          <div>
+            <div className='pr-10 font-medium'>Weight(g)</div>
+            {food.map(item => <div className="pl-5">{item.serving_size_g}</div>)}
+            <br></br>
+          </div>
+          <div>
+            <div className='font-medium'>Calories</div>
+            {food.map(item => <div className="pl-2">{item.calories}</div>)}
+            <h3 className="font-bold text-lg">Total Calories: {total}</h3>
+          </div>
+        </div>
       </div>
       <div>
         <br></br>
-        <button type='button' onClick={() => handleDBSave()}>Save</button>
-        <button type='button' onClick={() => handleDBUpdate()}>Update</button>
-        <h3>Total Calories: {total}</h3>
+        <button type='button' className="w-full border border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 active:text-white" onClick={() => handleDBSave()}>Save</button>
+        <button type='button' className="w-full border border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 active:text-white" onClick={() => handleDBUpdate()}>Update</button>
+
       </div>
     </div >
   )

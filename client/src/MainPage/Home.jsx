@@ -9,10 +9,10 @@ function Home() {
     <div>
       <h1>Welcome to the Dashboard</h1>
 
-      <div className="journal-button">
-        <button id="addJournal" onClick={() => navigate('/journal-entry')}>Add Journal Entry</button>
-        <button id="calorieTracker" onClick={() => navigate('/tracker')}>Track Your Calories</button>
-        <button id="workoutPlanner" onClick={() => navigate('/workout-planner')}>Plan Your Workout</button>
+      <div className="content-evenly">
+        <button id="addJournal" className="shadow-xl md:p-2 md:bg-gray-300 sm:m-1" onClick={() => navigate('/journal-entry')}>Add Journal Entry</button>
+        <button id="calorieTracker" className="shadow-xl md:p-2 md:bg-gray-300 sm:m-1" onClick={() => navigate('/tracker')}>Track Your Calories</button>
+        <button id="workoutPlanner" className="shadow-xl md:p-2 md:bg-gray-300 sm:m-1" onClick={() => navigate('/workout-planner')}>Plan Your Workout</button>
       </div>
 
     </div>

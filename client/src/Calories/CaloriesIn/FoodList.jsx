@@ -4,10 +4,10 @@ function FoodList(props) {
   const { item, handleDeleteOneEntry } = props;
 
   return (
-    <div>
-      <div>{item.name}</div>
-      <div>{item.serving_size_g}</div>
-      <div>{item.calories}</div>
+    <div className="flex items-center">
+      <div className='pr-10'>{item.name}</div>
+      <div className='pr-10'>{item.serving_size_g}</div>
+      <div className='pr-10'>{item.calories}</div>
       <button type='button' value={item.name} onClick={(e) => handleDeleteOneEntry(e.target.value)}>Delete</button>
     </div>
   )
