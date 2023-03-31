@@ -81,9 +81,8 @@ router.delete('/caloriesBurned/:date', (req, res) => {
 
   CaloriesBurned.deleteOne({ date: date, user: _id })
     .then(({ deletedCount }) => {
-      console.log({ deletedCount })
       if (deletedCount) {
-        res.status(200).send({ deletedCount });
+        res.sendStatus(200);
       } else {
         res.sendStatus(404);
       }
