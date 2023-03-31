@@ -39,7 +39,7 @@ router.post('/caloriesBurned', (req, res) => {
   const { activity, weight, duration, date } = req.body;
   const { _id } = req.user;
 
-  CaloriesBurned.replaceOne({ date: date }, {
+  CaloriesBurned.replaceOne({ date: date, user: _id }, {
     activity: activity,
     currentWeight: weight,
     duration: duration,
@@ -49,7 +49,6 @@ router.post('/caloriesBurned', (req, res) => {
   },
     { upsert: true })
     .then(() => {
-      console.log('Yay, we POSTed');
       res.sendStatus(201);
     })
     .catch((err) => {
@@ -86,7 +85,6 @@ router.delete('/caloriesBurned/:date', (req, res) => {
       if (deletedCount) {
         res.status(200).send({ deletedCount });
       } else {
-        console.log('404')
         res.sendStatus(404);
       }
     })

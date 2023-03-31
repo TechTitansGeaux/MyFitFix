@@ -23,7 +23,6 @@ function CaloriesBurned() {
       params: { activity: 'lifting', weight: `${weight}`, duration: `${time}` }
     })
       .then((response) => {
-        console.log('Successful GET', response.data);
 
         axios.post('/cb/caloriesBurned', {
           date: date,
@@ -33,7 +32,6 @@ function CaloriesBurned() {
           burned: setBurned(response.data.total_calories)
         })
           .then((result) => {
-            console.log('Success?', result);
           })
           .catch((err) => {
             console.error('WHAT THE HAAAIL YOU SAY?', err);
@@ -55,7 +53,6 @@ function CaloriesBurned() {
   const findEntry = () => {
     axios.get(`/cb/caloriesBurned/${date}`)
       .then((responseObj) => {
-        console.log('Success!', responseObj);
         if (responseObj.data.length > 0) {
           const { date, currentWeight, duration, caloriesBurned } = responseObj.data[0];
           setDate(date);
