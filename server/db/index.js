@@ -24,7 +24,7 @@ const DailyEntrySchema = new Schema({
 const CaloriesInSchema = new Schema({
   foodList: { type: Array, default: [] },
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  date: { type: String, unique: true, required: true }
+  date: String
 })
 
 const CaloriesBurnedSchema = new Schema({
@@ -37,9 +37,9 @@ const CaloriesBurnedSchema = new Schema({
 });
 
 const WorkoutEntrySchema = new Schema({
-exercise: {type: Array, unique:true },
-date: {type: String, unique: true, required: true},
-user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
+  exercise: { type: Array, unique: true },
+  date: { type: String, unique: true, required: true },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 })
 
 const JournalEntrySchema = new Schema({
