@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const { Schema, model } = mongoose;
 
-const mongoUri = 'mongodb://127.0.0.1:27017/fitflex';
+const mongoUri = 'mongodb://127.0.0.1:27017/fitfix';
 mongoose.connect(mongoUri)
   .then(() => console.info(('Connected to database: "fitfix"')))
   .catch((err) => console.error(('Could not connect to database'), err));
