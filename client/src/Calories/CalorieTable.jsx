@@ -30,7 +30,7 @@ function CalorieTable() {
       </div>
 
       <div>
-      <h1>Calories Burned</h1>
+      {/* <h1>Calories Burned</h1> */}
         <CaloriesBurned />
       </div>
     </div>

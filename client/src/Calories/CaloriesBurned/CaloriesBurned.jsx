@@ -116,7 +116,7 @@ function CaloriesBurned() {
             type="date"
             id="cb-date"
             name="cb-date"
-            className='w-full border border-sky-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 hover:border-blue-700'
+            className='w-full border border-sky-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 hover:border-blue-700 hover:border-lg'
             value={date}
             onChange={(event) => selectDate(event.target.value)}
           >
@@ -135,15 +135,24 @@ function CaloriesBurned() {
         </div>
 
       <div className="txt-table">
-        <div className="txt-data">Date: {date}</div>
-        <div className="txt-data">Current Weight: {weight}</div>
-        <div className="txt-data">Total Time: {time}</div>
-        <div className="txt-data">Calories Burned: {burned}</div>
+        <div className="text-md font-bold">Date: {date}</div>
+        <div className="text-md font-bold">Current Weight: {weight}</div>
+        <div className="text-md font-bold">Total Time: {time}</div>
+        <div className="text-md font-bold">Calories Burned: {burned}</div>
       </div>
-      <div className='flex justify-evenly'>
-      <button type="button" className='w-full border border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 active:text-white' onClick={ (event) => requestHandler(event, clearFields())}>Burn!</button>
-        <button type="button" className='w-full border border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 active:text-white' onClick={(event) => deleteEntry(event)} >Delete</button>
+
+      <div className='flex justify-around'>
+
+
+      <button type="button" className='w-full border border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 font-bold active:text-white transform hover:scale-110 px-1' onClick={ (event) => requestHandler(event, clearFields())}>Burn!</button>
+   
+
+
+        <button type="button" className='w-full border border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 font-bold tracking-wider active:text-white transform hover:scale-110 px-1' onClick={(event) => deleteEntry(event)} >Delete</button>
+
       </div>
+
+
       </form>
       </div>
     </div>
