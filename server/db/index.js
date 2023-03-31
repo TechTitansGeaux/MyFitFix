@@ -22,8 +22,8 @@ const CaloriesInSchema = new Schema({
 
 const CaloriesBurnedSchema = new Schema({
   workout: String,
-  currentWeight: Number,
-  duration: Number,
+  currentWeight: {type: Number, required: true },
+  duration: {type: Number, required: true },
   caloriesBurned: Number,
   date: { type: String, required: true },
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
