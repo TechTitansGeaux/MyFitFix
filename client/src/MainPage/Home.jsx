@@ -166,16 +166,6 @@ function Home() {
 </div>
     </div>
   
-     
-   
-
-
-
-      {/* <div className="journal-button">
-        <button id="addJournal" onClick={() => navigate('/journal-entry')}>Add Journal Entry</button>
-        <button id="calorieTracker" onClick={() => navigate('/tracker')}>Track Your Calories</button>
-        <button id="workoutPlanner" onClick={() => navigate('/workout-planner')}>Plan Your Workout</button>
-      </div> */}
 
     </div>
 
