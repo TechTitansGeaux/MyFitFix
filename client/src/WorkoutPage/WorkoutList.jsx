@@ -51,6 +51,7 @@ const handleEntrySave = () => {
   .then(() =>{
     setWorkout([]);
     setCurrWOList([]);
+    alert(`You have saved a workout for the date: ${currDate}`)
   })
   .catch((err) => {
     console.error('failed to post workouts', err);
@@ -64,7 +65,7 @@ return(
         return <WorkoutEntry exercise={exercise} key={index} setRep={setRep} setSet={setSet} changeList={changeList}/>
       })}
     </div>
-    <button type="button"  onClick={handleEntrySave}>Save Today's Workout</button>
+    <button type="button"  onClick={handleEntrySave}>Save Workout</button>
     <input
           type="date"
           id="workout-date"

@@ -59,14 +59,31 @@ router.get('/exercise', (req, res) => {
     })
   })
 
-  router.put('/update', (req, res) => {
-    // console.log(req.body);
-    const { reps, set, name , date } = req.body;
+  router.delete('/workouts/:date', (req, res) => {
+    const { date } = req.params;
     const { _id } = req.user;
+Workout.deleteOne({ date: date, user: _id })
+.then(({ deletedCount }) => {
+  if (deletedCount) {
+    res.status(200)
+  } else {
+    res.sendStatus(404);
+  }
+})
+.catch((err) => {
+  console.log('Failed to DELETE', err);
+  res.sendStatus(500);
+})
+})
 
-    Workout.find({ user: _id, date: date })
-      .then()
-  })
+  // router.put('/update', (req, res) => {
+  //   // console.log(req.body);
+  //   const { reps, set, name , date } = req.body;
+  //   const { _id } = req.user;
+
+  //   Workout.find({ user: _id, date: date })
+  //     .then()
+  // })
 
 
   module.exports = router;

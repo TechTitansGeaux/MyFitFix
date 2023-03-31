@@ -40,6 +40,17 @@ axios.get(`workout/workouts/${pastDate}`)
 })
 }
 
+const deletePastWorkout = () => {
+  axios.delete(`/workout/workouts/${pastDate}`)
+    .then((data) => {
+      console.log('able to delete past-workout:', data)})
+    .then(setPastWorkout([]))
+    .catch((err) => {
+      console.error('could not delete past workout', err);
+    });
+};
+
+
 const handleWorkoutState = (name) => [
   exerciseResults.forEach(exercise => {
     if (exercise.name === name) {
@@ -57,7 +68,7 @@ const handleWorkoutState = (name) => [
       <div align='right'className='workout'>
         <WorkoutList workout={workout} setWorkout={setWorkout}/>
       </div>
-      <h3 align='right'> Search Past Workouts by Date </h3>
+      <h3 align='right'> Search Workout by Date </h3>
       <div align= 'right' className='search-past-workouts'>
         <input
               type="date"
@@ -68,7 +79,8 @@ const handleWorkoutState = (name) => [
                   setPastDate(e.target.value);
               }}
         ></input>
-        <button type="button" onClick={() => getPastWorkout()} >Search For Previous Workout</button>
+        <button type="button" onClick={() => getPastWorkout()} >Search For Workout</button>
+        <button type="button" onClick={() => deletePastWorkout()} >Delete Workout</button>
         { pastWorkout.map(workout => <PastWorkoutEntry workout={workout} key={workout.name} />)}
       </div>
       <h4 align='left'>Search for Exercises</h4>

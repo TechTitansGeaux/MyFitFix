@@ -62,11 +62,14 @@ function SearchEntry( { exercise, handleWorkoutState } ){
 :
 <></>
 }
-   <button onClick={(e) => handleWorkoutState(e.target.value)} value={exercise.name} className="btn btn-primary">Add Exercise to Workout</button>
+   <button onClick={(e) => {
+    handleWorkoutState(e.target.value)
+    toggleSave()
+    handleCheck()
+  }} value={exercise.name} className="btn btn-primary">Add Exercise to Workout</button>
    <button onClick={toggleDetails} exercise={exercise} className="btn btn-primary">Show/Hide Details</button>
-
    <p>
-      {checked ? 'Saved' : ''}
+      {checked ? 'Added to Workout' : ''}
     </p>
     </div>
   )
