@@ -96,33 +96,53 @@ function CaloriesBurned() {
   }
 
   return (
-    <div>
-      <h3>Workout</h3>
-      <form>
-        <input
-          type="date"
-          id="cb-date"
-          name="cb-date"
-          value={date}
-          onChange={(event) => selectDate(event.target.value)}
-        >
-        </input>
+    <div class='mt-8 sm:mx-auto sm:w-full sm:max-w-md '>
+      <div class='bg-gradient-to-t from-sky-600 from-10%  via-sky-400 to-sky-50 to-40% ... py-8 px-6 shadow rounded-lg sm:px-10  drop-shadow-md ml-4 ' >
 
-        Current Weight (lbs):
-        <input type="number" id="input1" onChange={event => setWeight(event.target.value)}></input>
-        Total Time (minutes):
-        <input type="number" id="input2" onChange={event => setTime(event.target.value)} ></input>
+      <div className='flex justify-center py-5'>
+      <h3 class='text-2xl text-sky-500 hover:text-orange-500 font-bold'>Calories Burned</h3>
+      </div>
 
-        <button type="button" onClick={(event) => requestHandler(event, clearFields())}>Burn!</button>
-      </form>
+      <svg class="flex-shrink-0"></svg>
+
+
+
+      <form class='mb-0 space-y-6'>
+        <div>
+          <label class='block text-sm font-medium text-sky-500 hover:text-orange-500'>Select Date</label>
+          <input
+            type="date"
+            id="cb-date"
+            name="cb-date"
+            class='w-full border border-sky-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 hover:border-blue-700'
+            value={date}
+            onChange={(event) => selectDate(event.target.value)}
+          >
+          </input>
+        </div>
+
+        <div>
+          <label class='block text-sm font-medium text-sky-500 hover:text-orange-500'>Current Weight (lbs)</label>
+
+          <input type="number" id="input1" class='w-full border border-sky-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 hover:border-blue-700' onChange={event => setWeight(event.target.value)}></input>
+        </div>
+
+        <div>
+          <label class='block text-sm font-medium text-sky-500 hover:text-orange-500'>Total Time (minutes)</label>
+          <input type="number" id="input2" class='w-full border border-sky-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 hover:border-blue-700' onChange={event => setTime(event.target.value)} ></input>
+        </div>
+
       <div className="txt-table">
         <div className="txt-data">Date: {date}</div>
         <div className="txt-data">Current Weight: {weight}</div>
         <div className="txt-data">Total Time: {time}</div>
         <div className="txt-data">Calories Burned: {burned}</div>
       </div>
-      <div>
-        <button type="button" onClick={(event) => deleteEntry(event)} >Delete</button>
+      <div class='flex justify-evenly'>
+      <button type="button" class='w-full border border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 active:text-white' onClick={(event) => requestHandler(event, clearFields())}>Burn!</button>
+        <button type="button" class='w-full border border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 active:text-white' onClick={(event) => deleteEntry(event)} >Delete</button>
+      </div>
+      </form>
       </div>
     </div>
   )

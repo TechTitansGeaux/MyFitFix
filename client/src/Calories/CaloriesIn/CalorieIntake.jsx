@@ -115,6 +115,7 @@ function CalorieIntake() {
 
   return (
     <div>
+      <br></br>
       <h2>Meal Tracker:
         <input
           type="date"
@@ -128,6 +129,7 @@ function CalorieIntake() {
       </h2>
       <form>
         Weight(g):<input id='foodWeight' type='number' onChange={e => setWeight(e.target.value)}></input>
+        <br></br>
         Product:<input id='foodProduct' type='text' onChange={e => setProduct(e.target.value)}></input>
         <button type='button' onClick={() => {
           handleApiRequest()
