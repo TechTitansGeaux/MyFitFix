@@ -3,6 +3,8 @@ import axios from 'axios';
 import moment from 'moment';
 // import StevenHe from 'youtube';
 
+// let burnedCalories = 0;
+
 function CaloriesBurned() {
 
   //Set state with React hooks
@@ -23,7 +25,7 @@ function CaloriesBurned() {
       params: { activity: 'lifting', weight: `${weight}`, duration: `${time}` }
     })
       .then((response) => {
-
+        // burnedCalories = response.data.total_calories;
         axios.post('/cb/caloriesBurned', {
           date: date,
           activity: 'lifting',
@@ -43,11 +45,36 @@ function CaloriesBurned() {
       })
   }
 
-  //function to handled function on clicking "Burn!" button
-  const onClickFunctions = () => {
-    requestHandler();
-    clearFields()
+
+
+
+  
+  //Axios requests to the server. After information is received from API, it posts it to the DB
+  const updateHandler = () => {
+    axios.get('/cb/caloriesBurned', {
+      params: { activity: 'lifting', weight: `${weight}`, duration: `${time}` }
+    })
+      .then((response) => {
+        // burnedCalories = response.data.total_calories;
+        axios.put('/cb/caloriesBurned', {
+          date: date,
+          activity: 'lifting',
+          weight: `${weight}`,
+          duration: `${time}`,
+          burned: setBurned(response.data.total_calories)
+        })
+          .then((result) => {
+          })
+          .catch((err) => {
+            console.error('WHAT THE HAAAIL YOU SAY?', err);
+          })
+      })
+
+      .catch((err) => {
+        console.log('Unsuccessful GET', err);
+      })
   }
+
 
   //function finds previous entries to view and/or edit.
   const findEntry = () => {
@@ -74,7 +101,7 @@ function CaloriesBurned() {
   }
 
   //update the date view
-  const update = (event) => {
+  const selectDate = (event) => {
     setDate(event);
   }
 
@@ -106,7 +133,7 @@ function CaloriesBurned() {
           id="cb-date"
           name="cb-date"
           value={date}
-          onChange={(event) => update(event.target.value)}
+          onChange={(event) => selectDate(event.target.value)}
         >
         </input>
 
@@ -115,7 +142,8 @@ function CaloriesBurned() {
         Total Time (minutes):
         <input type="number" id="input2" onChange={event => setTime(event.target.value)} ></input>
 
-        <button type="button" onClick={(event) => onClickFunctions(event)}>Burn!</button>
+        <button type="button" onClick={(event) => requestHandler(event, clearFields())}>Burn!</button>
+        <button type="button" onClick={(event) => updateHandler(event, clearFields())}>Update</button>
       </form>
       <div className="txt-table">
         <div className="txt-data">Date: {date}</div>
