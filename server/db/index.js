@@ -4,7 +4,7 @@ const { Schema, model } = mongoose;
 
 const mongoUri = 'mongodb://127.0.0.1:27017/fitflex';
 mongoose.connect(mongoUri)
-  .then(() => console.info(('Connected to database: "fitflex"')))
+  .then(() => console.info(('Connected to database: "fitfix"')))
   .catch((err) => console.error(('Could not connect to database'), err));
 
 const UserSchema = new Schema({
