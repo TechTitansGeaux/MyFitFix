@@ -46,19 +46,18 @@ router.get('/exercise', (req, res) => {
   });
 
   // this allows you to get a specific workout entry from a specific date
-  router.get('/workouts/date', (req, res) => {
-    //console.log(req, 'routes, hi');
-    const { date } = req.params
-    Workout.findOne({date})
+  router.get('/workouts/:date', (req, res) => {
+    const { date } = req.params;
+    const { _id } = req.user;
+    Workout.find({ date: date, user: _id })
     .then((workoutObj) => {
-      //console.log("retrieved from db:", workoutObj);
-      res.status(200).send(workoutObj)
+      res.status(200).send(workoutObj);
     })
     .catch((err)=>{
-      //console.error("failed to retrieve from db:", err)
+      console.error("failed to retrieve from db:", err);
       res.sendStatus(500);
     })
-    })
+  })
 
   router.put('/update', (req, res) => {
     // console.log(req.body);
