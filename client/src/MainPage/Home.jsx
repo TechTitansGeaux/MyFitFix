@@ -8,12 +8,20 @@ function Home() {
   const navigate = useNavigate();
   const [name, setName] = useState(''); 
   const [image, setImage] = useState(''); 
+  const [caloriesBurned, setcaloriesBurned] = useState('');
 
 
-  useEffect(() => { // Implementing useEffect to send a GET request to retrieve the current signed-in user's name 
+  useEffect(() => { 
+
+    // Implementing useEffect to send a GET request to retrieve the current signed-in user's name 
     axios.get('/dashboard/name')
     .then(({ data }) => {setName(data.name); setImage(data.thumbnail);})
     .catch((err) => {console.err(err)});
+    // Implementing useEffect to send a GET request to retrieve the current signed-in user's total calories burned
+    // axios.get('/dashboard/name')
+    // .then(({ data }) => {setcaloriesBurned(data)})
+    // .catch((err) => {console.err(err)});
+
   })
 
 
@@ -58,7 +66,7 @@ function Home() {
       {/* Start of List Items */}
       <div class="xl:mt-6 flex flex-col justify-start items-start px-4 w-full space-y-3 pb-5">
         {/* Dashboard List Item */}
-        <button class="focus:outline-none flex dark:text-white jusitfy-start hover:text-white focus:bg-sky-500 focus:text-white hover:bg-sky-500 text-gray-600 rounded py-3 pl-4 items-center space-x-6 w-full">
+        <button class="focus:outline-none flex dark:text-white jusitfy-start hover:text-white focus:bg-sky-500 focus:text-white hover:bg-sky-500 text-gray-600 rounded py-3 pl-4 items-center space-x-6 w-full"  onClick={() => navigate('/home')}>
           <svg class="fill-stroke" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M9 4H5C4.44772 4 4 4.44772 4 5V9C4 9.55228 4.44772 10 5 10H9C9.55228 10 10 9.55228 10 9V5C10 4.44772 9.55228 4 9 4Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
             <path d="M19 4H15C14.4477 4 14 4.44772 14 5V9C14 9.55228 14.4477 10 15 10H19C19.5523 10 20 9.55228 20 9V5C20 4.44772 19.5523 4 19 4Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -69,7 +77,7 @@ function Home() {
         </button>
 
            {/* Calorie Tracker List Item */}
-        <button class="focus:outline-none flex dark:text-white jusitfy-start hover:text-white focus:bg-sky-500 focus:text-white hover:bg-sky-500 text-gray-600 rounded py-3 pl-4 items-center w-full space-x-6">
+        <button class="focus:outline-none flex dark:text-white jusitfy-start hover:text-white focus:bg-sky-500 focus:text-white hover:bg-sky-500 text-gray-600 rounded py-3 pl-4 items-center w-full space-x-6" onClick={() => navigate('/tracker')}>
           <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
           <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M112 320c0-93 124-165 96-272 66 0 192 96 192 272a144 144 0 0 1-288 0z"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M320 368c0 57.71-32 80-64 80s-64-22.29-64-80 40-86 32-128c42 0 96 70.29 96 128z"/>
           </svg>
@@ -77,7 +85,7 @@ function Home() {
         </button>
 
          {/* Workout Plan List Item */}
-        <button class="focus:outline-none dark:text-white flex justify-start items-center space-x-6 hover:text-white focus:bg-sky-500 focus:text-white hover:bg-sky-500 text-gray-600 rounded py-3 pl-4 w-full">
+        <button class="focus:outline-none dark:text-white flex justify-start items-center space-x-6 hover:text-white focus:bg-sky-500 focus:text-white hover:bg-sky-500 text-gray-600 rounded py-3 pl-4 w-full" onClick={() => navigate('/workout-planner')}>
         <svg width="24" height="24" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M48 256h416"/><rect width="32" height="256" x="384" y="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" rx="16" ry="16"/><rect width="32" height="256" x="96" y="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" rx="16" ry="16"/><rect width="16" height="128" x="32" y="192" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" rx="8" ry="8"/><rect width="16" height="128" x="464" y="192" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" rx="8" ry="8"/>
         </svg>
@@ -85,16 +93,28 @@ function Home() {
         </button>
 
         {/* Journal List Item */}
-        <button class="flex dark:text-white justify-start items-center space-x-6 hover:text-white focus:outline-none focus:bg-sky-500 focus:text-white hover:bg-sky-500 text-gray-600 rounded py-3 pl-4 w-full">
+        <button class="flex dark:text-white justify-start items-center space-x-6 hover:text-white focus:outline-none focus:bg-sky-500 focus:text-white hover:bg-sky-500 text-gray-600 rounded py-3 pl-4 w-full" onClick={() => navigate('/journal-entry')}>
           <svg  width="24" height="24" xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
           <rect width="320" height="416" x="96" y="48" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32" rx="48" ry="48"/><path fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="60" d="M320 48v416"/>
           </svg>
           <p class="text-base leading-4">Journal</p>
         </button>
-      </div>
+
+         {/* Divider */}
       <div class="w-full px-4">
         <hr class="border-gray-100 dark:border-gray-700  w-full" />
       </div>
+          {/* Sign-out */}
+    <button class="flex dark:text-white justify-start items-center space-x-6 hover:text-white focus:outline-none focus:bg-sky-500 focus:text-white hover:bg-sky-500 text-gray-600 rounded py-3 pl-4 w-full" onClick={() => navigate('/')}>
+        <svg  width="24" height="24" xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
+        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M304 336v40a40 40 0 0 1-40 40H104a40 40 0 0 1-40-40V136a40 40 0 0 1 40-40h152c22.09 0 48 17.91 48 40v40m64 160 80-80-80-80m-192 80h256"/>
+        </svg>
+          <p class="text-base leading-4">Sign-Out</p>
+        </button>
+      </div>
+
+
+
     </div>
 
 
@@ -108,9 +128,18 @@ function Home() {
       {/* CALORIE TRACKER */}
         <div class="max-w-sm rounded overflow-hidden shadow-lg row-span-2">
           <div class="px-6 py-4">
-            <div class="font-bold text-xl mb-2">Track Your Calories</div>
+            <div class="font-bold text-xl mb-2">Calorie Intake</div>
             <p class="text-gray-700 text-base">
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
+            </p>
+          </div>
+        </div>
+         {/* CALORIES BURNED */}
+         <div class="max-w-sm rounded overflow-hidden shadow-lg row-span-2">
+          <div class="px-6 py-4">
+            <div class="font-bold text-xl mb-2">Calories Burned</div>
+            <p class="text-gray-700 text-base">
+              {/* Today, you have burned: {calories} calories */}
             </p>
           </div>
         </div>
