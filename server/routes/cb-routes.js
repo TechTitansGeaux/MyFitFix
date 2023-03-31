@@ -23,8 +23,8 @@ router.get('/caloriesBurned', (req, res) => {
 
   axios.request(options)
     .then(function (response) {
-      burn = response.data[1].total_calories;
-      res.status(200).send(response.data[1]);
+      burn = response.data[0].total_calories;
+      res.status(200).send(response.data[0]);
     })
     .catch(function (error) {
       console.error("EMOTIONAL DAAAAMAGE");
