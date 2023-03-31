@@ -28,13 +28,25 @@ router.get('/food', (req, res) => {
 router.post('/food', (req, res) => {
   const { foodList, date } = req.body;
   const { _id } = req.user;
-  const newCalorie = new CaloriesIn({
-    foodList: foodList,
-    date: date,
-    user: _id
-  });
-  newCalorie.save();
-  res.sendStatus(201);
+  CaloriesIn.findOneAndUpdate({ user: _id, date: date }, { foodList: foodList })
+    .then((document) => {
+      if (document) {
+        res.sendStatus(200);
+      } else {
+        CaloriesIn.create({ foodList: foodList, user: _id, date: date });
+      }
+    })
+    .catch((err) => {
+      console.err('Failed to POST to db', err);
+      res.sendStatus(500);
+    })
+  // const newCalorie = new CaloriesIn({
+  //   foodList: foodList,
+  //   date: date,
+  //   user: _id
+  // });
+  // newCalorie.save();
+  // res.sendStatus(201);
 })
 
 //Handler to fetch the foodList from the db
@@ -52,22 +64,20 @@ router.get('/product', (req, res) => {
 })
 
 //Handler to update a document in the CaloriesIn collection by date
-router.put('/food/:date', (req, res) => {
-  const { foodList } = req.body;
+router.delete('/food/:date', (req, res) => {
   const { date } = req.params;
+  const { _id } = req.user;
 
-  CaloriesIn.findOne({ date: date })
+  CaloriesIn.findOneAndRemove({ user: _id, date: date })
     .then(entry => {
       if (entry) {
-        entry.foodList = foodList
-        entry.save();
         res.sendStatus(200);
       } else {
         res.sendStatus(404);
       }
     })
     .catch(err => {
-      console.error('Failed to update db:', err);
+      console.error('Failed to delete from db:', err);
       res.sendStatus(500);
     })
 })

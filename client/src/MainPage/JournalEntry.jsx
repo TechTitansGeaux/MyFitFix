@@ -82,9 +82,10 @@ function JournalEntry () {
     return (
         <div>
     <h1>Write Your Journal Entry Here</h1>
+
  <div className="home-button">
-        <button id="goHome-btn" onClick={() =>  navigate('/home')}>Back to Dashboard</button>
-        <button id="delete-btn" onClick={() => {deleteEntry(); setEntryBox('')}}>Delete Entry</button>
+        <button class="goHome-btn" onClick={() =>  navigate('/home')}>Back to Dashboard</button>
+        <button class="delete-btn" onClick={() => {deleteEntry(); setEntryBox('')}}>Delete Entry</button>
       </div>
       <br></br>
     <label htmlFor="start">Journal Entry Date:</label>
@@ -101,7 +102,7 @@ function JournalEntry () {
               <label htmlFor="multiLineInput">
                 <textarea rows="30" 
                 cols="80" 
-                id="multiLineInput" 
+                class="multiLineInput" 
                 name="entryBox"
                 value={entryBox}
                 onChange={(e) => {setEntry(e.target.value); setEntryBox(e.target.value);}}

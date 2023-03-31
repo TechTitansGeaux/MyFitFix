@@ -9,16 +9,20 @@ function CalorieTable() {
 
   return (
     <div>
-      <h1>Calorie Tracker</h1>
       <button onClick={() => navigate('/home')}>Back to Dashboard</button>
-      <div>
-        <CalorieIntake />
-      </div>
-      <h1>Calories Burned</h1>
-      <div>
-        <CaloriesBurned />
+
+      <div className="pt-4 flex justify-around">
+
+        <div>
+          <CalorieIntake />
+        </div>
+
+        <div>
+          <CaloriesBurned />
+        </div>
       </div>
     </div>
+
   )
 }
 

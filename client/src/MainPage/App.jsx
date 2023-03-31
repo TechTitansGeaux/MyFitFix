@@ -6,6 +6,7 @@ import JournalEntry from './JournalEntry.jsx';
 import CalorieTable from '../Calories/CalorieTable.jsx';
 import WorkoutPlanner from '../WorkoutPage/WorkoutPlan.jsx';
 
+
 function App() {
   return (
     <Routes>

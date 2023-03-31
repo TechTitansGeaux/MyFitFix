@@ -23,8 +23,8 @@ router.get('/caloriesBurned', (req, res) => {
 
   axios.request(options)
     .then(function (response) {
-      burn = response.data[1].total_calories;
-      res.status(200).send(response.data[1]);
+      burn = response.data[0].total_calories;
+      res.status(200).send(response.data[0]);
     })
     .catch(function (error) {
       console.error("EMOTIONAL DAAAAMAGE");
@@ -81,9 +81,8 @@ router.delete('/caloriesBurned/:date', (req, res) => {
 
   CaloriesBurned.deleteOne({ date: date, user: _id })
     .then(({ deletedCount }) => {
-      console.log({ deletedCount })
       if (deletedCount) {
-        res.status(200).send({ deletedCount });
+        res.sendStatus(200);
       } else {
         res.sendStatus(404);
       }

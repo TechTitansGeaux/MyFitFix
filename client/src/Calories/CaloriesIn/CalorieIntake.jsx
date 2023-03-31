@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import FoodList from './FoodList';
 import moment from 'moment';
 
 function CalorieIntake() {
@@ -54,6 +53,7 @@ function CalorieIntake() {
   }
 
   //Saves the current date's nutrition chart using a POST request, then requests from the db the foodList array and states the food state to be that value
+  // Also updates as well
   const handleDBSave = () => {
     alert(`Successfully saved`);
     axios.post('nutrition/food', { foodList: food, date: date })
@@ -63,11 +63,12 @@ function CalorieIntake() {
       });
   }
 
-  //Updates the selected date's nutrition chart
-  const handleDBUpdate = () => {
-    axios.put(`nutrition/food/${date}`, { foodList: food })
+  //Deletes the selected date's nutrition chart
+  const handleDBDelete = () => {
+    axios.delete(`nutrition/food/${date}`, { foodList: food })
       .then(() => {
-        alert(`Successfully updated you table`)
+        getAllFoodItems();
+        alert(`Successfully deleted you table`)
       })
       .catch((err) => {
         console.error('Failed to send request', err);
@@ -79,20 +80,10 @@ function CalorieIntake() {
     setDate(newDate);
   }
 
-  const handleDeleteOneEntry = (name) => {
-    setFood((food) => {
-      return food.filter((item) => item.name !== name)
-    });
-  }
-
-  // const handleDeletingFromDB = () => {
-  //   axios.delete(`nutrition/food/${date}`)
-  //     .then(() => {
-
-  //     })
-  //     .catch(() => {
-
-  //     });
+  // const handleDeleteEntry = (name) => {
+  //   setFood((food) => {
+  //     return food.filter((item) => item.name !== name)
+  //   });
   // }
 
   //Set to clear out the fields and reset the state when the submit button is pressed
@@ -114,39 +105,61 @@ function CalorieIntake() {
   }, [food]);
 
   return (
-    <div>
-      <h2>Meal Tracker:
+    <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+      <div className="bg-gradient-to-t from-sky-600 from-10% via-sky-400 to-sky-50 to-40% py-8 px-6 shadow rounded-lg sm:px-10 drop-shadow-md ml-4">
+        <h1 className="block text-sm font-medium text-sky-500">Meal Tracker</h1>
+        <svg className="flex-shrink-0"></svg>
         <input
           type="date"
           id="caloriesIn"
           name="caloriesInDate"
           value={date}
+          className="w-full border border-sky-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 hover:border-blue-700 text-center"
           onChange={(e) => {
             handleDateChange(e.target.value);
           }}
         ></input>
-      </h2>
-      <form>
-        Weight(g):<input id='foodWeight' type='number' onChange={e => setWeight(e.target.value)}></input>
-        Product:<input id='foodProduct' type='text' onChange={e => setProduct(e.target.value)}></input>
-        <button type='button' onClick={() => {
-          handleApiRequest()
-          clearFields();
-        }}>Submit</button>
-      </form>
-      <div className='txt-table' onChange={() => setTotalCal()}>
-        <div className='txt-data'>Product</div>
-        <div className='txt-data'>Weight(g)</div>
-        <div className='txt-data'>Calories</div>
-        {food.map((item) => <FoodList item={item} key={`${item.name}`} handleDeleteOneEntry={handleDeleteOneEntry} />)}
-      </div>
-      <div>
-        <br></br>
-        <button type='button' onClick={() => handleDBSave()}>Save</button>
-        <button type='button' onClick={() => handleDBUpdate()}>Update</button>
-        <h3>Total Calories: {total}</h3>
-      </div>
-    </div >
+        <form>
+          <div className="pt-3">
+            <label for="Measurement" className="block text-md font-medium">Product Weight (g):</label>
+            <input id='foodWeight' className="w-full border border-sky-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 hover:border-blue-700 text-center" type='number' onChange={e => setWeight(e.target.value)}></input>
+          </div>
+          <div className="pt-3">
+            <label for="Ingredient" className="block text-md font-medium">Ingredient:</label>
+            <input id='foodProduct' className="w-full border border-sky-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 hover:border-blue-700 text-center" type='text' onChange={e => setProduct(e.target.value)}></input>
+            <button className="drop-shadow-md ml-2 border-2 w-20 bg-gray-300" type='button' onClick={() => {
+              handleApiRequest()
+              clearFields();
+            }}>Submit</button>
+          </div>
+        </form>
+        <div className="bg-white py-8 px-6 shadow-lg rounded-lg sm:px-10 border border-sky-300" onChange={() => setTotalCal()}>
+          <div className="flex items-center">
+            <div>
+              <div className='pr-10 font-medium'>Product</div>
+              {food.map(item => <div className="pl-3">{item.name}</div>)}
+            </div>
+            <div>
+              <div className='pr-10 font-medium'>Weight(g)</div>
+              {food.map(item => <div className="pl-5">{item.serving_size_g}</div>)}
+            </div>
+            <div>
+              <div className='font-medium'>Calories</div>
+              {food.map(item => <div className="pl-2">{item.calories}</div>)}
+            </div>
+          </div>
+          <br></br>
+          <h3 className="font-bold text-md shadow-lg rounded-lg border border-black">Total Calories: {total}</h3>
+        </div>
+        <div>
+          <div class='flex justify-evenly pt-4'>
+            <br></br>
+            <button type='button' className="w-full border border-sky-300 rounded-md shadow-lg hover:bg-orange-500 active:bg-orange-900 active:text-white bg-white" onClick={() => handleDBSave()}>Save</button>
+            <button type='button' className="w-full border border-sky-300 rounded-md shadow-lg hover:bg-orange-500 active:bg-orange-900 active:text-white bg-white" onClick={() => handleDBDelete()}>Delete</button>
+          </div>
+        </div>
+      </div >
+    </div>
   )
 }
 
