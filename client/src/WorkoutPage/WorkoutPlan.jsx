@@ -4,6 +4,7 @@ import axios from "axios";
 import moment from 'moment';
 import SearchEntry from './SearchEntry.jsx';
 import PastWorkoutEntry from './PastWorkoutEntry';
+import '../style.css';
 
 
 
@@ -59,16 +60,46 @@ const handleWorkoutState = (name) => [
   })
 ]
 
+//  <h2 align='left'>Search for Exercises</h2>
+//       <div className="search-input">
+//         <form>
+//           <input type="text" placeholder="biceps" onChange={e => {setMuscle(e.target.value)}}/>
+//           <button type="button" onClick={(e) => handleSearch(e)}>Search</button>
+//         </form>
+//       </div>
+//       <div className='exerciseSearch'>
+//         {exerciseResults.map(exercise => <SearchEntry exercise={exercise} key={exercise.name} handleWorkoutState={handleWorkoutState} />)}
+//       </div> 
+
+// line 97 thru 100
+{/* <h3 align='center'> Today's Workout</h3>
+<div align='center'className='workout'>
+   <WorkoutList workout={workout} setWorkout={setWorkout}/>
+</div> */}
 
 
   return (
-    <div>
-      <h1 align='center'>Plan Your Workout</h1>
-      <h2 align='right'> Today's Workout</h2>
-      <div align='right'className='workout'>
-        <WorkoutList workout={workout} setWorkout={setWorkout}/>
-      </div>
-      <h3 align='right'> Search Workout by Date </h3>
+<div>
+  <h1 align='center'>Plan Your Workout</h1>
+        <div align='center'className='workout'>
+            <WorkoutList workout={workout} setWorkout={setWorkout}/>
+        </div>
+    <div class="max-w-sm rounded overflow-hidden shadow-lg">
+       <div class="px-6 py-4">
+        <h2 class="font-bold text-xl mb-2" align='left'>Search for Exercises</h2>
+          <div className="search-input">
+            <form>
+                <input type="text" placeholder="biceps" onChange={e => {setMuscle(e.target.value)}}/>
+                  <button type="button" onClick={(e) => handleSearch(e)}>Search</button>
+            </form>
+           </div>
+        </div>
+    </div>
+      <div className='exerciseSearch'>
+       {exerciseResults.map(exercise => <SearchEntry exercise={exercise} key={exercise.name} handleWorkoutState={handleWorkoutState} />)}
+     </div>
+
+    <h4 align='right'> Search Workout by Date </h4>
       <div align= 'right' className='search-past-workouts'>
         <input
               type="date"
@@ -78,23 +109,15 @@ const handleWorkoutState = (name) => [
               onChange={(e) => {
                   setPastDate(e.target.value);
               }}
-        ></input>
-        <button type="button" onClick={() => getPastWorkout()} >Search For Workout</button>
-        <button type="button" onClick={() => deletePastWorkout()} >Delete Workout</button>
+         ></input>
+      <button type="button" onClick={() => getPastWorkout()} >Search For Workout</button>
+      <button type="button" onClick={() => deletePastWorkout()} >Delete Workout</button>
         { pastWorkout.map(workout => <PastWorkoutEntry workout={workout} key={workout.name} />)}
-      </div>
-      <h4 align='left'>Search for Exercises</h4>
-      <div className="search-input">
-        <form>
-          <input type="text" placeholder="biceps" onChange={e => {setMuscle(e.target.value)}}/>
-          <button type="button" onClick={(e) => handleSearch(e)}>Search</button>
-        </form>
-      </div>
-      <div className='exerciseSearch'>
-        {exerciseResults.map(exercise => <SearchEntry exercise={exercise} key={exercise.name} handleWorkoutState={handleWorkoutState} />)}
-      </div>
     </div>
+</div>
   )
 }
 
 export default WorkoutPlan;
+
+
