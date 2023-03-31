@@ -15,9 +15,9 @@ const [exerciseResults, setExerciseResults] = useState([]);
 const [pastDate, setPastDate] = useState(moment().format("YYYY-MM-DD"))
 const [pastWorkout, setPastWorkout] = useState([]);
 
-const findPastDate = (newDate) => {
-  setPastDate(newDate);
-}
+// const findPastDate = (newDate) => {
+//   setPastDate(newDate);
+// }
 
 const handleSearch = (e) => {
   axios.get('/workout/exercise', { params: {muscle: `${muscle}`} })
