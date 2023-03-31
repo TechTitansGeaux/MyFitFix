@@ -1,3 +1,4 @@
+require('dotenv').config
 const router = require('express').Router();
 const axios = require('axios');
 const { Workout } = require('../db/index.js');
@@ -6,11 +7,10 @@ router.get('/exercise', (req, res) => {
  const { muscle } = req.query;
     const options = {
       method: 'GET',
-      url: 'https://exercises-by-api-ninjas.p.rapidapi.com/v1/exercises',
+      url: 'https://api.api-ninjas.com/v1/exercises',
       params: {muscle: muscle},
       headers: {
-        'X-RapidAPI-Key': '6a0b1c8aa1msh39014e152c65916p14ced2jsn51e6c32bd8f2',
-        'X-RapidAPI-Host': 'exercises-by-api-ninjas.p.rapidapi.com'
+        'X-Api-Key': process.env.workoutKey
       }
     };
     axios.request(options)
@@ -36,11 +36,11 @@ router.get('/exercise', (req, res) => {
       user: _id
     }).save()
     .then((dataArr) => {
-      //console.log("saved to db:", dataArr);
+      console.log("saved to db:", dataArr);
       res.sendStatus(201);
     })
     .catch((err)=>{
-      //console.error("failed to save to db:", err)
+      console.error("failed to save to db:", err)
       res.sendStatus(500);
     })
   });
