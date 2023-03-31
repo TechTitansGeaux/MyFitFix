@@ -36,11 +36,11 @@ router.get('/exercise', (req, res) => {
       user: _id
     }).save()
     .then((dataArr) => {
-      //console.log("saved to db:", dataArr);
+      console.log("saved to db:", dataArr);
       res.sendStatus(201);
     })
     .catch((err)=>{
-      //console.error("failed to save to db:", err)
+      console.error("failed to save to db:", err)
       res.sendStatus(500);
     })
   });
