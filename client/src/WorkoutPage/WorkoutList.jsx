@@ -6,7 +6,7 @@ import moment from 'moment';
 
 
 
-function WorkoutList({ workout }){
+function WorkoutList({ workout, setWorkout }){
 
   const [currDate, setCurrDate] = useState(moment().format("YYYY-MM-DD"));
   const [currWOList, setCurrWOList] = useState([]);
@@ -48,36 +48,14 @@ const handleEntrySave = () => {
     workoutArr: currWOList,
     currDate: currDate
   })
-.then(() =>{
-  
-})
-.catch((err) => {
-  console.error('failed to post workouts', err);
-})
+  .then(() =>{
+    setWorkout([]);
+    setCurrWOList([]);
+  })
+  .catch((err) => {
+    console.error('failed to post workouts', err);
+  })
 }
-
-// drop down for selecting a certain exercise
-{/* <select>
-  <option>-Choose an Exercise-</option>
-  { exercises.map((exercise, index) => {
-  return <option onChange={(e) => {handleChange(e)}} value={exercise.name} exercise={exercise} key={index}>{exercise.name}</option>
-})}
-</select> */}
-
-// drop down for selecting a certain set
-{/* <select>
-      <option> SETS </option>
-    {sets.map((set, index) => {
-      return <option set={set} key={index}>{set}</option>
-    })}
-    </select>
-    <select>
-      <option> REPS </option>
-    {reps.map((rep, index) => {
-      return <option rep={rep} key={index}>{rep}</option>
-    })}
-    </select> */}
-
 
 return(
   <div className="exercise-dropdown">

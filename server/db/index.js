@@ -4,7 +4,7 @@ const { Schema, model } = mongoose;
 
 const mongoUri = 'mongodb://127.0.0.1:27017/fitflex';
 mongoose.connect(mongoUri)
-  .then(() => console.info(('Connected to database: "fitflex"')))
+  .then(() => console.info(('Connected to database: "fitfix"')))
   .catch((err) => console.error(('Could not connect to database'), err));
 
 const UserSchema = new Schema({
@@ -17,7 +17,7 @@ const UserSchema = new Schema({
 const DailyEntrySchema = new Schema({
   caloriesIn: { type: mongoose.Schema.Types.ObjectId, ref: 'CaloriesIn' },
   caloriesBurned: { type: mongoose.Schema.Types.ObjectId, ref: 'CaloriesBurned' },
-  journal: { type: mongoose.Schema.Types.ObjectId, ref: 'Journal' },
+  journal: String,
   date: { type: Date, unique: true, required: true }
 });
 
@@ -32,18 +32,22 @@ const CaloriesBurnedSchema = new Schema({
   currentWeight: Number,
   duration: Number,
   caloriesBurned: Number,
+<<<<<<< HEAD
+  date: { type: Date, unique: true, required: true },
+=======
   date: { type: String, required: true },
+>>>>>>> 0044ad25c488bd7dbab06d8809f8ea03c53c794a
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 });
 
+
 const WorkoutEntrySchema = new Schema({
-  exercise: { type: Array, unique: true },
-  date: { type: String, unique: true, required: true },
-  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+exercise: {type: Array, unique: true },
+date: String,
+user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
 })
 
 const JournalEntrySchema = new Schema({
-  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   entry: String,
   date:  {type: Date, unique: false} 
 });
