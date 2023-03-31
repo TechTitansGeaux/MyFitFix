@@ -8,7 +8,6 @@ router.post('/', (req, res) => {
     const { _id } = req.user
     Journal.findOneAndUpdate({ user: _id, date: date }, { entry: entry })
         .then((entryBody) => {
-            console.log(entryBody);
             // If this journal entry already exists in the database, just update the entry
             if (entryBody) {
                 res.sendStatus(200);
