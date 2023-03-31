@@ -6,8 +6,6 @@ const { Journal } = require('../db/index.js');
 router.post('/', (req, res) => {
     const {entry, date} = req.body;
     const { _id } = req.user
-    console.log(req);
-
     Journal.findOneAndUpdate({user: _id, date: date}, {entry: entry})
         .then((entryBody) => {
     // If this journal entry already exists in the database, just update the entry 
