@@ -39,23 +39,16 @@ router.post('/caloriesBurned', (req, res) => {
   const { activity, weight, duration, date } = req.body;
   const { _id } = req.user;
 
-  CaloriesBurned.replaceOne({ date: date }, {
+  const newCB = new CaloriesBurned({
     activity: activity,
     currentWeight: weight,
     duration: duration,
     caloriesBurned: burn,
     date: date,
     user: _id,
-  },
-    { upsert: true })
-    .then(() => {
-      console.log('Yay, we POSTed');
-      res.sendStatus(201);
-    })
-    .catch((err) => {
-      console.log('Sound like Unemplooyyment', err);
-      res.sendStatus(500);
-    })
+  });
+  newCB.save();
+  res.sendStatus(201);
 })
 
 
@@ -75,6 +68,29 @@ router.get('/caloriesBurned/:date', (req, res) => {
 })
 
 
+router.put('/caloriesBurned', (req, res) => {
+  const { activity, weight, duration, date } = req.body;
+  const { _id } = req.user;
+
+  CaloriesBurned.replaceOne({ date: date, user: _id }, {
+    activity: activity,
+    currentWeight: weight,
+    duration: duration,
+    caloriesBurned: burn,
+    date: date,
+    user: _id,
+  },
+    { upsert: true })
+    .then(() => {
+      res.sendStatus(201);
+    })
+    .catch((err) => {
+      console.log('Sound like Unemplooyyment', err);
+      res.sendStatus(500);
+    })
+})
+
+
 //DELETE entry from DB
 router.delete('/caloriesBurned/:date', (req, res) => {
   const { date } = req.params;
@@ -86,7 +102,6 @@ router.delete('/caloriesBurned/:date', (req, res) => {
       if (deletedCount) {
         res.status(200).send({ deletedCount });
       } else {
-        console.log('404')
         res.sendStatus(404);
       }
     })
