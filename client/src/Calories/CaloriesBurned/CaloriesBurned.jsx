@@ -3,7 +3,6 @@ import axios from 'axios';
 import moment from 'moment';
 // import StevenHe from 'youtube';
 
-// let burnedCalories = 0;
 
 function CaloriesBurned() {
 
@@ -19,7 +18,8 @@ function CaloriesBurned() {
     document.getElementById("input2").value = '';
   }
 
-  //Axios requests to the server. After information is received from API, it posts it to the DB
+  //Axios requests to the server. After information is received from API, it posts it to the DB.
+  //This will also handle updating entries after they have been made
   const requestHandler = () => {
     axios.get('/cb/caloriesBurned', {
       params: { activity: 'lifting', weight: `${weight}`, duration: `${time}` }
@@ -27,36 +27,6 @@ function CaloriesBurned() {
       .then((response) => {
         // burnedCalories = response.data.total_calories;
         axios.post('/cb/caloriesBurned', {
-          date: date,
-          activity: 'lifting',
-          weight: `${weight}`,
-          duration: `${time}`,
-          burned: setBurned(response.data.total_calories)
-        })
-          .then((result) => {
-          })
-          .catch((err) => {
-            console.error('WHAT THE HAAAIL YOU SAY?', err);
-          })
-      })
-
-      .catch((err) => {
-        console.log('Unsuccessful GET', err);
-      })
-  }
-
-
-
-
-  
-  //Axios requests to the server. After information is received from API, it posts it to the DB
-  const updateHandler = () => {
-    axios.get('/cb/caloriesBurned', {
-      params: { activity: 'lifting', weight: `${weight}`, duration: `${time}` }
-    })
-      .then((response) => {
-        // burnedCalories = response.data.total_calories;
-        axios.put('/cb/caloriesBurned', {
           date: date,
           activity: 'lifting',
           weight: `${weight}`,
@@ -99,7 +69,8 @@ function CaloriesBurned() {
         console.log('Smell like Failure', err);
       })
   }
-
+  
+//////////////////////
   //update the date view
   const selectDate = (event) => {
     setDate(event);
@@ -108,7 +79,7 @@ function CaloriesBurned() {
   useEffect(() => {
     findEntry()
   }, [date])
-
+/////////////////////
 
   //DELETE entry from DB
   const deleteEntry = () => {
@@ -143,7 +114,6 @@ function CaloriesBurned() {
         <input type="number" id="input2" onChange={event => setTime(event.target.value)} ></input>
 
         <button type="button" onClick={(event) => requestHandler(event, clearFields())}>Burn!</button>
-        <button type="button" onClick={(event) => updateHandler(event, clearFields())}>Update</button>
       </form>
       <div className="txt-table">
         <div className="txt-data">Date: {date}</div>
