@@ -39,22 +39,16 @@ router.post('/caloriesBurned', (req, res) => {
   const { activity, weight, duration, date } = req.body;
   const { _id } = req.user;
 
-  CaloriesBurned.replaceOne({ date: date, user: _id }, {
+  const newCB = new CaloriesBurned({
     activity: activity,
     currentWeight: weight,
     duration: duration,
     caloriesBurned: burn,
     date: date,
     user: _id,
-  },
-    { upsert: true })
-    .then(() => {
-      res.sendStatus(201);
-    })
-    .catch((err) => {
-      console.log('Sound like Unemplooyyment', err);
-      res.sendStatus(500);
-    })
+  });
+  newCB.save();
+  res.sendStatus(201);
 })
 
 
@@ -69,6 +63,29 @@ router.get('/caloriesBurned/:date', (req, res) => {
     })
     .catch((err) => {
       console.log('Failed GET', err);
+      res.sendStatus(500);
+    })
+})
+
+
+router.put('/caloriesBurned', (req, res) => {
+  const { activity, weight, duration, date } = req.body;
+  const { _id } = req.user;
+
+  CaloriesBurned.replaceOne({ date: date, user: _id }, {
+    activity: activity,
+    currentWeight: weight,
+    duration: duration,
+    caloriesBurned: burn,
+    date: date,
+    user: _id,
+  },
+    { upsert: true })
+    .then(() => {
+      res.sendStatus(201);
+    })
+    .catch((err) => {
+      console.log('Sound like Unemplooyyment', err);
       res.sendStatus(500);
     })
 })
