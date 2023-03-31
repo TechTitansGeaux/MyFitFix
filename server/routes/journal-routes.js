@@ -5,8 +5,7 @@ const { Journal } = require('../db/index.js');
 // This will SAVE journal entry on selected date into the database
 router.post('/', (req, res) => {
     const { entry, date } = req.body;
-    const { _id } = req.user;
-
+    const { _id } = req.user
     Journal.findOneAndUpdate({ user: _id, date: date }, { entry: entry })
         .then((entryBody) => {
             console.log(entryBody);

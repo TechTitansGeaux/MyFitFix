@@ -32,7 +32,7 @@ const CaloriesBurnedSchema = new Schema({
   currentWeight: Number,
   duration: Number,
   caloriesBurned: Number,
-  date: { type: String, unique: true, required: true },
+  date: { type: String, required: true },
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 });
 
@@ -45,7 +45,7 @@ const WorkoutEntrySchema = new Schema({
 const JournalEntrySchema = new Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   entry: String,
-  date: { type: Date, unique: true }
+  date:  {type: Date, unique: false} 
 });
 
 
