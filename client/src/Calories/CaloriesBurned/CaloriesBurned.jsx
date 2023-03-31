@@ -21,28 +21,30 @@ function CaloriesBurned() {
   //Axios requests to the server. After information is received from API, it posts it to the DB.
   //This will also handle updating entries after they have been made
   const requestHandler = () => {
-    axios.get('/cb/caloriesBurned', {
-      params: { activity: 'lifting', weight: `${weight}`, duration: `${time}` }
-    })
-      .then((response) => {
-        // burnedCalories = response.data.total_calories;
-        axios.post('/cb/caloriesBurned', {
-          date: date,
-          activity: 'lifting',
-          weight: `${weight}`,
-          duration: `${time}`,
-          burned: setBurned(response.data.total_calories)
+    if ((weight >= 50 && weight <= 500) && time > 0) {
+      axios.get('/cb/caloriesBurned', {
+        params: { activity: 'lifting', weight: `${weight}`, duration: `${time}` }
+      })
+        .then((response) => {
+          // burnedCalories = response.data.total_calories;
+          axios.post('/cb/caloriesBurned', {
+            date: date,
+            activity: 'lifting',
+            weight: `${weight}`,
+            duration: `${time}`,
+            burned: setBurned(response.data.total_calories)
+          })
+            .then((result) => {
+            })
+            .catch((err) => {
+              console.error('WHAT THE HAAAIL YOU SAY?', err);
+            })
         })
-          .then((result) => {
-          })
-          .catch((err) => {
-            console.error('WHAT THE HAAAIL YOU SAY?', err);
-          })
-      })
+        .catch((err) => {
+          console.log('Unsuccessful GET', err);
+        })
+    }
 
-      .catch((err) => {
-        console.log('Unsuccessful GET', err);
-      })
   }
 
 
@@ -96,33 +98,62 @@ function CaloriesBurned() {
   }
 
   return (
-    <div>
-      <h3>Workout</h3>
-      <form>
-        <input
-          type="date"
-          id="cb-date"
-          name="cb-date"
-          value={date}
-          onChange={(event) => selectDate(event.target.value)}
-        >
-        </input>
+    <div className='mt-8 sm:mx-auto sm:w-full sm:max-w-md '>
+      <div className='bg-gradient-to-t from-sky-600 from-10%  via-sky-400 to-sky-50 to-40% ... py-8 px-6 shadow rounded-lg sm:px-10  drop-shadow-md ml-4 ' >
 
-        Current Weight (lbs):
-        <input type="number" id="input1" onChange={event => setWeight(event.target.value)}></input>
-        Total Time (minutes):
-        <input type="number" id="input2" onChange={event => setTime(event.target.value)} ></input>
-
-        <button type="button" onClick={(event) => requestHandler(event, clearFields())}>Burn!</button>
-      </form>
-      <div className="txt-table">
-        <div className="txt-data">Date: {date}</div>
-        <div className="txt-data">Current Weight: {weight}</div>
-        <div className="txt-data">Total Time: {time}</div>
-        <div className="txt-data">Calories Burned: {burned}</div>
+      <div className='flex justify-center py-5'>
+      <h3 className='text-2xl text-sky-500 hover:text-orange-500 font-bold'>Calories Burned</h3>
       </div>
-      <div>
-        <button type="button" onClick={(event) => deleteEntry(event)} >Delete</button>
+
+      <svg className="flex-shrink-0"></svg>
+
+
+
+      <form className='mb-0 space-y-6'>
+        <div>
+          <label className='block text-sm font-medium text-sky-500 hover:text-orange-500'>Select Date</label>
+          <input
+            type="date"
+            id="cb-date"
+            name="cb-date"
+            className='w-full border border-sky-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 hover:border-blue-700 hover:border-lg'
+            value={date}
+            onChange={(event) => selectDate(event.target.value)}
+          >
+          </input>
+        </div>
+
+        <div>
+          <label className='block text-sm font-medium text-sky-500 hover:text-orange-500'>Current Weight (lbs)</label>
+
+          <input type="number" id="input1" className='w-full border border-sky-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 hover:border-blue-700' onChange={event => setWeight(event.target.value)}></input>
+        </div>
+
+        <div>
+          <label className='block text-sm font-medium text-sky-500 hover:text-orange-500'>Total Time (minutes)</label>
+          <input type="number" id="input2" className='w-full border border-sky-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 hover:border-blue-700' onChange={event => setTime(event.target.value)} ></input>
+        </div>
+
+      <div className="txt-table">
+        <div className="text-md font-bold">Date: {date}</div>
+        <div className="text-md font-bold">Current Weight: {weight}</div>
+        <div className="text-md font-bold">Total Time: {time}</div>
+        <div className="text-md font-bold">Calories Burned: {burned}</div>
+      </div>
+
+      <div className='flex justify-around'>
+
+
+      <button type="button" className='w-full border border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 font-bold active:text-white transform hover:scale-110 px-1' onClick={ (event) => requestHandler(event, clearFields())}>Burn!</button>
+   
+
+
+        <button type="button" className='w-full border border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 font-bold tracking-wider active:text-white transform hover:scale-110 px-1' onClick={(event) => deleteEntry(event)} >Delete</button>
+
+      </div>
+
+
+      </form>
       </div>
     </div>
   )
