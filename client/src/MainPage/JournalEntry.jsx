@@ -204,7 +204,8 @@ function JournalEntry () {
                 name="entryBox"
                 value={entryBox}
                 onChange={(e) => {setEntry(e.target.value); setEntryBox(e.target.value);}}
-                onClick={selectDate}>
+                onClick={selectDate}
+                placeholder="Write your thoughts here...">
                 </textarea>
               </label> 
 
