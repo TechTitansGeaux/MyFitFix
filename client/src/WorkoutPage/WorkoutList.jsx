@@ -81,12 +81,10 @@ const handleEntrySave = () => {
 
 
 return(
-<div class="max-w-sm rounded overflow-hidden shadow-lg bg-gradient-to-bl from-sky-600 from-10%  via-sky-400 to-sky-50 to-40% ...">
-  
-  <div class="max-w-sm w-full lg:max-w-full lg:flex">
-    <div class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400" >
-      <h3> Today's Workout</h3>
-      <button type="button"  onClick={handleEntrySave}>Save Workout</button>
+<div class="max-w-xl rounded overflow-hidden shadow-lg row-span-2">
+            <div class="px-6 py-4">
+              <div class="font-bold text-xl mb-2">Today's Workout</div>
+              <button type="button" className='w-fit border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 font-bold tracking-wider active:text-white transform hover:scale-110 px-1 ml-4 mr-4' onClick={handleEntrySave}>Save Workout</button>
       <input
           type="date"
           id="workout-date"
@@ -97,9 +95,6 @@ return(
           }}
         ></input>
     </div>
-
-
-
     <div class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
       <div class="mb-8">
         <div class="flex items-center" className='workout'>
@@ -111,34 +106,15 @@ return(
         </div>
           <div class="flex items-center">
             <div class="text-sm">
-            <p class="text-gray-900 leading-none">Jonathan Reinink</p>
-            <p class="text-gray-600">Aug 18</p>
+            <p class="text-gray-600">{currDate}</p>
             </div>
           </div>
+          </div>
       </div>
-  </div>
-</div>
-</div>
+    </div>
 
   )
 }
 
 export default WorkoutList;
 
-{/* <div class="max-w-sm w-full lg:max-w-full lg:flex">
-<div class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden" >
-      <h3> Today's Workout</h3>
-</div>
-<div class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
-<div class="mb-8">
-    <div class="flex items-center" className='workout'>
-    </div>
-  <div class="flex items-center">
-     <div class="text-sm">
-         <p class="text-gray-900 leading-none">Jonathan Reinink</p>
-        <p class="text-gray-600">Aug 18</p>
-     </div>
-   </div>
-  </div>
-</div>
-</div> */}
