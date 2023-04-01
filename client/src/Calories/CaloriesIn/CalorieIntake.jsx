@@ -80,11 +80,12 @@ function CalorieIntake() {
     setDate(newDate);
   }
 
-  // const handleDeleteEntry = (name) => {
-  //   setFood((food) => {
-  //     return food.filter((item) => item.name !== name)
-  //   });
-  // }
+  const handleDeleteEntry = (name) => {
+    let newArr = food.filter(item => {
+
+    })
+
+  }
 
   //Set to clear out the fields and reset the state when the submit button is pressed
   const clearFields = () => {
