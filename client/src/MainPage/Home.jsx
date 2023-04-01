@@ -124,7 +124,7 @@ function Home() {
           }
     })
       .catch((err) => console.log(err, 'Request failed'));
-    }, [journalMessage])
+  }, [journalMessage])
 
 
   return (
@@ -246,7 +246,7 @@ function Home() {
                   Today, you have eaten:
                 </p>
                 <p className='text-gray-700 text-base font-bold text-orange-500 mt-4 ml-10'>
-                {ateTotal}
+                  {ateTotal}
                 </p>
                 {/* <p class="text-gray-700 text-base font-bold mt-4">
                   Drink some water!
@@ -276,10 +276,10 @@ function Home() {
                   
                   {icon}
 
-                  <p className="text-gray-700 text-base font-bold">
-                    <span>
-                      {journalMessage}</span>
-                  </p>
+                <p className="text-gray-700 text-base font-bold">
+                  <span>
+                    {journalMessage}</span>
+                </p>
                 {/* </div> */}
               </div>
               {/* WORKOUT PLANNER */}
