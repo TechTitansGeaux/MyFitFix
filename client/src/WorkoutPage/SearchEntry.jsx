@@ -43,7 +43,7 @@ function SearchEntry( { exercise, handleWorkoutState } ){
 
 
   return (
-<div class="max-w-sm rounded overflow-hidden shadow-lg">
+<div class="max-w-sm rounded overflow-hidden shadow-lg bg-slate-400">
   <div className="search-data">
     <div class="px-6 py-4">
         <div class="font-bold text-xl mb-2"className="result-data">{exercise.name}</div>

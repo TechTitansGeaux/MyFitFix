@@ -81,7 +81,7 @@ const handleEntrySave = () => {
 
 
 return(
-<div class="max-w-sm rounded overflow-hidden shadow-lg">
+<div class="max-w-sm rounded overflow-hidden shadow-lg bg-slate-400">
   <div class="max-w-sm w-full lg:max-w-full lg:flex">
     <div class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400" >
       <h3> Today's Workout</h3>
