@@ -84,7 +84,7 @@ const handleWorkoutState = (name) => [
         <div align='center'className='workout'>
             <WorkoutList workout={workout} setWorkout={setWorkout}/>
         </div>
-    <div class="max-w-sm rounded overflow-hidden shadow-lg">
+    <div class="max-w-sm rounded overflow-hidden shadow-lg  bg-slate-400">
        <div class="px-6 py-4">
         <h2 class="font-bold text-xl mb-2" align='left'>Search for Exercises</h2>
           <div className="search-input">
