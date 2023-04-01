@@ -82,18 +82,20 @@ function JournalEntry () {
     return (
         <div>
           {/* START NAV BAR */}
-      {/* <div class="flex mb-4"> */}
+          {/* CREATING TWO COLUMNS: ONE FOR NAV BAR, ONE FOR MESSAGE SECTION */}
+          <div class ="flex mb-4">  
+          
     <div class="bg-white dark:bg-gray-800  xl:hidden flex text-gray-800 hover:text-black focus:outline-none focus:text-black justify-between w-full p-6 items-center">
 
       <div aria-label="toggler" class="flex justify-center items-center">
-        <button id="open" onclick="showNav(true)" aria-label="open" class="hidden text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800">
+        <button id="open" onClick="showNav(true)" aria-label="open" class="hidden text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800">
             <svg  width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M4 6H20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                 <path d="M4 12H20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                 <path d="M4 18H20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
         </button>
-        <button id="close" onclick="showNav(true)" aria-label="close" class="focus:outline-none dark:text-white text-gray-800 focus:ring-2 focus:ring-offset-2 focus:ring-gray-800">
+        <button id="close" onClick="showNav(true)" aria-label="close" class="focus:outline-none dark:text-white text-gray-800 focus:ring-2 focus:ring-offset-2 focus:ring-gray-800">
             <svg  width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                 <path d="M6 6L18 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -147,9 +149,9 @@ function JournalEntry () {
 
         {/* Journal List Item */}
         <button class="flex dark:text-white justify-start items-center space-x-6 hover:text-white focus:outline-none focus:bg-sky-500 focus:text-white hover:bg-sky-500 text-gray-600 rounded py-3 pl-4 w-full" onClick={() => navigate('/journal-entry')}>
-          <svg  width="24" height="24" xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
-          <rect width="320" height="416" x="96" y="48" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32" rx="48" ry="48"/><path fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="60" d="M320 48v416"/>
-          </svg>
+        <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
+            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M364.13 125.25 87 403l-23 45 44.99-23 277.76-277.13-22.62-22.62zm56.56-56.56-22.62 22.62 22.62 22.63 22.62-22.63a16 16 0 0 0 0-22.62h0a16 16 0 0 0-22.62 0z"/>
+            </svg>
           <p class="text-base leading-4">Journal</p>
         </button>
 
@@ -166,14 +168,15 @@ function JournalEntry () {
         </button>
       </div>
     </div>
-    {/* </div> */}
-{/* END NAV BAR */}
+    
 
-    {/* START JOURNAL COMPONENT */}
-    <div class="grid grid-rows-4 grid-flow-col h-60 justify-center"> 
+       {/* START JOURNAL COMPONENT */}
+       <div className='mt-20 ml-100 sm:w-full  '>
 
 {/* Placing Calendar and Trash box in columns */}
-<div class ="grid grid-cols-2"> 
+
+<div className='flex justify-start ml-20'>
+{/* <div class ="grid grid-cols-2">  */}
       {/* CALENDAR */}
     <div name="calendar">
           <input type="date" 
@@ -182,6 +185,7 @@ function JournalEntry () {
                 min="2023-01-01" 
                 max="2026-01-01"
                 value={date}
+                class="border border-indigo-600"
                 onChange={(e) => {setDate(e.target.value); showEntry(e.target.value);}}>
                 </input>
                 </div>
@@ -189,35 +193,45 @@ function JournalEntry () {
 <div>
 
   {/* Delete Button */}
-<button class="inline-flex items-center justify-center w-10 h-10 mr-2 text-gray-700 transition-colors duration-150 bg-white rounded-full focus:shadow-outline hover:bg-gray-200" onClick={() => {deleteEntry(); setEntryBox('')}}>
+<button class="inline-flex items-center justify-center w-9 h-9 mr-2 text-gray-700 transition-colors duration-150 bg-white rounded-full focus:shadow-outline hover:bg-gray-200 ml-32" onClick={() => {deleteEntry(); setEntryBox('')}}>
 <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" width="24" height="24" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="m112 112 20 320c.95 18.49 14.4 32 32 32h184c17.67 0 30.87-13.51 32-32l20-320"/><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M80 112h352"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M192 112V72h0a23.93 23.93 0 0 1 24-24h80a23.93 23.93 0 0 1 24 24h0v40m-64 64v224m-72-224 8 224m136-224-8 224"/></svg>
 </button>
 </div>
+
+{/* </div> */}
+
 </div>
+<br></br>
+
       {/* Message Box */}
-        <div name="messageBox">
+        <div name="messageBox" className='flex justify-start ml-20'>
                 <form>
               <label htmlFor="multiLineInput">
-                <textarea rows="30" 
-                cols="80" 
-                class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                <textarea rows="20" 
+                cols="70" 
+                class="block p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                 name="entryBox"
                 value={entryBox}
                 onChange={(e) => {setEntry(e.target.value); setEntryBox(e.target.value);}}
-                onClick={selectDate}>
+                onClick={selectDate}
+                placeholder="Write your thoughts here...">
                 </textarea>
               </label> 
 
               <br></br>
 
               <button class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"  onClick={(e) => {submitJournalEntry(); e.preventDefault();}}>
-              <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M380.93 57.37A32 32 0 0 0 358.3 48H94.22A46.21 46.21 0 0 0 48 94.22v323.56A46.21 46.21 0 0 0 94.22 464h323.56A46.36 46.36 0 0 0 464 417.78V153.7a32 32 0 0 0-9.37-22.63zM256 416a64 64 0 1 1 64-64 63.92 63.92 0 0 1-64 64zm48-224H112a16 16 0 0 1-16-16v-64a16 16 0 0 1 16-16h192a16 16 0 0 1 16 16v64a16 16 0 0 1-16 16z"/></svg>
+              <svg width="15" height="20" xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M380.93 57.37A32 32 0 0 0 358.3 48H94.22A46.21 46.21 0 0 0 48 94.22v323.56A46.21 46.21 0 0 0 94.22 464h323.56A46.36 46.36 0 0 0 464 417.78V153.7a32 32 0 0 0-9.37-22.63zM256 416a64 64 0 1 1 64-64 63.92 63.92 0 0 1-64 64zm48-224H112a16 16 0 0 1-16-16v-64a16 16 0 0 1 16-16h192a16 16 0 0 1 16 16v64a16 16 0 0 1-16 16z"/></svg>
   <span>Save Entry</span>
 </button>
    </form>
    </div>
      
        </div>
+    </div>
+{/* END NAV BAR */}
+
+
        </div>
     )
 }
