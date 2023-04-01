@@ -11,60 +11,61 @@ import { useNavigate } from 'react-router-dom';
 
 function WorkoutPlan() {
 
-const [workout, setWorkout] = useState([]);
-const [muscle, setMuscle] = useState('');
-const [exerciseResults, setExerciseResults] = useState([]);
-const [pastDate, setPastDate] = useState(moment().format("YYYY-MM-DD"))
-const [pastWorkout, setPastWorkout] = useState([]);
+  const [workout, setWorkout] = useState([]);
+  const [muscle, setMuscle] = useState('');
+  const [exerciseResults, setExerciseResults] = useState([]);
+  const [pastDate, setPastDate] = useState(moment().format("YYYY-MM-DD"))
+  const [pastWorkout, setPastWorkout] = useState([]);
 
-// const findPastDate = (newDate) => {
-//   setPastDate(newDate);
-// }
+  const findPastDate = (newDate) => {
+    setPastDate(newDate);
+  }
 
-const navigate = useNavigate();
-
-
-const logoutOfApp = () => {
-  axios.get('/auth/logout')
-    .then(() => {
-      alert('You are logged out');
-      navigate('/');
-    })
-    .catch((err) => {
-      console.error('Failed to logout:', err);
-    });
-}
-
-const handleSearch = (e) => {
-  axios.get('/workout/exercise', { params: {muscle: `${muscle}`} })
-    .then((response) => {
-      setExerciseResults(response.data)
-    })
-    .catch((err) => {
-     console.error('cannot get:', err);
-    });
-}
+  const navigate = useNavigate();
 
 
-const getPastWorkout = () => {
-axios.get(`workout/workouts/${pastDate}`)
-.then((response) => {
-  setPastWorkout(response.data[0].exercise);
-})
-.catch((err) => {
-  console.error('unable to get past workout:', err);
-})
-}
+  const logoutOfApp = () => {
+    axios.get('/auth/logout')
+      .then(() => {
+        alert('You are logged out');
+        navigate('/');
+      })
+      .catch((err) => {
+        console.error('Failed to logout:', err);
+      });
+  }
 
-const deletePastWorkout = () => {
-  axios.delete(`/workout/workouts/${pastDate}`)
-    .then((data) => {
-      console.log('able to delete past-workout:', data)})
-    .then(setPastWorkout([]))
-    .catch((err) => {
-      console.error('could not delete past workout', err);
-    });
-};
+  const handleSearch = (e) => {
+    axios.get('/workout/exercise', { params: { muscle: `${muscle}` } })
+      .then((response) => {
+        setExerciseResults(response.data)
+      })
+      .catch((err) => {
+        console.error('cannot get:', err);
+      });
+  }
+
+
+  const getPastWorkout = () => {
+    axios.get(`workout/workouts/${pastDate}`)
+      .then((response) => {
+        setPastWorkout(response.data[0].exercise);
+      })
+      .catch((err) => {
+        console.error('unable to get past workout:', err);
+      })
+  }
+
+  const deletePastWorkout = () => {
+    axios.delete(`/workout/workouts/${pastDate}`)
+      .then((data) => {
+        console.log('able to delete past-workout:', data)
+      })
+      .then(setPastWorkout([]))
+      .catch((err) => {
+        console.error('could not delete past workout', err);
+      });
+  };
 
 
 const handleWorkoutState = (name) => [
@@ -179,18 +180,14 @@ const handleWorkoutState = (name) => [
 
         // </div>
         // </div> */}
-    
-
-  
-    return (
 
 
+  return (
 
+    <div className='grid grid-cols-5'>
 
-<div className=' grid grid-cols-5'>
-
-<div class="flex mb-4 ">
-  <div class="bg-white dark:bg-gray-800  xl:hidden flex text-gray-800 hover:text-black focus:outline-none focus:text-black justify-between w-full p-6 items-center">
+      <div class="flex mb-4">
+        <div class="bg-white dark:bg-gray-800  xl:hidden flex text-gray-800 hover:text-black focus:outline-none focus:text-black justify-between w-full p-6 items-center">
 
           <div aria-label="toggler" class="flex justify-center items-center">
             <button id="open" onclick="showNav(true)" aria-label="open" class="hidden text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800">
@@ -264,15 +261,16 @@ const handleWorkoutState = (name) => [
             <div class="w-full px-4">
               <hr class="border-gray-100 dark:border-gray-700  w-full" />
             </div>
-            {/* Sign-out */}
-            <button class="flex dark:text-white justify-start items-center space-x-6 hover:text-white focus:outline-none focus:bg-sky-500 focus:text-white hover:bg-sky-500 text-gray-600 rounded py-3 pl-4 w-full" onClick={() => logoutOfApp()}>
-              <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
-                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M304 336v40a40 40 0 0 1-40 40H104a40 40 0 0 1-40-40V136a40 40 0 0 1 40-40h152c22.09 0 48 17.91 48 40v40m64 160 80-80-80-80m-192 80h256" />
-              </svg>
-              <p class="text-base leading-4">Sign-Out</p>
-            </button>
           </div>
+        </div>
+        <div className='grid grid-cols-2 exerciseSearch'>
+          {exerciseResults.map(exercise => <SearchEntry exercise={exercise} key={exercise.name} handleWorkoutState={handleWorkoutState} />)}
+        </div>
 
+      </div>
+      <div class="py-12 ml-24 my-16 col-span-2">
+        <div className='workout'>
+          <WorkoutList workout={workout} setWorkout={setWorkout} />
         </div>
         </div>
 <div class="col-span-2 mb-4">
@@ -295,6 +293,27 @@ const handleWorkoutState = (name) => [
                    <div className='grid grid-cols-2 exerciseSearch'>
                    {exerciseResults.map(exercise => <SearchEntry exercise={exercise} key={exercise.name} handleWorkoutState={handleWorkoutState} />)}
                     </div>
+      </div>
+      <div class="col-span-2 mb-4">
+        <h1 class="text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl"> Plan Your Workout<span class="text-transparent bg-clip-text bg-gradient-to-r to-orange-500 from-sky-400">Get Your Fix</span> </h1>
+        <div class=" ml-32 max-w-lg h-30 bg-gradient-to-tr from-sky-600 from-10%  via-sky-400 to-sky-50 to-40% ... rounded overflow-hidden shadow-lg row-span-2 ">
+          <div class="px-6 py-4">
+            <div className='flex justify-center py-5'>
+              <h2 className='text-2xl text-black hover:text-orange-500 font-bold' align='left'>Search for Exercises</h2>
+            </div>
+            <div class="min-h-fit" className="search-input">
+              <form>
+                <input type="text" placeholder="biceps" className='w-full border border-sky-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 hover:border-blue-700 hover:border-lg' onChange={e => { setMuscle(e.target.value) }} />
+                <div className='flex justify-around ml-25 mr-25'>
+                  <button type="button" className='w-full border border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 font-bold tracking-wider active:text-white transform hover:scale-110 px-1 ml-10 mr-10' onClick={(e) => handleSearch(e)}>Search</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div className='grid grid-cols-2 exerciseSearch'>
+          {exerciseResults.map(exercise => <SearchEntry exercise={exercise} key={exercise.name} handleWorkoutState={handleWorkoutState} />)}
+        </div>
 
     </div>
               <div class="py-12 ml-24 my-4 col-span-2">
@@ -334,7 +353,45 @@ const handleWorkoutState = (name) => [
                                   </div>
                              </div>
            </div>
-    </div>
+      
+      <div class="py-12 ml-24 my-16 col-span-2">
+        <div className='workout'>
+          <WorkoutList workout={workout} setWorkout={setWorkout} />
+        </div>
+        <div class=" my-28 max-w-xl h-96 bg-gradient-to-br from-sky-600 from-10%  via-sky-400 to-sky-50 to-40% ... rounded overflow-hidden shadow-lg row-span-2 ">
+          <div class="px-6 py-4">
+            <div class="font-bold text-xl mb-2">Search Workout by Date</div>
+            <div className='search-past-workouts'>
+              <input
+                type="date"
+                id="past-workout-date"
+                name="past-workout-date"
+                value={pastDate}
+                onChange={(e) => {
+                  setPastDate(e.target.value);
+                }}
+              ></input>
+              <button type="button" className='w-fit border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 font-bold tracking-wider active:text-white transform hover:scale-110 px-1 ml-4 mr-4' onClick={() => getPastWorkout()} >Search For Workout</button>
+              <button type="button" class='w-fit border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 font-bold tracking-wider active:text-white transform hover:scale-110 px-1 ml-4 mr-4' onClick={() => deletePastWorkout()} >Delete Workout</button>
+              <div class=" h-64 border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-orange-50 rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+                <div class="mb-8">
+                  <div class="flex items-center" className='workout'>
+                    <div className="exercise-entry">
+                      {pastWorkout.map(workout => <PastWorkoutEntry workout={workout} key={workout.name} />)}
+                    </div>
+                  </div>
+                  <div class="flex items-center">
+                    <div class="text-sm">
+                      <p class="text-gray-600">{pastDate}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
 
 
   )
