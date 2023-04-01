@@ -20,8 +20,8 @@ function CalorieTable() {
   }
 
   return (
-    <div>
-      <div className="flex mb-4">
+    <div className="grid grid-cols-5 grid-rows-2">
+      <div className="flex row-span-2">
         <div class="bg-white dark:bg-gray-800  xl:hidden flex text-gray-800 hover:text-black focus:outline-none focus:text-black justify-between w-full p-6 items-center">
 
           <div aria-label="toggler" class="flex justify-center items-center">
@@ -40,7 +40,7 @@ function CalorieTable() {
             </button>
           </div>
         </div>
-        <div id="Main" class="bg-white dark:bg-gray-800  transform xl:translate-x-0 ease-in-out transition duration-500 flex justify-start items-start w-full sm:w-72 flex-col h-full">
+        <div id="Main" class="bg-white dark:bg-gray-800  transform xl:translate-x-0 ease-in-out transition duration-500 flex justify-start items-start w-full sm:w-72 flex-col h-full pb-10">
           <button class="hidden xl:flex text-gray-800 dark:text-white hover:text-black focus:outline-none focus:text-black justify-start px-6 pt-6 items-center space-x-3 w-full">
             <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -108,18 +108,18 @@ function CalorieTable() {
 
 
         </div>
+      </div>
 
-        <div className="pt-4 flex justify-around pl-72">
-          <div className="pr-40">
-            <CalorieIntake />
-          </div>
-          <div>
-            <CaloriesBurned />
-          </div>
-        </div>
 
+      <div className="ml-5 col-span-2 mb-4">
+        <CalorieIntake />
+      </div>
+
+      <div className="col-span-2 mb-4">
+        <CaloriesBurned />
       </div>
     </div>
+
   )
 }
 
