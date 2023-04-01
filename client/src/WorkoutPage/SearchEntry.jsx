@@ -6,7 +6,7 @@ function SearchEntry( { exercise, handleWorkoutState } ){
 
   const [toggle, setToggle] = useState(true);
   const [checked, setChecked] = useState(false);
-  const [toggleDetail, setToggleDetail] = useState(true);
+  const [toggleDetail, setToggleDetail] = useState(false);
 
   const toggleSave = () => {
   setToggle(!toggle)
@@ -43,14 +43,17 @@ function SearchEntry( { exercise, handleWorkoutState } ){
 
 
   return (
-    <div className="search-data">
-    <div className="result-data">{exercise.name}</div>
-    { toggleDetail ?
+<div class="max-w-sm rounded overflow-hidden shadow-lg bg-slate-400">
+  <div className="search-data">
+    <div class="px-6 py-4">
+        <div class="font-bold text-xl mb-2"className="result-data">{exercise.name}</div>
+        <div class="font-bold text-xl mb-2"className="result-data"> Muscle - {exercise.muscle}</div>
+    </div>
+        { toggleDetail ?
     <div className="result-entry">
     { toggle ?
     <ul className="result-data-list">
     <li className="result-data">{exercise.type}</li>
-    <li className="result-data">{exercise.muscle}</li>
     <li className="result-data">{exercise.equipment}</li>
     <li className="result-data">{exercise.difficulty}</li>
     <li className="result-data">{exercise.instructions}</li>
@@ -62,14 +65,27 @@ function SearchEntry( { exercise, handleWorkoutState } ){
 :
 <></>
 }
-   <button onClick={(e) => handleWorkoutState(e.target.value)} value={exercise.name} className="btn btn-primary">Add Exercise to Workout</button>
+<div class="px-6 pt-4 pb-2">
+   <button onClick={(e) => {
+    handleWorkoutState(e.target.value)
+    toggleSave()
+    handleCheck()
+  }} value={exercise.name} className="btn btn-primary">Add Exercise to Workout</button>
    <button onClick={toggleDetails} exercise={exercise} className="btn btn-primary">Show/Hide Details</button>
-
    <p>
-      {checked ? 'Saved' : ''}
+      {checked ? 'Added to Workout' : ''}
     </p>
     </div>
+    <div class="px-6 pt-4 pb-2">
+    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{exercise.equipment}</span>
+    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{exercise.difficulty}</span>
+    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{exercise.type}</span>
+    </div>
+  </div>
+</div>
   )
 };
 
 export default SearchEntry;
+
+
