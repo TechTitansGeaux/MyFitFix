@@ -2,6 +2,7 @@ import axios from 'axios';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react'
+import moment from 'moment';
 
 
 
@@ -10,6 +11,11 @@ function Home() {
   const [name, setName] = useState('');
   const [image, setImage] = useState('');
   const [caloriesBurned, setcaloriesBurned] = useState('');
+  const [journalMessage, setJournalMessage] = useState('');
+  const [icon, setIcon] = useState('')
+
+  let todaysDate = moment().format("YYYY-MM-DD");
+
 
   const logoutOfApp = () => {
     axios.get('/auth/logout')
@@ -23,17 +29,26 @@ function Home() {
   }
 
   useEffect(() => {
-
     // Implementing useEffect to send a GET request to retrieve the current signed-in user's name
     axios.get('/dashboard/name')
       .then(({ data }) => { setName(data.name); setImage(data.thumbnail); })
       .catch((err) => { console.err(err) });
-    // Implementing useEffect to send a GET request to retrieve the current signed-in user's total calories burned
-    // axios.get('/dashboard/name')
-    // .then(({ data }) => {setcaloriesBurned(data)})
-    // .catch((err) => {console.err(err)});
-
-  })
+    
+      // Implementing useEffect to send a GET request to check if the current signed-in user's daily entry was completed 
+    axios.get(`/journal-entry/${todaysDate}`)
+      .then(({ data }) => {
+          if ({ data }) {
+            setJournalMessage('All done. You have submitted your journal entry for today.')
+            setIcon(<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48">
+            <path fill="#c8e6c9" d="M44 24c0 11.045-8.955 20-20 20S4 35.045 4 24 12.955 4 24 4s20 8.955 20 20z"/>
+            <path fill="#4caf50" d="m34.586 14.586-13.57 13.586-5.602-5.586-2.828 2.828 8.434 8.414 16.395-16.414-2.829-2.828z"/>
+            </svg>)
+          } else {
+            setJournalMessage('You have not completed a journal entry for today')
+          }
+    })
+      .catch((err) => console.log(err, 'Request failed'));
+    })
 
 
   return (
@@ -157,11 +172,12 @@ function Home() {
           {/* JOURNAL */}
           <div className="max-w-sm rounded overflow-hidden shadow-lg rounded-lg ">
             <div className="px-10 py-7 space-x-3">
-              <div className="font-bold text-xl mb-2 inline-block">Add Journal Entry</div>
+              <div className="font-bold text-xl mb-2 inline-block">Daily Journal Entry</div>
               <button type="button" onClick={() => navigate('/journal-entry')} className=" inline-block text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-sm px-2 py-0.5 text-center mr-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800 rounded-full">+</button>
 
               <p className="text-gray-700 text-base">
-                You have not written a post for today.
+                <span>{icon}
+                {journalMessage}</span>
               </p>
             </div>
           </div>
