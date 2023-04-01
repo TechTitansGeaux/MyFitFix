@@ -221,15 +221,13 @@ function Home() {
               Welcome, {user.name}!
             </header>
           </div>
-
-          {/* <div class="grid grid-rows-4 grid-flow-col gap-4gap-x-5 justify-center mx-auto mb-5"> */}
           <div>
 
             <div className='flex justify-center'>
               <svg className="flex-shrink-0"></svg>
+
               {/* CALORIE INTAKE */}
               <div class="mt-8 mr-2 sm:mx-auto sm:w-full sm:max-w-md  px-10 py-12 rounded-md shadow-lg bg-gradient-to-br from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
-                {/* <div class="px-12 py-12"> */}
                 <div class="font-bold text-xl mb-2 hover:text-orange-500">Calorie Intake</div>
                 <p class="text-gray-700 text-base font-bold ">
                   Total Calories:
@@ -240,11 +238,10 @@ function Home() {
                 <p class="text-gray-700 text-base font-bold mt-4">
                   Drink some Water!!!
                 </p>
-                {/* </div> */}
               </div>
+
               {/* CALORIES BURNED */}
               <div class="mt-8 ml-2 sm:w-full sm:max-w-md  px-10 py-12 rounded-md shadow-lg bg-gradient-to-bl from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
-                {/* <div class="px-12 py-12"> */}
                 <div class="font-bold text-xl mb-2 hover:text-orange-500">Calories Burned</div>
                 <p class="text-gray-700 text-base font-bold mt-10">
                   Today, you have burned:
@@ -252,15 +249,14 @@ function Home() {
                 <p className='text-gray-700 text-base font-bold text-orange-500 mt-4 ml-20'>
                   {dailyBurn} calories
                 </p>
-                {/* </div> */}
               </div>
             </div>
 
             <div className='flex justify-center'>
               <svg className="flex-shrink-0"></svg>
+
               {/* JOURNAL */}
               <div className="mt-8 mr-2 sm:mx-auto sm:w-full sm:max-w-md  px-10 py-12 rounded-md shadow-lg bg-gradient-to-tr from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
-                {/* <div className="px-10 py-7 space-x-3"> */}
                 <div className="font-bold text-xl mb-2 inline-block hover:text-orange-500">Daily Journal Entry</div>
                 {icon}
 
@@ -268,8 +264,8 @@ function Home() {
                   <span>
                     {journalMessage}</span>
                 </p>
-                {/* </div> */}
               </div>
+
               {/* WORKOUT PLANNER */}
               <div class="mt-8 ml-2  sm:w-full sm:max-w-md  px-10 py-12 rounded-md shadow-lg bg-gradient-to-tl from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
                 <div class="font-bold text-xl mb-2 hover:text-orange-500">Workout Planner</div>
