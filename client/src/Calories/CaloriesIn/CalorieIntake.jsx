@@ -106,7 +106,7 @@ function CalorieIntake() {
 
   return (
     <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-      <div className="bg-gradient-to-t from-sky-600 from-10% via-sky-400 to-sky-50 to-40% py-8 px-6 shadow rounded-lg sm:px-10 drop-shadow-md ml-4">
+      <div className="bg-gradient-to-t from-sky-600 from-10% via-sky-400 to-sky-50 to-40% py-12 px-6 shadow rounded-lg sm:px-10 drop-shadow-md ml-4">
         <h1 className="block text-sm font-medium text-sky-500">Meal Tracker</h1>
         <svg className="flex-shrink-0"></svg>
         <input

@@ -144,11 +144,11 @@ function CaloriesBurned() {
       <div className='flex justify-around'>
 
 
-      <button type="button" className='w-full border border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 font-bold active:text-white transform hover:scale-110 px-1' onClick={ (event) => requestHandler(event, clearFields())}>Burn!</button>
+      <button type="button" className='w-full border border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 font-bold active:text-white transform hover:scale-110 px-1 mr-2' onClick={ (event) => requestHandler(event, clearFields())}>Burn!</button>
    
 
 
-        <button type="button" className='w-full border border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 font-bold tracking-wider active:text-white transform hover:scale-110 px-1' onClick={(event) => deleteEntry(event)} >Delete</button>
+      <button type="button" className='w-full border border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 font-bold tracking-wider active:text-white transform hover:scale-110 px-1 ml-2' onClick={(event) => deleteEntry(event)} >Delete</button>
 
       </div>
 
