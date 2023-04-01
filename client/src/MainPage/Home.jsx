@@ -84,9 +84,6 @@ function Home() {
     axios.get('dashboard/workouts')
       .then(({ data }) => {
         if (data.length !== 0) {
-<<<<<<< HEAD
-          setDailyWorkout(data[0].exercise);
-=======
           const workout = data[0].exercise;
           setDailyWorkout(workout);
           setWorkoutIcon(<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="inline-block ml-3">
@@ -95,7 +92,6 @@ function Home() {
             <path fill="#27ae60" d="m16 9-6 6-2.5-2.5-2.125 2.1 2.5 2.5 2 2 .125.1 8.125-8.1L16 9z" />
             <path fill="#ecf0f1" d="m16 8-6 6-2.5-2.5-2.125 2.1 2.5 2.5 2 2 .125.1 8.125-8.1L16 8z" />
           </svg>);
->>>>>>> 3302ee5a37c08a1554095d6cac376ed352c85331
         } else {
           setDailyWorkout('You have not created a workout today.');
           setWorkoutIcon(<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 64 64" class="inline-block ml-3" >
@@ -133,10 +129,10 @@ function Home() {
 
 
   return (
-    <div>
+    <div className='grid grid-cols-5 grid-rows-2'>
 
       {/* START OF NAVIGATION BAR */}
-      <div class="flex mb-4">
+      <div class="flex row-span-2">
         <div class="bg-white dark:bg-gray-800  xl:hidden flex text-gray-800 hover:text-black focus:outline-none focus:text-black justify-between w-full p-6 items-center">
 
           <div aria-label="toggler" class="flex justify-center items-center">
@@ -223,64 +219,59 @@ function Home() {
 
 
         </div>
+      </div>
+
+      {/* Start of Cards*/}
 
 
-        {/* Start of Cards*/}
 
+      <div >
+        {/* Start of Welcome Title & Image */}
+        <div>
+          <header class="text-4xl inline-block mt-8 flex justify-center	ml-20">
+            <img class="rounded-full inline-block gap-x-2 h-12 justify-right" src={user.thumbnail} alt="avatar" />
+            Welcome, {user.name}!
+          </header>
+        </div>
+        <div>
 
+          <div className='flex justify-center'>
+            <svg className="flex-shrink-0"></svg>
 
-        <div >
-          {/* Start of Welcome Title & Image */}
-          <div>
-            <header class="text-4xl inline-block mt-8 flex justify-center	ml-20">
-              <img class="rounded-full inline-block gap-x-2 h-12 justify-right" src={user.thumbnail} alt="avatar" />
-              Welcome, {user.name}!
-            </header>
-          </div>
-          <div>
-
-            <div className='flex justify-center'>
-              <svg className="flex-shrink-0"></svg>
-
-              {/* CALORIE INTAKE */}
-              <div class="mt-8 mr-2 sm:mx-auto sm:w-full sm:max-w-md  px-10 py-12 rounded-md shadow-lg bg-gradient-to-br from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
-                <div class="font-bold text-xl mb-2 hover:text-orange-500">Calorie Intake</div>
-                <p class="text-gray-700 text-base font-bold ">
-                  Today, you have eaten:
-                </p>
-                <p className='text-gray-700 text-base font-bold text-orange-500 mt-4 ml-10'>
-                  {ateTotal}
-                </p>
-              </div>
-
-              {/* CALORIES BURNED */}
-              <div class="mt-8 ml-2 sm:w-full sm:max-w-md  px-10 py-12 rounded-md shadow-lg bg-gradient-to-bl from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
-                <div class="font-bold text-xl mb-2 hover:text-orange-500">Calories Burned</div>
-                <p class="text-gray-700 text-base font-bold">
-                  Today, you have burned:
-                </p>
-                <p className='text-gray-700 text-base font-bold text-orange-500 mt-4 ml-20'>
-                  {dailyBurn} calories
-                </p>
-              </div>
+            {/* CALORIE INTAKE */}
+            <div class="mt-8 mr-2 sm:mx-auto sm:w-full sm:max-w-md  px-10 py-12 rounded-md shadow-lg bg-gradient-to-br from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
+              <div class="font-bold text-xl mb-2 hover:text-orange-500">Calorie Intake</div>
+              <p class="text-gray-700 text-base font-bold ">
+                Today, you have eaten:
+              </p>
+              <p className='text-gray-700 text-base font-bold text-orange-500 mt-4 ml-10'>
+                {ateTotal}
+              </p>
             </div>
 
-            <div className='flex justify-center'>
-              <svg className="flex-shrink-0"></svg>
+            {/* CALORIES BURNED */}
+            <div class="mt-8 ml-2 sm:w-full sm:max-w-md  px-10 py-12 rounded-md shadow-lg bg-gradient-to-bl from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
+              <div class="font-bold text-xl mb-2 hover:text-orange-500">Calories Burned</div>
+              <p class="text-gray-700 text-base font-bold">
+                Today, you have burned:
+              </p>
+              <p className='text-gray-700 text-base font-bold text-orange-500 mt-4 ml-20'>
+                {dailyBurn} calories
+              </p>
+            </div>
+          </div>
 
-              {/* JOURNAL */}
-              <div className="mt-8 mr-2 sm:mx-auto sm:w-full sm:max-w-md  px-10 py-12 rounded-md shadow-lg bg-gradient-to-tr from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
-                {/* <div className="px-10 py-7 space-x-3"> */}
-                <div className="font-bold text-xl mb-2 inline-block hover:text-orange-500">Daily Journal Entry</div>
+          <div className='flex justify-center'>
+            <svg className="flex-shrink-0"></svg>
 
-                {icon}
+            {/* JOURNAL */}
+            <div className="mt-8 mr-2 sm:mx-auto sm:w-full sm:max-w-md  px-10 py-12 rounded-md shadow-lg bg-gradient-to-tr from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
+              {/* <div className="px-10 py-7 space-x-3"> */}
+              <div className="font-bold text-xl mb-2 inline-block hover:text-orange-500">Daily Journal Entry</div>
 
-                <p className="text-gray-700 text-base font-bold">
-                  <span>
-                    {journalMessage}</span>
-                </p>
-              </div>
+              {icon}
 
+<<<<<<< HEAD
               {/* WORKOUT PLANNER */}
               <div class="mt-8 ml-2  sm:w-full sm:max-w-md  px-10 py-12 rounded-md shadow-lg bg-gradient-to-tl from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
 <<<<<<< HEAD
@@ -316,12 +307,28 @@ function Home() {
                 </p>
 >>>>>>> 3302ee5a37c08a1554095d6cac376ed352c85331
               </div>
+=======
+              <p className="text-gray-700 text-base font-bold">
+                <span>
+                  {journalMessage}</span>
+              </p>
+>>>>>>> c3898155f481a6da67eddd900ccc45f4d4ff53a0
             </div>
 
-
+            {/* WORKOUT PLANNER */}
+            <div class="mt-8 ml-2  sm:w-full sm:max-w-md  px-10 py-12 rounded-md shadow-lg bg-gradient-to-tl from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
+              <div class="font-bold text-xl mb-2 hover:text-orange-500 inline-block">Workout Planner</div>
+              {workoutIcon}
+              <p class="text-gray-700 text-base font-bold">
+                {dailyWorkout}
+              </p>
+            </div>
           </div>
+
+
         </div>
       </div>
+
 
     </div>
 
