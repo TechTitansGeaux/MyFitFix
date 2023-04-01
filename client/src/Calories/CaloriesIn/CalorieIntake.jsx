@@ -120,17 +120,19 @@ function CalorieIntake() {
           }}
         ></input>
         <form>
-          <div className="pt-3">
-            <label for="Measurement" className="block text-md font-medium">Product Weight (g):</label>
+          <div className="pt-1">
+            <label for="Measurement" className="block text-sm font-medium text-sky-500">Product Weight (g):</label>
             <input id='foodWeight' className="w-full border border-sky-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 hover:border-blue-700 text-center" type='number' onChange={e => setWeight(e.target.value)}></input>
           </div>
           <div className="pt-3">
-            <label for="Ingredient" className="block text-md font-medium">Ingredient:</label>
+            <label for="Ingredient" className="block text-sm font-medium text-sky-500">Ingredient:</label>
             <input id='foodProduct' className="w-full border border-sky-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 hover:border-blue-700 text-center" type='text' onChange={e => setProduct(e.target.value)}></input>
-            <button className="drop-shadow-md ml-2 border-2 w-20 bg-gray-300" type='button' onClick={() => {
-              handleApiRequest()
-              clearFields();
-            }}>Submit</button>
+            <div className="py-4">
+              <button className="w-full border border-sky-300 rounded-md shadow-lg hover:bg-orange-500 hover:font-bold active:bg-orange-900 active:text-white bg-white" type='button' onClick={() => {
+                handleApiRequest()
+                clearFields();
+              }}>Add</button>
+            </div>
           </div>
         </form>
         <div className="bg-white py-8 px-6 shadow-lg rounded-lg sm:px-10 border border-sky-300" onChange={() => setTotalCal()}>
@@ -143,19 +145,19 @@ function CalorieIntake() {
               <div className='pr-10 font-medium'>Weight(g)</div>
               {food.map(item => <div className="pl-5">{item.serving_size_g}</div>)}
             </div>
-            <div>
+            <div className="">
               <div className='font-medium'>Calories</div>
               {food.map(item => <div className="pl-2">{item.calories}</div>)}
             </div>
           </div>
           <br></br>
-          <h3 className="font-bold text-md shadow-lg rounded-lg border border-black">Total Calories: {total}</h3>
+          <h3 className="font-bold text-md shadow-lg rounded-lg border border-black m-3">Total Calories: {total}</h3>
         </div>
         <div>
-          <div class='flex justify-evenly pt-4'>
+          <div class='flex justify-evenly mt-7'>
             <br></br>
-            <button type='button' className="w-full border border-sky-300 rounded-md shadow-lg hover:bg-orange-500 active:bg-orange-900 active:text-white bg-white" onClick={() => handleDBSave()}>Save</button>
-            <button type='button' className="w-full border border-sky-300 rounded-md shadow-lg hover:bg-orange-500 active:bg-orange-900 active:text-white bg-white" onClick={() => handleDBDelete()}>Delete</button>
+            <button type='button' className="w-full border border-sky-300 rounded-md shadow-lg hover:bg-orange-500 hover:font-bold active:bg-orange-900 active:text-white bg-white" onClick={() => handleDBSave()}>Save</button>
+            <button type='button' className="w-full border border-sky-300 rounded-md shadow-lg hover:bg-orange-500 hover:font-bold active:bg-orange-900 active:text-white bg-white" onClick={() => handleDBDelete()}>Delete</button>
           </div>
         </div>
       </div >
