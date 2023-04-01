@@ -10,13 +10,10 @@ function CalorieTable() {
   return (
     <div>
       <button onClick={() => navigate('/home')}>Back to Dashboard</button>
-
       <div className="pt-4 flex justify-around">
-
         <div>
           <CalorieIntake />
         </div>
-
         <div>
           <CaloriesBurned />
         </div>

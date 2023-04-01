@@ -6,12 +6,12 @@ router.get('/login', (req, res) => {
   res.render('login', { user: req.user });
 });
 
-// //Auth logout
-// router.get('/logout', (req, res) => {
-//   //handle with passport
-//   req.logout();
-//   res.redirect('/');
-// })
+//Auth logout
+router.get('/logout', (req, res) => {
+  //handle with passport
+  req.logout();
+  res.redirect('/');
+})
 
 // router.get('/home', (req, res) => {
 //   res.send('home');
