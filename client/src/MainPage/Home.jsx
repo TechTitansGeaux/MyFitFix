@@ -71,7 +71,7 @@ function Home() {
           const calBurned = data[0].caloriesBurned;
           setDailyBurn(calBurned);
         } else {
-          setDailyBurn('NO');
+          setDailyBurn(0);
         }
       })
       .catch((err) => {
@@ -104,7 +104,6 @@ function Home() {
       })
   }, [dailyBurn])
 
-
   useEffect(() => {
     // Implementing useEffect to send a GET request to check if the current signed-in user's daily entry was completed
     axios.get(`/journal-entry/${todaysDate}`)
@@ -129,10 +128,10 @@ function Home() {
 
 
   return (
-    <div>
+    <div className='grid grid-cols-5 grid-rows-2'>
 
       {/* START OF NAVIGATION BAR */}
-      <div class="flex mb-4">
+      <div class="flex row-span-2">
         <div class="bg-white dark:bg-gray-800  xl:hidden flex text-gray-800 hover:text-black focus:outline-none focus:text-black justify-between w-full p-6 items-center">
 
           <div aria-label="toggler" class="flex justify-center items-center">
@@ -219,77 +218,82 @@ function Home() {
 
 
         </div>
+      </div>
 
-
-        {/* Start of Cards*/}
+      {/* Start of Cards*/}
 
 
 
         <div >
           {/* Start of Welcome Title & Image */}
           <div>
-            <header class="text-4xl inline-block mt-8 flex justify-center	ml-20">
+            <header class=" font-bold text-4xl inline-block mt-8 flex justify-center text-transparent bg-clip-text bg-gradient-to-r to-orange-500 from-slate-50	ml-20">
               <img class="rounded-full inline-block gap-x-2 h-12 justify-right" src={user.thumbnail} alt="avatar" />
+              <div class="ml-6">
               Welcome, {user.name}!
+              </div>
             </header>
           </div>
+
+          {/* <div class="grid grid-rows-4 grid-flow-col gap-4gap-x-5 justify-center mx-auto mb-5"> */}
           <div>
 
-            <div className='flex justify-center'>
-              <svg className="flex-shrink-0"></svg>
+          <div className='flex justify-center'>
+            <svg className="flex-shrink-0"></svg>
 
-              {/* CALORIE INTAKE */}
-              <div class="mt-8 mr-2 sm:mx-auto sm:w-full sm:max-w-md  px-10 py-12 rounded-md shadow-lg bg-gradient-to-br from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
-                <div class="font-bold text-xl mb-2 hover:text-orange-500">Calorie Intake</div>
-                <p class="text-gray-700 text-base font-bold ">
-                  Today, you have eaten:
-                </p>
-                <p className='text-gray-700 text-base font-bold text-orange-500 mt-4 ml-10'>
-                  {ateTotal}
-                </p>
-              </div>
-
-              {/* CALORIES BURNED */}
-              <div class="mt-8 ml-2 sm:w-full sm:max-w-md  px-10 py-12 rounded-md shadow-lg bg-gradient-to-bl from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
-                <div class="font-bold text-xl mb-2 hover:text-orange-500">Calories Burned</div>
-                <p class="text-gray-700 text-base font-bold">
-                  Today, you have burned:
-                </p>
-                <p className='text-gray-700 text-base font-bold text-orange-500 mt-4 ml-20'>
-                  {dailyBurn} calories
-                </p>
-              </div>
+            {/* CALORIE INTAKE */}
+            <div class="mt-8 mr-2 sm:mx-auto sm:w-full sm:max-w-md  px-10 py-12 rounded-md shadow-lg bg-gradient-to-br from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
+              <div class="font-bold text-xl mb-2 hover:text-orange-500">Calorie Intake</div>
+              <p class="text-gray-700 text-base font-bold ">
+                Today, you have eaten:
+              </p>
+              <p className='text-gray-700 text-base font-bold text-orange-500 mt-4 ml-10'>
+                {ateTotal}
+              </p>
             </div>
 
-            <div className='flex justify-center'>
-              <svg className="flex-shrink-0"></svg>
-
-              {/* JOURNAL */}
-              <div className="mt-8 mr-2 sm:mx-auto sm:w-full sm:max-w-md  px-10 py-12 rounded-md shadow-lg bg-gradient-to-tr from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
-                {/* <div className="px-10 py-7 space-x-3"> */}
-                <div className="font-bold text-xl mb-2 inline-block hover:text-orange-500">Daily Journal Entry</div>
-
-                {icon}
-
-                <p className="text-gray-700 text-base font-bold">
-                  <span>
-                    {journalMessage}</span>
-                </p>
-              </div>
-
-              {/* WORKOUT PLANNER */}
-              <div class="mt-8 ml-2  sm:w-full sm:max-w-md  px-10 py-12 rounded-md shadow-lg bg-gradient-to-tl from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
-                <div class="font-bold text-xl mb-2 hover:text-orange-500 inline-block">Workout Planner</div>
-                {workoutIcon}
-                <p class="text-gray-700 text-base font-bold">
-                </p>
-              </div>
+            {/* CALORIES BURNED */}
+            <div class="mt-8 ml-2 sm:w-full sm:max-w-md  px-10 py-12 rounded-md shadow-lg bg-gradient-to-bl from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
+              <div class="font-bold text-xl mb-2 hover:text-orange-500">Calories Burned</div>
+              <p class="text-gray-700 text-base font-bold">
+                Today, you have burned:
+              </p>
+              <p className='text-gray-700 text-base font-bold text-orange-500 mt-4 ml-20'>
+                {dailyBurn} calories
+              </p>
             </div>
-
-
           </div>
+
+          <div className='flex justify-center'>
+            <svg className="flex-shrink-0"></svg>
+
+            {/* JOURNAL */}
+            <div className="mt-8 mr-2 sm:mx-auto sm:w-full sm:max-w-md  px-10 py-12 rounded-md shadow-lg bg-gradient-to-tr from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
+              {/* <div className="px-10 py-7 space-x-3"> */}
+              <div className="font-bold text-xl mb-2 inline-block hover:text-orange-500">Daily Journal Entry</div>
+
+              {icon}
+
+              <p className="text-gray-700 text-base font-bold">
+                <span>
+                  {journalMessage}</span>
+              </p>
+            </div>
+
+            {/* WORKOUT PLANNER */}
+            <div class="mt-8 ml-2  sm:w-full sm:max-w-md  px-10 py-12 rounded-md shadow-lg bg-gradient-to-tl from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
+              <div class="font-bold text-xl mb-2 hover:text-orange-500 inline-block">Workout Planner</div>
+              {workoutIcon}
+              <p class="text-gray-700 text-base font-bold">
+                {/* {dailyWorkout} */}
+              </p>
+            </div>
+          </div>
+
+
         </div>
       </div>
+
 
     </div>
 
