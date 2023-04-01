@@ -2,6 +2,7 @@ import axios from 'axios';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react'
+import moment from 'moment';
 
 
 
@@ -12,6 +13,11 @@ function Home() {
   const [ateTotal, setAteTotal] = useState(0);
   const [dailyBurn, setDailyBurn] = useState(0);
   const [dailyWorkout, setDailyWorkout] = useState([]);
+  // const [journalMessage, setJournalMessage] = useState('');
+  const [icon, setIcon] = useState('')
+
+  let todaysDate = moment().format("YYYY-MM-DD");
+
 
   const logoutOfApp = () => {
     axios.get('/auth/logout')
@@ -48,7 +54,7 @@ function Home() {
   useEffect(() => {
     axios.get('dashboard/caloriesBurned')
       .then(({ data }) => {
-        console.log(data);
+        // console.log(data);
       })
       .catch((err) => {
         console.error('Failed to get caloriesBurned:', err);
@@ -59,7 +65,7 @@ function Home() {
   useEffect(() => {
     axios.get('dashboard/workout')
       .then(({ data }) => {
-        console.log(data);
+        // console.log(data);
       })
       .catch((err) => {
         console.error('Failed to get workout:', err);
@@ -222,6 +228,7 @@ function Home() {
                 {/* </div> */}
               </div>
             </div>
+
 
 
           </div>

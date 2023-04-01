@@ -1,5 +1,6 @@
 const router = require('express').Router();
-const { User } = require('../db/index.js');
+const { User, CaloriesIn, CaloriesBurned, Workout, Journal } = require('../db/index.js');
+const moment = require('moment');
 
 const authCheck = (req, res, next) => {
   if (!req.user) {
@@ -18,7 +19,6 @@ router.get('/', authCheck, (req, res) => {
 
 // This will RETRIEVE the specific users name, so it can appear on the dashboard
 router.get('/user', (req, res) => {
-  console.log(req.user);
   const { googleId } = req.user;
   User.find({ googleId: googleId })
     .then((user) => {
@@ -34,16 +34,55 @@ router.get('/user', (req, res) => {
     });
 })
 
-router.get('/calorieIn', (req, res) => {
-
+router.get('/caloriesIn', (req, res) => {
+  const { _id } = req.user
+  const date = moment().format("YYYY-MM-DD")
+  CaloriesIn.find({ date: date, user: _id })
+    .then((data) => {
+      if (data) {
+        res.status(200).send(data);
+      } else {
+        res.sendStatus(404);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    })
 })
 
 router.get('/caloriesBurned', (req, res) => {
-
+  const { _id } = req.user
+  const date = moment().format("YYYY-MM-DD")
+  CaloriesBurned.find({ date: date, user: _id })
+    .then((data) => {
+      if (data) {
+        res.status(200).send(data);
+      } else {
+        res.sendStatus(404);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    })
 })
 
 router.get('/workout', (req, res) => {
-
+  const { _id } = req.user
+  const date = moment().format("YYYY-MM-DD")
+  Workout.find({ date: date, user: _id })
+    .then((data) => {
+      if (data) {
+        res.status(200).send(data);
+      } else {
+        res.sendStatus(404);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    })
 })
 
 module.exports = router;
