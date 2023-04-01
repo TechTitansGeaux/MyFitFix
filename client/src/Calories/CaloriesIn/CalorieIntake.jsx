@@ -108,7 +108,7 @@ function CalorieIntake() {
     <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
       <div className="bg-gradient-to-t from-sky-600 from-10% via-sky-400 to-sky-50 to-40% py-8 px-6 shadow rounded-lg sm:px-10 drop-shadow-md ml-4">
         <div className="flex justify-center">
-          <h1 className="text-2xl text-sky-500 hover:text-orange-500 font-bold pt-5 mb-16 pb-4">Meal Tracker</h1>
+          <h1 className="text-2xl text-sky-500 font-bold pt-5 mb-16 pb-4">Meal Tracker</h1>
         </div>
         {/* <svg className="flex-shrink-0"></svg> */}
         <label for="Measurement" className="block text-sm font-medium text-sky-500">Select Date</label>
@@ -159,8 +159,8 @@ function CalorieIntake() {
         <div>
           <div class='flex justify-evenly mt-7'>
             <br></br>
-            <button type='button' className="w-full border border-sky-300 rounded-md shadow-lg hover:bg-orange-500 hover:font-bold active:bg-orange-900 active:text-white bg-white" onClick={() => handleDBSave()}>Save</button>
-            <button type='button' className="w-full border border-sky-300 rounded-md shadow-lg hover:bg-orange-500 hover:font-bold active:bg-orange-900 active:text-white bg-white" onClick={() => handleDBDelete()}>Delete</button>
+            <button type='button' className="w-full border border-sky-300 rounded-md shadow-lg hover:bg-orange-500 hover:font-bold active:bg-orange-900 active:text-white bg-white mr-2" onClick={() => handleDBSave()}>Save</button>
+            <button type='button' className="w-full border border-sky-300 rounded-md shadow-lg hover:bg-orange-500 hover:font-bold active:bg-orange-900 active:text-white bg-white ml-2" onClick={() => handleDBDelete()}>Delete</button>
           </div>
         </div>
       </div >
