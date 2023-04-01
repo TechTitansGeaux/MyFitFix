@@ -229,7 +229,9 @@ function Home() {
           <div>
             <header class="text-4xl inline-block mt-8 flex justify-center	ml-20">
               <img class="rounded-full inline-block gap-x-2 h-12 justify-right" src={user.thumbnail} alt="avatar" />
+              <div class="ml-3">
               Welcome, {user.name}!
+              </div>
             </header>
           </div>
 
