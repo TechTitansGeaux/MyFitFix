@@ -224,15 +224,19 @@ function Home() {
 
 
 
-      <div >
-        {/* Start of Welcome Title & Image */}
-        <div>
-          <header class="text-4xl inline-block mt-8 flex justify-center	ml-20">
-            <img class="rounded-full inline-block gap-x-2 h-12 justify-right" src={user.thumbnail} alt="avatar" />
-            Welcome, {user.name}!
-          </header>
-        </div>
-        <div>
+        <div >
+          {/* Start of Welcome Title & Image */}
+          <div>
+            <header class=" font-bold text-4xl inline-block mt-8 flex justify-center text-transparent bg-clip-text bg-gradient-to-r to-orange-500 from-slate-50	ml-20">
+              <img class="rounded-full inline-block gap-x-2 h-12 justify-right" src={user.thumbnail} alt="avatar" />
+              <div class="ml-6">
+              Welcome, {user.name}!
+              </div>
+            </header>
+          </div>
+
+          {/* <div class="grid grid-rows-4 grid-flow-col gap-4gap-x-5 justify-center mx-auto mb-5"> */}
+          <div>
 
           <div className='flex justify-center'>
             <svg className="flex-shrink-0"></svg>
