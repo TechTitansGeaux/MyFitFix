@@ -87,16 +87,16 @@ function Home() {
           const workout = data[0].exercise;
           setDailyWorkout(workout);
           setWorkoutIcon(<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="inline-block ml-3">
-          <path fill="#27ae60" d="M22 13c0 5.523-4.477 10-10 10S2 18.523 2 13 6.477 3 12 3s10 4.477 10 10z"/>
-          <path fill="#2ecc71" d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10z"/>
-          <path fill="#27ae60" d="m16 9-6 6-2.5-2.5-2.125 2.1 2.5 2.5 2 2 .125.1 8.125-8.1L16 9z"/>
-          <path fill="#ecf0f1" d="m16 8-6 6-2.5-2.5-2.125 2.1 2.5 2.5 2 2 .125.1 8.125-8.1L16 8z"/>
+            <path fill="#27ae60" d="M22 13c0 5.523-4.477 10-10 10S2 18.523 2 13 6.477 3 12 3s10 4.477 10 10z" />
+            <path fill="#2ecc71" d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10z" />
+            <path fill="#27ae60" d="m16 9-6 6-2.5-2.5-2.125 2.1 2.5 2.5 2 2 .125.1 8.125-8.1L16 9z" />
+            <path fill="#ecf0f1" d="m16 8-6 6-2.5-2.5-2.125 2.1 2.5 2.5 2 2 .125.1 8.125-8.1L16 8z" />
           </svg>);
         } else {
           setDailyWorkout('You have not created a workout today.');
           setWorkoutIcon(<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 64 64" class="inline-block ml-3" >
-          <path fill="#ffc048" d="M32 3.4A28.59 28.59 0 0 0 3.4 32 28.59 28.59 0 0 0 32 60.6 28.59 28.59 0 0 0 60.6 32 28.59 28.59 0 0 0 32 3.4Zm0 49.2a4.32 4.32 0 1 1 4.31-4.31A4.32 4.32 0 0 1 32 52.6ZM37.23 17 35.6 39a.6.6 0 0 1-.6.56h-6a.6.6 0 0 1-.6-.56l-1.63-22a5.24 5.24 0 1 1 10.46 0Z" data-name="Layer 35" />
-        </svg>);
+            <path fill="#ffc048" d="M32 3.4A28.59 28.59 0 0 0 3.4 32 28.59 28.59 0 0 0 32 60.6 28.59 28.59 0 0 0 60.6 32 28.59 28.59 0 0 0 32 3.4Zm0 49.2a4.32 4.32 0 1 1 4.31-4.31A4.32 4.32 0 0 1 32 52.6ZM37.23 17 35.6 39a.6.6 0 0 1-.6.56h-6a.6.6 0 0 1-.6-.56l-1.63-22a5.24 5.24 0 1 1 10.46 0Z" data-name="Layer 35" />
+          </svg>);
         }
       })
       .catch((err) => {
@@ -108,21 +108,21 @@ function Home() {
     // Implementing useEffect to send a GET request to check if the current signed-in user's daily entry was completed
     axios.get(`/journal-entry/${todaysDate}`)
       .then((response) => {
-          if (response.data.length !== 0) {
-            setJournalMessage('All done. You have submitted your journal entry for today.')
-            setIcon(<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="inline-block ml-3">
-              <path fill="#27ae60" d="M22 13c0 5.523-4.477 10-10 10S2 18.523 2 13 6.477 3 12 3s10 4.477 10 10z"/>
-              <path fill="#2ecc71" d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10z"/>
-              <path fill="#27ae60" d="m16 9-6 6-2.5-2.5-2.125 2.1 2.5 2.5 2 2 .125.1 8.125-8.1L16 9z"/>
-              <path fill="#ecf0f1" d="m16 8-6 6-2.5-2.5-2.125 2.1 2.5 2.5 2 2 .125.1 8.125-8.1L16 8z"/>
-              </svg>)
-          } else {
-            setJournalMessage('You have not completed a journal entry for today.')
-            setIcon(<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 64 64" class="inline-block ml-3" >
-              <path fill="#ffc048" d="M32 3.4A28.59 28.59 0 0 0 3.4 32 28.59 28.59 0 0 0 32 60.6 28.59 28.59 0 0 0 60.6 32 28.59 28.59 0 0 0 32 3.4Zm0 49.2a4.32 4.32 0 1 1 4.31-4.31A4.32 4.32 0 0 1 32 52.6ZM37.23 17 35.6 39a.6.6 0 0 1-.6.56h-6a.6.6 0 0 1-.6-.56l-1.63-22a5.24 5.24 0 1 1 10.46 0Z" data-name="Layer 35" />
-            </svg>)
-          }
-    })
+        if (response.data.length !== 0) {
+          setJournalMessage('All done. You have submitted your journal entry for today.')
+          setIcon(<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="inline-block ml-3">
+            <path fill="#27ae60" d="M22 13c0 5.523-4.477 10-10 10S2 18.523 2 13 6.477 3 12 3s10 4.477 10 10z" />
+            <path fill="#2ecc71" d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10z" />
+            <path fill="#27ae60" d="m16 9-6 6-2.5-2.5-2.125 2.1 2.5 2.5 2 2 .125.1 8.125-8.1L16 9z" />
+            <path fill="#ecf0f1" d="m16 8-6 6-2.5-2.5-2.125 2.1 2.5 2.5 2 2 .125.1 8.125-8.1L16 8z" />
+          </svg>)
+        } else {
+          setJournalMessage('You have not completed a journal entry for today.')
+          setIcon(<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 64 64" class="inline-block ml-3" >
+            <path fill="#ffc048" d="M32 3.4A28.59 28.59 0 0 0 3.4 32 28.59 28.59 0 0 0 32 60.6 28.59 28.59 0 0 0 60.6 32 28.59 28.59 0 0 0 32 3.4Zm0 49.2a4.32 4.32 0 1 1 4.31-4.31A4.32 4.32 0 0 1 32 52.6ZM37.23 17 35.6 39a.6.6 0 0 1-.6.56h-6a.6.6 0 0 1-.6-.56l-1.63-22a5.24 5.24 0 1 1 10.46 0Z" data-name="Layer 35" />
+          </svg>)
+        }
+      })
       .catch((err) => console.log(err, 'Request failed'));
   }, [journalMessage])
 
@@ -232,15 +232,13 @@ function Home() {
               Welcome, {user.name}!
             </header>
           </div>
-
-          {/* <div class="grid grid-rows-4 grid-flow-col gap-4gap-x-5 justify-center mx-auto mb-5"> */}
           <div>
 
             <div className='flex justify-center'>
               <svg className="flex-shrink-0"></svg>
+
               {/* CALORIE INTAKE */}
               <div class="mt-8 mr-2 sm:mx-auto sm:w-full sm:max-w-md  px-10 py-12 rounded-md shadow-lg bg-gradient-to-br from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
-                {/* <div class="px-12 py-12"> */}
                 <div class="font-bold text-xl mb-2 hover:text-orange-500">Calorie Intake</div>
                 <p class="text-gray-700 text-base font-bold ">
                   Today, you have eaten:
@@ -248,14 +246,10 @@ function Home() {
                 <p className='text-gray-700 text-base font-bold text-orange-500 mt-4 ml-10'>
                   {ateTotal}
                 </p>
-                {/* <p class="text-gray-700 text-base font-bold mt-4">
-                  Drink some water!
-                </p> */}
-                {/* </div> */}
               </div>
+
               {/* CALORIES BURNED */}
               <div class="mt-8 ml-2 sm:w-full sm:max-w-md  px-10 py-12 rounded-md shadow-lg bg-gradient-to-bl from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
-                {/* <div class="px-12 py-12"> */}
                 <div class="font-bold text-xl mb-2 hover:text-orange-500">Calories Burned</div>
                 <p class="text-gray-700 text-base font-bold">
                   Today, you have burned:
@@ -263,25 +257,25 @@ function Home() {
                 <p className='text-gray-700 text-base font-bold text-orange-500 mt-4 ml-20'>
                   {dailyBurn} calories
                 </p>
-                {/* </div> */}
               </div>
             </div>
 
             <div className='flex justify-center'>
               <svg className="flex-shrink-0"></svg>
+
               {/* JOURNAL */}
               <div className="mt-8 mr-2 sm:mx-auto sm:w-full sm:max-w-md  px-10 py-12 rounded-md shadow-lg bg-gradient-to-tr from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
                 {/* <div className="px-10 py-7 space-x-3"> */}
-                  <div className="font-bold text-xl mb-2 inline-block hover:text-orange-500">Daily Journal Entry</div>
-                  
-                  {icon}
+                <div className="font-bold text-xl mb-2 inline-block hover:text-orange-500">Daily Journal Entry</div>
+
+                {icon}
 
                 <p className="text-gray-700 text-base font-bold">
                   <span>
                     {journalMessage}</span>
                 </p>
-                {/* </div> */}
               </div>
+
               {/* WORKOUT PLANNER */}
               <div class="mt-8 ml-2  sm:w-full sm:max-w-md  px-10 py-12 rounded-md shadow-lg bg-gradient-to-tl from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
                 <div class="font-bold text-xl mb-2 hover:text-orange-500 inline-block">Workout Planner</div>
