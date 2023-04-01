@@ -43,7 +43,7 @@ function SearchEntry( { exercise, handleWorkoutState } ){
 
   return (
 
-<div class=" max-w-sm rounded overflow-hidden shadow-xl ml-60 mt-4 bg-gradient-to-bl from-sky-600 from-10%  via-sky-400 to-sky-50 to-40% ...">
+<div class=" max-w-sm rounded overflow-hidden shadow-xl ml-0 mt-4 bg-gradient-to-bl from-sky-600 from-10%  via-sky-400 to-sky-50 to-40% ...">
   <div className="search-data">
     <div class="px-6 py-4">
         <div class="font-bold text-xl mb-2"className="result-data">{exercise.name}</div>
