@@ -54,12 +54,20 @@ function JournalEntry () {
     // This function deletes a journal entry in the DB 
     const deleteEntry = () => {
       // Alerting a user, to make sure they want to delete this current entry 
-      confirm('Are you sure you want to delete this journal entry?')
-
-      // Sending an AXIOS delete request to delete the selected entry 
+      if(confirm('Are you sure you want to delete this journal entry?')) {
+            // Sending an AXIOS delete request to delete the selected entry 
       axios.delete(`/journal-entry/${date}`)
-        .then(() => console.log('The selected journal entry was deleted.'))
-        .catch(() => console.log('We were not able to delete your journal entry. Try again.'))
+      .then(() => console.log('The selected journal entry was deleted.'))
+      .catch(() => console.log('We were not able to delete your journal entry. Try again.'))
+      //This will only fire if the person clicks 'delete'
+      setEntryBox('')
+
+      } else {
+       //Nothing will occur if the user clicks 'cancel'
+      console.log('Entry was cancelled from being deleted.')
+      }
+
+  
     }
 
 
@@ -197,7 +205,7 @@ function JournalEntry () {
   <div>
 
 {/* Delete Button */}
-<button class="inline-flex items-center justify-center w-9 h-9 mr-10 ml-10 text-gray-700 transition-colors duration-150 bg-white rounded-full focus:shadow-outline hover:bg-gray-200" onClick={() => {deleteEntry(); setEntryBox('')}}>
+<button class="inline-flex items-center justify-center w-9 h-9 mr-10 ml-10 text-gray-700 transition-colors duration-150 bg-white rounded-full focus:shadow-outline hover:bg-gray-200" onClick={() => {deleteEntry();}}>
 <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" width="24" height="24" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="m112 112 20 320c.95 18.49 14.4 32 32 32h184c17.67 0 30.87-13.51 32-32l20-320"/><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M80 112h352"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M192 112V72h0a23.93 23.93 0 0 1 24-24h80a23.93 23.93 0 0 1 24 24h0v40m-64 64v224m-72-224 8 224m136-224-8 224"/></svg>
 </button>
 </div>
@@ -231,8 +239,8 @@ function JournalEntry () {
               <br></br>
 
               <button class="shadow-2xl text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"  onClick={(e) => {submitJournalEntry(); e.preventDefault();}}>
-              <svg width="15" height="20" xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M380.93 57.37A32 32 0 0 0 358.3 48H94.22A46.21 46.21 0 0 0 48 94.22v323.56A46.21 46.21 0 0 0 94.22 464h323.56A46.36 46.36 0 0 0 464 417.78V153.7a32 32 0 0 0-9.37-22.63zM256 416a64 64 0 1 1 64-64 63.92 63.92 0 0 1-64 64zm48-224H112a16 16 0 0 1-16-16v-64a16 16 0 0 1 16-16h192a16 16 0 0 1 16 16v64a16 16 0 0 1-16 16z"/></svg>
-  <span>Save Entry</span>
+              <svg width="15" height="20" xmlns="http://www.w3.org/2000/svg" class="inline-block" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M380.93 57.37A32 32 0 0 0 358.3 48H94.22A46.21 46.21 0 0 0 48 94.22v323.56A46.21 46.21 0 0 0 94.22 464h323.56A46.36 46.36 0 0 0 464 417.78V153.7a32 32 0 0 0-9.37-22.63zM256 416a64 64 0 1 1 64-64 63.92 63.92 0 0 1-64 64zm48-224H112a16 16 0 0 1-16-16v-64a16 16 0 0 1 16-16h192a16 16 0 0 1 16 16v64a16 16 0 0 1-16 16z"/></svg>
+  <span class="inline-block ml-3">Save Entry</span>
 </button>
    </form>
    </div>
