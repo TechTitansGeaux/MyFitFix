@@ -179,11 +179,8 @@ function JournalEntry () {
 {/* <div class ="grid grid-cols-2">  */}
       {/* CALENDAR */}
 
-      {/* <ul class="flex bg-white">
-  <li class="flex-1 mr-2">
-   
-  </li>
-  <li class="flex-1 mr-2">
+       <ul class="flex bg-white border-solid border border-stone-300">
+  <li class="flex-1 border-solid border border-stone-300">
   <div name="calendar">
           <input type="date" 
                   id="start" 
@@ -191,37 +188,25 @@ function JournalEntry () {
                 min="2023-01-01" 
                 max="2026-01-01"
                 value={date}
-                class="border border-indigo-600 text-2xl"
+                class="text-xl h-full ml-3 mr-3 cursor-pointer"
                 onChange={(e) => {setDate(e.target.value); showEntry(e.target.value);}}>
                 </input>
                 </div>
   </li>
-  <li class="text-center flex-1">
-    <a class="block py-2 px-4 text-gray-400 cursor-not-allowed" href="#">Disabled Item</a>
-  </li>
-</ul> 
+  <li class="flex-1 border-solid border border-stone-300 ">
+  <div>
 
-adding a new toolbar */} 
-  
-    <div name="calendar">
-          <input type="date" 
-                  id="start" 
-                  name="journal-start"
-                min="2023-01-01" 
-                max="2026-01-01"
-                value={date}
-                class="border border-indigo-600"
-                onChange={(e) => {setDate(e.target.value); showEntry(e.target.value);}}>
-                </input>
-                </div>
-
-<div>
-
-  {/* Delete Button */}
-<button class="inline-flex items-center justify-center w-9 h-9 mr-2 text-gray-700 transition-colors duration-150 bg-white rounded-full focus:shadow-outline hover:bg-gray-200 ml-32" onClick={() => {deleteEntry(); setEntryBox('')}}>
+{/* Delete Button */}
+<button class="inline-flex items-center justify-center w-9 h-9 mr-10 ml-10 text-gray-700 transition-colors duration-150 bg-white rounded-full focus:shadow-outline hover:bg-gray-200" onClick={() => {deleteEntry(); setEntryBox('')}}>
 <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" width="24" height="24" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="m112 112 20 320c.95 18.49 14.4 32 32 32h184c17.67 0 30.87-13.51 32-32l20-320"/><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M80 112h352"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M192 112V72h0a23.93 23.93 0 0 1 24-24h80a23.93 23.93 0 0 1 24 24h0v40m-64 64v224m-72-224 8 224m136-224-8 224"/></svg>
 </button>
 </div>
+  </li>
+</ul> 
+
+  
+
+
 
 {/* </div> */}
 
@@ -232,9 +217,9 @@ adding a new toolbar */}
         <div name="messageBox" className='flex justify-start ml-20'>
                 <form>
               <label htmlFor="multiLineInput">
-                <textarea rows="20" 
+                <textarea rows="15" 
                 cols="70" 
-                class="block p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                class=" shadow-2xl block p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                 name="entryBox"
                 value={entryBox}
                 onChange={(e) => {setEntry(e.target.value); setEntryBox(e.target.value);}}
@@ -245,7 +230,7 @@ adding a new toolbar */}
 
               <br></br>
 
-              <button class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"  onClick={(e) => {submitJournalEntry(); e.preventDefault();}}>
+              <button class="shadow-2xl text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"  onClick={(e) => {submitJournalEntry(); e.preventDefault();}}>
               <svg width="15" height="20" xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M380.93 57.37A32 32 0 0 0 358.3 48H94.22A46.21 46.21 0 0 0 48 94.22v323.56A46.21 46.21 0 0 0 94.22 464h323.56A46.36 46.36 0 0 0 464 417.78V153.7a32 32 0 0 0-9.37-22.63zM256 416a64 64 0 1 1 64-64 63.92 63.92 0 0 1-64 64zm48-224H112a16 16 0 0 1-16-16v-64a16 16 0 0 1 16-16h192a16 16 0 0 1 16 16v64a16 16 0 0 1-16 16z"/></svg>
   <span>Save Entry</span>
 </button>
