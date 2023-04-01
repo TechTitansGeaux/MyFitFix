@@ -57,7 +57,7 @@ function CalorieIntake() {
   const handleDBSave = () => {
     alert(`Successfully saved`);
     axios.post('nutrition/food', { foodList: food, date: date })
-      .then(getAllFoodItems())
+      .then(() => getAllFoodItems())
       .catch((err) => {
         console.error('Failed to send request:', err);
       });
@@ -81,10 +81,8 @@ function CalorieIntake() {
   }
 
   const handleDeleteEntry = (name) => {
-    let newArr = food.filter(item => {
-
-    })
-
+    let newFoodList = food.filter(item => item.name !== name);
+    setFood(newFoodList);
   }
 
   //Set to clear out the fields and reset the state when the submit button is pressed
@@ -125,11 +123,11 @@ function CalorieIntake() {
         ></input>
         <form>
           <div className="pt-1">
-            <label for="Measurement" className="block text-sm font-medium text-sky-500">Product Weight (g):</label>
+            <label className="block text-sm font-medium text-sky-500">Product Weight (g):</label>
             <input id='foodWeight' className="w-full border border-sky-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 hover:border-blue-700 text-center" type='number' onChange={e => setWeight(e.target.value)}></input>
           </div>
           <div className="pt-3">
-            <label for="Ingredient" className="block text-sm font-medium text-sky-500">Ingredient:</label>
+            <label className="block text-sm font-medium text-sky-500">Ingredient:</label>
             <input id='foodProduct' className="w-full border border-sky-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 hover:border-blue-700 text-center" type='text' onChange={e => setProduct(e.target.value)}></input>
             <div className="py-4">
               <button className="w-full border border-sky-300 rounded-md shadow-lg hover:bg-orange-500 hover:font-bold active:bg-orange-900 active:text-white bg-white" type='button' onClick={() => {
@@ -143,7 +141,7 @@ function CalorieIntake() {
           <div className="flex items-center">
             <div>
               <div className='pr-10 font-medium'>Product</div>
-              {food.map(item => <div className="pl-3">{item.name}</div>)}
+              {food.map(item => <div className="pl-3" key={item.name} onClick={e => handleDeleteEntry(e.target.outerText)}>{item.name}</div>)}
             </div>
             <div>
               <div className='pr-10 font-medium'>Weight(g)</div>
