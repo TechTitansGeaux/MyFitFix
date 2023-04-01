@@ -123,21 +123,12 @@ function CalorieIntake() {
         ></input>
         <form>
           <div className="pt-1">
-<<<<<<< HEAD
-            <label className="block text-sm font-medium text-sky-500">Product Weight (g):</label>
-            <input id='foodWeight' className="w-full border border-sky-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 hover:border-blue-700 text-center" type='number' onChange={e => setWeight(e.target.value)}></input>
-          </div>
-          <div className="pt-3">
-            <label className="block text-sm font-medium text-sky-500">Ingredient:</label>
-            <input id='foodProduct' className="w-full border border-sky-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 hover:border-blue-700 text-center" type='text' onChange={e => setProduct(e.target.value)}></input>
-=======
             <label for="Measurement" className="block text-sm font-medium text-sky-500">Product Weight (g):</label>
             <input id='foodWeight' className="w-full border border-sky-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 hover:border-blue-700" type='number' onChange={e => setWeight(e.target.value)}></input>
           </div>
           <div className="pt-3">
             <label for="Ingredient" className="block text-sm font-medium text-sky-500">Ingredient:</label>
             <input id='foodProduct' className="w-full border border-sky-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 hover:border-blue-700" type='text' onChange={e => setProduct(e.target.value)}></input>
->>>>>>> 093da292057ec5d89ef7ed62cf4348fc76879b79
             <div className="py-4">
               <button className="w-full border border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 font-bold tracking-wider active:text-white transform hover:scale-110 px-1 ml-2" type='button' onClick={() => {
                 handleApiRequest()
@@ -163,9 +154,9 @@ function CalorieIntake() {
           </div>
           <br></br>
           <div className='font-bold'>Total Calories:
-        {/* <div className='justify-center'> */}
-          <h3 className="font-bold text-center shadow-lg rounded-lg border border-black ml-3 mr-3 mb-3 mt-1">{total}</h3>
-          {/* </div> */}
+            {/* <div className='justify-center'> */}
+            <h3 className="font-bold text-center shadow-lg rounded-lg border border-black ml-3 mr-3 mb-3 mt-1">{total}</h3>
+            {/* </div> */}
           </div>
         </div>
         <div>

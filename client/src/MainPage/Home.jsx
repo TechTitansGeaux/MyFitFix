@@ -40,18 +40,30 @@ function Home() {
         console.log(data);
       })
       .catch((err) => {
-        console.error('Failed to request:', err);
+        console.error('Failed to get caloriesIn:', err);
       });
   }, [user])
 
   //Effect for getting total calories burned
   useEffect(() => {
     axios.get('dashboard/caloriesBurned')
+      .then(({ data }) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        console.error('Failed to get caloriesBurned:', err);
+      });
   }, [ateTotal])
 
   // Effect for getting the Daily Workout
   useEffect(() => {
     axios.get('dashboard/workout')
+      .then(({ data }) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        console.error('Failed to get workout:', err);
+      })
   }, [dailyBurn])
 
   return (

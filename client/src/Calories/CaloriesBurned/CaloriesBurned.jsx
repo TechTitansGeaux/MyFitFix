@@ -108,7 +108,6 @@ function CaloriesBurned() {
 
 
 
-<<<<<<< HEAD
         <form className='mb-0 space-y-6'>
           <div>
             <label className='block text-sm font-medium text-sky-500 hover:text-orange-500'>Select Date</label>
@@ -116,27 +115,12 @@ function CaloriesBurned() {
               type="date"
               id="cb-date"
               name="cb-date"
-              className='w-full border border-sky-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 hover:border-blue-700 hover:border-lg'
+              className='w-full border border-sky-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 hover:border-blue-700'
               value={date}
               onChange={(event) => selectDate(event.target.value)}
             >
             </input>
           </div>
-=======
-      <form className='mb-0 space-y-6'>
-        <div>
-          <label className='block text-sm font-medium text-sky-500 hover:text-orange-500'>Select Date</label>
-          <input
-            type="date"
-            id="cb-date"
-            name="cb-date"
-            className='w-full border border-sky-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 hover:border-blue-700'
-            value={date}
-            onChange={(event) => selectDate(event.target.value)}
-          >
-          </input>
-        </div>
->>>>>>> 093da292057ec5d89ef7ed62cf4348fc76879b79
 
           <div>
             <label className='block text-sm font-medium text-sky-500 hover:text-orange-500'>Current Weight (lbs)</label>
