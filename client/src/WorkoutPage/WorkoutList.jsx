@@ -81,7 +81,7 @@ const handleEntrySave = () => {
 
 
 return(
-<div class="max-w-xl rounded overflow-hidden shadow-lg row-span-2">
+<div class="max-w-xl col-span-2 h-96 rounded overflow-hidden shadow-lg row-span-2 bg-gradient-to-bl from-sky-600 from-10%  via-sky-400 to-sky-50 to-40% ...">
             <div class="px-6 py-4">
               <div class="font-bold text-xl mb-2">Today's Workout</div>
               <button type="button" className='w-fit border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 font-bold tracking-wider active:text-white transform hover:scale-110 px-1 ml-4 mr-4' onClick={handleEntrySave}>Save Workout</button>
@@ -94,9 +94,14 @@ return(
             handleDateChange(e.target.value);
           }}
         ></input>
-    </div>
-    <div class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+    
+    <div class="border-r border-b border-l  w-auto h-60 border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-orange-50 rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
       <div class="mb-8">
+      <div class="flex items-center">
+            <div class="text-sm">
+            <p align='right' class="text-gray-600">{currDate}</p>
+            </div>
+          </div>
         <div class="flex items-center" className='workout'>
             <div className="exercise-entry">
             { workout.map((exercise, index) => {
@@ -104,12 +109,9 @@ return(
             })}
             </div>
         </div>
-          <div class="flex items-center">
-            <div class="text-sm">
-            <p class="text-gray-600">{currDate}</p>
-            </div>
+
           </div>
-          </div>
+      </div>
       </div>
     </div>
 
