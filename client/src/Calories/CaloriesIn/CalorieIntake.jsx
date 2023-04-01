@@ -57,7 +57,7 @@ function CalorieIntake() {
   const handleDBSave = () => {
     alert(`Successfully saved`);
     axios.post('nutrition/food', { foodList: food, date: date })
-      .then(getAllFoodItems())
+      .then(() => getAllFoodItems())
       .catch((err) => {
         console.error('Failed to send request:', err);
       });
@@ -80,11 +80,10 @@ function CalorieIntake() {
     setDate(newDate);
   }
 
-  // const handleDeleteEntry = (name) => {
-  //   setFood((food) => {
-  //     return food.filter((item) => item.name !== name)
-  //   });
-  // }
+  const handleDeleteEntry = (name) => {
+    let newFoodList = food.filter(item => item.name !== name);
+    setFood(newFoodList);
+  }
 
   //Set to clear out the fields and reset the state when the submit button is pressed
   const clearFields = () => {
@@ -142,7 +141,7 @@ function CalorieIntake() {
           <div className="flex items-center">
             <div>
               <div className='pr-10 font-medium'>Product</div>
-              {food.map(item => <div className="pl-3">{item.name}</div>)}
+              {food.map(item => <div className="pl-3" key={item.name} onClick={e => handleDeleteEntry(e.target.outerText)}>{item.name}</div>)}
             </div>
             <div>
               <div className='pr-10 font-medium'>Weight(g)</div>
@@ -155,9 +154,9 @@ function CalorieIntake() {
           </div>
           <br></br>
           <div className='font-bold'>Total Calories:
-        {/* <div className='justify-center'> */}
-          <h3 className="font-bold text-center shadow-lg rounded-lg border border-black ml-3 mr-3 mb-3 mt-1">{total}</h3>
-          {/* </div> */}
+            {/* <div className='justify-center'> */}
+            <h3 className="font-bold text-center shadow-lg rounded-lg border border-black ml-3 mr-3 mb-3 mt-1">{total}</h3>
+            {/* </div> */}
           </div>
         </div>
         <div>
