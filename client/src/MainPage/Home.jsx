@@ -8,9 +8,11 @@ import moment from 'moment';
 
 function Home() {
   const navigate = useNavigate();
-  const [name, setName] = useState('');
-  const [image, setImage] = useState('');
-  const [caloriesBurned, setcaloriesBurned] = useState('');
+  const [load, setLoad] = useState(true);
+  const [user, setUser] = useState({});
+  const [ateTotal, setAteTotal] = useState(0);
+  const [dailyBurn, setDailyBurn] = useState(0);
+  const [dailyWorkout, setDailyWorkout] = useState([]);
   const [journalMessage, setJournalMessage] = useState('');
   const [icon, setIcon] = useState('')
 
@@ -28,30 +30,91 @@ function Home() {
       });
   }
 
+  // Helper for total ate Cals
+  const getTotalCals = (list) => {
+    let total = 0;
+    list.forEach(item => total += item.calories);
+    setAteTotal(total)
+  }
+
+  // Effect for getting a user
   useEffect(() => {
-    // Implementing useEffect to send a GET request to retrieve the current signed-in user's name
-    axios.get('/dashboard/name')
-      .then(({ data }) => { setName(data.name); setImage(data.thumbnail); })
+    axios.get('/dashboard/user')
+      .then(({ data }) => {
+        setUser(data[0]);
+      })
       .catch((err) => { console.err(err) });
-    
-      // Implementing useEffect to send a GET request to check if the current signed-in user's daily entry was completed 
+  }, [load])
+
+  //Effect for getting their total calories ate
+  useEffect(() => {
+    axios.get('dashboard/caloriesIn')
+      .then(({ data }) => {
+        if (data.length !== 0) {
+          const foodList = data[0].foodList;
+          getTotalCals(foodList);
+        } else {
+          setAteTotal('You do not have a table for today');
+        }
+      })
+      .catch((err) => {
+        console.error('Failed to get caloriesIn:', err);
+      });
+  }, [user])
+
+  //Effect for getting total calories burned
+  useEffect(() => {
+    axios.get('dashboard/caloriesBurned')
+      .then(({ data }) => {
+        if (data.length !== 0) {
+          const calBurned = data[0].caloriesBurned;
+          setDailyBurn(calBurned);
+        } else {
+          setDailyBurn(0);
+        }
+      })
+      .catch((err) => {
+        console.error('Failed to get caloriesBurned:', err);
+      });
+  }, [ateTotal])
+
+  // Effect for getting the Daily Workout
+  useEffect(() => {
+    axios.get('dashboard/workout')
+      .then(({ data }) => {
+        if (data.length !== 0) {
+          const workout = data[0].exercise;
+          setDailyWorkout(workout);
+        } else {
+          setDailyWorkout('You have not created a workout today');
+        }
+      })
+      .catch((err) => {
+        console.error('Failed to get workout:', err);
+      })
+  }, [dailyBurn])
+
+  useEffect(() => {
+    // Implementing useEffect to send a GET request to check if the current signed-in user's daily entry was completed
     axios.get(`/journal-entry/${todaysDate}`)
       .then((response) => {
           if (response.data.length !== 0) {
             setJournalMessage('All done. You have submitted your journal entry for today.')
-            setIcon(<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48">
-            <path fill="#c8e6c9" d="M44 24c0 11.045-8.955 20-20 20S4 35.045 4 24 12.955 4 24 4s20 8.955 20 20z"/>
-            <path fill="#4caf50" d="m34.586 14.586-13.57 13.586-5.602-5.586-2.828 2.828 8.434 8.414 16.395-16.414-2.829-2.828z"/>
-            </svg>)
+            setIcon(<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="inline-block">
+              <path fill="#27ae60" d="M22 13c0 5.523-4.477 10-10 10S2 18.523 2 13 6.477 3 12 3s10 4.477 10 10z"/>
+              <path fill="#2ecc71" d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10z"/>
+              <path fill="#27ae60" d="m16 9-6 6-2.5-2.5-2.125 2.1 2.5 2.5 2 2 .125.1 8.125-8.1L16 9z"/>
+              <path fill="#ecf0f1" d="m16 8-6 6-2.5-2.5-2.125 2.1 2.5 2.5 2 2 .125.1 8.125-8.1L16 8z"/>
+              </svg>)
           } else {
             setJournalMessage('You have not completed a journal entry for today.')
-            setIcon(<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="48" height="48">
-              <path d="M32 3.4A28.59 28.59 0 0 0 3.4 32 28.59 28.59 0 0 0 32 60.6 28.59 28.59 0 0 0 60.6 32 28.59 28.59 0 0 0 32 3.4Zm0 49.2a4.32 4.32 0 1 1 4.31-4.31A4.32 4.32 0 0 1 32 52.6ZM37.23 17 35.6 39a.6.6 0 0 1-.6.56h-6a.6.6 0 0 1-.6-.56l-1.63-22a5.24 5.24 0 1 1 10.46 0Z" data-name="Layer 35" style="fill:#ffc048"/>
-              </svg>)
+            setIcon(<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 64 64" class="inline-block">
+              <path fill="#ffc048" d="M32 3.4A28.59 28.59 0 0 0 3.4 32 28.59 28.59 0 0 0 32 60.6 28.59 28.59 0 0 0 60.6 32 28.59 28.59 0 0 0 32 3.4Zm0 49.2a4.32 4.32 0 1 1 4.31-4.31A4.32 4.32 0 0 1 32 52.6ZM37.23 17 35.6 39a.6.6 0 0 1-.6.56h-6a.6.6 0 0 1-.6-.56l-1.63-22a5.24 5.24 0 1 1 10.46 0Z" data-name="Layer 35" />
+            </svg>)
           }
     })
       .catch((err) => console.log(err, 'Request failed'));
-    }, [])
+    }, [journalMessage])
 
 
   return (
@@ -123,9 +186,9 @@ function Home() {
 
             {/* Journal List Item */}
             <button class="flex dark:text-white justify-start items-center space-x-6 hover:text-white focus:outline-none focus:bg-sky-500 focus:text-white hover:bg-sky-500 text-gray-600 rounded py-3 pl-4 w-full" onClick={() => navigate('/journal-entry')}>
-            <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
-            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M364.13 125.25 87 403l-23 45 44.99-23 277.76-277.13-22.62-22.62zm56.56-56.56-22.62 22.62 22.62 22.63 22.62-22.63a16 16 0 0 0 0-22.62h0a16 16 0 0 0-22.62 0z"/>
-            </svg>
+              <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
+                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M364.13 125.25 87 403l-23 45 44.99-23 277.76-277.13-22.62-22.62zm56.56-56.56-22.62 22.62 22.62 22.63 22.62-22.63a16 16 0 0 0 0-22.62h0a16 16 0 0 0-22.62 0z" />
+              </svg>
               <p class="text-base leading-4">Journal</p>
             </button>
 
@@ -148,56 +211,76 @@ function Home() {
 
 
         {/* Start of Cards*/}
-        <div class="grid grid-rows-4 grid-flow-col gap-4gap-x-5 justify-center mx-auto mb-5">
-          {/* Start of Welcome Title & Image */}
-          <header class="text-4xl inline-block mt-8 flex justify-center	">
-            <img class="rounded-full inline-block gap-x-2 h-12 justify-right" src={image} alt="avatar" />
-            Welcome, {name}!
-          </header>
-          {/* CALORIE TRACKER */}
-          <div class="max-w-sm rounded overflow-hidden shadow-lg row-span-2">
-            <div class="px-6 py-4">
-              <div class="font-bold text-xl mb-2">Calorie Intake</div>
-              <p class="text-gray-700 text-base">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
-              </p>
-            </div>
-          </div>
-          {/* CALORIES BURNED */}
-          <div class="max-w-sm rounded overflow-hidden shadow-lg row-span-2">
-            <div class="px-6 py-4">
-              <div class="font-bold text-xl mb-2">Calories Burned</div>
-              <p class="text-gray-700 text-base">
-                {/* Today, you have burned: {calories} calories */}
-              </p>
-            </div>
-          </div>
-          {/* JOURNAL */}
-          <div className="max-w-sm rounded overflow-hidden shadow-lg rounded-lg ">
-            <div className="px-10 py-7 space-x-3">
-              <div className="font-bold text-xl mb-2 inline-block">Daily Journal Entry</div>
-              <button type="button" onClick={() => navigate('/journal-entry')} className=" inline-block text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-sm px-2 py-0.5 text-center mr-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800 rounded-full">+</button>
 
-              <p className="text-gray-700 text-base">
-                <span>{icon}
-                {journalMessage}</span>
-              </p>
-            </div>
+
+
+        <div >
+          {/* Start of Welcome Title & Image */}
+          <div>
+            <header class="text-4xl inline-block mt-8 flex justify-center	ml-20">
+              <img class="rounded-full inline-block gap-x-2 h-12 justify-right" src={user.thumbnail} alt="avatar" />
+              Welcome, {user.name}!
+            </header>
           </div>
-          {/* WORKOUT PLANNER */}
-          <div class="max-w-sm rounded overflow-hidden shadow-lg row-span-2">
-            <div class="px-6 py-4">
-              <div class="font-bold text-xl mb-2">Workout Planner</div>
-              <p class="text-gray-700 text-base">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
-              </p>
+
+          {/* <div class="grid grid-rows-4 grid-flow-col gap-4gap-x-5 justify-center mx-auto mb-5"> */}
+          <div>
+
+            <div className='flex justify-center'>
+              <svg className="flex-shrink-0"></svg>
+              {/* CALORIE INTAKE */}
+              <div class="mt-8 mr-2 sm:mx-auto sm:w-full sm:max-w-md  px-10 py-12 bg-gradient-to-br from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
+                {/* <div class="px-12 py-12"> */}
+                <div class="font-bold text-xl mb-2">Calorie Intake</div>
+                <p class="text-gray-700 text-base">
+                  Total Calories: {ateTotal}
+                </p>
+                <p class="text-gray-700 text-base">
+                  Drink some Water!!!
+                </p>
+                {/* </div> */}
+              </div>
+              {/* CALORIES BURNED */}
+              <div class="mt-8 ml-2 sm:w-full sm:max-w-md  px-10 py-12 bg-gradient-to-bl from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
+                {/* <div class="px-12 py-12"> */}
+                <div class="font-bold text-xl mb-2">Calories Burned</div>
+                <p class="text-gray-700 text-base">
+                  Today, you have burned: {dailyBurn} calories
+                </p>
+                {/* </div> */}
+              </div>
             </div>
+
+            <div className='flex justify-center'>
+              <svg className="flex-shrink-0"></svg>
+              {/* JOURNAL */}
+              <div className="max-w-sm rounded overflow-hidden shadow-lg rounded-lg ">
+                <div className="px-10 py-7 space-x-3">
+                  <div className="font-bold text-xl mb-2 inline-block">Daily Journal Entry</div>
+                  {/* <button type="button" onClick={() => navigate('/journal-entry')} className=" inline-block text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-sm px-2 py-0.5 text-center mr-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800 rounded-full">+</button> */}
+                    {icon}
+                  <p className="text-gray-700 text-base">
+                    <span>
+                      {journalMessage}</span>
+                  </p>
+                </div>
+              </div>
+              {/* WORKOUT PLANNER */}
+              <div class="mt-8 ml-2  sm:w-full sm:max-w-md  px-10 py-12 bg-gradient-to-tl from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
+                <div class="font-bold text-xl mb-2">Workout Planner</div>
+                <p class="text-gray-700 text-base">
+                  {dailyWorkout}
+                </p>
+              </div>
+            </div>
+
+
           </div>
         </div>
       </div>
 
-
     </div>
+
 
 
   )
