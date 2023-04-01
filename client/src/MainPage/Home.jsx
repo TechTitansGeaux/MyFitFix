@@ -56,6 +56,7 @@ function Home() {
 
       {/* START OF NAVIGATION BAR */}
       <div class="flex mb-4">
+
         <div class="bg-white dark:bg-gray-800  xl:hidden flex text-gray-800 hover:text-black focus:outline-none focus:text-black justify-between w-full p-6 items-center">
 
           <div aria-label="toggler" class="flex justify-center items-center">
@@ -144,31 +145,47 @@ function Home() {
         </div>
 
 
+
         {/* Start of Cards*/}
-        <div class="grid grid-rows-4 grid-flow-col gap-4gap-x-5 justify-center mx-auto mb-5">
+      
+       
+
+        <div >
           {/* Start of Welcome Title & Image */}
-          <header class="text-4xl inline-block mt-8 flex justify-center	">
+          <div>
+          <header class="text-4xl inline-block mt-8 flex justify-center	ml-20">
             <img class="rounded-full inline-block gap-x-2 h-12 justify-right" src={image} alt="avatar" />
             Welcome, {name}!
           </header>
-          {/* CALORIE TRACKER */}
-          <div class="max-w-sm rounded overflow-hidden shadow-lg row-span-2">
-            <div class="px-6 py-4">
+          </div>
+
+{/* <div class="grid grid-rows-4 grid-flow-col gap-4gap-x-5 justify-center mx-auto mb-5"> */}
+<div>
+
+<div className='flex justify-center'>
+<svg className="flex-shrink-0"></svg>
+          {/* CALORIE INTAKE */}
+          <div class="mt-8 mr-2 sm:mx-auto sm:w-full sm:max-w-md  px-10 py-12 bg-gradient-to-br from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
+            {/* <div class="px-12 py-12"> */}
               <div class="font-bold text-xl mb-2">Calorie Intake</div>
               <p class="text-gray-700 text-base">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
               </p>
-            </div>
+            {/* </div> */}
           </div>
           {/* CALORIES BURNED */}
-          <div class="max-w-sm rounded overflow-hidden shadow-lg row-span-2">
-            <div class="px-6 py-4">
+          <div class="mt-8 ml-2 sm:w-full sm:max-w-md  px-10 py-12 bg-gradient-to-bl from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
+            {/* <div class="px-12 py-12"> */}
               <div class="font-bold text-xl mb-2">Calories Burned</div>
               <p class="text-gray-700 text-base">
-                {/* Today, you have burned: {calories} calories */}
+                Today, you have burned: SOME calories
               </p>
-            </div>
+            {/* </div> */}
           </div>
+        </div>
+
+<div className='flex justify-center'>
+<svg className="flex-shrink-0"></svg>
           {/* JOURNAL */}
           <div className="max-w-sm rounded overflow-hidden shadow-lg rounded-lg ">
             <div className="px-10 py-7 space-x-3">
@@ -179,21 +196,25 @@ function Home() {
                 <span>{icon}
                 {journalMessage}</span>
               </p>
-            </div>
+            {/* </div> */}
           </div>
           {/* WORKOUT PLANNER */}
-          <div class="max-w-sm rounded overflow-hidden shadow-lg row-span-2">
-            <div class="px-6 py-4">
+          <div class="mt-8 ml-2  sm:w-full sm:max-w-md  px-10 py-12 bg-gradient-to-tl from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
+            {/* <div class="px-14 py-14"> */}
               <div class="font-bold text-xl mb-2">Workout Planner</div>
               <p class="text-gray-700 text-base">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
               </p>
-            </div>
+            {/* </div> */}
+          </div>
+          </div>
+
+
           </div>
         </div>
+
       </div>
-
-
+      
     </div>
 
 

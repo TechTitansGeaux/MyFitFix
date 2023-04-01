@@ -99,7 +99,7 @@ function CaloriesBurned() {
 
   return (
     <div className='mt-8 sm:mx-auto sm:w-full sm:max-w-md '>
-      <div className='bg-gradient-to-t from-sky-600 from-10%  via-sky-400 to-sky-50 to-40% ... py-8 px-6 shadow rounded-lg sm:px-10  drop-shadow-md ml-4 ' >
+      <div className='bg-gradient-to-t from-sky-600 from-10%  via-sky-400 to-sky-50 to-40% ... py-4 px-6 shadow rounded-lg sm:px-16  drop-shadow-md ml-4 ' >
 
       <div className='flex justify-center py-5'>
       <h3 className='text-2xl text-sky-500 hover:text-orange-500 font-bold'>Calories Burned</h3>
@@ -116,7 +116,7 @@ function CaloriesBurned() {
             type="date"
             id="cb-date"
             name="cb-date"
-            className='w-full border border-sky-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 hover:border-blue-700 hover:border-lg'
+            className='w-full border border-sky-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 hover:border-blue-700'
             value={date}
             onChange={(event) => selectDate(event.target.value)}
           >
