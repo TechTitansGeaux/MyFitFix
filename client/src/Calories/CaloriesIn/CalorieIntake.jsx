@@ -105,7 +105,7 @@ function CalorieIntake() {
 
   return (
     <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-      <div className="bg-gradient-to-t from-sky-600 from-10% via-sky-400 to-sky-50 to-40% ... py-8 px-6 shadow rounded-lg sm:px-10 drop-shadow-md ml-4">
+      <div className="bg-gradient-to-t from-sky-600 from-10% via-sky-400 to-sky-50 to-40% ... py-2.5 px-6 shadow rounded-lg sm:px-10 drop-shadow-md ml-4">
         <div className="flex justify-center">
           <h1 className="text-2xl text-sky-500 font-bold pt-5 mb-16 pb-4">Meal Tracker</h1>
         </div>
@@ -116,28 +116,37 @@ function CalorieIntake() {
           id="caloriesIn"
           name="caloriesInDate"
           value={date}
-          className="w-full border border-sky-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 hover:border-blue-700 text-center"
+          className="w-full border border-sky-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 hover:border-blue-700"
           onChange={(e) => {
             handleDateChange(e.target.value);
           }}
         ></input>
         <form>
           <div className="pt-1">
+<<<<<<< HEAD
             <label className="block text-sm font-medium text-sky-500">Product Weight (g):</label>
             <input id='foodWeight' className="w-full border border-sky-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 hover:border-blue-700 text-center" type='number' onChange={e => setWeight(e.target.value)}></input>
           </div>
           <div className="pt-3">
             <label className="block text-sm font-medium text-sky-500">Ingredient:</label>
             <input id='foodProduct' className="w-full border border-sky-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 hover:border-blue-700 text-center" type='text' onChange={e => setProduct(e.target.value)}></input>
+=======
+            <label for="Measurement" className="block text-sm font-medium text-sky-500">Product Weight (g):</label>
+            <input id='foodWeight' className="w-full border border-sky-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 hover:border-blue-700" type='number' onChange={e => setWeight(e.target.value)}></input>
+          </div>
+          <div className="pt-3">
+            <label for="Ingredient" className="block text-sm font-medium text-sky-500">Ingredient:</label>
+            <input id='foodProduct' className="w-full border border-sky-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 hover:border-blue-700" type='text' onChange={e => setProduct(e.target.value)}></input>
+>>>>>>> 093da292057ec5d89ef7ed62cf4348fc76879b79
             <div className="py-4">
-              <button className="w-full border border-sky-300 rounded-md shadow-lg hover:bg-orange-500 hover:font-bold active:bg-orange-900 active:text-white bg-white" type='button' onClick={() => {
+              <button className="w-full border border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 font-bold tracking-wider active:text-white transform hover:scale-110 px-1 ml-2" type='button' onClick={() => {
                 handleApiRequest()
                 clearFields();
               }}>Add</button>
             </div>
           </div>
         </form>
-        <div className="bg-white py-8 px-6 shadow-lg rounded-lg sm:px-10 border border-sky-300" onChange={() => setTotalCal()}>
+        <div className="bg-gradient-to-b from-sky-600 from-10%  via-sky-400 to-sky-50 to-40% ... py-8 px-6 shadow-lg rounded-lg sm:px-10 border border-sky-300" onChange={() => setTotalCal()}>
           <div className="flex items-center">
             <div>
               <div className='pr-10 font-medium'>Product</div>
@@ -153,13 +162,17 @@ function CalorieIntake() {
             </div>
           </div>
           <br></br>
-          <h3 className="font-bold text-md shadow-lg rounded-lg border border-black m-3">Total Calories: {total}</h3>
+          <div className='font-bold'>Total Calories:
+        {/* <div className='justify-center'> */}
+          <h3 className="font-bold text-center shadow-lg rounded-lg border border-black ml-3 mr-3 mb-3 mt-1">{total}</h3>
+          {/* </div> */}
+          </div>
         </div>
         <div>
           <div class='flex justify-evenly mt-7'>
             <br></br>
-            <button type='button' className="w-full border border-sky-300 rounded-md shadow-lg hover:bg-orange-500 hover:font-bold active:bg-orange-900 active:text-white bg-white mr-2" onClick={() => handleDBSave()}>Save</button>
-            <button type='button' className="w-full border border-sky-300 rounded-md shadow-lg hover:bg-orange-500 hover:font-bold active:bg-orange-900 active:text-white bg-white ml-2" onClick={() => handleDBDelete()}>Delete</button>
+            <button type='button' className="w-full border border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 font-bold active:text-white transform hover:scale-110 px-1 mr-2" onClick={() => handleDBSave()}>Save</button>
+            <button type='button' className="w-full border border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 font-bold active:text-white transform hover:scale-110 px-1 mr-2" onClick={() => handleDBDelete()}>Delete</button>
           </div>
         </div>
       </div >

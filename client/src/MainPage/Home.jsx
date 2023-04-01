@@ -7,9 +7,11 @@ import { useState, useEffect } from 'react'
 
 function Home() {
   const navigate = useNavigate();
-  const [name, setName] = useState('');
-  const [image, setImage] = useState('');
-  const [caloriesBurned, setcaloriesBurned] = useState('');
+  const [load, setLoad] = useState(true);
+  const [user, setUser] = useState({});
+  const [ateTotal, setAteTotal] = useState(0);
+  const [dailyBurn, setDailyBurn] = useState(0);
+  const [dailyWorkout, setDailyWorkout] = useState([]);
 
   const logoutOfApp = () => {
     axios.get('/auth/logout')
@@ -22,19 +24,35 @@ function Home() {
       });
   }
 
+  // Effect for getting a user
   useEffect(() => {
-
-    // Implementing useEffect to send a GET request to retrieve the current signed-in user's name
-    axios.get('/dashboard/name')
-      .then(({ data }) => { setName(data.name); setImage(data.thumbnail); })
+    axios.get('/dashboard/user')
+      .then(({ data }) => {
+        setUser(data[0]);
+      })
       .catch((err) => { console.err(err) });
-    // Implementing useEffect to send a GET request to retrieve the current signed-in user's total calories burned
-    // axios.get('/dashboard/name')
-    // .then(({ data }) => {setcaloriesBurned(data)})
-    // .catch((err) => {console.err(err)});
+  }, [load])
 
-  })
+  //Effect for getting their total calories ate
+  useEffect(() => {
+    axios.get('dashboard/caloriesIn')
+      .then(({ data }) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        console.error('Failed to request:', err);
+      });
+  }, [user])
 
+  //Effect for getting total calories burned
+  useEffect(() => {
+    axios.get('dashboard/caloriesBurned')
+  }, [ateTotal])
+
+  // Effect for getting the Daily Workout
+  useEffect(() => {
+    axios.get('dashboard/workout')
+  }, [dailyBurn])
 
   return (
     <div>
@@ -132,73 +150,73 @@ function Home() {
 
 
         {/* Start of Cards*/}
-      
-       
+
+
 
         <div >
           {/* Start of Welcome Title & Image */}
           <div>
-          <header class="text-4xl inline-block mt-8 flex justify-center	ml-20">
-            <img class="rounded-full inline-block gap-x-2 h-12 justify-right" src={image} alt="avatar" />
-            Welcome, {name}!
-          </header>
+            <header class="text-4xl inline-block mt-8 flex justify-center	ml-20">
+              <img class="rounded-full inline-block gap-x-2 h-12 justify-right" src={user.thumbnail} alt="avatar" />
+              <h1 class="">Welcome, {user.name}!</h1>
+            </header>
           </div>
 
-{/* <div class="grid grid-rows-4 grid-flow-col gap-4gap-x-5 justify-center mx-auto mb-5"> */}
-<div>
+          {/* <div class="grid grid-rows-4 grid-flow-col gap-4gap-x-5 justify-center mx-auto mb-5"> */}
+          <div>
 
-<div className='flex justify-center'>
-<svg className="flex-shrink-0"></svg>
-          {/* CALORIE INTAKE */}
-          <div class="mt-8 mr-2 sm:mx-auto sm:w-full sm:max-w-md  px-10 py-12 bg-gradient-to-br from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
-            {/* <div class="px-12 py-12"> */}
-              <div class="font-bold text-xl mb-2">Calorie Intake</div>
-              <p class="text-gray-700 text-base">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
-              </p>
-            {/* </div> */}
-          </div>
-          {/* CALORIES BURNED */}
-          <div class="mt-8 ml-2 sm:w-full sm:max-w-md  px-10 py-12 bg-gradient-to-bl from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
-            {/* <div class="px-12 py-12"> */}
-              <div class="font-bold text-xl mb-2">Calories Burned</div>
-              <p class="text-gray-700 text-base">
-                Today, you have burned: SOME calories
-              </p>
-            {/* </div> */}
-          </div>
-        </div>
+            <div className='flex justify-center'>
+              <svg className="flex-shrink-0"></svg>
+              {/* CALORIE INTAKE */}
+              <div class="mt-8 mr-2 sm:mx-auto sm:w-full sm:max-w-md  px-10 py-12 bg-gradient-to-br from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
+                {/* <div class="px-12 py-12"> */}
+                <div class="font-bold text-xl mb-2">Calorie Intake</div>
+                <p class="text-gray-700 text-base">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
+                </p>
+                {/* </div> */}
+              </div>
+              {/* CALORIES BURNED */}
+              <div class="mt-8 ml-2 sm:w-full sm:max-w-md  px-10 py-12 bg-gradient-to-bl from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
+                {/* <div class="px-12 py-12"> */}
+                <div class="font-bold text-xl mb-2">Calories Burned</div>
+                <p class="text-gray-700 text-base">
+                  Today, you have burned: SOME calories
+                </p>
+                {/* </div> */}
+              </div>
+            </div>
 
-<div className='flex justify-center'>
-<svg className="flex-shrink-0"></svg>
-          {/* JOURNAL */}
-          <div className="mt-8 mr-2 sm:mx-auto sm:w-full sm:max-w-md  px-10 py-12 bg-gradient-to-tr from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
-            {/* <div className="px-14 py-14"> */}
-              <div className="font-bold text-xl mb-2 inline-block">Add Journal Entry</div>
-              <button type="button" onClick={() => navigate('/journal-entry')} className=" inline-block text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-sm px-2 py-0.5 text-center ml-3 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800 rounded-full">+</button>
+            <div className='flex justify-center'>
+              <svg className="flex-shrink-0"></svg>
+              {/* JOURNAL */}
+              <div className="mt-8 mr-2 sm:mx-auto sm:w-full sm:max-w-md  px-10 py-12 bg-gradient-to-tr from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
+                {/* <div className="px-14 py-14"> */}
+                <div className="font-bold text-xl mb-2 inline-block">Add Journal Entry</div>
+                <button type="button" onClick={() => navigate('/journal-entry')} className=" inline-block text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-sm px-2 py-0.5 text-center ml-3 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800 rounded-full">+</button>
 
-              <p className="text-gray-700 text-base">
-                You have not written a post for today.
-              </p>
-            {/* </div> */}
-          </div>
-          {/* WORKOUT PLANNER */}
-          <div class="mt-8 ml-2  sm:w-full sm:max-w-md  px-10 py-12 bg-gradient-to-tl from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
-            {/* <div class="px-14 py-14"> */}
-              <div class="font-bold text-xl mb-2">Workout Planner</div>
-              <p class="text-gray-700 text-base">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
-              </p>
-            {/* </div> */}
-          </div>
-          </div>
+                <p className="text-gray-700 text-base">
+                  You have not written a post for today.
+                </p>
+                {/* </div> */}
+              </div>
+              {/* WORKOUT PLANNER */}
+              <div class="mt-8 ml-2  sm:w-full sm:max-w-md  px-10 py-12 bg-gradient-to-tl from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
+                {/* <div class="px-14 py-14"> */}
+                <div class="font-bold text-xl mb-2">Workout Planner</div>
+                <p class="text-gray-700 text-base">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
+                </p>
+                {/* </div> */}
+              </div>
+            </div>
 
 
           </div>
         </div>
 
       </div>
-      
+
     </div>
 
 
