@@ -183,7 +183,7 @@ function JournalEntry () {
 
 {/* Placing Calendar and Trash box in columns */}
 
-<div className='flex justify-start ml-20'>
+<div className='flex justify-center ml-20'>
 {/* <div class ="grid grid-cols-2">  */}
       {/* CALENDAR */}
 
@@ -222,7 +222,7 @@ function JournalEntry () {
 <br></br>
 
       {/* Message Box */}
-        <div name="messageBox" className='flex justify-start ml-20'>
+        <div name="messageBox" className='flex justify-center ml-20'>
                 <form>
               <label htmlFor="multiLineInput">
                 <textarea rows="15" 
