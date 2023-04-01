@@ -70,7 +70,7 @@ function Home() {
           const calBurned = data[0].caloriesBurned;
           setDailyBurn(calBurned);
         } else {
-          setDailyBurn(0);
+          setDailyBurn('NO');
         }
       })
       .catch((err) => {
@@ -80,10 +80,10 @@ function Home() {
 
   // Effect for getting the Daily Workout
   useEffect(() => {
-    axios.get('dashboard/workout')
+    axios.get('dashboard/workouts')
       .then(({ data }) => {
         if (data.length !== 0) {
-          setDailyWorkout('You workout is set today');
+          setDailyWorkout(data[0].exercise);
         } else {
           setDailyWorkout('You have not created a workout today');
         }
@@ -92,6 +92,7 @@ function Home() {
         console.error('Failed to get workout:', err);
       })
   }, [dailyBurn])
+
 
   useEffect(() => {
     // Implementing useEffect to send a GET request to check if the current signed-in user's daily entry was completed
@@ -273,9 +274,29 @@ function Home() {
               {/* WORKOUT PLANNER */}
               <div class="mt-8 ml-2  sm:w-full sm:max-w-md  px-10 py-12 rounded-md shadow-lg bg-gradient-to-tl from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
                 <div class="font-bold text-xl mb-2 hover:text-orange-500">Workout Planner</div>
-                <p class="text-gray-700 text-base font-bold mt-10">
-                  {dailyWorkout}
-                </p>
+                <div class=" h-64 border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-orange-50 rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+
+                               <table class="table-auto text-gray-700 text-base font-bold mt-10 ">
+                               <thead class="m-0">
+                                      <tr>
+                                      <th>Exercise</th>
+                                        <th>Sets</th>
+                                       <th>Reps</th>
+                                      </tr>
+                                   </thead>
+                                         <tbody>
+                                                { dailyWorkout.map((workout) => {
+                                                 return <tr>
+                                                   <td workout={workout}  key={workout.name}>{workout.name} </td>
+                                                  <td key={workout.set}> {workout.set}</td>
+                                                 <td key={workout.rep}>{workout.rep}</td>
+                                                 </tr>
+                                                })}
+                                        </tbody>
+                                </table>
+                                
+                            
+                          </div>
               </div>
             </div>
 

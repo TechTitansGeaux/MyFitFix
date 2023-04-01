@@ -68,7 +68,7 @@ router.get('/caloriesBurned', (req, res) => {
     })
 })
 
-router.get('/workout', (req, res) => {
+router.get('/workouts', (req, res) => {
   const { _id } = req.user
   const date = moment().format("YYYY-MM-DD")
   Workout.find({ date: date, user: _id })

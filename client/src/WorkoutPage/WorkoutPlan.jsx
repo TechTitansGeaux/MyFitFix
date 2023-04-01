@@ -93,7 +93,7 @@ const handleWorkoutState = (name) => [
 </div> */}
 
 
-<div class="flex mb-4 ">
+{/* <div class="flex mb-4 ">
   <div class="bg-white dark:bg-gray-800  xl:hidden flex text-gray-800 hover:text-black focus:outline-none focus:text-black justify-between w-full p-6 items-center">
 
           <div aria-label="toggler" class="flex justify-center items-center">
@@ -120,65 +120,65 @@ const handleWorkoutState = (name) => [
                 fill="currentColor" />
             </svg>
             <img src="https://i.pinimg.com/564x/55/40/de/5540de31482047fb26e188037245b9f8.jpg"></img>  {/* MyFitFix Logo */}
-          </button>
+          //</button>
 
 
-          <div class="w-full px-4">
-            <hr class="border-gray-100 dark:border-gray-700  w-full" />
-          </div>
+        //   <div class="w-full px-4">
+        //     <hr class="border-gray-100 dark:border-gray-700  w-full" />
+        //   </div>
 
-          {/* Start of List Items */}
-          <div class="xl:mt-6 flex flex-col justify-start items-start px-4 w-full space-y-3 pb-5">
-            {/* Dashboard List Item */}
-            <button class="focus:outline-none flex dark:text-white jusitfy-start hover:text-white focus:bg-sky-500 focus:text-white hover:bg-sky-500 text-gray-600 rounded py-3 pl-4 items-center space-x-6 w-full" onClick={() => navigate('/home')}>
-              <svg class="fill-stroke" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M9 4H5C4.44772 4 4 4.44772 4 5V9C4 9.55228 4.44772 10 5 10H9C9.55228 10 10 9.55228 10 9V5C10 4.44772 9.55228 4 9 4Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                <path d="M19 4H15C14.4477 4 14 4.44772 14 5V9C14 9.55228 14.4477 10 15 10H19C19.5523 10 20 9.55228 20 9V5C20 4.44772 19.5523 4 19 4Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                <path d="M9 14H5C4.44772 14 4 14.4477 4 15V19C4 19.5523 4.44772 20 5 20H9C9.55228 20 10 19.5523 10 19V15C10 14.4477 9.55228 14 9 14Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                <path d="M19 14H15C14.4477 14 14 14.4477 14 15V19C14 19.5523 14.4477 20 15 20H19C19.5523 20 20 19.5523 20 19V15C20 14.4477 19.5523 14 19 14Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-              <p class="text-base leading-4">Dashboard</p>
-            </button>
+        //   {/* Start of List Items */}
+        //   <div class="xl:mt-6 flex flex-col justify-start items-start px-4 w-full space-y-3 pb-5">
+        //     {/* Dashboard List Item */}
+        //     <button class="focus:outline-none flex dark:text-white jusitfy-start hover:text-white focus:bg-sky-500 focus:text-white hover:bg-sky-500 text-gray-600 rounded py-3 pl-4 items-center space-x-6 w-full" onClick={() => navigate('/home')}>
+        //       <svg class="fill-stroke" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        //         <path d="M9 4H5C4.44772 4 4 4.44772 4 5V9C4 9.55228 4.44772 10 5 10H9C9.55228 10 10 9.55228 10 9V5C10 4.44772 9.55228 4 9 4Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        //         <path d="M19 4H15C14.4477 4 14 4.44772 14 5V9C14 9.55228 14.4477 10 15 10H19C19.5523 10 20 9.55228 20 9V5C20 4.44772 19.5523 4 19 4Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        //         <path d="M9 14H5C4.44772 14 4 14.4477 4 15V19C4 19.5523 4.44772 20 5 20H9C9.55228 20 10 19.5523 10 19V15C10 14.4477 9.55228 14 9 14Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        //         <path d="M19 14H15C14.4477 14 14 14.4477 14 15V19C14 19.5523 14.4477 20 15 20H19C19.5523 20 20 19.5523 20 19V15C20 14.4477 19.5523 14 19 14Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        //       </svg>
+        //       <p class="text-base leading-4">Dashboard</p>
+        //     </button>
 
-            {/* Calorie Tracker List Item */}
-            <button class="focus:outline-none flex dark:text-white jusitfy-start hover:text-white focus:bg-sky-500 focus:text-white hover:bg-sky-500 text-gray-600 rounded py-3 pl-4 items-center w-full space-x-6" onClick={() => navigate('/tracker')}>
-              <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
-                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M112 320c0-93 124-165 96-272 66 0 192 96 192 272a144 144 0 0 1-288 0z" /><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M320 368c0 57.71-32 80-64 80s-64-22.29-64-80 40-86 32-128c42 0 96 70.29 96 128z" />
-              </svg>
-              <p class="text-base leading-4">Calorie Tracker</p>
-            </button>
+        //     {/* Calorie Tracker List Item */}
+        //     <button class="focus:outline-none flex dark:text-white jusitfy-start hover:text-white focus:bg-sky-500 focus:text-white hover:bg-sky-500 text-gray-600 rounded py-3 pl-4 items-center w-full space-x-6" onClick={() => navigate('/tracker')}>
+        //       <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
+        //         <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M112 320c0-93 124-165 96-272 66 0 192 96 192 272a144 144 0 0 1-288 0z" /><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M320 368c0 57.71-32 80-64 80s-64-22.29-64-80 40-86 32-128c42 0 96 70.29 96 128z" />
+        //       </svg>
+        //       <p class="text-base leading-4">Calorie Tracker</p>
+        //     </button>
 
-            {/* Workout Plan List Item */}
-            <button class="focus:outline-none dark:text-white flex justify-start items-center space-x-6 hover:text-white focus:bg-sky-500 focus:text-white hover:bg-sky-500 text-gray-600 rounded py-3 pl-4 w-full" onClick={() => navigate('/workout-planner')}>
-              <svg width="24" height="24" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M48 256h416" /><rect width="32" height="256" x="384" y="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" rx="16" ry="16" /><rect width="32" height="256" x="96" y="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" rx="16" ry="16" /><rect width="16" height="128" x="32" y="192" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" rx="8" ry="8" /><rect width="16" height="128" x="464" y="192" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" rx="8" ry="8" />
-              </svg>
-              <p class="text-base leading-4">Workout Plan</p>
-            </button>
+        //     {/* Workout Plan List Item */}
+        //     <button class="focus:outline-none dark:text-white flex justify-start items-center space-x-6 hover:text-white focus:bg-sky-500 focus:text-white hover:bg-sky-500 text-gray-600 rounded py-3 pl-4 w-full" onClick={() => navigate('/workout-planner')}>
+        //       <svg width="24" height="24" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+        //         <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M48 256h416" /><rect width="32" height="256" x="384" y="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" rx="16" ry="16" /><rect width="32" height="256" x="96" y="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" rx="16" ry="16" /><rect width="16" height="128" x="32" y="192" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" rx="8" ry="8" /><rect width="16" height="128" x="464" y="192" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" rx="8" ry="8" />
+        //       </svg>
+        //       <p class="text-base leading-4">Workout Plan</p>
+        //     </button>
 
-            {/* Journal List Item */}
-            <button class="flex dark:text-white justify-start items-center space-x-6 hover:text-white focus:outline-none focus:bg-sky-500 focus:text-white hover:bg-sky-500 text-gray-600 rounded py-3 pl-4 w-full" onClick={() => navigate('/journal-entry')}>
-              <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
-                <rect width="320" height="416" x="96" y="48" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32" rx="48" ry="48" /><path fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="60" d="M320 48v416" />
-              </svg>
-              <p class="text-base leading-4">Journal</p>
-            </button>
+        //     {/* Journal List Item */}
+        //     <button class="flex dark:text-white justify-start items-center space-x-6 hover:text-white focus:outline-none focus:bg-sky-500 focus:text-white hover:bg-sky-500 text-gray-600 rounded py-3 pl-4 w-full" onClick={() => navigate('/journal-entry')}>
+        //       <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
+        //         <rect width="320" height="416" x="96" y="48" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32" rx="48" ry="48" /><path fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="60" d="M320 48v416" />
+        //       </svg>
+        //       <p class="text-base leading-4">Journal</p>
+        //     </button>
 
-            {/* Divider */}
-            <div class="w-full px-4">
-              <hr class="border-gray-100 dark:border-gray-700  w-full" />
-            </div>
-            {/* Sign-out */}
-            <button class="flex dark:text-white justify-start items-center space-x-6 hover:text-white focus:outline-none focus:bg-sky-500 focus:text-white hover:bg-sky-500 text-gray-600 rounded py-3 pl-4 w-full" onClick={() => logoutOfApp()}>
-              <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
-                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M304 336v40a40 40 0 0 1-40 40H104a40 40 0 0 1-40-40V136a40 40 0 0 1 40-40h152c22.09 0 48 17.91 48 40v40m64 160 80-80-80-80m-192 80h256" />
-              </svg>
-              <p class="text-base leading-4">Sign-Out</p>
-            </button>
-          </div>
+        //     {/* Divider */}
+        //     <div class="w-full px-4">
+        //       <hr class="border-gray-100 dark:border-gray-700  w-full" />
+        //     </div>
+        //     {/* Sign-out */}
+        //     <button class="flex dark:text-white justify-start items-center space-x-6 hover:text-white focus:outline-none focus:bg-sky-500 focus:text-white hover:bg-sky-500 text-gray-600 rounded py-3 pl-4 w-full" onClick={() => logoutOfApp()}>
+        //       <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
+        //         <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M304 336v40a40 40 0 0 1-40 40H104a40 40 0 0 1-40-40V136a40 40 0 0 1 40-40h152c22.09 0 48 17.91 48 40v40m64 160 80-80-80-80m-192 80h256" />
+        //       </svg>
+        //       <p class="text-base leading-4">Sign-Out</p>
+        //     </button>
+        //   </div>
 
-        </div>
-        </div>
+        // </div>
+        // </div> */}
     
 
   
@@ -208,7 +208,7 @@ const handleWorkoutState = (name) => [
             </button>
           </div>
         </div>
-        <div id="Main" class="bg-white dark:bg-gray-800  transform xl:translate-x-0 ease-in-out transition duration-500 flex justify-start items-start w-full sm:w-72 flex-col h-full">
+        <div id="Main" class="bg-white dark:bg-gray-800  transform xl:translate-x-0 ease-in-out transition duration-500 flex justify-start items-start w-full sm:w-60 flex-col h-full">
           <button class="hidden xl:flex text-gray-800 dark:text-white hover:text-black focus:outline-none focus:text-black justify-start px-6 pt-6 items-center space-x-3 w-full">
             <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -277,7 +277,7 @@ const handleWorkoutState = (name) => [
         </div>
 <div class="col-span-2 mb-4">
 <h1 class= "text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl"> Plan Your Workout<span class="text-transparent bg-clip-text bg-gradient-to-r to-orange-500 from-sky-400">Get Your Fix</span> </h1>
-<div class=" ml-32 max-w-lg h-30 bg-gradient-to-tr from-sky-600 from-10%  via-sky-400 to-sky-50 to-40% ... rounded overflow-hidden shadow-lg row-span-2 ">
+<div class="ml-8 max-w-lg h-30 bg-gradient-to-tr from-sky-600 from-10%  via-sky-400 to-sky-50 to-40% ... rounded overflow-hidden shadow-lg row-span-2 ">
                  <div class="px-6 py-4">
                     <div className='flex justify-center py-5'>
                           <h2 className='text-2xl text-black hover:text-orange-500 font-bold' align='left'>Search for Exercises</h2>
@@ -297,11 +297,11 @@ const handleWorkoutState = (name) => [
                     </div>
 
     </div>
-              <div class="py-12 ml-24 my-16 col-span-2">
+              <div class="py-12 ml-24 my-4 col-span-2">
                                 <div className='workout'>
                                 <WorkoutList workout={workout} setWorkout={setWorkout}/>
                                   </div>
-                      <div class=" my-28 max-w-xl h-96 bg-gradient-to-br from-sky-600 from-10%  via-sky-400 to-sky-50 to-40% ... rounded overflow-hidden shadow-lg row-span-2 ">
+                      <div class=" my-8 max-w-xl h-96 bg-gradient-to-br from-sky-600 from-10%  via-sky-400 to-sky-50 to-40% ... rounded overflow-hidden shadow-lg row-span-2 ">
                           <div class="px-6 py-4">
                                <div class="font-bold text-xl mb-2">Search Workout by Date</div>
                                        <div className='search-past-workouts'>
