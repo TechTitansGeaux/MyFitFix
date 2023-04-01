@@ -5,17 +5,23 @@ function Login() {
 
   return (
     <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md pt-40">
-      <div className="bg-gradient-to-t from-sky-600 from-10% via-sky-400 to-sky-50 to-40% py-12 px-6 shadow rounded-lg sm:px-10 drop-shadow-md ml-4">
-        <img src="https://cdn.discordapp.com/attachments/1089609978857398383/1091520633961205770/FitFix-PhotoRoom.png"></img>
-        <h1 className="mt-10 mb-10">Neil-the-Mippy's Nutrition Tracker and Workout Extravaganza</h1>
+      <div className="bg-gradient-to-t from-sky-600 from-10%  via-sky-400 to-sky-50 to-40% py-8 shadow rounded-lg sm:px10 drop-shadow-md">
         <div>
-          <img src=""></img>
-          <a className="shadow-md p-2 text-center" href="/auth/google">Google</a>
+          <img className="mt-10" src="https://cdn.discordapp.com/attachments/187823430295355392/1091709350189473903/FitFix-PhotoRoom.png"></img>
+          <div className="mt-10 mb-10 text-3xl">
+            <h1 className="flex justify-center">Neil-the-Mippy's</h1>
+            <h1 className="flex justify-center">Workout Extravaganza</h1>
+          </div>
+          <div className="flex justify-center">
+            <a className="flex justify-center p-3 shadow rounded-lg bg-white hover:bg-orange-500" href="/auth/google">
+              <img className="w-6 h-6" src="https://cdn.discordapp.com/attachments/187823430295355392/1091525978490155068/GoogleLogo.png" />
+              <a className="font-medium">Sign In</a>
+            </a>
+          </div>
         </div>
       </div>
     </div>
   )
-
 }
 
 export default Login;
