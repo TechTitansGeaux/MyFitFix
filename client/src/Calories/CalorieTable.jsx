@@ -20,8 +20,8 @@ function CalorieTable() {
   }
 
   return (
-    <div className="grid grid-cols-2">
-      <div className="">
+    <div className="grid grid-cols-5 grid-rows-2">
+      <div className="flex row-span-2">
         <div class="bg-white dark:bg-gray-800  xl:hidden flex text-gray-800 hover:text-black focus:outline-none focus:text-black justify-between w-full p-6 items-center">
 
           <div aria-label="toggler" class="flex justify-center items-center">
@@ -110,17 +110,16 @@ function CalorieTable() {
         </div>
       </div>
 
-      <div className="pt-4 flex justify-around pl-72">
-        <div className="pr-40">
-          <CalorieIntake />
-        </div>
-        <div>
-          <CaloriesBurned />
-        </div>
+
+      <div className="ml-5 col-span-2 mb-4">
+        <CalorieIntake />
       </div>
-      <div>
+
+      <div className="col-span-2 mb-4">
+        <CaloriesBurned />
       </div>
     </div>
+
   )
 }
 
