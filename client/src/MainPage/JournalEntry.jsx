@@ -83,7 +83,7 @@ function JournalEntry () {
         <div>
           {/* START NAV BAR */}
           {/* CREATING TWO COLUMNS: ONE FOR NAV BAR, ONE FOR MESSAGE SECTION */}
-          <div class ="grid grid-cols-2">  
+          <div class ="flex mb-4">  
           
     <div class="bg-white dark:bg-gray-800  xl:hidden flex text-gray-800 hover:text-black focus:outline-none focus:text-black justify-between w-full p-6 items-center">
 
@@ -174,7 +174,9 @@ function JournalEntry () {
        <div className='mt-20 ml-100 sm:w-full  '>
 
 {/* Placing Calendar and Trash box in columns */}
-<div class ="grid grid-cols-2"> 
+
+<div className='flex justify-start ml-20'>
+{/* <div class ="grid grid-cols-2">  */}
       {/* CALENDAR */}
     <div name="calendar">
           <input type="date" 
@@ -191,15 +193,18 @@ function JournalEntry () {
 <div>
 
   {/* Delete Button */}
-<button class="inline-flex items-center justify-center w-9 h-9 mr-2 text-gray-700 transition-colors duration-150 bg-white rounded-full focus:shadow-outline hover:bg-gray-200" onClick={() => {deleteEntry(); setEntryBox('')}}>
+<button class="inline-flex items-center justify-center w-9 h-9 mr-2 text-gray-700 transition-colors duration-150 bg-white rounded-full focus:shadow-outline hover:bg-gray-200 ml-32" onClick={() => {deleteEntry(); setEntryBox('')}}>
 <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" width="24" height="24" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="m112 112 20 320c.95 18.49 14.4 32 32 32h184c17.67 0 30.87-13.51 32-32l20-320"/><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M80 112h352"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M192 112V72h0a23.93 23.93 0 0 1 24-24h80a23.93 23.93 0 0 1 24 24h0v40m-64 64v224m-72-224 8 224m136-224-8 224"/></svg>
 </button>
 </div>
 
+{/* </div> */}
+
 </div>
 <br></br>
+
       {/* Message Box */}
-        <div name="messageBox">
+        <div name="messageBox" className='flex justify-start ml-20'>
                 <form>
               <label htmlFor="multiLineInput">
                 <textarea rows="20" 
