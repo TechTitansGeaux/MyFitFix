@@ -66,8 +66,12 @@ function Home() {
   useEffect(() => {
     axios.get('dashboard/caloriesBurned')
       .then(({ data }) => {
-        const calBurned = data[0].caloriesBurned;
-        setDailyBurn(calBurned);
+        if (data.length !== 0) {
+          const calBurned = data[0].caloriesBurned;
+          setDailyBurn(calBurned);
+        } else {
+          setDailyBurn(0);
+        }
       })
       .catch((err) => {
         console.error('Failed to get caloriesBurned:', err);
@@ -78,8 +82,12 @@ function Home() {
   useEffect(() => {
     axios.get('dashboard/workout')
       .then(({ data }) => {
-        const workout = data[0].exercise;
-        setDailyWorkout(workout);
+        if (data.length !== 0) {
+          const workout = data[0].exercise;
+          setDailyWorkout(workout);
+        } else {
+          setDailyWorkout('You have not created a workout today');
+        }
       })
       .catch((err) => {
         console.error('Failed to get workout:', err);
@@ -222,7 +230,10 @@ function Home() {
                 {/* <div class="px-12 py-12"> */}
                 <div class="font-bold text-xl mb-2">Calorie Intake</div>
                 <p class="text-gray-700 text-base">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
+                  Total Calories: {ateTotal}
+                </p>
+                <p class="text-gray-700 text-base">
+                  Drink some Water!!!
                 </p>
                 {/* </div> */}
               </div>
@@ -231,7 +242,7 @@ function Home() {
                 {/* <div class="px-12 py-12"> */}
                 <div class="font-bold text-xl mb-2">Calories Burned</div>
                 <p class="text-gray-700 text-base">
-                  Today, you have burned: SOME calories
+                  Today, you have burned: {dailyBurn} calories
                 </p>
                 {/* </div> */}
               </div>
@@ -255,7 +266,7 @@ function Home() {
               <div class="mt-8 ml-2  sm:w-full sm:max-w-md  px-10 py-12 bg-gradient-to-tl from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
                 <div class="font-bold text-xl mb-2">Workout Planner</div>
                 <p class="text-gray-700 text-base">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
+                  {dailyWorkout}
                 </p>
               </div>
             </div>
