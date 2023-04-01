@@ -97,19 +97,24 @@ function Home() {
   useEffect(() => {
     // Implementing useEffect to send a GET request to check if the current signed-in user's daily entry was completed
     axios.get(`/journal-entry/${todaysDate}`)
-      .then(({ data }) => {
-        if ({ data }) {
-          setJournalMessage('All done. You have submitted your journal entry for today.')
-          setIcon(<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48">
-            <path fill="#c8e6c9" d="M44 24c0 11.045-8.955 20-20 20S4 35.045 4 24 12.955 4 24 4s20 8.955 20 20z" />
-            <path fill="#4caf50" d="m34.586 14.586-13.57 13.586-5.602-5.586-2.828 2.828 8.434 8.414 16.395-16.414-2.829-2.828z" />
-          </svg>)
-        } else {
-          setJournalMessage('You have not completed a journal entry for today')
-        }
-      })
+      .then((response) => {
+          if (response.data.length !== 0) {
+            setJournalMessage('All done. You have submitted your journal entry for today.')
+            setIcon(<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="inline-block">
+              <path fill="#27ae60" d="M22 13c0 5.523-4.477 10-10 10S2 18.523 2 13 6.477 3 12 3s10 4.477 10 10z"/>
+              <path fill="#2ecc71" d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10z"/>
+              <path fill="#27ae60" d="m16 9-6 6-2.5-2.5-2.125 2.1 2.5 2.5 2 2 .125.1 8.125-8.1L16 9z"/>
+              <path fill="#ecf0f1" d="m16 8-6 6-2.5-2.5-2.125 2.1 2.5 2.5 2 2 .125.1 8.125-8.1L16 8z"/>
+              </svg>)
+          } else {
+            setJournalMessage('You have not completed a journal entry for today.')
+            setIcon(<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 64 64" class="inline-block">
+              <path fill="#ffc048" d="M32 3.4A28.59 28.59 0 0 0 3.4 32 28.59 28.59 0 0 0 32 60.6 28.59 28.59 0 0 0 60.6 32 28.59 28.59 0 0 0 32 3.4Zm0 49.2a4.32 4.32 0 1 1 4.31-4.31A4.32 4.32 0 0 1 32 52.6ZM37.23 17 35.6 39a.6.6 0 0 1-.6.56h-6a.6.6 0 0 1-.6-.56l-1.63-22a5.24 5.24 0 1 1 10.46 0Z" data-name="Layer 35" />
+            </svg>)
+          }
+    })
       .catch((err) => console.log(err, 'Request failed'));
-  })
+    }, [journalMessage])
 
 
   return (
@@ -117,7 +122,6 @@ function Home() {
 
       {/* START OF NAVIGATION BAR */}
       <div class="flex mb-4">
-
         <div class="bg-white dark:bg-gray-800  xl:hidden flex text-gray-800 hover:text-black focus:outline-none focus:text-black justify-between w-full p-6 items-center">
 
           <div aria-label="toggler" class="flex justify-center items-center">
@@ -206,7 +210,6 @@ function Home() {
         </div>
 
 
-
         {/* Start of Cards*/}
 
 
@@ -260,10 +263,10 @@ function Home() {
               <div className="mt-8 mr-2 sm:mx-auto sm:w-full sm:max-w-md  px-10 py-12 rounded-md shadow-lg bg-gradient-to-tr from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
                 {/* <div className="px-10 py-7 space-x-3"> */}
                   <div className="font-bold text-xl mb-2 inline-block hover:text-orange-500">Daily Journal Entry</div>
-                  <button type="button" onClick={() => navigate('/journal-entry')} className=" inline-block text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-sm px-2 py-0.5 text-center mr-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800 rounded-full ml-3">+</button>
+                  {icon}
 
                   <p className="text-gray-700 text-base font-bold">
-                    <span>{icon}
+                    <span>
                       {journalMessage}</span>
                   </p>
                 {/* </div> */}
@@ -280,7 +283,6 @@ function Home() {
 
           </div>
         </div>
-
       </div>
 
     </div>

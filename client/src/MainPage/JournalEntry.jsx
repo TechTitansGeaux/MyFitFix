@@ -178,6 +178,31 @@ function JournalEntry () {
 <div className='flex justify-start ml-20'>
 {/* <div class ="grid grid-cols-2">  */}
       {/* CALENDAR */}
+
+      {/* <ul class="flex bg-white">
+  <li class="flex-1 mr-2">
+   
+  </li>
+  <li class="flex-1 mr-2">
+  <div name="calendar">
+          <input type="date" 
+                  id="start" 
+                  name="journal-start"
+                min="2023-01-01" 
+                max="2026-01-01"
+                value={date}
+                class="border border-indigo-600 text-2xl"
+                onChange={(e) => {setDate(e.target.value); showEntry(e.target.value);}}>
+                </input>
+                </div>
+  </li>
+  <li class="text-center flex-1">
+    <a class="block py-2 px-4 text-gray-400 cursor-not-allowed" href="#">Disabled Item</a>
+  </li>
+</ul> 
+
+adding a new toolbar */} 
+  
     <div name="calendar">
           <input type="date" 
                   id="start" 
