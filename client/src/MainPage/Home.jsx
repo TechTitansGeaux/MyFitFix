@@ -129,10 +129,10 @@ function Home() {
 
 
   return (
-    <div className='grid grid-cols-5 grid-rows-2'>
+    <div>
 
       {/* START OF NAVIGATION BAR */}
-      <div class="flex row-span-2">
+      <div class="flex mb-4">
         <div class="bg-white dark:bg-gray-800  xl:hidden flex text-gray-800 hover:text-black focus:outline-none focus:text-black justify-between w-full p-6 items-center">
 
           <div aria-label="toggler" class="flex justify-center items-center">
@@ -219,116 +219,77 @@ function Home() {
 
 
         </div>
-      </div>
-
-      {/* Start of Cards*/}
 
 
+        {/* Start of Cards*/}
 
-      <div >
-        {/* Start of Welcome Title & Image */}
-        <div>
-          <header class="text-4xl inline-block mt-8 flex justify-center	ml-20">
-            <img class="rounded-full inline-block gap-x-2 h-12 justify-right" src={user.thumbnail} alt="avatar" />
-            Welcome, {user.name}!
-          </header>
-        </div>
-        <div>
 
-          <div className='flex justify-center'>
-            <svg className="flex-shrink-0"></svg>
 
-            {/* CALORIE INTAKE */}
-            <div class="mt-8 mr-2 sm:mx-auto sm:w-full sm:max-w-md  px-10 py-12 rounded-md shadow-lg bg-gradient-to-br from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
-              <div class="font-bold text-xl mb-2 hover:text-orange-500">Calorie Intake</div>
-              <p class="text-gray-700 text-base font-bold ">
-                Today, you have eaten:
-              </p>
-              <p className='text-gray-700 text-base font-bold text-orange-500 mt-4 ml-10'>
-                {ateTotal}
-              </p>
-            </div>
-
-            {/* CALORIES BURNED */}
-            <div class="mt-8 ml-2 sm:w-full sm:max-w-md  px-10 py-12 rounded-md shadow-lg bg-gradient-to-bl from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
-              <div class="font-bold text-xl mb-2 hover:text-orange-500">Calories Burned</div>
-              <p class="text-gray-700 text-base font-bold">
-                Today, you have burned:
-              </p>
-              <p className='text-gray-700 text-base font-bold text-orange-500 mt-4 ml-20'>
-                {dailyBurn} calories
-              </p>
-            </div>
+        <div >
+          {/* Start of Welcome Title & Image */}
+          <div>
+            <header class="text-4xl inline-block mt-8 flex justify-center	ml-20">
+              <img class="rounded-full inline-block gap-x-2 h-12 justify-right" src={user.thumbnail} alt="avatar" />
+              Welcome, {user.name}!
+            </header>
           </div>
+          <div>
 
-          <div className='flex justify-center'>
-            <svg className="flex-shrink-0"></svg>
+            <div className='flex justify-center'>
+              <svg className="flex-shrink-0"></svg>
 
-            {/* JOURNAL */}
-            <div className="mt-8 mr-2 sm:mx-auto sm:w-full sm:max-w-md  px-10 py-12 rounded-md shadow-lg bg-gradient-to-tr from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
-              {/* <div className="px-10 py-7 space-x-3"> */}
-              <div className="font-bold text-xl mb-2 inline-block hover:text-orange-500">Daily Journal Entry</div>
+              {/* CALORIE INTAKE */}
+              <div class="mt-8 mr-2 sm:mx-auto sm:w-full sm:max-w-md  px-10 py-12 rounded-md shadow-lg bg-gradient-to-br from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
+                <div class="font-bold text-xl mb-2 hover:text-orange-500">Calorie Intake</div>
+                <p class="text-gray-700 text-base font-bold ">
+                  Today, you have eaten:
+                </p>
+                <p className='text-gray-700 text-base font-bold text-orange-500 mt-4 ml-10'>
+                  {ateTotal}
+                </p>
+              </div>
 
-              {icon}
+              {/* CALORIES BURNED */}
+              <div class="mt-8 ml-2 sm:w-full sm:max-w-md  px-10 py-12 rounded-md shadow-lg bg-gradient-to-bl from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
+                <div class="font-bold text-xl mb-2 hover:text-orange-500">Calories Burned</div>
+                <p class="text-gray-700 text-base font-bold">
+                  Today, you have burned:
+                </p>
+                <p className='text-gray-700 text-base font-bold text-orange-500 mt-4 ml-20'>
+                  {dailyBurn} calories
+                </p>
+              </div>
+            </div>
 
-<<<<<<< HEAD
+            <div className='flex justify-center'>
+              <svg className="flex-shrink-0"></svg>
+
+              {/* JOURNAL */}
+              <div className="mt-8 mr-2 sm:mx-auto sm:w-full sm:max-w-md  px-10 py-12 rounded-md shadow-lg bg-gradient-to-tr from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
+                {/* <div className="px-10 py-7 space-x-3"> */}
+                <div className="font-bold text-xl mb-2 inline-block hover:text-orange-500">Daily Journal Entry</div>
+
+                {icon}
+
+                <p className="text-gray-700 text-base font-bold">
+                  <span>
+                    {journalMessage}</span>
+                </p>
+              </div>
+
               {/* WORKOUT PLANNER */}
               <div class="mt-8 ml-2  sm:w-full sm:max-w-md  px-10 py-12 rounded-md shadow-lg bg-gradient-to-tl from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
-<<<<<<< HEAD
-                <div class="font-bold text-xl mb-2 hover:text-orange-500">Workout Planner</div>
-                <div class=" h-64 border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-orange-50 rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
-
-                               <table class="table-auto text-gray-700 text-base font-bold mt-10 ">
-                               <thead class="m-0">
-                                      <tr>
-                                      <th>Exercise</th>
-                                        <th>Sets</th>
-                                       <th>Reps</th>
-                                      </tr>
-                                   </thead>
-                                         <tbody>
-                                                { dailyWorkout.map((workout) => {
-                                                 return <tr>
-                                                   <td workout={workout}  key={workout.name}>{workout.name} </td>
-                                                  <td key={workout.set}> {workout.set}</td>
-                                                 <td key={workout.rep}>{workout.rep}</td>
-                                                 </tr>
-                                                })}
-                                        </tbody>
-                                </table>
-                                
-                            
-                          </div>
-=======
                 <div class="font-bold text-xl mb-2 hover:text-orange-500 inline-block">Workout Planner</div>
                 {workoutIcon}
                 <p class="text-gray-700 text-base font-bold">
-                  {dailyWorkout}
                 </p>
->>>>>>> 3302ee5a37c08a1554095d6cac376ed352c85331
               </div>
-=======
-              <p className="text-gray-700 text-base font-bold">
-                <span>
-                  {journalMessage}</span>
-              </p>
->>>>>>> c3898155f481a6da67eddd900ccc45f4d4ff53a0
             </div>
 
-            {/* WORKOUT PLANNER */}
-            <div class="mt-8 ml-2  sm:w-full sm:max-w-md  px-10 py-12 rounded-md shadow-lg bg-gradient-to-tl from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
-              <div class="font-bold text-xl mb-2 hover:text-orange-500 inline-block">Workout Planner</div>
-              {workoutIcon}
-              <p class="text-gray-700 text-base font-bold">
-                {dailyWorkout}
-              </p>
-            </div>
+
           </div>
-
-
         </div>
       </div>
-
 
     </div>
 
@@ -338,3 +299,4 @@ function Home() {
 }
 
 export default Home;
+//{dailyWorkout}
