@@ -83,8 +83,7 @@ function Home() {
     axios.get('dashboard/workout')
       .then(({ data }) => {
         if (data.length !== 0) {
-          const workout = data[0].exercise;
-          setDailyWorkout(workout);
+          setDailyWorkout('You workout is set today');
         } else {
           setDailyWorkout('You have not created a workout today');
         }
@@ -230,10 +229,10 @@ function Home() {
                 {/* <div class="px-12 py-12"> */}
                 <div class="font-bold text-xl mb-2 hover:text-orange-500">Calorie Intake</div>
                 <p class="text-gray-700 text-base font-bold ">
-                  Total Calories: 
+                  Total Calories:
                 </p>
                 <p className='text-gray-700 text-base font-bold text-orange-500 mt-4 ml-10'>
-                {ateTotal}
+                  {ateTotal}
                 </p>
                 <p class="text-gray-700 text-base font-bold mt-4">
                   Drink some Water!!!
@@ -259,13 +258,13 @@ function Home() {
               {/* JOURNAL */}
               <div className="mt-8 mr-2 sm:mx-auto sm:w-full sm:max-w-md  px-10 py-12 rounded-md shadow-lg bg-gradient-to-tr from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
                 {/* <div className="px-10 py-7 space-x-3"> */}
-                  <div className="font-bold text-xl mb-2 inline-block hover:text-orange-500">Daily Journal Entry</div>
-                  <button type="button" onClick={() => navigate('/journal-entry')} className=" inline-block text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-sm px-2 py-0.5 text-center mr-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800 rounded-full ml-3">+</button>
+                <div className="font-bold text-xl mb-2 inline-block hover:text-orange-500">Daily Journal Entry</div>
+                <button type="button" onClick={() => navigate('/journal-entry')} className=" inline-block text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-sm px-2 py-0.5 text-center mr-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800 rounded-full ml-3">+</button>
 
-                  <p className="text-gray-700 text-base font-bold">
-                    <span>{icon}
-                      {journalMessage}</span>
-                  </p>
+                <p className="text-gray-700 text-base font-bold">
+                  <span>{icon}
+                    {journalMessage}</span>
+                </p>
                 {/* </div> */}
               </div>
               {/* WORKOUT PLANNER */}
