@@ -185,7 +185,7 @@ function JournalEntry() {
 
           {/* Placing Calendar and Trash box in columns */}
 
-          <div className='flex justify-center ml-20'>
+          <div className='flex justify-right ml-20'>
             {/* <div class ="grid grid-cols-2">  */}
             {/* CALENDAR */}
 
@@ -207,7 +207,7 @@ function JournalEntry() {
                 <div>
 
                   {/* Delete Button */}
-                  <button class="inline-flex items-center justify-center w-9 h-9 mr-10 ml-10 text-gray-700 transition-colors duration-150 bg-white rounded-full focus:shadow-outline hover:bg-gray-200" onClick={() => { deleteEntry(); }}>
+                  <button class="inline-flex items-center justify-right w-9 h-9 mr-10 ml-10 text-gray-700 transition-colors duration-150 bg-white rounded-full focus:shadow-outline hover:bg-gray-200" onClick={() => { deleteEntry(); }}>
                     <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" width="24" height="24" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="m112 112 20 320c.95 18.49 14.4 32 32 32h184c17.67 0 30.87-13.51 32-32l20-320" /><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M80 112h352" /><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M192 112V72h0a23.93 23.93 0 0 1 24-24h80a23.93 23.93 0 0 1 24 24h0v40m-64 64v224m-72-224 8 224m136-224-8 224" /></svg>
                   </button>
                 </div>
@@ -224,7 +224,7 @@ function JournalEntry() {
           <br></br>
 
           {/* Message Box */}
-          <div name="messageBox" className='flex justify-center ml-20'>
+          <div name="messageBox" className='flex justify-right ml-20'>
             <form>
               <label htmlFor="multiLineInput">
                 <textarea rows="15"
