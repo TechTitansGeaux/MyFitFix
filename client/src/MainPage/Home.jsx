@@ -128,7 +128,7 @@ function Home() {
 
 
   return (
-    <div className='grid grid-cols-5 grid-rows-2'>
+    <div className='grid grid-cols-4 grid-rows-2'>
 
       {/* START OF NAVIGATION BAR */}
       <div class="flex row-span-2">
@@ -224,6 +224,8 @@ function Home() {
 
 
 
+      <div class="col-span-2">
+        {/* Start of Welcome Title & Image */}
         <div >
           {/* Start of Welcome Title & Image */}
           <div>
@@ -239,7 +241,7 @@ function Home() {
           <div>
 
           <div className='flex justify-center'>
-            <svg className="flex-shrink-0"></svg>
+            {/* <svg className="flex-shrink-0"></svg> */}
 
             {/* CALORIE INTAKE */}
             <div class="mt-8 mr-2 sm:mx-auto sm:w-full sm:max-w-md  px-10 py-12 rounded-md shadow-lg bg-gradient-to-br from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
@@ -265,7 +267,7 @@ function Home() {
           </div>
 
           <div className='flex justify-center'>
-            <svg className="flex-shrink-0"></svg>
+            {/* <svg className="flex-shrink-0"></svg> */}
 
             {/* JOURNAL */}
             <div className="mt-8 mr-2 sm:mx-auto sm:w-full sm:max-w-md  px-10 py-12 rounded-md shadow-lg bg-gradient-to-tr from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
