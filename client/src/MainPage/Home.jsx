@@ -81,7 +81,7 @@ function Home() {
 
   // Effect for getting the Daily Workout
   useEffect(() => {
-    axios.get('dashboard/workout')
+    axios.get('dashboard/workouts')
       .then(({ data }) => {
         if (data.length !== 0) {
           const workout = data[0].exercise;
@@ -285,7 +285,7 @@ function Home() {
               <div class="font-bold text-xl mb-2 hover:text-orange-500 inline-block">Workout Planner</div>
               {workoutIcon}
               <p class="text-gray-700 text-base font-bold">
-                {dailyWorkout}
+                {/* {dailyWorkout} */}
               </p>
             </div>
           </div>
