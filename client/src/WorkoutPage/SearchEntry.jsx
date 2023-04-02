@@ -11,9 +11,6 @@ function SearchEntry( { exercise, handleWorkoutState } ){
   setToggle(!toggle)
   }
 
-  const handleCheck = () => {
-    alert('exercise is saved to workout');
-  }
 
   const toggleDetails = () => {
     setToggleDetail(!toggleDetail)
@@ -53,10 +50,10 @@ function SearchEntry( { exercise, handleWorkoutState } ){
     <div className="result-entry">
     { toggle ?
     <ul className="result-data-list">
-    <li className="result-data">{exercise.type}</li>
-    <li className="result-data">{exercise.equipment}</li>
-    <li className="result-data">{exercise.difficulty}</li>
-    <li className="result-data">{exercise.instructions}</li>
+    <li className="result-data">TYPE:{exercise.type}</li>
+    <li className="result-data">EQUIPMENT:{exercise.equipment}</li>
+    <li className="result-data">DIFFICULTY:{exercise.difficulty}</li>
+    <li className="result-data">INSTRUCTIONS:{exercise.instructions}</li>
     </ul>
     :
     <></>
@@ -70,7 +67,6 @@ function SearchEntry( { exercise, handleWorkoutState } ){
    <button onClick={(e) => {
     handleWorkoutState(e.target.value)
     toggleSave()
-    handleCheck()
   }} value={exercise.name} className='w-full border border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 text-sm font-bold active:text-white transform hover:scale-110 px-1 ml-2 mr-2'>Add Exercise to Workout</button>
 
    <button className='w-full border border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 text-sm font-bold active:text-white transform hover:scale-110 px-1 mr-2 ml-2' onClick={toggleDetails} exercise={exercise}>Show/Hide Details</button>

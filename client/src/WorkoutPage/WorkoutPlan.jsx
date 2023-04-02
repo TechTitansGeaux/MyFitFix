@@ -302,7 +302,10 @@ const handleWorkoutState = (name) => [
                           <div class="px-6 py-4">
                                <div class="font-bold text-xl mb-2">Search Workout by Date</div>
                                        <div className='search-past-workouts'>
-                                          <input
+                                        <table>
+                                           <tbody>
+                                              <tr>
+                                                <td><input
                                            type="date"
                                           id="past-workout-date"
                                           name="past-workout-date"
@@ -310,21 +313,17 @@ const handleWorkoutState = (name) => [
                                             onChange={(e) => {
                                             setPastDate(e.target.value);
                                              }}
-                                            ></input>
-                                           <button type="button" className='w-fit border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 font-bold tracking-wider active:text-white transform hover:scale-110 px-1 ml-4 mr-4'onClick={() => getPastWorkout()} >Search For Workout</button>
-                                            <button type="button" class= 'w-fit border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 font-bold tracking-wider active:text-white transform hover:scale-110 px-1 ml-4 mr-4'onClick={() => deletePastWorkout()} >Delete Workout</button>
-                                          <div class=" h-64 border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-orange-50 rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+                                            ></input></td>
+                                                <td><button type="button" className='w-fit  bg-slate-400 border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 font-bold tracking-wider active:text-white transform hover:scale-110 px-1 ml-4 mr-4'onClick={() => getPastWorkout()} >Search For Workout</button></td>
+                                                <td><button type="button" class= 'w-fit  bg-slate-400 border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 font-bold tracking-wider active:text-white transform hover:scale-110 px-1 ml-4 mr-4'onClick={() => deletePastWorkout()} >Delete Workout</button></td>
+                                             </tr>
+                                              </tbody>
+                                        </table>
+                                          <div class=" h-64 border-r border-b border-l overflow-scroll border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-orange-50 rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
                                              <div class="mb-8">
-                                                 <div class="flex items-center" className='workout'>
-                                                    <div className="exercise-entry">
+                                                  
                                                         { pastWorkout.map(workout => <PastWorkoutEntry workout={workout} key={workout.name} />)}
-                                                    </div>
-                                                 </div>
-                                                      <div class="flex items-center">
-                                                         <div class="text-sm">
-                                                             <p class="text-gray-600">{pastDate}</p>
-                                                          </div>
-                                                      </div>
+
                                               </div>
                                           </div>
                                         </div>
