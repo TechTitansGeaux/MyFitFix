@@ -295,7 +295,7 @@ function Home() {
 
         </div>
       </div>
-
+      </div>
 
     </div>
 
@@ -305,3 +305,4 @@ function Home() {
 }
 
 export default Home;
+//{dailyWorkout}
