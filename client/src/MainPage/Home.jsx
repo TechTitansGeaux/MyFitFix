@@ -128,7 +128,7 @@ function Home() {
 
 
   return (
-    <div className='grid grid-cols-5 grid-rows-2'>
+    <div className='grid grid-cols-4 grid-rows-2'>
 
       {/* START OF NAVIGATION BAR */}
       <div class="flex row-span-2">
@@ -224,22 +224,18 @@ function Home() {
 
 
 
+      <div class="col-span-2">
+        {/* Start of Welcome Title & Image */}
         <div >
-          {/* Start of Welcome Title & Image */}
-          <div>
-            <header class=" font-bold text-4xl inline-block mt-8 flex justify-center text-transparent bg-clip-text bg-gradient-to-r to-orange-500 from-slate-50	ml-20">
-              <img class="rounded-full inline-block gap-x-2 h-12 justify-right" src={user.thumbnail} alt="avatar" />
-              <div class="ml-6">
-              Welcome, {user.name}!
-              </div>
-            </header>
-          </div>
-
-          {/* <div class="grid grid-rows-4 grid-flow-col gap-4gap-x-5 justify-center mx-auto mb-5"> */}
-          <div>
+          <header class="text-4xl inline-block mt-8 flex justify-center	ml-20">
+            <img class="rounded-full inline-block gap-x-2 h-12 justify-right" src={user.thumbnail} alt="avatar" />
+            Welcome, {user.name}!
+          </header>
+        </div>
+        <div className='ml-12'>
 
           <div className='flex justify-center'>
-            <svg className="flex-shrink-0"></svg>
+            {/* <svg className="flex-shrink-0"></svg> */}
 
             {/* CALORIE INTAKE */}
             <div class="mt-8 mr-2 sm:mx-auto sm:w-full sm:max-w-md  px-10 py-12 rounded-md shadow-lg bg-gradient-to-br from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
@@ -265,7 +261,7 @@ function Home() {
           </div>
 
           <div className='flex justify-center'>
-            <svg className="flex-shrink-0"></svg>
+            {/* <svg className="flex-shrink-0"></svg> */}
 
             {/* JOURNAL */}
             <div className="mt-8 mr-2 sm:mx-auto sm:w-full sm:max-w-md  px-10 py-12 rounded-md shadow-lg bg-gradient-to-tr from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
