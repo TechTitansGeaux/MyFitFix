@@ -7,14 +7,17 @@ function PastWorkoutEntry( { workout } ){
 
 
   return (
- <div className="past-workout-entry">
-      <div className="past-workout-container">
-        <div className="past-workout-name">{workout.name}</div>
-        <div className="past-workout-set">{workout.set}</div>
-        <div className="past-workout-reps">{workout.rep}</div>
-      </div>
-    </div>
+ <table class="w-full table-fixed">
 
+  <tbody>
+    <tr>
+      <td>{workout.name}</td>
+      <td>SETS:{workout.set}</td>
+      <td>REPS:{workout.rep}</td>
+    </tr>
+    </tbody>
+    </table>
+  
   )
 };
 
