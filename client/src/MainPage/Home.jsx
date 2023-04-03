@@ -11,7 +11,7 @@ function Home() {
   const [load, setLoad] = useState(true);
   const [user, setUser] = useState({});
   const [ateTotal, setAteTotal] = useState(0);
-  const [dailyBurn, setDailyBurn] = useState(0);
+  const [dailyBurn, setDailyBurn] = useState('');
   const [dailyWorkout, setDailyWorkout] = useState([]);
   const [journalMessage, setJournalMessage] = useState('');
   const [icon, setIcon] = useState('')
@@ -84,8 +84,7 @@ function Home() {
     axios.get('dashboard/workouts')
       .then(({ data }) => {
         if (data.length !== 0) {
-          const workout = data[0].exercise;
-          setDailyWorkout(workout);
+          setDailyWorkout(data[0].exercise);
           setWorkoutIcon(<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="inline-block ml-3">
             <path fill="#27ae60" d="M22 13c0 5.523-4.477 10-10 10S2 18.523 2 13 6.477 3 12 3s10 4.477 10 10z" />
             <path fill="#2ecc71" d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10z" />
@@ -93,7 +92,8 @@ function Home() {
             <path fill="#ecf0f1" d="m16 8-6 6-2.5-2.5-2.125 2.1 2.5 2.5 2 2 .125.1 8.125-8.1L16 8z" />
           </svg>);
         } else {
-          setDailyWorkout('You have not created a workout today.');
+          const dummyWorkout = [{name: 'Exercise', set:'0', rep: '0'}]
+          setDailyWorkout(dummyWorkout);
           setWorkoutIcon(<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 64 64" class="inline-block ml-3" >
             <path fill="#ffc048" d="M32 3.4A28.59 28.59 0 0 0 3.4 32 28.59 28.59 0 0 0 32 60.6 28.59 28.59 0 0 0 60.6 32 28.59 28.59 0 0 0 32 3.4Zm0 49.2a4.32 4.32 0 1 1 4.31-4.31A4.32 4.32 0 0 1 32 52.6ZM37.23 17 35.6 39a.6.6 0 0 1-.6.56h-6a.6.6 0 0 1-.6-.56l-1.63-22a5.24 5.24 0 1 1 10.46 0Z" data-name="Layer 35" />
           </svg>);
@@ -286,9 +286,18 @@ function Home() {
             <div class="mt-8 ml-2  sm:w-full sm:max-w-md  px-10 py-12 rounded-md shadow-lg bg-gradient-to-tl from-sky-600 from-10%  via-sky-400 to-sky-100 to-40% ...">
               <div class="font-bold text-xl mb-2 hover:text-orange-500 inline-block">Workout Planner</div>
               {workoutIcon}
-              <p class="text-gray-700 text-base font-bold">
-                {/* {dailyWorkout} */}
-              </p>
+
+              <table class="w-full table-fixed">
+                  <tbody>
+                      { dailyWorkout.map((workout, index) => {
+                return  <tr>
+                   <td className="text-gray-700 text-base font-bold" workout={workout} key={index}>{workout.name}</td>
+                    <td className="text-gray-700 text-base font-bold">SETS:{workout.set}</td>
+                    <td className="text-gray-700 text-base font-bold">REPS:{workout.rep}</td>
+                      </tr>
+                      })}
+                      </tbody>
+                      </table>
             </div>
           </div>
 
