@@ -16,7 +16,7 @@ const UserSchema = new Schema({
 
 const CaloriesInSchema = new Schema({
   foodList: { type: Array, default: [] },
-  user: { type: mongoose.Schema.Types.ObjectId, unique: true, ref: 'User' },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   date: String
 })
 
