@@ -17,7 +17,7 @@ For anyone that is looking to work with this app, here are the things you will n
 - Add your keys to the env files with the names: `nutritionApi`, `workoutKey`, `CALORIES_BURNED_API`
 - Add a `cookieKey` to you env file (the value can be anything, as it will be hashed and salted)
 - Finally run `npm run build` and `npm start`, then visit localhost:8020 to see the app in action
-- Known bug: the code as it is written right now only saves user sessions for 24 hours. After this, it will not recognize a user. To circumvent this problem      until fixed, drop the user collection from the database when the issue arises. This will allow a user to log in again, creating a new session.
+- Known bug: the code as it is written right now only saves user sessions for 24 hours. After this, it will not recognize a user. To circumvent this problem      until fixed, drop the users collection from the database when the issue arises. This will allow a user to log in again, creating a new session.
 
 ## Tech Stack
 Here is the tech stack for this project
