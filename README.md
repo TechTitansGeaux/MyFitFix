@@ -4,7 +4,15 @@
 Welcome to our fitness app MyFitFix. This app is a weightlifting workout tracker.
 
 ## Features
-Users will be able to track 4 different things: the amount of calories taken in, the amount of calories burned in a workout session, the various weightlifting workouts that you did (with instructions on search), and a journal to track anything in the day that worked for you or didn't
+Once a user logs in, the app renders a dashboard. The dashboard reflects the user’s daily caloric intake, calories burned, and whether they submitted a journal entry or workout for the day.
+
+Utilizing the navigation bar, a user can navigate to different components, such as the Calorie Tracker, Workout Plan, and Journal to update their dashboard.
+
+The **Calorie Tracker** option renders two forms: a form where a user can weigh food, based on ingredients, which returns the total calories for those ingredients and a second form where a user can input their current weight and total time they have exercised for the day, returning their total burned calories.
+
+The **Workout Plan** option allows you to search through different exercises, based on muscle groups and allows a user to save those specific exercises. A user can find their saved exercises utilizing the ‘Search Workout By Date’ section.
+
+The **Journal** option allows you to document anything, whether it’s your fitness goals to anything in your daily life. You are able to save, retrieve, and delete any entry on any specific date.
 
 ## Setup and Starting Up (Development)
 For anyone that is looking to work with this app, here are the things you will need to get started
