@@ -1,3 +1,27 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
+/* GLOBAL */
+.flex-hori {
+  display: flex;
+}
+
+.flex-space-between {
+  justify-content: space-between;
+}
+
+.center-content-hori {
+  justify-content: center;
+}
+
+.margin-hori-sm {
+  margin: 0 1em;
+}
+
+/* MEDIA QUERIES */
+@media screen and (max-width: 480) {
+  .flex-hori {
+    flex-direction: column;
+  }
+}

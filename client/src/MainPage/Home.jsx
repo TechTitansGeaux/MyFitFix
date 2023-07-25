@@ -319,7 +319,7 @@ function Home() {
         </div>
       </div>
       </div>
-        <Goals/>
+      <Goals user={user} ateTotal={ateTotal} dailyBurn={dailyBurn} dailyWorkout={dailyWorkout} />
     </div>
 
 
@@ -328,4 +328,10 @@ function Home() {
 }
 
 export default Home;
-//{dailyWorkout}
+/*
+  const [user, setUser] = useState({});
+  const [ateTotal, setAteTotal] = useState(0);
+  const [dailyBurn, setDailyBurn] = useState('');
+  const [dailyWorkout, setDailyWorkout] = useState([]);
+  
+  */
