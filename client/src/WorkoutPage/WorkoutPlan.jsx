@@ -6,6 +6,7 @@ import SearchEntry from './SearchEntry.jsx';
 import PastWorkoutEntry from './PastWorkoutEntry';
 import '../style.css';
 import { useNavigate } from 'react-router-dom';
+import human from './human.jpg';
 
 
 
@@ -273,7 +274,7 @@ const handleWorkoutState = (name) => [
         </div>
         </div>
 <div class="col-span-2 mb-4">
-<h1 class= "text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl"> Plan Your Workout<span class="text-transparent bg-clip-text bg-gradient-to-r to-orange-500 from-sky-400">Get Your Fix</span> </h1>
+<h1 class= "text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl"> Plan Your Workout </h1>
 <div class="ml-8 max-w-lg h-30 bg-gradient-to-tr from-sky-600 from-10%  via-sky-400 to-sky-50 to-40% ... rounded overflow-hidden shadow-lg row-span-2 ">
                  <div class="px-6 py-4">
                     <div className='flex justify-center py-5'>
@@ -283,7 +284,7 @@ const handleWorkoutState = (name) => [
                         <form>
                            <input type="text" placeholder="biceps" className='w-full border border-sky-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 hover:border-blue-700 hover:border-lg' onChange={e => {setMuscle(e.target.value)}}/>
                           <div className='flex justify-around ml-25 mr-25'>
-                           <button type="button" className='w-full border border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 font-bold tracking-wider active:text-white transform hover:scale-110 px-1 ml-10 mr-10' onClick={(e) => handleSearch(e)}>Search</button>
+                           <button type="button"> <img src={human} alt='search' onClick={(e) => handleSearch('biceps')}/> </button>
                           </div>
                         </form>
                       </div>
