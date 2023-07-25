@@ -39,7 +39,7 @@ function WorkoutPlan() {
   const handleSearch = (e, muscle) => {
     axios.get('/workout/exercise', { params: { muscle: `${muscle}` } })
       .then((response) => {
-        console.log(e);
+        console.log(e, muscle);
         setExerciseResults(response.data)
       })
       .catch((err) => {
@@ -285,7 +285,12 @@ const handleWorkoutState = (name) => [
                         <form>
                            <input type="text" placeholder="biceps" className='w-full border border-sky-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 hover:border-blue-700 hover:border-lg' onChange={e => {setMuscle(e.target.value)}}/>
                           <div className='flex justify-around ml-25 mr-25'>
-                           <button type="button"> <img src={human} alt='search' onClick={(e) => handleSearch(e, 'biceps')}/> </button>
+                           <button type="button">
+                            <img src={human} alt='search' useMap="#workmap" />
+                             <map name="workmap">
+                              <area shape='rect' coords="20,83,81,150" alt="biceps" onClick={(e) => handleSearch(e, 'biceps')}/>
+                             </map>
+                            </button>
                           </div>
                         </form>
                       </div>
