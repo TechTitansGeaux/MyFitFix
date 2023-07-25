@@ -257,6 +257,14 @@ const handleWorkoutState = (name) => [
               <p class="text-base leading-4">Journal</p>
             </button>
 
+            {/* Messages */}
+            <button class="flex dark:text-white justify-start items-center space-x-6 hover:text-white focus:outline-none focus:bg-sky-500 focus:text-white hover:bg-sky-500 text-gray-600 rounded py-3 pl-4 w-full" onClick={() => navigate('/messages')}>
+              <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
+                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M364.13 125.25 87 403l-23 45 44.99-23 277.76-277.13-22.62-22.62zm56.56-56.56-22.62 22.62 22.62 22.63 22.62-22.63a16 16 0 0 0 0-22.62h0a16 16 0 0 0-22.62 0z" />
+              </svg>
+              <p class="text-base leading-4">Messages</p>
+            </button>
+
             {/* Divider */}
             <div class="w-full px-4">
               <hr class="border-gray-100 dark:border-gray-700  w-full" />
