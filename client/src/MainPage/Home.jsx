@@ -3,6 +3,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react'
 import moment from 'moment';
+import Goals from './Goals.jsx'
 
 // this is a test for the push/merge conflicts
 
@@ -318,7 +319,7 @@ function Home() {
         </div>
       </div>
       </div>
-
+        <Goals/>
     </div>
 
 
