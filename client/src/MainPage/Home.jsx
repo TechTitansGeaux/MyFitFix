@@ -202,6 +202,12 @@ function Home() {
               <p class="text-base leading-4">Journal</p>
             </button>
 
+            {/* Quote List Item */}
+            <button class="flex dark:text-white justify-start items-center space-x-6 hover:text-white focus:outline-none focus:bg-sky-500 focus:text-white hover:bg-sky-500 text-gray-600 rounded py-3 pl-4 w-full" onClick={() => navigate('/quotes')}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M9.983 3v7.391c0 5.704-3.731 9.57-8.983 10.609l-.995-2.151c2.432-.917 3.995-3.638 3.995-5.849h-4v-10h9.983zm14.017 0v7.391c0 5.704-3.748 9.571-9 10.609l-.996-2.151c2.433-.917 3.996-3.638 3.996-5.849h-3.983v-10h9.983z"/></svg>
+            <p class="text-base leading-4">Quotes</p>
+            </button>
+
             {/* Divider */}
             <div class="w-full px-4">
               <hr class="border-gray-100 dark:border-gray-700  w-full" />
