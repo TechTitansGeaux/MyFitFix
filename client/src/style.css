@@ -11,8 +11,9 @@
   justify-content: space-between;
 }
 
-.center-content-hori {
+.center-content {
   justify-content: center;
+  align-items: center;
 }
 
 .margin-hori-sm {
@@ -20,7 +21,7 @@
 }
 
 /* MEDIA QUERIES */
-@media screen and (max-width: 480) {
+@media screen and (max-width: 520) {
   .flex-hori {
     flex-direction: column;
   }
