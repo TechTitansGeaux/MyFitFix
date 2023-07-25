@@ -16,12 +16,16 @@ const Messages = () => {
   const [user, setUser] = useState({});
   // create variable on state for current user's name
   const [name, setName] = useState('');
+  // create variable in state for message coming in
+  const [message, setMessage] = useState('');
+  // create variable in state for message that has been received
+  const [messageReceived, setMessageReceived] = useState('');
 
   // const navigate = useNavigate();
 
   // handle click for send message
   const sendMessage = () => {
-    socket.emit('send_message', { message: 'hello' })
+    socket.emit('send_message', { message })
   }
 
     // Effect for getting the current user
@@ -50,15 +54,18 @@ const Messages = () => {
     // Effect for listening to socket events
     useEffect(() => {
       socket.on('receive_message', (data) => {
-        alert(data)
+        setMessageReceived(data)
       })
-    })
+    }, [socket])
 
   return (
     <div className="dms">
       {/* BEGIN CHATROOM */}
-      <input placeholder='Message...' />
+      <input placeholder='Message...' onChange={(event) => {
+        setMessage(event.target.value)
+      }}/>
       <button onClick={sendMessage}>Send Message</button>
+      <h5>Message : {messageReceived}</h5>
     </div>
   )
 };
