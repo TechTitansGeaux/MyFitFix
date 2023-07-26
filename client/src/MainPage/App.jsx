@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Login from './Login.jsx';
 import Home from './Home.jsx';
-import JournalEntry from './JournalEntry.jsx';
+import JournalEntry from '../Feed/JournalEntry.jsx';
 import CalorieTable from '../Calories/CalorieTable.jsx';
 import WorkoutPlanner from '../WorkoutPage/WorkoutPlan.jsx';
 import Messages from '../MessagesPage/Messages.jsx';
