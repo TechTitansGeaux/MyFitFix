@@ -6,7 +6,6 @@ import SearchEntry from './SearchEntry.jsx';
 import PastWorkoutEntry from './PastWorkoutEntry';
 import '../style.css';
 import { useNavigate } from 'react-router-dom';
-import human from './human.jpg';
 import BodyFront from './body-front.jsx';
 
 function WorkoutPlan() {
