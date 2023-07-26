@@ -68,9 +68,9 @@ io.on('connection', (socket) => {
   }
   socket.emit('users', users);
 
-  socket.on('send_message', (data) => {
-    socket.broadcast.emit('receive_message', data.message)
-  })
+  // socket.on('send_message', (data) => {
+  //   socket.broadcast.emit('receive_message', data.message)
+  // })
   // when dm event happens
   socket.on('dm', ({ text, recipient }) => {
     socket.join(recipient);
@@ -82,9 +82,9 @@ io.on('connection', (socket) => {
     });
   });
 
-  socket.on('join_room', (data) => {
-    socket.join(data)
-  })
+  // socket.on('join_room', (data) => {
+  //   socket.join(data)
+  // })
 })
 
 // register middleware to add username

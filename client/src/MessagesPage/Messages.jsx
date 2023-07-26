@@ -29,11 +29,6 @@ function Messages() {
   console.log(usersOnline, '<------- users online')
   console.log(selectedUser, '<------- selectedUser')
 
-  // handle click for send message
-  const sendMessage = () => {
-    socket.emit('send_message', { message });
-  };
-
   // Effect for getting the current user
   useEffect(() => {
     axios.get('/dashboard/user')
@@ -41,7 +36,9 @@ function Messages() {
         setUser(data[0]);
         setName(data[0].name);
       })
-      .catch((err) => { console.err(err) });
+      .catch((err) => {
+        console.error('Failed axios GET current user: ', err);
+      });
   }, []);
 
   // function to create user connection
@@ -51,7 +48,6 @@ function Messages() {
     socket.connect();
   };
 
-  console.log(socket, '<-----socket');
   // Effect for creating user connection
   useEffect(() => {
     createUserConnection();
@@ -102,11 +98,13 @@ function Messages() {
   const sendDM = (text) => {
     // determine if selectedUser is not an empty string
     if (selectedUser !== '') {
+      // send message through socket
       socket.emit('dm', {
         text,
         recipient: selectedUser.userID,
       });
     }
+    // also save message to the database
   };
 
   return (
