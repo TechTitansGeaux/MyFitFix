@@ -11,6 +11,7 @@ const cookieSession = require('cookie-session');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const path = require('path');
+const feed = require('./routes/feed-routes');
 
 
 
@@ -38,7 +39,7 @@ app.use('/journal-entry', journalRoutes);
 app.use('/nutrition', nutritionRoutes);
 app.use('/cb', cbRoutes);
 app.use('/workout', workoutRoutes);
-
+app.use('/feed', feed);
 //Create home route
 // app.get('/', (req, res) => {
 //   res.render('home', { user: req.user });
