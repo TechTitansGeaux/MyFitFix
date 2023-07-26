@@ -1,6 +1,6 @@
 import React from 'react';
 
-const BodyFront = ({handleSearch}) => {
+function BodyFront({ handleSearch }) {
   return (
     <svg
       version='1.1'
@@ -23,7 +23,8 @@ const BodyFront = ({handleSearch}) => {
 		C157.2,604.1,155.6,604.1,154.2,604.1z'
         />
         <path
-          className='st2' onClick={(e) => handleSearch(e, 'quadriceps')} // right thigh
+          className='st2'
+          onClick={(e) => handleSearch(e, 'quadriceps')} // right thigh
           d='M145.6,350.4c-2.6-9.7-7.4-18.4-11.4-27.4c-2.9-6.6-6.2-13.1-8.1-20.1c-0.2-0.8-0.8-1.4-1.3-2.2
 		c-0.3,0.1-0.6,0.1-0.9,0.2c-0.4,2.9-0.6,5.8-1.2,8.6c-1.1,4.7-1.6,9.5-1.9,14.3c-0.3,4.6-0.1,9.2,0,13.8c0,1.2-0.3,2.5,0,3.7
 		c1.6,6.1,3.4,12.1,5,18.2c1.3,5.3,2.4,10.7,3.5,16c1.3,6,2.7,12,3.8,18c1,5.1,1.8,10.2,2.5,15.3c0.6,4.6,1,9.3,1.5,13.9
@@ -31,13 +32,14 @@ const BodyFront = ({handleSearch}) => {
 		c0.5-4.8,1-9.7,1.4-14.5C146.5,352.7,145.9,351.5,145.6,350.4z'
         />
         <path
-          className='st3' onClick={(e) => handleSearch(e, 'chest')} // right pec
+          className='st3'
+          onClick={(e) => handleSearch(e, 'chest')} // right pec
           d='M160.3,134.4c2.1-3.5,0.5-7.2,1-10.7c-4.5-4.6-5-4.8-10.5-2.9c-1,0.3-2,0.6-2.8,1.1c-7.6,4.3-15,8.8-21.8,14.3
 		c-3.8,3-7.8,5.7-11.7,8.6c-1.9,1.4-3.8,2.8-6.7,4.9c5.2,3.3,9.4,5.9,13.5,8.6c6.6,4.2,14,6.5,21.4,8.1c6.5,1.3,13.1,0.1,18.6-4.6
 		c-0.4-3,0.8-6-1-8.9c-0.4-0.6-0.2-1.8,0.1-2.6c1.8-4.6,1.5-9.2,0.1-13.8C160.3,135.8,160,134.9,160.3,134.4z'
         />
         <path
-          className='st0' //tfl
+          className='st0' // tfl
           d='M129.3,417.1c0.9,3.1,2,6.1,3.3,9.9c1-1.5,1.9-2.3,2-3.1c0.2-1.9,0.6-4.2-0.1-5.8c-1.8-3.8-0.1-7.9-1.8-11.7
 		c-1-2.1-0.9-4.7-1.2-7.1c-0.8-5.3-1.1-10.7-2.3-15.9c-2-9.2-4.5-18.2-6.7-27.3c-0.6,4.3-1.4,8.8-0.4,13c0.7,3,0.5,5.9,0.8,8.8
 		c0.4,3.1,0.7,6.2,1.1,9.3c0.2,1.5,0.6,3,0.8,4.5c0.5,3.9,1,7.8,1.5,11.8c-0.3,0.1-0.6,0.2-1,0.3c-0.4-2-0.9-4-1.3-6
@@ -48,13 +50,15 @@ const BodyFront = ({handleSearch}) => {
 		c1.6,5.8,2.6,11.7,4.2,17.4c1,3.4,1.8,7.2,3.9,9.9C127.4,409.4,128.2,413.3,129.3,417.1z'
         />
         <path
-          className='st4' onClick={(e) => handleSearch(e, 'abdominals')} // lower right ab
+          className='st4'
+          onClick={(e) => handleSearch(e, 'abdominals')} // lower right ab
           d='M158.7,242.3c-0.4-1.1-0.8-2.2-1-3c-2.3-0.8-4.1-1.7-6.1-2c-3.9-0.7-7.9-3.3-12,0.6c0.5,7.1,0.9,14.4,1.4,21.7
 		c0,0.5,0.2,1,0.4,1.5c1.3,5.1,2.5,10.3,4,15.4c1.9,6.4,3.2,13.2,8.9,17.7c5.2,0.2,5.3,0.3,6.5-4.4c0.4-1.5,0.5-3.1,0.5-4.7
 		c0-9.6-0.2-19.1,0.1-28.7C161.5,251.4,160.5,246.8,158.7,242.3z'
         />
         <path
-          className='st5' onClick={(e) => handleSearch(e, 'biceps')}// right bicep
+          className='st5'
+          onClick={(e) => handleSearch(e, 'biceps')} // right bicep
           d='M103,150.7c-4.2,1.7-8.1,3.3-12.4,5c-0.1,0.3-0.5,0.9-0.7,1.5c-1.8,5.7-3.6,11.5-5.4,17.2
 		c-2,6.4-3.6,12.9-3.3,19.8c0.2,3.4,1,6.1,3.6,8.3c5.5,1.3,9.1-1.2,11.6-5c2.4-3.6,4.2-7.5,6.2-11.4c2.8-5.4,4-11.3,5.1-17.1
 		c0.9-4.5,2.4-9.2,1-13.9C106.8,153.6,104.7,152,103,150.7z'
@@ -67,7 +71,8 @@ const BodyFront = ({handleSearch}) => {
 		C145.3,538.4,144.2,531.9,144.3,525.3z'
         />
         <path
-          className='st6' onClick={(e) => handleSearch(e, 'abductors')}// right ABductor
+          className='st6'
+          onClick={(e) => handleSearch(e, 'abductors')} // right ABductor
           d='M134.5,234.2c-0.6-2.8-0.3-5.9-1.9-8.5c-2.7-4.3-6.5-6.9-11.8-8.2c-0.4,1.4-1,2.4-1.1,3.6
 		c-0.3,3.3-0.5,6.6-0.9,9.9c-0.9,7.3-0.9,14.7-1.2,22c-0.2,3.7,1.3,6.8,3.9,9.4c2.5,2.5,5.1,4.8,7.9,6.9c1.6,1.2,3.7,1.9,5.4,2.7
 		c1-0.6,1.9-1.1,3.1-1.7c0-1.1,0.3-2.4,0-3.5c-2.4-9-3-18.1-3.2-27.3C134.6,237.7,134.9,235.9,134.5,234.2z'
@@ -79,7 +84,8 @@ const BodyFront = ({handleSearch}) => {
 		c0.8-2.8,0.3-5.6,1.1-8.2c2.3-7.7,0.7-15.3-0.3-22.8C157.9,383.6,155.7,376.5,153.8,369.5z'
         />
         <path
-          className='st7' onClick={(e) => handleSearch(e, 'forearms')} // right forearm
+          className='st7'
+          onClick={(e) => handleSearch(e, 'forearms')} // right forearm
           d='M45.4,280.1c8.7-14,17.7-27.9,26.4-41.9c3.6-5.8,5.4-12.4,5.4-19.3c0-4.3-0.7-8.7-1-13
 		c-0.1-0.7-0.3-1.5-0.5-2.5c-0.9,0.5-1.4,0.7-1.7,1.1c-6.7,6.6-9.9,15.2-12.5,23.9c-2.7,9-4,18.4-6.6,27.4
 		c-2.8,9.6-7.1,18.6-13.7,26.5C43.6,283,44.3,281.9,45.4,280.1z'
@@ -90,19 +96,22 @@ const BodyFront = ({handleSearch}) => {
 		c5.3-7.4,9.2-15.6,12.9-24.5c-1.4-0.5-2.3-1.1-3.2-1.1c-3.8,0.1-7,1.4-9.9,3.9C101.4,125.7,94.8,136.1,90.2,147.9z'
         />
         <path
-          className='st8' onClick={(e) => handleSearch(e, 'adductors')} // right ADductor
+          className='st8'
+          onClick={(e) => handleSearch(e, 'adductors')} // right ADductor
           d='M157.4,368.8c0.3-0.2,0.6-0.3,0.9-0.5c-0.1-1.4,0.1-2.8-0.3-4.2c-4.4-17.1-10-33.7-16.6-50
 		c-5.2-12.9-11.1-25.5-16.3-39.5c0,5.5,0,10.1,0,14.7c0,0.5,0.1,1,0.3,1.5c0.9,3.1,1.9,6.2,2.9,9.2c1.1,3.2,1.4,7.3,3.6,9.5
 		c2.6,2.7,1.4,6.2,3.6,8.6c0.1,0.1,0.1,0.3,0.2,0.5c3.6,8,6.9,16,10.7,23.9c3.8,7.7,6.7,15.7,9.6,23.8
 		C156.3,367.1,156.9,368,157.4,368.8z'
         />
         <path
-          className='st9' onClick={(e) => handleSearch(e, 'abdominals')} // lower right ab
+          className='st9'
+          onClick={(e) => handleSearch(e, 'abdominals')} // lower right ab
           d='M160.8,235.7c0-7,0-13.9,0-20.8c-3.5-3.6-8.1-2.7-12.3-2.6c-2.7,0.1-5.3,0.9-7.4,3.2c-1.7,1.9-2.8,3.9-2.8,6.5
 		c0,3.1-0.6,6.3,1.5,9.8C147.3,230.5,153.9,232.8,160.8,235.7z'
         />
         <path
-          className='st10' onClick={(e) => handleSearch(e, 'abdominals')} // upper right ab
+          className='st10'
+          onClick={(e) => handleSearch(e, 'abdominals')} // upper right ab
           d='M137.8,207c0.1,1.6,0.6,2.7,2.3,3.3c6.2-3.7,13.2-1.6,19.7-2.3c0.5-0.5,1.1-0.9,1.2-1.3c0.1-5.3,0-10.6,0-16.3
 		c-5.9-4.5-15.3-1.6-20.3,4.8C137.9,198.6,137.5,202.7,137.8,207z'
         />
@@ -114,7 +123,8 @@ const BodyFront = ({handleSearch}) => {
 		C133.2,535.3,136,546.6,138.8,557.9z'
         />
         <path
-          className='st11' onClick={(e) => handleSearch(e, 'chest')} // right pec
+          className='st11'
+          onClick={(e) => handleSearch(e, 'chest')} // right pec
           d='M135.6,114c-6.5,1.5-10.9,6-13.8,12c-2.2,4.7-4.4,9.4-8.2,13.2c-1,1-1.5,2.5-2.2,3.8c0.6,0,1,0.2,1.2,0.1
 		c4-3.1,8-6.1,11.9-9.4c8.2-7,16.8-13.2,27.4-16.1c0.7-0.2,1.3-1,2.3-1.8C148,112.4,141.7,112.5,135.6,114z'
         />
@@ -125,22 +135,26 @@ const BodyFront = ({handleSearch}) => {
 		C86.3,149.3,88.3,146.1,89.7,142.6z'
         />
         <path
-          className='st12' onClick={(e) => handleSearch(e, 'abdominals')} // upper right ab
+          className='st12'
+          onClick={(e) => handleSearch(e, 'abdominals')} // upper right ab
           d='M159.5,169.7c-12.7-1.9-24.7,7-21.2,20.7c1.3-0.5,2.5-0.8,3.4-1.4c4.5-2.9,9.6-4.4,14.8-5.2
 		c2.5-0.4,3.8-1.5,4.9-3.5C160.4,176.8,163.2,172.5,159.5,169.7z'
         />
         <path
-          className='st13' onClick={(e) => handleSearch(e, 'adductors')} // right ADductor
+          className='st13'
+          onClick={(e) => handleSearch(e, 'adductors')} // right ADductor
           d='M149.5,325.4c2,7.3,4.1,14.6,6.1,22c0.3,0.1,0.6,0.1,0.9,0.2c1.2-3.9,2.9-7.6,3.6-11.6
 		c0.9-5.7,1.2-11.5,1.4-17.2c0.2-5.3-0.1-10.6-0.1-16.2C157.2,310.5,153.4,317.9,149.5,325.4z'
         />
         <path
-          className='st14' onClick={(e) => handleSearch(e, 'adductors')} // right ADductor
+          className='st14'
+          onClick={(e) => handleSearch(e, 'adductors')} // right ADductor
           d='M144.6,291.8c-0.7,4.7-1.9,8.7-4.7,12c2.4,5.8,4.5,11.5,8.7,16.8c4.4-6.4,8.2-12.2,8.5-19.4
 		C153.3,297.4,150,293.6,144.6,291.8z'
         />
         <path
-          className='st15' onClick={(e) => handleSearch(e, 'neck')} // right neck
+          className='st15'
+          onClick={(e) => handleSearch(e, 'neck')} // right neck
           d='M148,77.3c-0.4-0.6-1.5-0.9-2.3-1.3c0.5,16,9.2,28.3,16.4,41.6c1.6-10.2-1.2-19-5.6-27.4
 		C154.2,85.7,151,81.6,148,77.3z'
         />
@@ -156,24 +170,28 @@ const BodyFront = ({handleSearch}) => {
 		C111.3,194.7,117.6,211.5,127.5,216.5z'
         />
         <path
-          className='st16' onClick={(e) => handleSearch(e, 'calves')} // right calf (front view)
+          className='st16'
+          onClick={(e) => handleSearch(e, 'calves')} // right calf (front view)
           d='M155.9,508.3c0.4-0.1,0.9-0.2,1.3-0.3c0.9-3.2,1.9-6.5,1.9-9.9c-0.1-4.2-0.6-8.3-1-12.5
 		c-0.4-4.2-0.6-8.3-1.2-12.4c-0.3-1.9-1.1-3.7-1.6-5.5c-1.5,2.4-2.4,4.8-2.5,7.3c-0.3,5.8-0.2,11.7-0.3,17.5c0,1.8-0.3,3.6-0.1,5.4
 		c0.3,2,0.8,4,1.5,6C154.3,505.4,155.2,506.8,155.9,508.3z'
         />
         <path
-          className='st17' onClick={(e) => handleSearch(e, 'forearms')} // right forearm
+          className='st17'
+          onClick={(e) => handleSearch(e, 'forearms')} // right forearm
           d='M83.7,235.9l-0.3-0.3c-1.7,0.9-3.5,1.5-4.9,2.7c-6.4,5.5-11.4,12.1-15.2,19.7c-2.3,4.6-4.5,9.2-7.2,13.6
 		c-1.8,3-4.6,5.7-4.8,9.5c0.2,0.2,0.3,0.4,0.5,0.6c1.1-1.7,2.1-3.4,3.3-5.1c5.6-8.1,11-16.5,17-24.3
 		C76.1,246.9,80.2,241.6,83.7,235.9z'
         />
         <path
-          className='st18' onClick={(e) => handleSearch(e, 'forearms')} // right forearm
+          className='st18'
+          onClick={(e) => handleSearch(e, 'forearms')} // right forearm
           d='M74.9,236.2c1.2-0.5,1.8-0.7,2.4-1c5.5-3.1,10.7-6.6,16.6-9c4.6-1.9,5.7-6.5,3.6-11.7
 		C88.1,219.4,80.3,226,74.9,236.2z'
         />
         <path
-          className='st19' onClick={(e) => handleSearch(e, 'calves')} // right calf (front view)
+          className='st19'
+          onClick={(e) => handleSearch(e, 'calves')} // right calf (front view)
           d='M150.6,508.1c-0.1,13.7-0.3,27.5,1.1,41.2c0.2,1.9,1,3.8,1.6,5.9c0.3-0.5,0.7-0.8,0.6-1.1
 		c-0.6-10.6,0.7-21.1,1.2-31.6c0.2-5.1-0.2-10.1-2.3-14.8c-0.3-0.6-0.8-1.1-1.7-2.3C150.8,506.8,150.6,507.5,150.6,508.1z'
         />
@@ -188,16 +206,19 @@ const BodyFront = ({handleSearch}) => {
 		C149.7,435.8,149.7,433.5,145.9,429.7z'
         />
         <path
-          className='st20' onClick={(e) => handleSearch(e, 'forearms')} // right forearm
+          className='st20'
+          onClick={(e) => handleSearch(e, 'forearms')} // right forearm
           d='M67.3,275.4c2.9-0.5,3.6-2.1,4.6-3.5c3.7-5.7,7.8-11.3,11.3-17.2c3.7-6.3,7.6-12.7,9.5-19.9
 		c0.4-1.5,0.8-2.8-0.3-5.2C83.7,245.1,77.3,260.8,67.3,275.4z'
         />
         <path
-          className='st21' onClick={(e) => handleSearch(e, 'neck')} // right neck
+          className='st21'
+          onClick={(e) => handleSearch(e, 'neck')} // right neck
           d='M160.1,81.4c-1.4,1-2.7,1.8-3.6,2.5c2.8,4,5.6,8.1,8.2,11.8V81.4C163.1,81.4,161.6,81.4,160.1,81.4z'
         />
         <path
-          className='st22' onClick={(e) => handleSearch(e, 'traps')} // right trap
+          className='st22'
+          onClick={(e) => handleSearch(e, 'traps')} // right trap
           d='M145.4,97.1c-0.1-1.5-0.2-2.7-0.3-4.6c-7.5,5-15.5,7.8-22.9,13.5c4.9,0,8.9,0,12.9,0
 		C138.6,102.9,142.1,100,145.4,97.1z'
         />
@@ -207,12 +228,14 @@ const BodyFront = ({handleSearch}) => {
 		C119.4,190.2,123.2,194.7,127.9,198.4z'
         />
         <path
-          className='st23' onClick={(e) => handleSearch(e, 'forearms')} // right forearm
+          className='st23'
+          onClick={(e) => handleSearch(e, 'forearms')} // right forearm
           d='M80.5,246.8c-1.2-0.2-1.9-0.1-2.2,0.3c-4.8,7.5-9.8,15-14.3,22.7c-2.2,3.8-3.5,8.3-5.2,12.4
 		c0.1,0.1,0.3,0.3,0.4,0.4c0.6-0.6,1.4-1.1,1.9-1.8c5.3-8.8,10.7-17.6,15.9-26.5C78.4,252,79.3,249.4,80.5,246.8z'
         />
         <path
-          className='st24' onClick={(e) => handleSearch(e, 'triceps')} // right tricep
+          className='st24'
+          onClick={(e) => handleSearch(e, 'triceps')} // right tricep
           d='M78.2,205.1c0.8,2.3,1.3,4.8,3.9,6c-0.9-4.9-2.3-9.4-3.1-14.1c-1.2-6.3,0-12.2,0.8-18.1
 		c0.8-5.8,3.7-11.3,5.6-16.9c0.3-0.8,0-1.9,0-3.8c-1.4,1.5-2.5,2.1-2.9,3.1c-2.9,8.6-5.5,17.4-5.4,26.7
 		C77.2,193.6,76.3,199.5,78.2,205.1z'
@@ -227,82 +250,90 @@ const BodyFront = ({handleSearch}) => {
           d='M129.8,184.7c3.1-2.7,1.1-6.2,1.7-9c-3.6-2.9-7-5.5-10.5-8.3C120.8,173.8,124.8,181.7,129.8,184.7z'
         />
         <path
-          className='st25' onClick={(e) => handleSearch(e, 'triceps')} // right tricep
+          className='st25'
+          onClick={(e) => handleSearch(e, 'triceps')} // right tricep
           d='M98,198.4c-3.3,5-7.5,9-12.4,12.5c-1.8,1.2-2.8,3.5-4.6,5.7c7.2-1.1,17.7-11,19.4-20.4
 		C99.5,197.1,98.5,197.6,98,198.4z'
         />
         <path
-          className='st0'
+          className='st0' // right foot
           d='M141.1,599.7c1.5,0,2.7,0,4.3,0c0.9-6.3,1.8-12.5,2.8-18.9c-0.5-0.1-1.4-0.2-2.8-0.3
 		C143.9,586.8,142.5,593.1,141.1,599.7z'
         />
         <path
-          className='st0'
+          className='st26'
+          onClick={(e) => handleSearch(e, 'abductors')} // right ABductor
           d='M116.3,271.3c0.5-1.6,0.2-3.5,0.1-5.2c0-0.2-0.8-0.5-1.2-0.7c-0.4,0.3-0.8,0.5-0.8,0.8
 		c-1.4,7.2-3.4,14.4-3.3,21.9c0,1.8-0.5,3.7-0.8,5.8c0.3,0.3,0.9,0.8,1.6,1.4c0.5-2.9,1.1-5.6,1.5-8.3
 		C114,281.7,114.7,276.5,116.3,271.3z'
         />
         <path
-          className='st0'
+          className='st27'
+          onClick={(e) => handleSearch(e, 'adductors')} // right ADductor
           d='M142.1,290.6c-0.4-2.6-2-4.1-4.8-5c-2.8,5.8-2.3,9.5,1.5,13C141.1,296.5,142.5,293.1,142.1,290.6z'
         />
         <path
-          className='st0'
+          className='st0' // right foot
           d='M158.9,580.5c-1,3.1-1.5,6.2-1.9,9.4c-0.4,3.2-0.7,6.4-1,9.7c1.5,0,2.6,0,4.3,0c0-3.5,0.1-6.6,0-9.8
 		C160,586.7,161,583.5,158.9,580.5z'
         />
         <path
-          className='st0'
+          className='st0' // right serratus
           d='M114.7,168.7c-2.5,3.4-1.4,6.5,0.3,9.8c1.8,0.3,3.6,0.7,6.3,1.2C120,174.6,118.2,171.2,114.7,168.7z'
         />
         <path
-          className='st0'
+          className='st28'
+          onClick={(e) => handleSearch(e, 'neck')} // right neck
           d='M145,106.4c2.7,2.4,5.2,1.9,8.1,1c-1.6-3-2.9-5.6-4.8-9.1C147,101.6,146.1,103.9,145,106.4z'
         />
         <path
-          className='st0'
+          className='st0' // under right knee cap
           d='M139.8,447.3c1.8,2.1,0.5,5.8,3.9,8.2c1-4,2-7.5,2.9-11l-0.2-0.2C144,444.8,141.5,444.8,139.8,447.3z'
         />
         <path
-          className='st0'
+          className='st0' // right foot
           d='M140.1,588c-2.2,3.3-4.5,6.7-7.1,10.6c1.9,0.1,3.1,0.1,4.7,0.2C139.3,595.1,140.9,591.9,140.1,588z'
         />
         <path
-          className='st0'
+          className='st29'
+          onClick={(e) => handleSearch(e, 'lats')}// right lat
           d='M113.1,162.5c3.3,2.7,4.6,2.7,7.8,0c-1.9-1.3-3.8-2.5-5.8-3.8C114.4,160.1,113.9,161.2,113.1,162.5z'
         />
         <path
-          className='st0'
+          className='st30'
+          onClick={(e) => handleSearch(e, 'adductors')} // right ADductor
           d='M128.6,277.6c1.5,3.2,2.4,6.7,5.9,9.2C134.6,281.6,132.9,279.1,128.6,277.6z'
         />
         <path
-          className='st0'
+          className='st0' // right serratus
           d='M126.8,166c1.2,3.2,3.3,5.4,6.7,5.9c0.3,0,0.6-0.2,1-0.5c0-0.7,0-1.5,0-2.3c-2.5-1.3-4.8-2.6-7.2-3.8
 		C127.2,165.5,127,165.7,126.8,166z'
         />
         <path
-          className='st0'
+          className='st0' // right foot index toe
           d='M144.2,610.2c1.3,0,2.5,0,4,0c0.4-2,0.7-3.5,1-5.4c-1.2-0.3-2.3-0.6-3.5-0.9
 		C145.2,606.1,144.7,608,144.2,610.2z'
         />
         <path
-          className='st0'
+          className='st0' // right foot middle toe
           d='M139.5,609.3c3.3-0.1,2.2-3.5,3.6-4.9C139,604,138.5,604.6,139.5,609.3z'
         />
         <path
-          className='st0'
+          className='st0' // right foot ring toe
           d='M134,608.5c2.9-1.1,3.2-3.2,4-5.4C134.1,604,133.7,604.6,134,608.5z'
         />
         <path
-          className='st0'
+          className='st0' // right foot pinky toe
           d='M129.3,604.6c0,0.6,0.7,1.2,1.4,2.3c0.8-1.9,1.4-3.2,2-4.8C129.5,603,129.4,603,129.3,604.6z'
         />
         <path
-          className='st0'
+          className='st31'
+          onClick={(e) => handleSearch(e, 'forearms')} // right forearm
           d='M56.2,287.9c2-1.3,2.6-3.2,3-5.2c-0.1-0.1-0.3-0.3-0.4-0.4C57.3,283.8,54.9,285,56.2,287.9z'
         />
         <path
-          className='st0'
+          className='st32'
+          onClick={(e) => handleSearch(e, 'forearms')} // right forearm
           d='M50.2,285c0.6-1.3,1.1-2.3,1.6-3.3c-0.2-0.2-0.4-0.4-0.5-0.6C49.3,281.6,48.9,282.8,50.2,285z'
         />
         <path
@@ -698,6 +729,6 @@ const BodyFront = ({handleSearch}) => {
       </g>
     </svg>
   );
-};
+}
 
 export default BodyFront;
