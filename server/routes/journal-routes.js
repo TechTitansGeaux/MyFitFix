@@ -62,5 +62,15 @@ router.delete('/:date', (req, res) => {
 })
 
 
+// Convert Speech to Text for Journal Entry
+router.post('/speech-to-text', (req, res) => {
+    // Assuming you have a speech-to-text processing logic here
+    const { speech } = req.body;
+    // Your speech-to-text processing logic here
+    // For demonstration purposes, we'll just echo the input back as text
+    res.send({ text: speech });
+  });
+
+
 
 module.exports = router;
