@@ -20,6 +20,10 @@
   margin: 0 1em;
 }
 
+section {
+  margin: 4em auto;
+}
+
 /* MEDIA QUERIES */
 @media screen and (max-width: 520) {
   .flex-hori {
