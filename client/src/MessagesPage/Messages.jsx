@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import io from 'socket.io-client';
-const URL = 'http://127.0.0.1:3000';
+const URL = 'http://localhost:3000';
 const socket = io(URL, { autoConnect: false });
 
 const Messages = () => {
