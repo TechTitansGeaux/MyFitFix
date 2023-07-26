@@ -10,7 +10,7 @@ function JournalEntry() {
   //----REACT HOOKS: SETTING STATE-----
 
   // Creating a state variable named 'date' that is changed through our function setDate, when a user clicks a specific date on calendar
-  const [date, setDate] = useState(moment().format("YYYY-MM-DD"));  // Using moment, the initial date of the calendar would be the date of today
+  const [date, setDate] = useState(moment().format("YYYY-MM-DD"));  // Using moment, the initial date of the calendar would be the date of 
 
   // Creating a state variable named 'entry' that is changed through our function setEntry, when a user types in their journal entry
   const [entry, setEntry] = useState('');
