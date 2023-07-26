@@ -7,11 +7,15 @@ mongoose.connect(mongoUri)
   .then(() => console.info(('Connected to database: "fitfix"')))
   .catch((err) => console.error(('Could not connect to database'), err));
 
-const UserSchema = new Schema({
-  name: String,
-  googleId: { type: String, unique: true },
-  thumbnail: String,
-});
+  const UserSchema = new Schema({
+    name: String,
+    googleId: { type: String, unique: true },
+    thumbnail: String,
+    following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    followers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    journalEntries: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Journal' }],
+  });
+  
 
 
 const CaloriesInSchema = new Schema({
@@ -39,8 +43,21 @@ user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
 const JournalEntrySchema = new Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   entry: String,
-  date:  {type: Date, unique: false}
+  images: [{ type: String }],
+  date: { type: Date, default: Date.now },
+  likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+  reposts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+  interactions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
 });
+
+const NotificationSchema = new Schema({
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  journalEntry: { type: mongoose.Schema.Types.ObjectId, ref: 'Journal' },
+  type: String, //  type of interaction (e.g., 'like', 'repost')
+  date: { type: Date, default: Date.now },
+  read: { type: Boolean, default: false },
+});
+
 
 
 
@@ -49,5 +66,6 @@ module.exports = {
   CaloriesIn: model('CaloriesIn', CaloriesInSchema),
   CaloriesBurned: model('CaloriesBurned', CaloriesBurnedSchema),
   Workout: model('Workout', WorkoutEntrySchema),
-  Journal: model('Journal', JournalEntrySchema)
+  Journal: model('Journal', JournalEntrySchema),
+  Notification: model('Notification', NotificationSchema)
 };
