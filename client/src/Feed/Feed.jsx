@@ -46,9 +46,9 @@ const Feed = () => {
       <Notifications />
 
       {/* User Profile Card */}
-      {/* Add your logic here to display the user's profile card */}
-      {/* For example, you can fetch the user data and display the follower/following count */}
-      {/* You can also implement the follow/unfollow functionality here */}
+      {/* Add logic here to display the user's profile card */}
+      {/* fetch the user data and display the follower/following count */}
+      {/* implement the follow/unfollow functionality */}
 
       {/* User Search */}
       <UserSearch />
