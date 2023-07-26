@@ -11,8 +11,8 @@ const cookieSession = require('cookie-session');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const path = require('path');
-const feed = require('./routes/feed-routes');
-
+const feedRoutes = require('./routes/feed-routes');
+const userRoutes = require('./routes/user-routes');
 
 
 const CLIENT_PATH = path.join(__dirname, '..', 'client', 'dist');
@@ -39,7 +39,8 @@ app.use('/journal-entry', journalRoutes);
 app.use('/nutrition', nutritionRoutes);
 app.use('/cb', cbRoutes);
 app.use('/workout', workoutRoutes);
-app.use('/feed', feed);
+app.use('/feed', feedRoutes);
+app.use('/users', userRoutes);
 //Create home route
 // app.get('/', (req, res) => {
 //   res.render('home', { user: req.user });
