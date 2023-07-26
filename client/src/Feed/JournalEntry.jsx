@@ -28,17 +28,21 @@ function JournalEntry() {
   const showEntry = (date) => {
     axios.get(`/journal-entry/${date}`)
       .then(({ data }) => {
-        if ({ data }) {
-          // If there is a journal entry in the DB, matching the choice of date that the user clicked, display that text
-          setEntryBox(data[0].entry)
+        if (data.length > 0) {
+          // If there is a journal entry in the DB matching the chosen date, display that text
+          setEntryBox(data[0].entry);
+        } else {
+          // If there is NO journal entry in the DB matching the chosen date, the text box should be empty
+          setEntryBox('');
+          console.error(`There is no stored journal entry for ${date} in the DB.`);
         }
       })
       .catch((err) => {
-        // If there is NO journal entry in the DB, matching the choice of date that the user click, the text box should be empty
         setEntryBox('');
-        console.error(`There is no stored journal entry for ${date} in the DB. `);
-      })
-  }
+        console.error(`Error fetching journal entry for ${date}: ${err}`);
+      });
+  };
+
 
   // This function submits a journal entry to the DB
   const submitJournalEntry = () => {
@@ -48,44 +52,42 @@ function JournalEntry() {
     // Sending an axios POST request to submit the journal entry
     axios.post('/journal-entry', { entry: entry, date: date })
       .then((response) => console.log('This journal was submitted:', response))
-      .catch((err) => console.error('err'));
-  }
+      .catch((err) => console.error('Error submitting journal entry:', err));
+  };
 
   // This function deletes a journal entry in the DB
   const deleteEntry = () => {
-    // Alerting a user, to make sure they want to delete this current entry
-    if (confirm('Are you sure you want to delete this journal entry?')) {
+    // Alerting a user to confirm if they want to delete this current entry
+    if (window.confirm('Are you sure you want to delete this journal entry?')) {
       // Sending an AXIOS delete request to delete the selected entry
       axios.delete(`/journal-entry/${date}`)
         .then(() => console.log('The selected journal entry was deleted.'))
-        .catch(() => console.log('We were not able to delete your journal entry. Try again.'))
-      //This will only fire if the person clicks 'delete'
-      setEntryBox('')
+        .catch(() => console.log('We were not able to delete your journal entry. Try again.'));
 
+      // This will only fire if the person clicks 'delete'
+      setEntryBox('');
     } else {
-      //Nothing will occur if the user clicks 'cancel'
-      console.log('Entry was cancelled from being deleted.')
+      // Nothing will occur if the user clicks 'cancel'
+      console.log('Entry deletion was cancelled.');
     }
-
-
-  }
+  };
 
 
   //------FUNCTIONS: MISC -----
 
   // This function alerts the user to select a date before typing in the text box
   const selectDate = () => {
-    //If no date is selected, alert user to select a date, before continuing
+    // If no date is selected, alert user to select a date before continuing
     if (date === '') {
-      alert('Please select a date, before typing journal entry.')
+      alert('Please select a date before typing your journal entry.');
     }
-  }
+  };
 
-  useEffect((e) => {
+  useEffect(() => {
     if (date === moment().format("YYYY-MM-DD")) {
       showEntry(date);
     }
-  }, [])
+  }, [date]);
 
   return (
     <div class="grid grid-cols-5 grid-rows-2">

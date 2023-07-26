@@ -7,6 +7,7 @@ import CalorieTable from '../Calories/CalorieTable.jsx';
 import WorkoutPlanner from '../WorkoutPage/WorkoutPlan.jsx';
 import Messages from '../MessagesPage/Messages.jsx';
 import Quotes from '../QuotesPage/Quotes.jsx';
+import Feed from '../Feed/Feed.jsx';
 
 
 
@@ -20,6 +21,7 @@ function App() {
       <Route path='/tracker' element={<CalorieTable />} />
       <Route path='/messages' element={<Messages />} />
       <Route path='/quotes' element={<Quotes />} />
+      <Route path='/feed' element={<Feed />} />
     </Routes>
   );
 }
