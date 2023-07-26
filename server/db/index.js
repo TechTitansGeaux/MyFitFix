@@ -66,5 +66,6 @@ module.exports = {
   CaloriesIn: model('CaloriesIn', CaloriesInSchema),
   CaloriesBurned: model('CaloriesBurned', CaloriesBurnedSchema),
   Workout: model('Workout', WorkoutEntrySchema),
-  Journal: model('Journal', JournalEntrySchema)
+  Journal: model('Journal', JournalEntrySchema),
+  Notification: model('Notification', NotificationSchema)
 };
