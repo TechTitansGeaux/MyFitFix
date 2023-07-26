@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import JournalEntry from './JournalEntry';
+import Entry from './Entry';
 import Notifications from './Notifications';
 import UserSearch from './UserSearch';
 
 const Feed = () => {
   const [feedType, setFeedType] = useState('public'); // 'public' or 'following'
-  const [journalEntries, setJournalEntries] = useState([]);
+  const [entries, setEntries] = useState([]);
   const [page, setPage] = useState(1);
 
   // Function to load more journal entries with infinite scroll
@@ -17,7 +17,7 @@ const Feed = () => {
   useEffect(() => {
     // Fetch the journal entries based on the feed type and current page
     axios.get(`feed/${feedType}?page=${page}`).then((response) => {
-      setJournalEntries((prevEntries) => [...prevEntries, ...response.data]);
+      setEntries((prevEntries) => [...prevEntries, ...response.data]);
     });
   }, [feedType, page]);
 
@@ -35,8 +35,8 @@ const Feed = () => {
 
       {/* Display the journal entries */}
       <div className="feed_entries">
-        {journalEntries.map((entry) => (
-          <JournalEntry key={entry.id} entry={entry} />
+        {entries.map((entry) => (
+          <Entry key={entry._id} entry={entry} />
         ))}
         {/* Infinite scroll */}
         <button onClick={loadMoreEntries}>Load More</button>

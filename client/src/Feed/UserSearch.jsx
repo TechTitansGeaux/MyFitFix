@@ -4,29 +4,33 @@ import axios from 'axios';
 const UserSearch = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
-  const [followedUsers, setFollowedUsers] = useState([]);
+  const [following, setFollowing] = useState([]);
 
   // Function to handle searching for users
   const handleSearch = () => {
-    axios.get(`users/search?query=${searchQuery}`).then((response) => {
+    axios.get(`/users/search?query=${searchQuery}`).then((response) => {
       setSearchResults(response.data);
+    }).catch((error) => {
+      console.error('Error searching users:', error);
     });
   };
 
   // Function to handle follow/unfollow user
   const handleFollow = (userId) => {
-    axios.post(`users/follow/${userId}`).then((response) => {
+    axios.post(`/users/follow/${userId}`).then((response) => {
       // Update the list of followed users
-      setFollowedUsers((prevFollowedUsers) => [...prevFollowedUsers, userId]);
+      setFollowing((prevFollowing) => [...prevFollowing, userId]);
+    }).catch((error) => {
+      console.error('Error following user:', error);
     });
   };
 
   const handleUnfollow = (userId) => {
-    axios.post(`users/unfollow/${userId}`).then((response) => {
+    axios.post(`/users/unfollow/${userId}`).then((response) => {
       // Update the list of followed users
-      setFollowedUsers((prevFollowedUsers) =>
-        prevFollowedUsers.filter((id) => id !== userId)
-      );
+      setFollowing((prevFollowing) => prevFollowing.filter((id) => id !== userId));
+    }).catch((error) => {
+      console.error('Error unfollowing user:', error);
     });
   };
 
@@ -45,12 +49,12 @@ const UserSearch = () => {
       <div className="search_results">
         <h3>Search Results:</h3>
         {searchResults.map((user) => (
-          <div key={user.id}>
+          <div key={user._id}>
             <p>{user.name}</p>
-            {followedUsers.includes(user.id) ? (
-              <button onClick={() => handleUnfollow(user.id)}>Unfollow</button>
+            {following.includes(user._id) ? (
+              <button onClick={() => handleUnfollow(user._id)}>Unfollow</button>
             ) : (
-              <button onClick={() => handleFollow(user.id)}>Follow</button>
+              <button onClick={() => handleFollow(user._id)}>Follow</button>
             )}
           </div>
         ))}

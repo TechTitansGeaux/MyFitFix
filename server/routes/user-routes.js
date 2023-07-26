@@ -2,6 +2,18 @@ const express = require('express');
 const router = express.Router();
 const { User, Notification } = require('../db/index.js');
 
+// Route to get all users
+router.get('/', async (req, res) => {
+  try {
+    const users = await User.find(); // Fetch all users from the database
+
+    res.json(users);
+  } catch (err) {
+    console.error('Error fetching users:', err);
+    res.status(500).json({ error: 'Failed to fetch users' });
+  }
+});
+
 // Route for searching users
 router.get('/search', async (req, res) => {
   const { query } = req.query;
