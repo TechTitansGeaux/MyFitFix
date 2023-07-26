@@ -17,7 +17,7 @@ function PastWorkoutEntry( { workout } ){
     </tr>
     </tbody>
     </table>
-  
+
   )
 };
 
