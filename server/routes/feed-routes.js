@@ -42,7 +42,7 @@ router.post('/unfollow/:userId', (req, res) => {
 });
 
 // 3. GET - View Public Feed
-router.get('/feed/public', (req, res) => {
+router.get('/public', (req, res) => {
   Journal.find()
     .then((entries) => res.send(entries))
     .catch((err) => {
@@ -52,7 +52,7 @@ router.get('/feed/public', (req, res) => {
 });
 
 // 4. GET - View Following Only Feed
-router.get('/feed/following', (req, res) => {
+router.get('/following', (req, res) => {
   const { _id } = req.user;
   User.findById(_id)
     .populate('following', '-_id') // Exclude _id from the populated users
@@ -71,7 +71,20 @@ router.get('/feed/following', (req, res) => {
     });
 });
 
-// 5. POST - Like a Journal Entry
+// 5. POST - Post a Journal Entry to the Feed
+router.post('/post-journal', (req, res) => {
+  const { entry, images } = req.body;
+  const { _id } = req.user;
+
+  Journal.create({ user: _id, entry: entry, images: images })
+    .then(() => res.sendStatus(200))
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+});
+
+// 6. POST - Like a Journal Entry
 router.post('/interact/:journalId/like', (req, res) => {
   const { journalId } = req.params;
   const { _id } = req.user;
@@ -79,13 +92,22 @@ router.post('/interact/:journalId/like', (req, res) => {
   Journal.findByIdAndUpdate(journalId, { $addToSet: { likes: _id } })
     .then(() => {
       // Notify the journal owner about the like
-      const notification = new Notification({
-        user: journalEntry.user,
-        journalEntry: journalId,
-        type: 'like',
-      });
-      notification.save();
-      res.sendStatus(200);
+      Journal.findById(journalId)
+        .then((journalEntry) => {
+          if (journalEntry) {
+            const notification = new Notification({
+              user: journalEntry.user,
+              journalEntry: journalId,
+              type: 'like',
+            });
+            notification.save();
+          }
+          res.sendStatus(200);
+        })
+        .catch((err) => {
+          console.error(err);
+          res.sendStatus(500);
+        });
     })
     .catch((err) => {
       console.error(err);
@@ -93,7 +115,7 @@ router.post('/interact/:journalId/like', (req, res) => {
     });
 });
 
-// 6. POST - Unlike a Journal Entry
+// 7. POST - Unlike a Journal Entry
 router.post('/interact/:journalId/unlike', (req, res) => {
   const { journalId } = req.params;
   const { _id } = req.user;
@@ -106,7 +128,7 @@ router.post('/interact/:journalId/unlike', (req, res) => {
     });
 });
 
-// 7. POST - Repost a Journal Entry
+// 8. POST - Repost a Journal Entry
 router.post('/interact/:journalId/repost', (req, res) => {
   const { journalId } = req.params;
   const { _id } = req.user;
@@ -114,13 +136,22 @@ router.post('/interact/:journalId/repost', (req, res) => {
   Journal.findByIdAndUpdate(journalId, { $addToSet: { reposts: _id } })
     .then(() => {
       // Notify the journal owner about the repost
-      const notification = new Notification({
-        user: journalEntry.user,
-        journalEntry: journalId,
-        type: 'repost',
-      });
-      notification.save();
-      res.sendStatus(200);
+      Journal.findById(journalId)
+        .then((journalEntry) => {
+          if (journalEntry) {
+            const notification = new Notification({
+              user: journalEntry.user,
+              journalEntry: journalId,
+              type: 'repost',
+            });
+            notification.save();
+          }
+          res.sendStatus(200);
+        })
+        .catch((err) => {
+          console.error(err);
+          res.sendStatus(500);
+        });
     })
     .catch((err) => {
       console.error(err);
@@ -128,7 +159,7 @@ router.post('/interact/:journalId/repost', (req, res) => {
     });
 });
 
-// 8. POST Unrepost a Journal Entry
+// 9. POST - Unrepost a Journal Entry
 router.post('/interact/:journalId/unrepost', (req, res) => {
   const { journalId } = req.params;
   const { _id } = req.user;
@@ -141,7 +172,7 @@ router.post('/interact/:journalId/unrepost', (req, res) => {
     });
 });
 
-// 9. Get User Notifications
+// 10. Get User Notifications
 router.get('/notifications', (req, res) => {
   const { _id } = req.user;
 
@@ -153,6 +184,5 @@ router.get('/notifications', (req, res) => {
       res.sendStatus(500);
     });
 });
-
 
 module.exports = router;

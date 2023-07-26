@@ -1,76 +1,188 @@
 const router = require('express').Router();
-const { Journal } = require('../db/index.js');
+const { Journal, User, Notification } = require('../db/index.js');
 
+// This will SAVE journal entry on the selected date into the database
+router.post('/', async (req, res) => {
+  const { entry, date, images } = req.body;
+  const { _id } = req.user;
 
-// This will SAVE journal entry on selected date into the database
-router.post('/', (req, res) => {
-    const { entry, date } = req.body;
-    const { _id } = req.user
-    Journal.findOneAndUpdate({ user: _id, date: date }, { entry: entry })
-        .then((entryBody) => {
-            // If this journal entry already exists in the database, just update the entry
-            if (entryBody) {
-                res.sendStatus(200);
-                // If it does not exist in the database, create a new document for it
-            } else {
-                Journal.create({ user: _id, entry: entry, date: date });
-            }
-        })
-        // If entering the database was not successful, send back a 500 status code
-        .catch(() => {
-            res.sendStatus(500);
-        })
-})
+  try {
+    const journalEntry = await Journal.findOneAndUpdate(
+      { user: _id, date: date },
+      { entry: entry, images: images },
+      { upsert: true, new: true }
+    );
 
-
+    res.sendStatus(200);
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(500);
+  }
+});
 
 // This will RETRIEVE the specific journal entry from this date from the database
-router.get('/:date', (req, res) => {
-    const { date } = req.params;
-    const { _id } = req.user
+router.get('/:date', async (req, res) => {
+  const { date } = req.params;
+  const { _id } = req.user;
 
-    Journal.find({ user: _id, date: date })
-        .then((entry) => {
-            // If the entry exists, send the journal entry back
-            if (entry) {
-                res.send(entry);
-            }
-        })
-        .catch((err) => {
-            res.sendStatus(500);
-        })
-})
+  try {
+    const journalEntry = await Journal.findOne({ user: _id, date: date });
+
+    if (journalEntry) {
+      res.send(journalEntry);
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(500);
+  }
+});
 
 // This will DELETE the specific journal entry from the date from the database
-router.delete('/:date', (req, res) => {
-    const { date } = req.params;
-    const { _id } = req.user;
+router.delete('/:date', async (req, res) => {
+  const { date } = req.params;
+  const { _id } = req.user;
 
-    Journal.findOneAndRemove({ user: _id, date: date })
-        .then((entry) => {
-            // If the entry exists, delete the journal entry
-            if (entry) {
-                res.sendStatus(200)
-                // If the entry does not exist, it cannot be found and cannot be deleted
-            } else {
-                res.sendStatus(404)
-            }
-        })
-        .catch((err) => {
-            res.sendStatus(500);
-        })
-})
+  try {
+    const journalEntry = await Journal.findOneAndRemove({ user: _id, date: date });
 
+    if (journalEntry) {
+      res.sendStatus(200);
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(500);
+  }
+});
+
+// Like a Journal Entry
+router.post('/interact/:journalId/like', async (req, res) => {
+  const { journalId } = req.params;
+  const { _id } = req.user;
+
+  try {
+    const journalEntry = await Journal.findById(journalId);
+
+    if (!journalEntry) {
+      return res.status(404).json({ error: 'Journal entry not found' });
+    }
+
+    if (journalEntry.likes.includes(_id)) {
+      return res.status(400).json({ error: 'You have already liked this journal entry' });
+    }
+
+    journalEntry.likes.push(_id);
+    await journalEntry.save();
+
+    // Notify the journal owner about the like
+    const notification = new Notification({
+      user: journalEntry.user,
+      journalEntry: journalId,
+      type: 'like',
+    });
+    await notification.save();
+
+    res.sendStatus(200);
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(500);
+  }
+});
+
+// Unlike a Journal Entry
+router.post('/interact/:journalId/unlike', async (req, res) => {
+  const { journalId } = req.params;
+  const { _id } = req.user;
+
+  try {
+    const journalEntry = await Journal.findById(journalId);
+
+    if (!journalEntry) {
+      return res.status(404).json({ error: 'Journal entry not found' });
+    }
+
+    if (!journalEntry.likes.includes(_id)) {
+      return res.status(400).json({ error: "You haven't liked this journal entry" });
+    }
+
+    journalEntry.likes.pull(_id);
+    await journalEntry.save();
+
+    res.sendStatus(200);
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(500);
+  }
+});
+
+// Repost a Journal Entry
+router.post('/interact/:journalId/repost', async (req, res) => {
+  const { journalId } = req.params;
+  const { _id } = req.user;
+
+  try {
+    const journalEntry = await Journal.findById(journalId);
+
+    if (!journalEntry) {
+      return res.status(404).json({ error: 'Journal entry not found' });
+    }
+
+    if (journalEntry.reposts.includes(_id)) {
+      return res.status(400).json({ error: 'You have already reposted this journal entry' });
+    }
+
+    journalEntry.reposts.push(_id);
+    await journalEntry.save();
+
+    // Notify the journal owner about the repost
+    const notification = new Notification({
+      user: journalEntry.user,
+      journalEntry: journalId,
+      type: 'repost',
+    });
+    await notification.save();
+
+    res.sendStatus(200);
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(500);
+  }
+});
+
+// Unrepost a Journal Entry
+router.post('/interact/:journalId/unrepost', async (req, res) => {
+  const { journalId } = req.params;
+  const { _id } = req.user;
+
+  try {
+    const journalEntry = await Journal.findById(journalId);
+
+    if (!journalEntry) {
+      return res.status(404).json({ error: 'Journal entry not found' });
+    }
+
+    if (!journalEntry.reposts.includes(_id)) {
+      return res.status(400).json({ error: "You haven't reposted this journal entry" });
+    }
+
+    journalEntry.reposts.pull(_id);
+    await journalEntry.save();
+
+    res.sendStatus(200);
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(500);
+  }
+});
 
 // Convert Speech to Text for Journal Entry
 router.post('/speech-to-text', (req, res) => {
-    // Assuming you have a speech-to-text processing logic here
-    const { speech } = req.body;
-    // Your speech-to-text processing logic here
-    // For demonstration purposes, we'll just echo the input back as text
-    res.send({ text: speech });
-  });
-
-
+  const { speech } = req.body;
+  // speech-to-text processing logic here
+  res.send({ text: speech });
+});
 
 module.exports = router;
