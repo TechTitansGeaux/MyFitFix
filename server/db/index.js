@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-
 const { Schema, model } = mongoose;
+require('dotenv').config();
 
 const mongoUri = 'mongodb://127.0.0.1:27017/fitfix';
 mongoose.connect(mongoUri)

@@ -5,6 +5,7 @@ import Home from './Home.jsx';
 import JournalEntry from './JournalEntry.jsx';
 import CalorieTable from '../Calories/CalorieTable.jsx';
 import WorkoutPlanner from '../WorkoutPage/WorkoutPlan.jsx';
+import Quotes from '../QuotesPage/Quotes.jsx';
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
       <Route path='/journal-entry' element={<JournalEntry />} />
       <Route path='/workout-planner' element={<WorkoutPlanner />} />
       <Route path='/tracker' element={<CalorieTable />} />
+      <Route path='/quotes' element={<Quotes />} />
     </Routes>
   )
 }
