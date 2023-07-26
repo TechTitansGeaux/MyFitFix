@@ -52,7 +52,7 @@ const JournalEntrySchema = new Schema({
 
 module.exports = {
   User: model("User", UserSchema),
-  GoalsSchema: model("Goals", GoalsSchema),
+  Goals: model("Goals", GoalsSchema),
   CaloriesIn: model("CaloriesIn", CaloriesInSchema),
   CaloriesBurned: model("CaloriesBurned", CaloriesBurnedSchema),
   Workout: model("Workout", WorkoutEntrySchema),

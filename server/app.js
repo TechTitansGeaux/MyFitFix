@@ -1,5 +1,6 @@
 const express = require('express');
 const authRoutes = require('./routes/auth-routes');
+const goalsRoutes = require('./routes/goals-routes');
 const journalRoutes = require('./routes/journal-routes');
 const dashboardRoutes = require('./routes/dashboard-routes');
 const cbRoutes = require('./routes/cb-routes');
@@ -45,6 +46,7 @@ app.use('/journal-entry', journalRoutes);
 app.use('/nutrition', nutritionRoutes);
 app.use('/cb', cbRoutes);
 app.use('/workout', workoutRoutes);
+app.use('/goals', goalsRoutes);
 
 // socket io server
 const server = http.createServer(app);
