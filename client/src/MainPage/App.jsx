@@ -18,6 +18,6 @@ function App() {
       <Route path='/tracker' element={<CalorieTable />} />
       <Route path='/quotes' element={<Quotes />} />
     </Routes>
-  )
+  );
 }
 export default App;
