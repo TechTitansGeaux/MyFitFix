@@ -58,20 +58,41 @@ const io = new Server(server, {
 io.on('connection', (socket) => {
   console.log(`User connected: ${socket.id}`)
 
+  // send list of all users
+  const users = [];
+  for (let [id, socket] of io.of("/").sockets) {
+    users.push({
+      userID: id,
+      username: socket.username,
+    });
+  }
+  socket.emit('users', users);
+
   socket.on('send_message', (data) => {
     socket.broadcast.emit('receive_message', data.message)
   })
+  // when dm event happens
+  socket.on('dm', ({ text, recipient }) => {
+    socket.join(recipient);
+    // broadcast directly to recipient
+    socket.broadcast.to(recipient).emit('dm', {
+      text,
+      // identify room by id
+      from: socket.id,
+    });
+  });
+
+  socket.on('join_room', (data) => {
+    socket.join(data)
+  })
 })
 
-// register middleware to check user connection by username
-// io.use((socket, next) => {
-//   const username = socket.handshake.auth.name;
-//   if (!username) {
-//     return next(new Error("invalid username"));
-//   }
-//   socket.username = username;
-//   next();
-// });
+// register middleware to add username
+io.use((socket, next) => {
+  const username = socket.handshake.auth.name;
+  socket.username = username;
+  next();
+});
 
 // set socket io server to listen on a separate port
 server.listen(3000, () => {
