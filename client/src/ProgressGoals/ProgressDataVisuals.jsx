@@ -1,50 +1,55 @@
 import axios from 'axios';
 import React from 'react';
 import '../ProgressGoals/ProgressDataVisuals.css';
-import { LineChart, Line, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, Tooltip, ResponsiveContainer } from 'recharts';
 
 // Test Data
+/**
+ * {
+ * date:  from CaloriesBurnedScehma data
+ * }
+ */
 const data = [
   {
-    name: 'Page A',
+    date: 'Page A',
     uv: 4000,
-    pv: 2400,
+    calories: 2400,
     amt: 2400,
   },
   {
-    name: 'Page B',
+    date: 'Page B',
     uv: 3000,
-    pv: 1398,
+    calories: 1398,
     amt: 2210,
   },
   {
-    name: 'Page C',
+    date: 'Page C',
     uv: 2000,
-    pv: 9800,
+    calories: 9800,
     amt: 2290,
   },
   {
-    name: 'Page D',
+    date: 'Page D',
     uv: 2780,
-    pv: 3908,
+    calories: 3908,
     amt: 2000,
   },
   {
-    name: 'Page E',
+    date: 'Page E',
     uv: 1890,
-    pv: 4800,
+    calories: 4800,
     amt: 2181,
   },
   {
-    name: 'Page F',
+    date: 'Page F',
     uv: 2390,
-    pv: 3800,
+    calories: 3800,
     amt: 2500,
   },
   {
-    name: 'Page G',
+    date: 'Page G',
     uv: 3490,
-    pv: 4300,
+    calories: 4300,
     amt: 2100,
   },
 ];
@@ -70,11 +75,12 @@ const ProgressDataVisuals = () => {
           <div className='line-graph'>
             <ResponsiveContainer width='100%' height='100%'>
               <LineChart width={300} height={100} data={data}>
+                <Tooltip />
                 <Line
                   type='monotone'
-                  dataKey='pv'
-                  stroke='#8884d8'
-                  strokeWidth={2}
+                  dataKey='calories'
+                  stroke='#0ea5e9'
+                  strokeWidth={3}
                 />
               </LineChart>
             </ResponsiveContainer>
