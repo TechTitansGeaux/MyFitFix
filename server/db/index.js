@@ -28,8 +28,8 @@ const GoalsSchema = new Schema({
 
 const MessageSchema = new Schema({
   message: { type: String, required: true },
-  senderId: { type: String },
-  recipientId: { type: String },
+  senderId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  recipientName: { type: String },
 },
 { timestamps: true });
 

@@ -3,10 +3,12 @@ const { Message } = require('../db/index.js');
 
 // SAVE a message to the database
 router.post('/', (req, res) => {
-  // access message and recipint on request body
-  const { message, senderId, recipientId } = req.body;
+  // access message and recipient on request body
+  const { message, recipientName } = req.body;
+  // access userId from request user
+  const { _id } = req.user;
   // use mongoose method to create message
-  Message.create({ message, senderId, recipientId })
+  Message.create({ message, senderId: _id, recipientName })
     .then((messageObject) => {
       res.status(201).send(messageObject);
     })
@@ -16,15 +18,15 @@ router.post('/', (req, res) => {
     });
 });
 
-// GET messages by senderId and recipientId
-router.get('/', (req, res) => {
+// GET messages by senderId and recipientName
+router.get('/', async (req, res) => {
   // access senderId and recipientId from req body
-  const { senderId, recipientId } = req.body;
+  const { senderId, recipientName } = req.body;
   // use mongoose method to find
-  Message.find({ senderId, recipientId })
-    .then((resObj) => {
-      console.log(resObj, '<---- resObj from get messages by IDs');
-      res.status(200).send(resObj);
+  await Message.find({ senderId, recipientName })
+    .then((messagesArray) => {
+      console.log(messagesArray, '<----result from get messages router')
+      res.status(200).send(messagesArray);
     })
     .catch((err) => {
       console.error('Failed to GET messages by sender/recipient IDs: ', err);

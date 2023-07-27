@@ -6,7 +6,6 @@ const { User, Notification } = require('../db/index.js');
 router.get('/', async (req, res) => {
   try {
     const users = await User.find(); // Fetch all users from the database
-
     res.json(users);
   } catch (err) {
     console.error('Error fetching users:', err);

@@ -69,7 +69,7 @@ io.on('connection', (socket) => {
   for (let [id, socket] of io.of("/").sockets) {
     users.push({
       userID: id,
-      username: socket.username,
+      name: socket.name,
     });
   }
   socket.emit('users', users);
@@ -95,8 +95,8 @@ io.on('connection', (socket) => {
 
 // register middleware to add username
 io.use((socket, next) => {
-  const username = socket.handshake.auth.name;
-  socket.username = username;
+  const name = socket.handshake.auth.name;
+  socket.name = name;
   next();
 });
 
