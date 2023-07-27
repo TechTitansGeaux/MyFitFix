@@ -115,14 +115,23 @@ input[type="range"]:focus::-moz-range-thumb {
   }
 }
 
-/* Human body svg file*/
+/* Front Human body svg file*/
 .st0 {
   fill:#216EFF;
 }
 
-.st1 {
-  fill:#216EFF;
-}
+/* st2 quadriceps
+st3 chest
+st4 abdominals
+st5 biceps
+st6 abductors
+st7 forearms
+st8 adductors
+st9 neck
+st10 calves
+st11 traps
+st12 triceps
+st13 lats */
 
 .st2 {
   fill:#216EFF;
@@ -217,182 +226,6 @@ input[type="range"]:focus::-moz-range-thumb {
 }
 
 .st13:hover {
-  fill:#ffa621;
-}
-
-.st14 {
-  fill:#216EFF;
-}
-
-.st14:hover {
-  fill:#ffa621;
-}
-
-.st15 {
-  fill:#216EFF;
-}
-
-.st15:hover {
-  fill:#ffa621;
-}
-
-.st16 {
-  fill:#216EFF;
-}
-
-.st16:hover {
-  fill:#ffa621;
-}
-
-.st17 {
-  fill:#216EFF;
-}
-
-.st17:hover {
-  fill:#ffa621;
-}
-
-.st18 {
-  fill:#216EFF;
-}
-
-.st18:hover {
-  fill:#ffa621;
-}
-
-.st19 {
-  fill:#216EFF;
-}
-
-.st19:hover {
-  fill:#ffa621;
-}
-
-.st20 {
-  fill:#216EFF;
-}
-
-.st20:hover {
-  fill:#ffa621;
-}
-
-.st21 {
-  fill:#216EFF;
-}
-
-.st21:hover {
-  fill:#ffa621;
-}
-
-.st22 {
-  fill:#216EFF;
-}
-
-.st22:hover {
-  fill:#ffa621;
-}
-
-.st23 {
-  fill:#216EFF;
-}
-
-.st23:hover {
-  fill:#ffa621;
-}
-
-.st24 {
-  fill:#216EFF;
-}
-
-.st24:hover {
-  fill:#ffa621;
-}
-
-.st25 {
-  fill:#216EFF;
-}
-
-.st25:hover {
-  fill:#ffa621;
-}
-
-.st26 {
-  fill:#216EFF;
-}
-
-.st26:hover {
-  fill:#ffa621;
-}
-
-.st27 {
-  fill:#216EFF;
-}
-
-.st27:hover {
-  fill:#ffa621;
-}
-
-.st28 {
-  fill:#216EFF;
-}
-
-.st28:hover {
-  fill:#ffa621;
-}
-
-.st29 {
-  fill:#216EFF;
-}
-
-.st29:hover {
-  fill:#ffa621;
-}
-
-.st30 {
-  fill:#216EFF;
-}
-
-.st30:hover {
-  fill:#ffa621;
-}
-
-.st31 {
-  fill:#216EFF;
-}
-
-.st31:hover {
-  fill:#ffa621;
-}
-
-.st32 {
-  fill:#216EFF;
-}
-
-.st32:hover {
-  fill:#ffa621;
-}
-
-.st33 {
-  fill:#216EFF;
-}
-
-.st33:hover {
-  fill:#ffa621;
-}
-
-.st34 {
-  fill:#216EFF;
-}
-
-.st34:hover {
-  fill:#ffa621;
-}
-
-.st35 {
-  fill:#216EFF;
-}
-
-.st35:hover {
   fill:#ffa621;
 }
 
