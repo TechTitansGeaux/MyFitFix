@@ -17,16 +17,21 @@ const UserSchema = new Schema({
   journalEntries: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Journal' }],
 });
 
-const GoalsSchema = new Schema(
-  {
-    goalCaloriesBurned: Number,
-    goalWeight: Number,
-    totalCaloriesBurned: Number,
-    updatedWeight: Number,
-    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  },
-  { timestamps: true }
-);
+const GoalsSchema = new Schema({
+  goalCaloriesBurned: Number,
+  goalWeight: Number,
+  totalCaloriesBurned: Number,
+  updatedWeight: Number,
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
+},
+{ timestamps: true });
+
+const MessageSchema = new Schema({
+  message: { type: String, required: true },
+  senderId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  recipientId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+},
+{ timestamps: true });
 
 const CaloriesInSchema = new Schema({
   foodList: { type: Array, default: [] },
@@ -69,12 +74,13 @@ const NotificationSchema = new Schema({
 
 module.exports = {
 
-  User: model('User', UserSchema),
-  GoalsSchema: model('Goals', GoalsSchema),
-  CaloriesIn: model('CaloriesIn', CaloriesInSchema),
-  CaloriesBurned: model('CaloriesBurned', CaloriesBurnedSchema),
-  Workout: model('Workout', WorkoutEntrySchema),
-  Journal: model('Journal', JournalEntrySchema),
+  User: model("User", UserSchema),
+  GoalsSchema: model("Goals", GoalsSchema),
+  MessageSchema: model('Messages', MessageSchema),
+  CaloriesIn: model("CaloriesIn", CaloriesInSchema),
+  CaloriesBurned: model("CaloriesBurned", CaloriesBurnedSchema),
+  Workout: model("Workout", WorkoutEntrySchema),
+  Journal: model("Journal", JournalEntrySchema),
   Notification: model('Notification', NotificationSchema),
 
 };
