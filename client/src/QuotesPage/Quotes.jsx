@@ -144,7 +144,8 @@ const Quotes = () => {
             <div className="bg-gradient-to-t from-sky-600 from-10% via-sky-400 to-sky-50 to-40% ... rounded-lg drop-shadow-md ">
               <div style={{ width: '600px', height: '700px', textAlign: 'center'}} >
                 <h1 className="text-2xl text-sky-500 font-bold pt-5 mb-16 pb-4" >Quotes</h1>
-                <button className="rounded-full ..." onClick={() => { generateQuote() }} >generate</button>
+                {/* className='margin-hori-sm py-2 focus:outline-none dark:text-white justify-start hover:text-white focus:bg-sky-500 bg-amber-500 focus:text-white font-semibold hover:bg-sky-500 text-white rounded items-center space-x-6 w-48 min-h-max' */}
+                <button className="rounded-full ... bg-sky-500" onClick={() => { generateQuote() }} >generate</button>
                 <h6 className="text-lg text-sky-500 pt-4 mb-16 pb-4" >{ quote }</h6>
               </div>
             </div>
