@@ -8,6 +8,17 @@ const Feed = () => {
   const [feedType, setFeedType] = useState('public'); // 'public' or 'following'
   const [entries, setEntries] = useState([]);
   const [page, setPage] = useState(1);
+  // create state variable for the current user
+  const [currentUser, setCurrentUser] = useState(null);
+
+useEffect(() => {
+  // Fetch the current user data
+  axios.get('/users/user').then((response) => {
+    setCurrentUser(response.data);
+  }).catch((error) => {
+    console.error('Error fetching current user:', error);
+  });
+}, []);
 
   // Function to load more journal entries with infinite scroll
   const loadMoreEntries = () => {
@@ -51,7 +62,7 @@ const Feed = () => {
       {/* implement the follow/unfollow functionality */}
 
       {/* User Search */}
-      <UserSearch />
+      <UserSearch currentUser={currentUser} />
     </div>
   );
 };
