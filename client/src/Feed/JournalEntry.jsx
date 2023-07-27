@@ -28,17 +28,21 @@ function JournalEntry() {
   const showEntry = (date) => {
     axios.get(`/journal-entry/${date}`)
       .then(({ data }) => {
-        if ({ data }) {
-          // If there is a journal entry in the DB, matching the choice of date that the user clicked, display that text
-          setEntryBox(data[0].entry)
+        if (data.length > 0) {
+          // If there is a journal entry in the DB matching the chosen date, display that text
+          setEntryBox(data[0].entry);
+        } else {
+          // If there is NO journal entry in the DB matching the chosen date, the text box should be empty
+          setEntryBox('');
+          console.error(`There is no stored journal entry for ${date} in the DB.`);
         }
       })
       .catch((err) => {
-        // If there is NO journal entry in the DB, matching the choice of date that the user click, the text box should be empty
         setEntryBox('');
-        console.error(`There is no stored journal entry for ${date} in the DB. `);
-      })
-  }
+        console.error(`Error fetching journal entry for ${date}: ${err}`);
+      });
+  };
+
 
   // This function submits a journal entry to the DB
   const submitJournalEntry = () => {
@@ -48,61 +52,60 @@ function JournalEntry() {
     // Sending an axios POST request to submit the journal entry
     axios.post('/journal-entry', { entry: entry, date: date })
       .then((response) => console.log('This journal was submitted:', response))
-      .catch((err) => console.error('err'));
-  }
+      .catch((err) => console.error('Error submitting journal entry:', err));
+  };
 
   // This function deletes a journal entry in the DB
   const deleteEntry = () => {
-    // Alerting a user, to make sure they want to delete this current entry
-    if (confirm('Are you sure you want to delete this journal entry?')) {
+    // Alerting a user to confirm if they want to delete this current entry
+    if (window.confirm('Are you sure you want to delete this journal entry?')) {
       // Sending an AXIOS delete request to delete the selected entry
       axios.delete(`/journal-entry/${date}`)
         .then(() => console.log('The selected journal entry was deleted.'))
-        .catch(() => console.log('We were not able to delete your journal entry. Try again.'))
-      //This will only fire if the person clicks 'delete'
-      setEntryBox('')
+        .catch(() => console.log('We were not able to delete your journal entry. Try again.'));
 
+      // This will only fire if the person clicks 'delete'
+      setEntryBox('');
     } else {
-      //Nothing will occur if the user clicks 'cancel'
-      console.log('Entry was cancelled from being deleted.')
+      // Nothing will occur if the user clicks 'cancel'
+      console.log('Entry deletion was cancelled.');
     }
-
-
-  }
+  };
 
 
   //------FUNCTIONS: MISC -----
 
   // This function alerts the user to select a date before typing in the text box
   const selectDate = () => {
-    //If no date is selected, alert user to select a date, before continuing
+    // If no date is selected, alert user to select a date before continuing
     if (date === '') {
-      alert('Please select a date, before typing journal entry.')
+      alert('Please select a date before typing your journal entry.');
     }
-  }
+  };
 
-  useEffect((e) => {
+  useEffect(() => {
     if (date === moment().format("YYYY-MM-DD")) {
       showEntry(date);
     }
-  }, [])
+  }, [date]);
 
   return (
-    <div className='grid grid-cols-4 grid-rows-2'>
-
-      {/* START OF NAVIGATION BAR */}
+    <div class="grid grid-cols-5 grid-rows-2">
+      {/* START NAV BAR */}
+      {/* CREATING TWO COLUMNS: ONE FOR NAV BAR, ONE FOR MESSAGE SECTION */}
       <div class="flex row-span-2">
+
         <div class="bg-white dark:bg-gray-800  xl:hidden flex text-gray-800 hover:text-black focus:outline-none focus:text-black justify-between w-full p-6 items-center">
 
           <div aria-label="toggler" class="flex justify-center items-center">
-            <button id="open" onclick="showNav(true)" aria-label="open" class="hidden text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800">
+            <button id="open" onClick="showNav(true)" aria-label="open" class="hidden text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M4 6H20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                 <path d="M4 12H20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                 <path d="M4 18H20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
             </button>
-            <button id="close" onclick="showNav(true)" aria-label="close" class="focus:outline-none dark:text-white text-gray-800 focus:ring-2 focus:ring-offset-2 focus:ring-gray-800">
+            <button id="close" onClick="showNav(true)" aria-label="close" class="focus:outline-none dark:text-white text-gray-800 focus:ring-2 focus:ring-offset-2 focus:ring-gray-800">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                 <path d="M6 6L18 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -162,24 +165,12 @@ function JournalEntry() {
               <p class="text-base leading-4">Journal</p>
             </button>
 
-            {/* Quote List Item */}
-            <button class="flex dark:text-white justify-start items-center space-x-6 hover:text-white focus:outline-none focus:bg-sky-500 focus:text-white hover:bg-sky-500 text-gray-600 rounded py-3 pl-4 w-full" onClick={() => navigate('/quotes')}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M9.983 3v7.391c0 5.704-3.731 9.57-8.983 10.609l-.995-2.151c2.432-.917 3.995-3.638 3.995-5.849h-4v-10h9.983zm14.017 0v7.391c0 5.704-3.748 9.571-9 10.609l-.996-2.151c2.433-.917 3.996-3.638 3.996-5.849h-3.983v-10h9.983z"/></svg>
-            <p class="text-base leading-4">Quotes</p>
-            </button>
-
-            {/* Messages */}
-            <button class="flex dark:text-white justify-start items-center space-x-6 hover:text-white focus:outline-none focus:bg-sky-500 focus:text-white hover:bg-sky-500 text-gray-600 rounded py-3 pl-4 w-full" onClick={() => navigate('/messages')}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" id="direct-message"><path fill="#000" fill-rule="evenodd" d="M20.854 3.146a.5.5 0 0 1 .108.544l-7 17a.5.5 0 0 1-.947-.069l-1.927-7.709-7.71-1.927a.5.5 0 0 1-.068-.947l17-7a.5.5 0 0 1 .544.108ZM5.096 10.384l6.525 1.63a.5.5 0 0 1 .364.365l1.631 6.525L19.581 4.42 5.096 10.384Z" clip-rule="evenodd"></path><path fill="#000" fill-rule="evenodd" d="M20.854 3.146a.5.5 0 0 1 0 .708l-9 9a.5.5 0 0 1-.708-.708l9-9a.5.5 0 0 1 .708 0Z" clip-rule="evenodd"></path></svg>
-            <p class="text-base leading-4">Messages</p>
-            </button>
-
             {/* Divider */}
             <div class="w-full px-4">
               <hr class="border-gray-100 dark:border-gray-700  w-full" />
             </div>
             {/* Sign-out */}
-            <button class="flex dark:text-white justify-start items-center space-x-6 hover:text-white focus:outline-none focus:bg-sky-500 focus:text-white hover:bg-sky-500 text-gray-600 rounded py-3 pl-4 w-full" onClick={() => logoutOfApp()}>
+            <button class="flex dark:text-white justify-start items-center space-x-6 hover:text-white focus:outline-none focus:bg-sky-500 focus:text-white hover:bg-sky-500 text-gray-600 rounded py-3 pl-4 w-full" onClick={() => navigate('/')}>
               <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
                 <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M304 336v40a40 40 0 0 1-40 40H104a40 40 0 0 1-40-40V136a40 40 0 0 1 40-40h152c22.09 0 48 17.91 48 40v40m64 160 80-80-80-80m-192 80h256" />
               </svg>
