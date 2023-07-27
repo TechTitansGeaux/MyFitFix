@@ -1,8 +1,7 @@
-import axios from "axios";
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import axios from 'axios';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-
 
 const Goals = ({
   user,
@@ -15,37 +14,39 @@ const Goals = ({
   const navigate = useNavigate();
   const [showGoals, setShowGoals] = useState(false);
   const [showInput, setShowInput] = useState(true);
-  const [currGoals, setCurrGoals] = useState([])
+  const [currGoals, setCurrGoals] = useState([]);
 
   const initialSliderState = {
     calorieSlider: 0,
-    weightSlider: 0
+    weightSlider: 0,
   };
 
   const [sliderNumber, setSliderNumber] = useState(initialSliderState);
 
   const handleChangeSlider = (e) => {
-    setSliderNumber({ ...sliderNumber, [e.target.name]: e.target.value});
-  }
-
+    setSliderNumber({ ...sliderNumber, [e.target.name]: e.target.value });
+  };
 
   const submitGoals = () => {
-    console.log('Goals Saved')
+    console.log('Goals Saved');
     setShowGoals(!showGoals);
     setShowInput(!showGoals);
-    axios.post('/goals', {
-      user: user._id,
-      goalCaloriesBurned: sliderNumber.calorieSlider,
-      goalWeight: sliderNumber.weightSlider,
-    })
+    axios
+      .post('/goals', {
+        user: user._id,
+        goalCaloriesBurned: sliderNumber.calorieSlider,
+        goalWeight: sliderNumber.weightSlider,
+      })
       .then((response) => {
-        console.log('SUCCESS: Goals saved from Axios Post to DB:', response.data);
+        console.log(
+          'SUCCESS: Goals saved from Axios Post to DB:',
+          response.data
+        );
       })
       .catch((err) => {
-        console.error('ERROR. Failed to update Goals from Axios Post', err)
-    })
-  }
-
+        console.error('ERROR. Failed to update Goals from Axios Post', err);
+      });
+  };
 
   return (
     <>
