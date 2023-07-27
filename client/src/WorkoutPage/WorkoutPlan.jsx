@@ -7,6 +7,7 @@ import PastWorkoutEntry from './PastWorkoutEntry';
 import '../style.css';
 import { useNavigate } from 'react-router-dom';
 import BodyFront from './body-front.jsx';
+import BodyBack from './body-back.jsx';
 
 function WorkoutPlan() {
   const [workout, setWorkout] = useState([]);
@@ -14,6 +15,7 @@ function WorkoutPlan() {
   const [exerciseResults, setExerciseResults] = useState([]);
   const [pastDate, setPastDate] = useState(moment().format('YYYY-MM-DD'));
   const [pastWorkout, setPastWorkout] = useState([]);
+  const [front, setFront] = useState(true); // show front or back
 
   // const findPastDate = (newDate) => {
   //   setPastDate(newDate);

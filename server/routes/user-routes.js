@@ -2,11 +2,29 @@ const express = require('express');
 const router = express.Router();
 const { User, Notification } = require('../db/index.js');
 
+
+// Route to get current user data
+router.get('/user', async (req, res) => {
+  const { _id } = req.user;
+  
+  try {
+    const user = await User.findById(_id);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
 // Route to get all users
 router.get('/', async (req, res) => {
   try {
     const users = await User.find(); // Fetch all users from the database
-
     res.json(users);
   } catch (err) {
     console.error('Error fetching users:', err);
@@ -19,7 +37,7 @@ router.get('/search', async (req, res) => {
   const { query } = req.query;
 
   try {
-    const users = await User.find({ username: { $regex: query, $options: 'i' } });
+    const users = await User.find({ name: { $regex: query, $options: 'i' } });
     res.json(users);
   } catch (error) {
     console.error(error);

@@ -15,6 +15,7 @@ const path = require('path');
 const feedRoutes = require('./routes/feed-routes');
 const userRoutes = require('./routes/user-routes');
 const quotesRoutes = require('./routes/quotes-routes')
+const messageRoutes = require('./routes/message-routes');
 
 require('dotenv').config();
 // socket io variables
@@ -52,6 +53,8 @@ app.use('/goals', goalsRoutes);
 app.use('/feed', feedRoutes);
 app.use('/users', userRoutes);
 app.use('/quotes', quotesRoutes);
+app.use('/message', messageRoutes);
+
 
 // socket io server
 const server = http.createServer(app);
@@ -70,7 +73,7 @@ io.on('connection', (socket) => {
   for (let [id, socket] of io.of("/").sockets) {
     users.push({
       userID: id,
-      username: socket.username,
+      name: socket.name,
     });
   }
   socket.emit('users', users);
@@ -96,8 +99,8 @@ io.on('connection', (socket) => {
 
 // register middleware to add username
 io.use((socket, next) => {
-  const username = socket.handshake.auth.name;
-  socket.username = username;
+  const name = socket.handshake.auth.name;
+  socket.name = name;
   next();
 });
 

@@ -81,8 +81,8 @@ const QuotesSchema = new Schema({
 module.exports = {
 
   User: model("User", UserSchema),
-  GoalsSchema: model("Goals", GoalsSchema),
-  MessageSchema: model('Messages', MessageSchema),
+  Goals: model("Goals", GoalsSchema),
+  Message: model('Messages', MessageSchema),
   CaloriesIn: model("CaloriesIn", CaloriesInSchema),
   CaloriesBurned: model("CaloriesBurned", CaloriesBurnedSchema),
   Workout: model("Workout", WorkoutEntrySchema),
