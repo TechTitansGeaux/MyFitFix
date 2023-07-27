@@ -76,7 +76,7 @@ module.exports = {
 
   User: model("User", UserSchema),
   Goals: model("Goals", GoalsSchema),
-  MessageSchema: model('Messages', MessageSchema),
+  Message: model('Messages', MessageSchema),
   CaloriesIn: model("CaloriesIn", CaloriesInSchema),
   CaloriesBurned: model("CaloriesBurned", CaloriesBurnedSchema),
   Workout: model("Workout", WorkoutEntrySchema),
