@@ -19,7 +19,7 @@ router.get('/search', async (req, res) => {
   const { query } = req.query;
 
   try {
-    const users = await User.find({ username: { $regex: query, $options: 'i' } });
+    const users = await User.find({ name: { $regex: query, $options: 'i' } });
     res.json(users);
   } catch (error) {
     console.error(error);

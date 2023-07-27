@@ -46,16 +46,23 @@ const UserSearch = () => {
       <button onClick={handleSearch}>Search</button>
 
       {/* Display search results */}
-      <div className="search_results">
+    <div className="search_results">
         <h3>Search Results:</h3>
         {searchResults.map((user) => (
-          <div key={user._id}>
-            <p>{user.name}</p>
-            {following.includes(user._id) ? (
-              <button onClick={() => handleUnfollow(user._id)}>Unfollow</button>
-            ) : (
-              <button onClick={() => handleFollow(user._id)}>Follow</button>
-            )}
+          <div key={user._id} className="search_result_item">
+            <img src={user.thumbnail} alt="User Thumbnail" />
+            <div className="user_info">
+              <p>{user.name}</p>
+              <p>Followers: {user.followers.length}</p>
+              <p>Following: {user.following.length}</p>
+            </div>
+            <div className="interaction_buttons">
+              {user.isFollowing ? (
+                <button onClick={() => handleUnfollow(user._id)}>Unfollow</button>
+              ) : (
+                <button onClick={() => handleFollow(user._id)}>Follow</button>
+              )}
+            </div>
           </div>
         ))}
       </div>
