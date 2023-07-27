@@ -4,14 +4,16 @@ const goalsRoutes = require('./routes/goals-routes');
 const journalRoutes = require('./routes/journal-routes');
 const dashboardRoutes = require('./routes/dashboard-routes');
 const cbRoutes = require('./routes/cb-routes');
-const nutritionRoutes = require('./routes/nutrition-routes')
-const workoutRoutes = require('./routes/workout-routes')
+const nutritionRoutes = require('./routes/nutrition-routes');
+const workoutRoutes = require('./routes/workout-routes');
 const passportSetup = require('./config/passport-setup');
 const dotenv = require('dotenv');
 const cookieSession = require('cookie-session');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const path = require('path');
+const feedRoutes = require('./routes/feed-routes');
+const userRoutes = require('./routes/user-routes');
 require('dotenv').config();
 // socket io variables
 const http = require('http');
@@ -22,22 +24,20 @@ const cors = require('cors');
 const CLIENT_PATH = path.join(__dirname, '..', 'client', 'dist');
 const app = express();
 
-
 //Set up view engine
 app.use(express.static(CLIENT_PATH));
-app.use(cookieSession({
-  maxAge: 24 * 60 * 60 * 1000,
-  keys: [process.env.cookieKey]
-}));
+app.use(
+  cookieSession({
+    maxAge: 24 * 60 * 60 * 1000,
+    keys: [process.env.cookieKey],
+  })
+);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 //Initialize passport
 app.use(passport.initialize());
 app.use(passport.session());
-
-//Mount cors middleware
-app.use(cors())
 
 //Setup routes
 app.use('/auth', authRoutes);
@@ -47,23 +47,25 @@ app.use('/nutrition', nutritionRoutes);
 app.use('/cb', cbRoutes);
 app.use('/workout', workoutRoutes);
 app.use('/goals', goalsRoutes);
+app.use('/feed', feedRoutes);
+app.use('/users', userRoutes);
 
 // socket io server
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: 'http://localhost:8020'
-  }
-})
+    origin: 'http://localhost:8020',
+  },
+});
 
 // events for socket io server to listen for
 io.on('connection', (socket) => {
-  console.log(`User connected: ${socket.id}`)
+  console.log(`User connected: ${socket.id}`);
 
   socket.on('send_message', (data) => {
-    socket.broadcast.emit('receive_message', data.message)
-  })
-})
+    socket.broadcast.emit('receive_message', data.message);
+  });
+});
 
 // register middleware to check user connection by username
 // io.use((socket, next) => {
@@ -77,8 +79,8 @@ io.on('connection', (socket) => {
 
 // set socket io server to listen on a separate port
 server.listen(3000, () => {
-  console.log('Socket.io server is running!')
-})
+  console.log('Socket.io server is running!');
+});
 
 //Create home route
 // app.get('/', (req, res) => {
@@ -93,4 +95,4 @@ app.get('*', (req, res) => {
 //Listens to the app server convos (aka listening to request)
 app.listen(8020, () => {
   console.log('app now listening for request at:', 'http://localhost:8020');
-})
+});

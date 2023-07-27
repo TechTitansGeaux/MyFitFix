@@ -13,5 +13,8 @@ module.exports = {
   plugins: [
     'react',
   ],
-  rules: {},
+  rules: {
+    // Allow arrow functions
+    'no-confusing-arrow': 'off', // Optional: disable confusing arrow function linting
+  },
 };
