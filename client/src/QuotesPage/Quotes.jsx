@@ -6,6 +6,10 @@ import moment from 'moment';
 const Quotes = () => {
   const navigate = useNavigate();
 
+
+  const [ quote, setQuote ] = useState('click generate to generate quote');
+
+
   const generateQuote = () => {
     axios.get('/quotes/genQuote')
       .then((data) => {
@@ -17,7 +21,16 @@ const Quotes = () => {
       })
   }
 
-  const [ quote, setQuote ] = useState('click generate to generate quote');
+  const saveQuote = () => {
+    axios.post('/quotes/saveQuote', {quote: quote})
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log('error sending request to save quote')
+      })
+  }
+
 
   return (
     <div className='grid grid-cols-4 grid-rows-2'>
@@ -136,11 +149,11 @@ const Quotes = () => {
               </div>
             </div>
             <form>
-              <button className="shadow-2xl text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" onClick={(e) => { submitJournalEntry(); e.preventDefault(); }}>
+              <button onClick={ () => { saveQuote() }} className="shadow-2xl text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" >
                 <svg width="15" height="20" xmlns="http://www.w3.org/2000/svg" className="inline-block" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32" d="M380.93 57.37A32 32 0 0 0 358.3 48H94.22A46.21 46.21 0 0 0 48 94.22v323.56A46.21 46.21 0 0 0 94.22 464h323.56A46.36 46.36 0 0 0 464 417.78V153.7a32 32 0 0 0-9.37-22.63zM256 416a64 64 0 1 1 64-64 63.92 63.92 0 0 1-64 64zm48-224H112a16 16 0 0 1-16-16v-64a16 16 0 0 1 16-16h192a16 16 0 0 1 16 16v64a16 16 0 0 1-16 16z" /></svg>
                 <span className="inline-block ml-3">Save Quote</span>
               </button>
-              <button className="shadow-2xl text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" onClick={(e) => { submitJournalEntry(); e.preventDefault(); }}>
+              <button className="shadow-2xl text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" >
                 <svg width="15" height="20" xmlns="http://www.w3.org/2000/svg" className="inline-block" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32" d="M364.13 125.25 87 403l-23 45 44.99-23 277.76-277.13-22.62-22.62zm56.56-56.56-22.62 22.62 22.62 22.63 22.62-22.63a16 16 0 0 0 0-22.62h0a16 16 0 0 0-22.62 0z" /></svg>
                 <span className="inline-block ml-3">Edit Quote</span>
               </button>
