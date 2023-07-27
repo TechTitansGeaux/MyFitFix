@@ -4,11 +4,11 @@ const { Message } = require('../db/index.js');
 // SAVE a message to the database
 router.post('/', (req, res) => {
   // access message and recipient on request body
-  const { message, recipientName } = req.body;
+  const { message, recipientId } = req.body;
   // access userId from request user
   const { _id } = req.user;
   // use mongoose method to create message
-  Message.create({ message, senderId: _id, recipientName })
+  Message.create({ message, senderId: _id, recipientId })
     .then((messageObject) => {
       res.status(201).send(messageObject);
     })
@@ -18,12 +18,12 @@ router.post('/', (req, res) => {
     });
 });
 
-// GET messages by senderId and recipientName
+// GET messages by senderId and recipientId
 router.get('/', async (req, res) => {
   // access senderId and recipientId from req body
-  const { senderId, recipientName } = req.body;
+  const { senderId, recipientId } = req.body;
   // use mongoose method to find
-  await Message.find({ senderId, recipientName })
+  await Message.find({ senderId, recipientId })
     .then((messagesArray) => {
       console.log(messagesArray, '<----result from get messages router')
       res.status(200).send(messagesArray);

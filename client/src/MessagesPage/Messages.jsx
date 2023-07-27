@@ -111,6 +111,7 @@ function Messages() {
         setSelectedUser(usersOnline[i]);
         // set isUserOnline to true
         setIsUserOnline(true);
+        console.log(isUserOnline, '<---is user online at select user')
       }
     }
     // determine if they were not online
@@ -147,14 +148,14 @@ function Messages() {
 
   // function to get messages from current user and selected user
   const getSelectMessages = () => {
-    axios.get('/message', {
-      senderId: user._id,
-      recipientName: selectedUser.name,
-    })
+    // declare body as variable to pass through
+    const body = {
+      senderId: user._id, recipientId: selectedUser._id
+    };
+    axios.get('/message', body)
       .then((messagesArray) => {
         console.log(user._id, '<--- userId from get messages');
-        console.log(selectedUser, '<----- selected User')
-        console.log(selectedUser.name, '<-----username from get messages');
+        console.log(selectedUser._id, '<-----selected userId from get messages');
         console.log(messagesArray, '<---- result from get messages');
         setPreviousMessages(messagesArray.data);
       })
@@ -173,6 +174,7 @@ function Messages() {
   // Function to sendDM
   const sendDM = (text) => {
     // determine if is online
+    console.log(isUserOnline, '<---- is user online at send dm')
     if (isUserOnline === true) {
       // send message through socket
       socket.emit('dm', {
@@ -183,7 +185,7 @@ function Messages() {
     // also save message to the database, regardless of whether recipient is online
     axios.post('/message', {
       message: message,
-      recipientName: selectedUser.name,
+      recipientId: selectedUser._id,
     })
       .catch((err) => {
         console.error('Failed axios POST message: ', err);
