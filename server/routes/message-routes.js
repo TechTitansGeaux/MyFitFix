@@ -16,4 +16,20 @@ router.post('/', (req, res) => {
     });
 });
 
+// GET messages by senderId and recipientId
+router.get('/', (req, res) => {
+  // access senderId and recipientId from req body
+  const { senderId, recipientId } = req.body;
+  // use mongoose method to find
+  Message.find({ senderId, recipientId })
+    .then((resObj) => {
+      console.log(resObj, '<---- resObj from get messages by IDs');
+      res.status(200).send(resObj);
+    })
+    .catch((err) => {
+      console.error('Failed to GET messages by sender/recipient IDs: ', err);
+      res.sendStatus(500);
+    });
+})
+
 module.exports = router;
