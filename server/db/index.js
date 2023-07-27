@@ -28,8 +28,8 @@ const GoalsSchema = new Schema({
 
 const MessageSchema = new Schema({
   message: { type: String, required: true },
-  senderId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  recipientId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  senderId: { type: String },
+  recipientId: { type: String },
 },
 { timestamps: true });
 
@@ -75,8 +75,8 @@ const NotificationSchema = new Schema({
 module.exports = {
 
   User: model("User", UserSchema),
-  GoalsSchema: model("Goals", GoalsSchema),
-  MessageSchema: model('Messages', MessageSchema),
+  Goals: model("Goals", GoalsSchema),
+  Message: model('Messages', MessageSchema),
   CaloriesIn: model("CaloriesIn", CaloriesInSchema),
   CaloriesBurned: model("CaloriesBurned", CaloriesBurnedSchema),
   Workout: model("Workout", WorkoutEntrySchema),

@@ -14,6 +14,7 @@ const passport = require('passport');
 const path = require('path');
 const feedRoutes = require('./routes/feed-routes');
 const userRoutes = require('./routes/user-routes');
+const messageRoutes = require('./routes/message-routes');
 require('dotenv').config();
 // socket io variables
 const http = require('http');
@@ -49,6 +50,7 @@ app.use('/workout', workoutRoutes);
 app.use('/goals', goalsRoutes);
 app.use('/feed', feedRoutes);
 app.use('/users', userRoutes);
+app.use('/message', messageRoutes);
 
 // socket io server
 const server = http.createServer(app);

@@ -105,6 +105,14 @@ function Messages() {
       });
     }
     // also save message to the database
+    axios.post('/message', {
+      message: message,
+      senderId: user._id,
+      recipientId: selectedUser.userID,
+    })
+      .catch((err) => {
+        console.error('Failed axios POST message: ', err);
+      });
   };
 
   return (
