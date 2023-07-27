@@ -72,6 +72,12 @@ const NotificationSchema = new Schema({
   read: { type: Boolean, default: false },
 });
 
+const QuotesSchema = new Schema({
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  date: { type: Date, default: Date.now },
+  quote: { type: String, required: true },
+})
+
 module.exports = {
 
   User: model("User", UserSchema),
@@ -82,5 +88,6 @@ module.exports = {
   Workout: model("Workout", WorkoutEntrySchema),
   Journal: model("Journal", JournalEntrySchema),
   Notification: model('Notification', NotificationSchema),
+  Quotes: model('Quotes', QuotesSchema),
 
 };
