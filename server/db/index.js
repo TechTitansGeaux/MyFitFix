@@ -68,6 +68,7 @@ const NotificationSchema = new Schema({
 });
 
 module.exports = {
+
   User: model('User', UserSchema),
   GoalsSchema: model('Goals', GoalsSchema),
   CaloriesIn: model('CaloriesIn', CaloriesInSchema),
@@ -75,4 +76,5 @@ module.exports = {
   Workout: model('Workout', WorkoutEntrySchema),
   Journal: model('Journal', JournalEntrySchema),
   Notification: model('Notification', NotificationSchema),
+
 };
