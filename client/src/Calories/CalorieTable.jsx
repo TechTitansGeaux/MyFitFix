@@ -21,18 +21,18 @@ function CalorieTable() {
 
   return (
     <div className="grid grid-cols-5 grid-rows-2">
-      <div className="flex row-span-2">
+      <div class="flex row-span-2">
         <div class="bg-white dark:bg-gray-800  xl:hidden flex text-gray-800 hover:text-black focus:outline-none focus:text-black justify-between w-full p-6 items-center">
 
-          <div ariaLabel="toggler" class="flex justify-center items-center">
-            <button id="open" onclick="showNav(true)" ariaLabel="open" class="hidden text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800">
+          <div aria-label="toggler" class="flex justify-center items-center">
+            <button id="open" onclick="showNav(true)" aria-label="open" class="hidden text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M4 6H20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                 <path d="M4 12H20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                 <path d="M4 18H20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
             </button>
-            <button id="close" onclick="showNav(true)" ariaLabel="close" class="focus:outline-none dark:text-white text-gray-800 focus:ring-2 focus:ring-offset-2 focus:ring-gray-800">
+            <button id="close" onclick="showNav(true)" aria-label="close" class="focus:outline-none dark:text-white text-gray-800 focus:ring-2 focus:ring-offset-2 focus:ring-gray-800">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                 <path d="M6 6L18 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -40,7 +40,7 @@ function CalorieTable() {
             </button>
           </div>
         </div>
-        <div id="Main" class="bg-white dark:bg-gray-800  transform xl:translate-x-0 ease-in-out transition duration-500 flex justify-start items-start w-full sm:w-72 flex-col h-full pb-10">
+        <div id="Main" class="bg-white dark:bg-gray-800  transform xl:translate-x-0 ease-in-out transition duration-500 flex justify-start items-start w-full sm:w-72 flex-col h-full">
           <button class="hidden xl:flex text-gray-800 dark:text-white hover:text-black focus:outline-none focus:text-black justify-start px-6 pt-6 items-center space-x-3 w-full">
             <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -100,8 +100,8 @@ function CalorieTable() {
 
             {/* Messages */}
             <button class="flex dark:text-white justify-start items-center space-x-6 hover:text-white focus:outline-none focus:bg-sky-500 focus:text-white hover:bg-sky-500 text-gray-600 rounded py-3 pl-4 w-full" onClick={() => navigate('/messages')}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" id="direct-message"><path fill="#000" fill-rule="evenodd" d="M20.854 3.146a.5.5 0 0 1 .108.544l-7 17a.5.5 0 0 1-.947-.069l-1.927-7.709-7.71-1.927a.5.5 0 0 1-.068-.947l17-7a.5.5 0 0 1 .544.108ZM5.096 10.384l6.525 1.63a.5.5 0 0 1 .364.365l1.631 6.525L19.581 4.42 5.096 10.384Z" clip-rule="evenodd"></path><path fill="#000" fill-rule="evenodd" d="M20.854 3.146a.5.5 0 0 1 0 .708l-9 9a.5.5 0 0 1-.708-.708l9-9a.5.5 0 0 1 .708 0Z" clip-rule="evenodd"></path></svg>
-              <p class="text-base leading-4">Messages</p>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" id="direct-message"><path fill="currentColor" fill-rule="evenodd" d="M20.854 3.146a.5.5 0 0 1 .108.544l-7 17a.5.5 0 0 1-.947-.069l-1.927-7.709-7.71-1.927a.5.5 0 0 1-.068-.947l17-7a.5.5 0 0 1 .544.108ZM5.096 10.384l6.525 1.63a.5.5 0 0 1 .364.365l1.631 6.525L19.581 4.42 5.096 10.384Z" clip-rule="evenodd"></path><path fill="currentColor" fill-rule="evenodd" d="M20.854 3.146a.5.5 0 0 1 0 .708l-9 9a.5.5 0 0 1-.708-.708l9-9a.5.5 0 0 1 .708 0Z" clip-rule="evenodd"></path></svg>
+            <p class="text-base leading-4">Messages</p>
             </button>
 
             {/* Divider */}
@@ -116,9 +116,6 @@ function CalorieTable() {
               <p class="text-base leading-4">Sign-Out</p>
             </button>
           </div>
-
-
-
         </div>
       </div>
 
