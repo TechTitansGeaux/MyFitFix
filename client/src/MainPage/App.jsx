@@ -8,6 +8,7 @@ import WorkoutPlanner from '../WorkoutPage/WorkoutPlan.jsx';
 import Messages from '../MessagesPage/Messages.jsx';
 import Quotes from '../QuotesPage/Quotes.jsx';
 import Feed from '../Feed/Feed.jsx';
+import { useState, useEffect, useRef } from "react";
 
 
 

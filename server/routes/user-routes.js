@@ -2,6 +2,25 @@ const express = require('express');
 const router = express.Router();
 const { User, Notification } = require('../db/index.js');
 
+
+// Route to get current user data
+router.get('/user', async (req, res) => {
+  const { _id } = req.user;
+  
+  try {
+    const user = await User.findById(_id);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
 // Route to get all users
 router.get('/', async (req, res) => {
   try {
