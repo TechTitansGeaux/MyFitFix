@@ -41,6 +41,8 @@ const Quotes = () => {
         if (quoteInput !== '') {
           setQuoteInput('');
         }
+        const notification = document.getElementById('notification');
+        notification.classList.add('notification-show')
         // console.log(data);
       })
       .catch((err) => {
@@ -154,9 +156,15 @@ const Quotes = () => {
 
       <div className="ml-52">
         {/* START QUOTES COMPONENT */}
-        <div className='mt-20 ml-100 sm:w-full  '>
+        <div id="notification" >
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>
+          <p>Quote has been saved!</p>
+          <button id="close" >close</button>
+        </div>
+        <div className='mt-20 ml-100 sm:w-full'>
 
           {/* Quotes box */}
+
           <div style={{ width: '600px', height: '420px', margin: 'auto'}} >
             <div className="bg-gradient-to-t from-sky-600 from-10% via-sky-400 to-sky-50 to-40% ... rounded-lg drop-shadow-md ">
               <div style={{ width: '600px', height: '700px', textAlign: 'center'}} >
