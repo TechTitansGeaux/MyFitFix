@@ -21,9 +21,9 @@ router.post('/', (req, res) => {
 // GET messages by senderId and recipientId
 router.get('/', async (req, res) => {
   // access senderId and recipientId from req body
-  const { senderId, recipientId } = req.body;
+  // const { senderId, recipientId } = req.body;
   // use mongoose method to find
-  await Message.find({ senderId, recipientId })
+  await Message.find()
     .then((messagesArray) => {
       console.log(messagesArray, '<----result from get messages router')
       res.status(200).send(messagesArray);

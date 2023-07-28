@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import io from 'socket.io-client';
+import MessageItem from './MessageItem';
 
 const URL = 'http://localhost:3000';
 const socket = io(URL, { autoConnect: false });
@@ -30,12 +31,17 @@ function Messages() {
   // state variable for previous messages with selected user
   const [previousMessages, setPreviousMessages] = useState([]);
 
+  // console.log(message, '<----- message')
+  // console.log(messageReceived, '<------- messageReceived')
+  // console.log(usersOnline, '<------- users online')
+  // console.log(selectedUser, '<------- selectedUser')
+  // console.log(allUsers, '<---- all users in db')
+  // console.log(user._id, '<----- my id');
+
   console.log(message, '<----- message')
   console.log(messageReceived, '<------- messageReceived')
   console.log(usersOnline, '<------- users online')
   console.log(selectedUser, '<------- selectedUser')
-  console.log(allUsers, '<---- all users in db')
-  console.log(user._id, '<----- my id');
 
   // Effect for getting the current user
   useEffect(() => {
@@ -115,16 +121,16 @@ function Messages() {
       }
     }
     // determine if they were not online
-    if (selectedUser === '') {
-      // iterate through all users in db regardless of online status
-      for (let i = 0; i < allUsers.length; i++) {
-        // determine if input user matches any of these saved users
-        if (allUsers[i].name === inputUser) {
-          // if there's a match, set selected user to saved user
-          setSelectedUser(allUsers[i]);
-        }
-      }
-    }
+    // if (selectedUser === '') {
+    //   // iterate through all users in db regardless of online status
+    //   for (let i = 0; i < allUsers.length; i++) {
+    //     // determine if input user matches any of these saved users
+    //     if (allUsers[i].name === inputUser) {
+    //       // if there's a match, set selected user to saved user
+    //       setSelectedUser(allUsers[i]);
+    //     }
+    //   }
+    // }
     // // determine if user successfully selected
     // if (selectedUser !== '') {
     //   console.log('will try to axios get previous messages')
@@ -147,16 +153,12 @@ function Messages() {
   };
 
   // function to get messages from current user and selected user
-  const getSelectMessages = () => {
-    // declare body as variable to pass through
-    const body = {
-      senderId: user._id, recipientId: selectedUser._id
-    };
-    axios.get('/message', body)
+  const getPreviousMessages = async () => {
+    await axios.get('/message')
       .then((messagesArray) => {
-        console.log(user._id, '<--- userId from get messages');
-        console.log(selectedUser._id, '<-----selected userId from get messages');
-        console.log(messagesArray, '<---- result from get messages');
+        // console.log(user._id, '<--- userId from get messages');
+        // console.log(selectedUser._id, '<-----selected userId from get messages');
+        // console.log(messagesArray, '<---- result from get messages');
         setPreviousMessages(messagesArray.data);
       })
       .catch((err) => {
@@ -166,26 +168,35 @@ function Messages() {
 
   // use effect to call get select messages anytime selectedUser is updated
   useEffect(() => {
-    getSelectMessages();
-  }, [selectedUser]);
+    getPreviousMessages();
+  }, [selectedUser, message, socket]);
 
-  console.log(previousMessages, '<-----previous messages')
+  // console.log(previousMessages, '<-----previous messages')
 
   // Function to sendDM
   const sendDM = (text) => {
     // determine if is online
-    console.log(isUserOnline, '<---- is user online at send dm')
-    if (isUserOnline === true) {
+    if (selectedUser !== '') {
       // send message through socket
       socket.emit('dm', {
         text,
         recipient: selectedUser.userID,
       });
     }
+    // declare variable to catch the recipients USER id, NOT socket id
+    let recipientId;
+    // iterate through all users in database
+    for (let i = 0; i < allUsers.length; i++) {
+      // determine if any have same name as online user
+      if (allUsers[i].name === selectedUser.name) {
+        // grab their id
+        recipientId = allUsers[i]._id;
+      }
+    }
     // also save message to the database, regardless of whether recipient is online
     axios.post('/message', {
       message: message,
-      recipientId: selectedUser._id,
+      recipientId: recipientId,
     })
       .catch((err) => {
         console.error('Failed axios POST message: ', err);
@@ -222,7 +233,9 @@ function Messages() {
       </h5>
       <h5>
         Previous messages:
-        {previousMessages}
+        {previousMessages.map((messageObj, index) => {
+            return <MessageItem message={messageObj} key={'message' + index}/>;
+          })}
       </h5>
     </div>
   );
