@@ -30,15 +30,13 @@ pre {
 .flex-col-container {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: auto;
   gap: 10px;
 }
 
 .flex-row-container {
   display: flex;
   flex-direction: row;
-  width: 50em;
+  width: 45em;
   height: 12em;
   gap: 10px;
 }
@@ -58,8 +56,12 @@ pre {
 .data-line-graph-container {
   display: flex;
   flex-direction: row;
-  width: 100%;
-  height: auto;
+  gap: 10px;
+}
+
+.data-pie-graph-container {
+  display: flex;
+  flex-direction: row;
   gap: 10px;
 }
 
@@ -74,17 +76,27 @@ pre {
 .line-graph {
   flex: 3;
   display: flex;
+  min-width: 15em;
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-end;
 }
+
+.pie-graph {
+  flex: 3;
+  min-width: 14.65em;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
 
 /* MEDIA QUERIES */
 
 @media screen and (max-width: 1120px) {
   .flex-row-container {
     flex-direction: column;
-    height: 20em;
+    min-height: 25em;
+    gap: 10px;
   }
 
   .data-pie-graph-container,
