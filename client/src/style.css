@@ -270,9 +270,17 @@ st13 lats */
 }
 
 .st19 {
-  fill:#ffa621;
+  fill:#216EFF;
 }
 
 .st19:hover {
+  fill:#ffa621;
+}
+
+.st20 {
+  fill:#ffa621;
+}
+
+.st20:hover {
   fill:#ffa621;
 }
