@@ -187,7 +187,7 @@ function WorkoutPlan() {
 
   return (
     <div className=' grid grid-cols-5'>
-      <div class="flex row-span-2">
+      <div class="flex row-span-2 h-screen">
         <div class="bg-white dark:bg-gray-800  xl:hidden flex text-gray-800 hover:text-black focus:outline-none focus:text-black justify-between w-full p-6 items-center">
 
           <div aria-label="toggler" class="flex justify-center items-center">
@@ -309,8 +309,12 @@ function WorkoutPlan() {
                     setMuscle(e.target.value);
                   }}
                 />
+                <button type="button" className="rounded-full ... bg-sky-500" onClick={() => {setFront(!front)}}>Toggle Front/Back</button>
                 <div className='flex justify-around ml-25 mr-25'>
-                  <BodyFront handleSearch={handleSearch}/>
+
+                  {console.log(front)}
+                  {front ? (<BodyFront handleSearch={handleSearch} />) : (<BodyBack />)}
+
                 </div>
               </form>
             </div>
