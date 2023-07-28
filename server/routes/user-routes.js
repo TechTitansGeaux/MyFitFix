@@ -6,7 +6,7 @@ const { User, Notification } = require('../db/index.js');
 // Route to get current user data
 router.get('/user', async (req, res) => {
   const { _id } = req.user;
-  
+
   try {
     const user = await User.findById(_id);
     if (!user) {
@@ -14,6 +14,27 @@ router.get('/user', async (req, res) => {
     }
 
     res.json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+// Route to get follower/following count for the current user
+router.get('/followers-following/:userId', async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    const followerCount = user.followers.length;
+    const followingCount = user.following.length;
+
+    res.json({ followerCount, followingCount });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });
@@ -48,7 +69,7 @@ router.get('/search', async (req, res) => {
 // Route for following a user
 router.post('/follow/:userId', async (req, res) => {
   const { userId } = req.params;
-  const { _id } = req.user; // Assuming the authenticated user's ID is available in req.user
+  const { _id } = req.user;
 
   try {
     const userToFollow = await User.findById(userId);
@@ -81,7 +102,7 @@ router.post('/follow/:userId', async (req, res) => {
 // Route for unfollowing a user
 router.post('/unfollow/:userId', async (req, res) => {
   const { userId } = req.params;
-  const { _id } = req.user; // Assuming the authenticated user's ID is available in req.user
+  const { _id } = req.user;
 
   try {
     const userToUnfollow = await User.findById(userId);
@@ -133,7 +154,7 @@ router.get('/followers-following/:userId', async (req, res) => {
 
 // Route to get User Notifications
 router.get('/notifications', async (req, res) => {
-  const { _id } = req.user; // Assuming the authenticated user's ID is available in req.user
+  const { _id } = req.user;
 
   try {
     const notifications = await Notification.find({ user: _id }).populate('journalEntry', 'entry');
