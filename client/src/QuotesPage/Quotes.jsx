@@ -1,13 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import moment from 'moment';
+// import moment from 'moment';
 
 const Quotes = () => {
   const navigate = useNavigate();
 
 
   const [ quote, setQuote ] = useState('click generate to generate quote');
+  const [ quoteInput, setQuoteInput ] = useState('');
+
+  const editQuote = () => {
+    setQuoteInput(<input value={quote} className="w-full border border-sky-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 hover:border-blue-700" type='text' onChange={e => quoteSetter(e.target.value)}></input>);
+
+  }
+
+  const quoteSetter = (quote) => {
+    setQuote(quote)
+    setQuoteInput(<input value={quote} className="w-full border border-sky-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 hover:border-blue-700" type='text' onChange={e => quoteSetter(e.target.value)}></input>)
+  }
 
 
   const generateQuote = () => {
@@ -15,6 +26,9 @@ const Quotes = () => {
       .then((data) => {
         let newQuote = `${data.data[0].quote}`;
         setQuote(newQuote);
+        if (quoteInput !== '') {
+          setQuoteInput('');
+        }
       })
       .catch((err) => {
         console.log('error sending request to generate quote', err)
@@ -24,7 +38,10 @@ const Quotes = () => {
   const saveQuote = () => {
     axios.post('/quotes/saveQuote', {quote: quote})
       .then((data) => {
-        console.log(data);
+        if (quoteInput !== '') {
+          setQuoteInput('');
+        }
+        // console.log(data);
       })
       .catch((err) => {
         console.log('error sending request to save quote')
@@ -147,14 +164,15 @@ const Quotes = () => {
                 {/* className='margin-hori-sm py-2 focus:outline-none dark:text-white justify-start hover:text-white focus:bg-sky-500 bg-amber-500 focus:text-white font-semibold hover:bg-sky-500 text-white rounded items-center space-x-6 w-48 min-h-max' */}
                 <button className="rounded-full ... bg-sky-500" onClick={() => { generateQuote() }} >generate</button>
                 <h6 className="text-lg text-sky-500 pt-4 mb-16 pb-4" >{ quote }</h6>
+                { quoteInput }
               </div>
             </div>
             <form>
-              <button onClick={ () => { saveQuote() }} className="shadow-2xl text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" >
+              <button type="button" onClick={ () => { saveQuote() }} className="shadow-2xl text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" >
                 <svg width="15" height="20" xmlns="http://www.w3.org/2000/svg" className="inline-block" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32" d="M380.93 57.37A32 32 0 0 0 358.3 48H94.22A46.21 46.21 0 0 0 48 94.22v323.56A46.21 46.21 0 0 0 94.22 464h323.56A46.36 46.36 0 0 0 464 417.78V153.7a32 32 0 0 0-9.37-22.63zM256 416a64 64 0 1 1 64-64 63.92 63.92 0 0 1-64 64zm48-224H112a16 16 0 0 1-16-16v-64a16 16 0 0 1 16-16h192a16 16 0 0 1 16 16v64a16 16 0 0 1-16 16z" /></svg>
                 <span className="inline-block ml-3">Save Quote</span>
               </button>
-              <button className="shadow-2xl text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" >
+              <button type="button" onClick={ () => { editQuote() }} className="shadow-2xl text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" >
                 <svg width="15" height="20" xmlns="http://www.w3.org/2000/svg" className="inline-block" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32" d="M364.13 125.25 87 403l-23 45 44.99-23 277.76-277.13-22.62-22.62zm56.56-56.56-22.62 22.62 22.62 22.63 22.62-22.63a16 16 0 0 0 0-22.62h0a16 16 0 0 0-22.62 0z" /></svg>
                 <span className="inline-block ml-3">Edit Quote</span>
               </button>
