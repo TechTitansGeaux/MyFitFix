@@ -47,6 +47,20 @@ function WorkoutPlan() {
       });
   };
 
+
+  const handleSearchType = (e) => {
+    axios
+      .get('/workout/exercise', { params: { muscle: `${muscle}` } })
+      .then((response) => {
+        console.log(e, muscle);
+        setExerciseResults(response.data);
+      })
+      .catch((err) => {
+        console.error('cannot get:', err);
+      });
+  };
+
+
   const getPastWorkout = () => {
     axios
       .get(`workout/workouts/${pastDate}`)
@@ -309,7 +323,10 @@ function WorkoutPlan() {
                     setMuscle(e.target.value);
                   }}
                 />
-                <button type="button" className="rounded-full ... bg-sky-500" onClick={() => {setFront(!front)}}>Toggle Front/Back</button>
+                <button type="button" className='w-fit  bg-slate-400 border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 font-bold tracking-wider active:text-white transform hover:scale-110 px-1 ml-4 mr-4' onClick={(e) => handleSearchType(e)}>Search</button>
+
+                <button type="button" className='w-fit  bg-slate-400 border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 font-bold tracking-wider active:text-white transform hover:scale-110 px-1 ml-4 mr-4' onClick={() => {setFront(!front)}}>Toggle Front/Back</button>
+
                 <div className='flex justify-around ml-25 mr-25'>
 
                   {front ? (<BodyFront handleSearch={handleSearch} />) : (<BodyBack handleSearch={handleSearch}/>)}
