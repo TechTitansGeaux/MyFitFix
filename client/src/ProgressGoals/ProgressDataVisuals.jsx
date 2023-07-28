@@ -170,7 +170,7 @@ const ProgressDataVisuals = () => {
             {/* 15 Needs to be Dynamic*/}
             <span>
               <h3 className='font-bold text-3xl text-amber-500 '>-15</h3>
-              <p>lbs</p>
+              <p>pounds</p>
             </span>
           </div>
           <div className='line-graph'>

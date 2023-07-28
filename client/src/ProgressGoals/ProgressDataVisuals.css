@@ -76,13 +76,15 @@ pre {
 .line-graph {
   flex: 3;
   display: flex;
+  min-width: 15em;
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-end;
 }
 
 .pie-graph {
-  flex: 2;
+  flex: 3;
+  min-width: 14.65em;
   flex-direction: column;
   align-items: flex-end;
 }
@@ -93,7 +95,8 @@ pre {
 @media screen and (max-width: 1120px) {
   .flex-row-container {
     flex-direction: column;
-    height: 20em;
+    min-height: 25em;
+    gap: 10px;
   }
 
   .data-pie-graph-container,

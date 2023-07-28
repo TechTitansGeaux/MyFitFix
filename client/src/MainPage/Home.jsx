@@ -207,7 +207,7 @@ function Home() {
 
   // LINES 137 & 145 have onclick properties that don't function for nav close // creates console error // Invalid event handler property 'onclick'
   return (
-    <div className='grid grid-cols-4 grid-rows-2'>
+    <div className='grid grid-cols-4 grid-rows-1'>
       {/* START OF NAVIGATION BAR */}
       <div className='flex row-span-2'>
         <div className='bg-white dark:bg-gray-800  xl:hidden flex text-gray-800 hover:text-black focus:outline-none focus:text-black justify-between w-full p-6 items-center h-screen'>
