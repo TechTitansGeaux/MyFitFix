@@ -131,7 +131,13 @@ st9 neck
 st10 calves
 st11 traps
 st12 triceps
-st13 lats */
+st13 lats
+st14 glutes
+st15 traps
+st16 hamstrings
+st17 calves
+st18 middle_back
+st19 lower_back */
 
 .st2 {
   fill:#216EFF;
@@ -274,13 +280,5 @@ st13 lats */
 }
 
 .st19:hover {
-  fill:#ffa621;
-}
-
-.st20 {
-  fill:#ffa621;
-}
-
-.st20:hover {
   fill:#ffa621;
 }

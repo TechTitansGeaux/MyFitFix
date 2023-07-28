@@ -312,7 +312,7 @@ function WorkoutPlan() {
                 <button type="button" className="rounded-full ... bg-sky-500" onClick={() => {setFront(!front)}}>Toggle Front/Back</button>
                 <div className='flex justify-around ml-25 mr-25'>
 
-                  {!front ? (<BodyFront handleSearch={handleSearch} />) : (<BodyBack handleSearch={handleSearch}/>)}
+                  {front ? (<BodyFront handleSearch={handleSearch} />) : (<BodyBack handleSearch={handleSearch}/>)}
 
                 </div>
               </form>
