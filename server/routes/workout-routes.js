@@ -70,7 +70,7 @@ router.get('/exercise', (req, res) => {
   // this allows you to get a specific workout entry from a specific date
   router.get('/workouts/:date', (req, res) => {
     const { date } = req.params;
-    console.log('req.user:', req.user._id);
+    //console.log('req.user:', req.user._id);
     const { _id } = req.user;
     Workout.find({ date: date, user: _id })
     .then((workoutObj) => {
@@ -88,7 +88,7 @@ router.get('/exercise', (req, res) => {
 Workout.deleteOne({ date: date, user: _id })
 .then(({ deletedCount }) => {
   if (deletedCount) {
-    res.status(200)
+    res.status(200);
   } else {
     res.sendStatus(404);
   }
