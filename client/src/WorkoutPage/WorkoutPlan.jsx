@@ -50,7 +50,7 @@ function WorkoutPlan() {
 
   const handleSearchType = (e) => {
     axios
-      .get('/workout/exercise', { params: { muscle: `${muscle}` } })
+      .get('/workout/stretches', { params: { muscle: `${muscle}` } })
       .then((response) => {
         console.log(e, muscle);
         setExerciseResults(response.data);
@@ -65,6 +65,7 @@ function WorkoutPlan() {
     axios
       .get(`workout/workouts/${pastDate}`)
       .then((response) => {
+        console.log(pastDate);
         setPastWorkout(response.data[0].exercise);
       })
       .catch((err) => {

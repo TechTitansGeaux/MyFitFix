@@ -23,7 +23,29 @@ router.get('/exercise', (req, res) => {
       res.sendStatus(500);
     });
 
-  })
+  });
+  // get stretches
+  router.get('/stretches', (req, res) => {
+    const { muscle } = req.query;
+       const options = {
+         method: 'GET',
+         url: 'https://api.api-ninjas.com/v1/exercises?type=stretching',
+         params: {muscle: muscle},
+         headers: {
+           'X-Api-Key': process.env.workoutKey
+         }
+       };
+       axios.request(options)
+       .then((response) => {
+        // console.log(response);
+         res.status(200)
+         res.send(response.data);
+       }).catch((error) => {
+         //console.error('failed to get:', error);
+         res.sendStatus(500);
+       });
+
+     });
 
 //this allows you to post a daily workout entry
     router.post('/workouts', (req, res) => {
@@ -48,6 +70,7 @@ router.get('/exercise', (req, res) => {
   // this allows you to get a specific workout entry from a specific date
   router.get('/workouts/:date', (req, res) => {
     const { date } = req.params;
+    console.log('req.user:', req.user._id);
     const { _id } = req.user;
     Workout.find({ date: date, user: _id })
     .then((workoutObj) => {
