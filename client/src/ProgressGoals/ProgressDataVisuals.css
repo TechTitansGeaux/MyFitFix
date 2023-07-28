@@ -30,15 +30,13 @@ pre {
 .flex-col-container {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: auto;
   gap: 10px;
 }
 
 .flex-row-container {
   display: flex;
   flex-direction: row;
-  width: 50em;
+  width: 45em;
   height: 12em;
   gap: 10px;
 }
