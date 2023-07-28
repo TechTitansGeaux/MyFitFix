@@ -69,14 +69,18 @@ io.on('connection', (socket) => {
   console.log(`User connected: ${socket.id}`);
 
   // send list of all users
-  const users = [];
-  for (let [id, socket] of io.of("/").sockets) {
-    users.push({
-      userID: id,
-      name: socket.name,
-    });
-  }
-  socket.emit('users', users);
+  const getOnlineList = () => {
+    const users = [];
+    for (let [id, socket] of io.of("/").sockets) {
+      users.push({
+        userID: id,
+        name: socket.name,
+      });
+    }
+    io.emit('users', users);
+};
+getOnlineList();
+
 
   // socket.on('send_message', (data) => {
   //   socket.broadcast.emit('receive_message', data.message)
@@ -85,7 +89,7 @@ io.on('connection', (socket) => {
   socket.on('dm', ({ text, recipient }) => {
     socket.join(recipient);
     // broadcast directly to recipient
-    socket.broadcast.to(recipient).emit('dm', {
+    socket.to(recipient).emit('dm', {
       text,
       // identify room by id
       from: socket.id,

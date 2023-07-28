@@ -1,9 +1,10 @@
 import React from 'react';
 
 function MessageItem({message}) {
+
   return (
     <ul>
-      {message.message}
+      {message.senderName}: {message.message}
     </ul>
   );
 }
