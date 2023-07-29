@@ -213,6 +213,7 @@ function Messages() {
     let count = refresher;
     count += 1;
     setRefresher(count);
+    text.target.reset();
   };
 
   const clearNewMessage = () => {
@@ -250,7 +251,10 @@ function Messages() {
           </h5>
           <div className="newMessageContainer">
             <p>
-              <span className="text-sky-500 font-bold">
+              <span
+                className="text-amber-500 hover:text-sky-500 font-bold"
+                onClick={() => {selectUser(incomingSender)}}
+              >
                 {incomingSender}
               </span>
             </p>
@@ -276,6 +280,7 @@ function Messages() {
               }}
             />
             <button
+            className="rounded-full ... bg-sky-500"
             type="submit"
             onClick={() => selectUser(searchUser)}
             >
@@ -288,12 +293,14 @@ function Messages() {
           <input
             onKeyDown={(e) => (e.key === "Enter" ? sendDM(message) : null)}
             placeholder="Message..."
+            value={message}
             onChange={(event) => {
               setMessage(event.target.value);
               clearNewMessage();
             }}
           />
           <button
+            className="rounded-full ... bg-sky-500"
             type="submit"
             onClick={() => sendDM(message)}
           >

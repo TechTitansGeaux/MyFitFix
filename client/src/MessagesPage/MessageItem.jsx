@@ -24,7 +24,7 @@ function MessageItem({message, incomingSender, user, messageReceived}) {
   return (
     <div>
       <p>
-        <span className="text-sky-500 font-bold">
+        <span className="text-amber-500 font-bold">
           {message.senderName}
         </span>
       </p>
@@ -36,19 +36,6 @@ function MessageItem({message, incomingSender, user, messageReceived}) {
           {dayjs(`${message.createdAt}`).fromNow()}
         </span>
       </p>
-      <p>
-        <span className="text-sky-500 font-bold">
-            {incomingSender}
-        </span>
-      </p>
-      <span>
-        {messageReceived}
-      </span>
-      {/* <p>
-        <span className="text-xs">
-          just now
-        </span>
-      </p> */}
     </div>
   );
 }
