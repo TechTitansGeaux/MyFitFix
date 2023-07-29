@@ -252,7 +252,6 @@ console.log(incomingSender, '<---incoming sender')
         {newMessage}
       </h5>
       <h5>
-        Previous messages:
         {previousMessages.map((messageObj, index) => {
             return <MessageItem message={messageObj} key={'message' + index}/>;
           })}
