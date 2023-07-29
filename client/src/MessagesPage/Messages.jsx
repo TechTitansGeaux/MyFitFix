@@ -32,6 +32,8 @@ function Messages() {
   // state variable for previous messages with selected user
   const [previousMessages, setPreviousMessages] = useState([]);
   const [refresher, setRefresher] = useState(0);
+  // state variable for user we are trying to find to message
+  const [searchUser, setSearchUser] = useState('');
 
   console.log(allUsers, '<---- all users in db')
   // console.log(user._id, '<----- my id');
@@ -116,8 +118,12 @@ function Messages() {
         setIsUserOnline(true);
       }
     }
-    // if user is not online
-    if (!isUserOnline) {
+    console.log(isUserOnline, '<--- are they on');
+  };
+
+  // Function for if user was not online
+  const selectOfflineUser = (inputUser) => {
+    if (selectedUser === '') {
       // iterate through users in db
       for (let i = 0; i < allUsers.length; i++) {
         // determine if input matches any name
@@ -130,9 +136,9 @@ function Messages() {
   };
 
   // if usersOnline has changed, need to invoke select User to get info with socketID
-  useEffect(() => {
-    selectUser();
-  }, [usersOnline]);
+  // useEffect(() => {
+  //   selectUser();
+  // }, [usersOnline]);
 
   // function to get messages from current user and selected user
   const getPreviousMessages = async () => {
@@ -153,32 +159,6 @@ function Messages() {
             return new Date(b.createdAt) - new Date(a.createdAt);
           });
       setPreviousMessages(allMessagesSorted);
-      // setPreviousMessages((await firstChunk).data.concat(await secondChunk.data));
-        // .then((messagesArray) => {
-        //   // console.log(user._id, '<--- userId from get messages');
-        //   // console.log(selectedUser._id, '<-----selected userId from get messages');
-        //   // console.log(messagesArray, '<---- result from get messages');
-        //   // sort messages by most recent
-        //   const sortedArray = messagesArray.data.sort((a, b) => {
-        //     return new Date(b.createdAt) - new Date(a.createdAt);
-        //   });
-        //   setPreviousMessages(sortedArray);
-        // })
-        // .catch((err) => {
-        //   console.error('Failed axios GET previous messages: ', err);
-        // });
-      // get all messages from selected user to user
-      // await axios.get(`/message/${recipientId}/${user._id}`)
-      //   .then((messagesArray) => {
-      //     const oldMessages = previousMessages;
-      //     const sortedArray = oldMessages.concat(messagesArray.data).sort((a, b) => {
-      //       return new Date(b.createdAt) - new Date(a.createdAt);
-      //     });
-      //     setPreviousMessages(sortedArray);
-      //   })
-      //   .catch((err) => {
-      //     console.error('Failed axios GET previous messages from selected user: ', err);
-      //   });
     }
 };
 
@@ -224,10 +204,6 @@ function Messages() {
     let count = refresher;
     count += 1;
     setRefresher(count);
-
-    // return () => {
-    //   socket.off('dm');
-    // };
   };
 
   socket.onAny((event, ...args) => {
@@ -239,13 +215,18 @@ function Messages() {
     <div className="dms">
       {/* BEGIN CHATROOM */}
       <h5>
-        Send to:
         <input
           placeholder="Select user..."
           onChange={(event) => {
-            selectUser(event.target.value);
+            setSearchUser(event.target.value);
           }}
         />
+        <button
+        type="submit"
+        onClick={() => selectUser(searchUser)}
+        >
+          Find User
+        </button>
       </h5>
       <input
         placeholder="Message..."
