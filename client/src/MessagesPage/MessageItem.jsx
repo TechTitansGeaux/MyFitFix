@@ -1,8 +1,9 @@
 import React from 'react';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import axios from 'axios';
 
-function MessageItem({message, incomingSender, user, messageReceived}) {
+function MessageItem({message, incomingSender, user, messageReceived, deleteMessage}) {
   dayjs.extend(relativeTime);
   // if message is incoming, display on left, if outgoing display right
   // let display;
@@ -20,7 +21,7 @@ function MessageItem({message, incomingSender, user, messageReceived}) {
   //     return 'just now!';
   //   }
   // };
-
+// console.log(message._id, '<--- a message object id');
   return (
     <div>
       <p>
@@ -34,7 +35,11 @@ function MessageItem({message, incomingSender, user, messageReceived}) {
       <p>
         <span className="text-xs">
           {dayjs(`${message.createdAt}`).fromNow()}
+          ...
         </span>
+        <button className="text-xs" type="button" onClick={() => deleteMessage(message._id)}>
+          delete
+        </button>
       </p>
     </div>
   );

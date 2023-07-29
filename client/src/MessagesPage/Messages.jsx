@@ -226,6 +226,20 @@ function Messages() {
     scrollToBottom();
   }, [previousMessages, messageReceived]);
 
+  // function to delete messages
+  const deleteMessage = (messageId) => {
+    // axios delete
+    axios.delete(`/message/${messageId}`)
+      .then(() => {
+        alert('Message deleted!');
+        // rerender messages
+        getPreviousMessages();
+      })
+      .catch((err) => {
+        console.log('Failed to axios delete message: ', err);
+      });
+  };
+
   return (
     <div>
       {/* START OF NAVIGATION BAR */}
@@ -335,7 +349,7 @@ function Messages() {
         <div className="messagesContainer dmMessages">
           <h5>
             {previousMessages.map((messageObj, index) => {
-                return <MessageItem message={messageObj} key={'message' + index} fromName={incomingSender} messagedReceived={messageReceived} user={user.name}/>;
+                return <MessageItem message={messageObj} key={'message' + index} deleteMessage={deleteMessage} fromName={incomingSender} messagedReceived={messageReceived} user={user.name}/>;
               })}
           </h5>
           <div className="newMessageContainer">
