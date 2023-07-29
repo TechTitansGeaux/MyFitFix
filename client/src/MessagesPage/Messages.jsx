@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import io from 'socket.io-client';
@@ -172,7 +172,7 @@ console.log(incomingSender, '<---incoming sender')
       const firstChunk = await axios.get(`/message/${user._id}/${recipientId}`);
       const secondChunk = await axios.get(`/message/${recipientId}/${user._id}`);
       const allMessagesSorted = firstChunk.data.concat(secondChunk.data).sort((a, b) => {
-            return new Date(b.createdAt) - new Date(a.createdAt);
+            return new Date(a.createdAt) - new Date(b.createdAt);
           });
       setPreviousMessages(allMessagesSorted);
     }
@@ -218,6 +218,16 @@ console.log(incomingSender, '<---incoming sender')
     console.log(event, args);
   });
 
+  // useRef function to scroll to bottom of messages
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'instant' })
+  }
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [previousMessages]);
 
   return (
     <div className="dms">
@@ -255,6 +265,7 @@ console.log(incomingSender, '<---incoming sender')
         {previousMessages.map((messageObj, index) => {
             return <MessageItem message={messageObj} key={'message' + index}/>;
           })}
+        <div ref={messagesEndRef} />
       </h5>
     </div>
   );
