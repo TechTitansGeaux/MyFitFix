@@ -21,7 +21,7 @@ function MessageItem({message, incomingSender, user, messageReceived, deleteMess
   //     return 'just now!';
   //   }
   // };
-// console.log(message._id, '<--- a message object id');
+  // console.log(message._id, '<--- a message object id');
   return (
     <div>
       <p>

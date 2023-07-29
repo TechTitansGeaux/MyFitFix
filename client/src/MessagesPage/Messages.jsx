@@ -38,16 +38,10 @@ function Messages() {
   const [searchUser, setSearchUser] = useState('');
   // state variable for incoming dm sender
   const [incomingSender, setIncomingSender] = useState('');
-  // new message display variable
+  // new message stamp
   const [newMessage, setNewMessage] = useState('');
 
-  console.log(allUsers, '<---- all users in db')
-  // console.log(user._id, '<----- my id');
-  console.log(usersOnline, '<------- users online')
-  // console.log(message, '<----- message')
-  // console.log(messageReceived, '<------- messageReceived')
-  console.log(selectedUser, '<------- selectedUser')
-  console.log(previousMessages, '<---- previous messages')
+  console.log(usersOnline, '<------- users online');
 
   // Effect for getting the current user
   useEffect(() => {
@@ -82,8 +76,7 @@ function Messages() {
     createUserConnection();
   }, [name, socket, refresher]);
 
-  // Function to handle the socket user event
-  // const getOnlineUsers = () => {
+  // handle socket user event
   socket.on('users', (users) => {
     // iterate through users array
     users.forEach((oneUser) => {
@@ -102,7 +95,7 @@ function Messages() {
       return a.name > b.name ? 1 : 0;
     });
   });
-  // };
+
 
   // Effect for listening to socket events
   useEffect(() => {
@@ -113,7 +106,7 @@ function Messages() {
       setNewMessage('new message!');
     });
   }, [socket, refresher]);
-  // console.log(incomingSender, '<---incoming sender')
+
   // Function to handle when an online user is clicked
   const selectUser = (inputUser) => {
     // first, determine if online and if socket emit needs to happen
@@ -165,8 +158,6 @@ function Messages() {
     getPreviousMessages();
   }, [selectedUser, message, socket, refresher]);
 
-  // console.log(previousMessages, '<-----previous messages')
-
   // Function to sendDM
   const sendDM = async (text) => {
     // determine if is online
@@ -208,11 +199,7 @@ function Messages() {
     setMessageReceived('');
     setIncomingSender('');
     setNewMessage('');
-  }
-
-  socket.onAny((event, ...args) => {
-    console.log(event, args);
-  });
+  };
 
   // useRef function to scroll to bottom of messages
   const messagesEndRef = useRef(null);
@@ -239,6 +226,11 @@ function Messages() {
         console.log('Failed to axios delete message: ', err);
       });
   };
+
+  // for dev
+  // socket.onAny((event, ...args) => {
+  //   console.log(event, args);
+  // });
 
   return (
     <div>
@@ -352,7 +344,7 @@ function Messages() {
                 return <MessageItem message={messageObj} key={'message' + index} deleteMessage={deleteMessage} fromName={incomingSender} messagedReceived={messageReceived} user={user.name}/>;
               })}
           </h5>
-          <div className="newMessageContainer">
+          <div className="newMessageContainer border-solid">
             <p>
               <span
                 className="text-amber-500 hover:text-sky-500 font-bold"
