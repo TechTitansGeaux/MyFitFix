@@ -7,7 +7,7 @@ const Quotes = () => {
   const navigate = useNavigate();
 
 
-  const [ quote, setQuote ] = useState('click generate to generate quote');
+  const [ quote, setQuote ] = useState('click generate to generate new quote');
   const [ quoteInput, setQuoteInput ] = useState('');
 
   const editQuote = () => {
@@ -42,12 +42,18 @@ const Quotes = () => {
           setQuoteInput('');
         }
         const notification = document.getElementById('notification');
-        notification.classList.add('notification-show')
+        notification.classList.add('show');
+        setQuote('click generate to generate new quote');
         // console.log(data);
       })
       .catch((err) => {
         console.log('error sending request to save quote')
       })
+  }
+
+  const close = () => {
+    const notification = document.getElementById('notification');
+    notification.classList.remove('show')
   }
 
 
@@ -154,12 +160,12 @@ const Quotes = () => {
       </div>
       {/* END NAV BAR */}
 
+      {/* START QUOTES COMPONENT */}
       <div className="ml-52">
-        {/* START QUOTES COMPONENT */}
-        <div id="notification" >
+        <div id="notification" class="notification" >
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>
           <p>Quote has been saved!</p>
-          <button id="close" >close</button>
+          <button id="close" onClick={ () => { close() }} >close</button>
         </div>
         <div className='mt-20 ml-100 sm:w-full'>
 
@@ -169,10 +175,16 @@ const Quotes = () => {
             <div className="bg-gradient-to-t from-sky-600 from-10% via-sky-400 to-sky-50 to-40% ... rounded-lg drop-shadow-md ">
               <div style={{ width: '600px', height: '700px', textAlign: 'center'}} >
                 <h1 className="text-2xl text-sky-500 font-bold pt-5 mb-16 pb-4" >Quotes</h1>
-                {/* className='margin-hori-sm py-2 focus:outline-none dark:text-white justify-start hover:text-white focus:bg-sky-500 bg-amber-500 focus:text-white font-semibold hover:bg-sky-500 text-white rounded items-center space-x-6 w-48 min-h-max' */}
-                <button className="rounded-full ... bg-sky-500" onClick={() => { generateQuote() }} >generate</button>
-                <h6 className="text-lg text-sky-500 pt-4 mb-16 pb-4" >{ quote }</h6>
-                { quoteInput }
+                <div id="quoteGen">
+                  {/* className='margin-hori-sm py-2 focus:outline-none dark:text-white justify-start hover:text-white focus:bg-sky-500 bg-amber-500 focus:text-white font-semibold hover:bg-sky-500 text-white rounded items-center space-x-6 w-48 min-h-max' */}
+                  <button className="rounded-full ... bg-sky-500" onClick={() => { generateQuote() }} >generate</button>
+                  <h6 className="text-lg text-sky-500 pt-4 mb-16 pb-4" >{ quote }</h6>
+                  { quoteInput }
+                </div>
+                <div id="allQuotes">
+
+                </div>
+
               </div>
             </div>
             <form>

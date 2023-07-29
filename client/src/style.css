@@ -119,19 +119,20 @@ input[type="range"]:focus::-moz-range-thumb {
   }
 }
 
-#notification {
+.notification {
   border-radius: 0.2rem;
   width: 290px;
   height: auto;
   z-index: 100;
   position: absolute;
   left: 50%;
-  transform: translateX(-50%);
   display: flex;
+  /* transform: translateX(-10%); */
   justify-content: center;
   align-items: center;
   gap: 1rem;
   background-color: rgb(86, 227, 255);
+  visibility: hidden;
 
 
 
@@ -141,9 +142,8 @@ input[type="range"]:focus::-moz-range-thumb {
   color: blue;
 }
 
-.notification-show {
-  animation: notify 400ms ease-in-out forwards;
-  display: flex;
+.show {
+  visibility: visible;
 }
 
 @keyframes notify {
