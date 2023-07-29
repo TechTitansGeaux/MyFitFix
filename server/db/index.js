@@ -17,22 +17,35 @@ const UserSchema = new Schema({
   journalEntries: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Journal' }],
 });
 
-const GoalsSchema = new Schema({
-  goalCaloriesBurned: Number,
-  goalWeight: Number,
-  totalCaloriesBurned: Number,
-  updatedWeight: Number,
-  user: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
-},
-{ timestamps: true });
+const GoalsSchema = new Schema(
+  {
+    goalCaloriesBurned: Number,
+    goalWeight: Number,
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  },
+  { timestamps: true }
+);
 
-const MessageSchema = new Schema({
-  message: { type: String, required: true },
-  senderId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  senderName: { type: String },
-  recipientId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-},
-{ timestamps: true });
+const ProgressSchema = new Schema(
+  {
+    lineDataCalories: { type: Array, default: [] },
+    pieDataCalories: { type: Array, default: [] },
+    lineDataWeight: { type: Array, default: [] },
+    pieDataWeight: { type: Array, default: [] },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  },
+  { timestamps: true }
+);
+
+const MessageSchema = new Schema(
+  {
+    message: { type: String, required: true },
+    senderId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    senderName: { type: String },
+    recipientId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  },
+  { timestamps: true }
+);
 
 const CaloriesInSchema = new Schema({
   foodList: { type: Array, default: [] },
@@ -77,18 +90,17 @@ const QuotesSchema = new Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   date: { type: Date, default: Date.now },
   quote: { type: String, required: true },
-})
+});
 
 module.exports = {
-
-  User: model("User", UserSchema),
-  Goals: model("Goals", GoalsSchema),
+  User: model('User', UserSchema),
+  Goals: model('Goals', GoalsSchema),
+  Progress: model('Progress', ProgressSchema),
   Message: model('Messages', MessageSchema),
-  CaloriesIn: model("CaloriesIn", CaloriesInSchema),
-  CaloriesBurned: model("CaloriesBurned", CaloriesBurnedSchema),
-  Workout: model("Workout", WorkoutEntrySchema),
-  Journal: model("Journal", JournalEntrySchema),
+  CaloriesIn: model('CaloriesIn', CaloriesInSchema),
+  CaloriesBurned: model('CaloriesBurned', CaloriesBurnedSchema),
+  Workout: model('Workout', WorkoutEntrySchema),
+  Journal: model('Journal', JournalEntrySchema),
   Notification: model('Notification', NotificationSchema),
   Quotes: model('Quotes', QuotesSchema),
-
 };
