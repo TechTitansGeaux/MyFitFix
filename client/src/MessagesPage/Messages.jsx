@@ -67,7 +67,7 @@ function Messages() {
       .catch((err) => {
         console.error('Failed axios GET all users for dms: ', err);
       });
-  }, []);
+  }, [usersOnline]);
 
 
   // function to create user connection
@@ -138,25 +138,6 @@ function Messages() {
     console.log(isUserOnline, '<--- are they on');
   };
 
-  // Function for if user was not online
-  // const selectOfflineUser = (inputUser) => {
-  //   if (selectedUser === '') {
-  //     // iterate through users in db
-  //     for (let i = 0; i < allUsers.length; i++) {
-  //       // determine if input matches any name
-  //       if (inputUser === allUsers[i].name) {
-  //         // set selectedUser to that user
-  //         setSelectedUser(allUsers[i]);
-  //       }
-  //     }
-  //   }
-  // };
-
-  // if usersOnline has changed, need to invoke select User to get info with socketID
-  // useEffect(() => {
-  //   selectUser();
-  // }, [usersOnline]);
-
   // function to get messages from current user and selected user
   const getPreviousMessages = async () => {
     if (selectedUser !== '') {
@@ -213,7 +194,6 @@ function Messages() {
     let count = refresher;
     count += 1;
     setRefresher(count);
-    text.target.reset();
   };
 
   const clearNewMessage = () => {
@@ -221,6 +201,14 @@ function Messages() {
     setIncomingSender('');
     setNewMessage('');
   };
+
+  // function to clear new message and select user for username click
+  const handleNameClick = (incomingSender) => {
+    selectUser(incomingSender);
+    setMessageReceived('');
+    setIncomingSender('');
+    setNewMessage('');
+  }
 
   socket.onAny((event, ...args) => {
     console.log(event, args);
@@ -354,7 +342,7 @@ function Messages() {
             <p>
               <span
                 className="text-amber-500 hover:text-sky-500 font-bold"
-                onClick={() => {selectUser(incomingSender)}}
+                onClick={() => {handleNameClick(incomingSender)}}
               >
                 {incomingSender}
               </span>
