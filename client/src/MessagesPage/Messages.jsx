@@ -375,7 +375,7 @@ function Messages() {
               }}
             />
             <button
-            className="rounded-full ... bg-sky-500"
+            className="w-fit  bg-slate-400 border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 font-bold tracking-wider active:text-white transform hover:scale-110 px-1 ml-4 mr-4"
             type="submit"
             onClick={() => selectUser(searchUser)}
             >
@@ -395,7 +395,7 @@ function Messages() {
             }}
           />
           <button
-            className="rounded-full ... bg-sky-500"
+            className="w-fit  bg-slate-400 border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 font-bold tracking-wider active:text-white transform hover:scale-110 px-1 ml-4 mr-4"
             type="submit"
             onClick={() => sendDM(message)}
           >
