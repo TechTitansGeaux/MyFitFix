@@ -328,3 +328,24 @@ st19 lower_back */
 .st19:hover {
   fill:#ffa621;
 }
+
+
+/* ///// DMS */
+
+.dmsContainer {
+  margin: 1em auto;
+  padding-right: 1em;
+  padding-left: 1em;
+}
+
+.dmSearch {
+  margin: 1em auto;
+  padding-right: 1em;
+  padding-left: 1em;
+}
+
+.dmMessages {
+  margin: 4em auto;
+  padding-right: 1em;
+  padding-left: 1em;
+}

@@ -2,21 +2,53 @@ import React from 'react';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 
-function MessageItem({message}) {
-dayjs.extend(relativeTime);
+function MessageItem({message, incomingSender, user, messageReceived}) {
+  dayjs.extend(relativeTime);
+  // if message is incoming, display on left, if outgoing display right
+  // let display;
+  // const updateView = (message) => {
+  //   // determine who message is from
+  //   if (message.name === user) {
+
+  //   }
+  // }
+
+  // if theres a new message, display this
+  // const newDisplay = () => {
+  //   // determine if new message
+  //   if (messageReceived !== '') {
+  //     return 'just now!';
+  //   }
+  // };
 
   return (
     <div>
       <p>
-        <span>
+        <span className="text-sky-500 font-bold">
           {message.senderName}
-          :
         </span>
-        <span>
-        {message.message}
-        </span>
-       {dayjs(`${message.createdAt}`).fromNow()}
       </p>
+      <span>
+        {message.message}
+      </span>
+      <p>
+        <span className="text-xs">
+          {dayjs(`${message.createdAt}`).fromNow()}
+        </span>
+      </p>
+      <p>
+        <span className="text-sky-500 font-bold">
+            {incomingSender}
+        </span>
+      </p>
+      <span>
+        {messageReceived}
+      </span>
+      {/* <p>
+        <span className="text-xs">
+          just now
+        </span>
+      </p> */}
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import io from 'socket.io-client';
 import MessageItem from './MessageItem';
@@ -8,6 +8,7 @@ const URL = 'http://localhost:3000';
 const socket = io(URL, { autoConnect: false });
 
 function Messages() {
+  // const navigate = useNavigate();
   // socket.onAny((event, ...args) => {
   //   getOnlineUsers();
   //   console.log(event, args);
@@ -109,10 +110,10 @@ function Messages() {
       setMessageReceived(data.text);
       setIncomingSender(data.name);
       // console.log(data, '<--- data name from incoming dm')
-      setNewMessage(`New Message from ${data.name}!: ${data.text}`);
+      setNewMessage('new message!');
     });
   }, [socket, refresher]);
-console.log(incomingSender, '<---incoming sender')
+  // console.log(incomingSender, '<---incoming sender')
   // Function to handle when an online user is clicked
   const selectUser = (inputUser) => {
     // first, determine if online and if socket emit needs to happen
@@ -214,6 +215,12 @@ console.log(incomingSender, '<---incoming sender')
     setRefresher(count);
   };
 
+  const clearNewMessage = () => {
+    setMessageReceived('');
+    setIncomingSender('');
+    setNewMessage('');
+  };
+
   socket.onAny((event, ...args) => {
     console.log(event, args);
   });
@@ -222,51 +229,78 @@ console.log(incomingSender, '<---incoming sender')
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'instant' })
-  }
+    messagesEndRef.current?.scrollIntoView({ behavior: 'instant' });
+  };
 
   useEffect(() => {
     scrollToBottom();
-  }, [previousMessages]);
+  }, [previousMessages, messageReceived]);
 
   return (
-    <div className="dms">
-      {/* BEGIN CHATROOM */}
-      <h5>
-        <input
-          placeholder="Select user..."
-          onChange={(event) => {
-            setSearchUser(event.target.value);
-          }}
-        />
-        <button
-        type="submit"
-        onClick={() => selectUser(searchUser)}
-        >
-          Find User
-        </button>
-      </h5>
-      <input
-        placeholder="Message..."
-        onChange={(event) => {
-          setMessage(event.target.value);
-        }}
-      />
-      <button
-        type="submit"
-        onClick={() => sendDM(message)}
-      >
-        Send Message
-      </button>
-      <h5>
-        {newMessage}
-      </h5>
-      <h5>
-        {previousMessages.map((messageObj, index) => {
-            return <MessageItem message={messageObj} key={'message' + index}/>;
-          })}
+    <div>
+      {/* START OF NAVIGATION BAR */}
+      {/* END NAV BAR */}
+      <div>
+        {/* BEGIN CHATROOM */}
+        <div className="messagesContainer dmMessages">
+          <h5>
+            {previousMessages.map((messageObj, index) => {
+                return <MessageItem message={messageObj} key={'message' + index} fromName={incomingSender} messagedReceived={messageReceived} user={user.name}/>;
+              })}
+          </h5>
+          <div className="newMessageContainer">
+            <p>
+              <span className="text-sky-500 font-bold">
+                {incomingSender}
+              </span>
+            </p>
+            <span>
+              {messageReceived}
+            </span>
+            <p>
+              <span className="text-xs">
+                {newMessage}
+              </span>
+            </p>
+          </div>
+        </div>
         <div ref={messagesEndRef} />
-      </h5>
+        {/* Find User */}
+        <div className="findUserContainer dmSearch fixed bottom-0 right-0">
+          <h5>
+            <input
+              onKeyDown={(e) => (e.key === "Enter" ? selectUser(searchUser) : null)}
+              placeholder="Select user..."
+              onChange={(event) => {
+                setSearchUser(event.target.value);
+              }}
+            />
+            <button
+            type="submit"
+            onClick={() => selectUser(searchUser)}
+            >
+              Find User
+            </button>
+          </h5>
+        </div>
+        {/* Send Message */}
+        <div className="sendMessageContainer dmSearch fixed bottom-0">
+          <input
+            onKeyDown={(e) => (e.key === "Enter" ? sendDM(message) : null)}
+            placeholder="Message..."
+            onChange={(event) => {
+              setMessage(event.target.value);
+              clearNewMessage();
+            }}
+          />
+          <button
+            type="submit"
+            onClick={() => sendDM(message)}
+          >
+            Send Message
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
