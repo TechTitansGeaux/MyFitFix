@@ -132,7 +132,6 @@ input[type="range"]:focus::-moz-range-thumb {
   align-items: center;
   gap: 1rem;
   background-color: rgb(86, 227, 255);
-  visibility: hidden;
 
 
 
@@ -142,9 +141,18 @@ input[type="range"]:focus::-moz-range-thumb {
   color: blue;
 }
 
+/* .allQuotes {
+  visibility: hidden;
+} */
+.hide {
+  visibility: hidden;
+}
+
 .show {
   visibility: visible;
 }
+
+
 
 @keyframes notify {
   0% {
