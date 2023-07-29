@@ -55,6 +55,7 @@ function WorkoutPlan() {
       .then((response) => {
         console.log(e, muscle);
         setExerciseResults(response.data);
+        setPastWorkout([]);
       })
       .catch((err) => {
         console.error('cannot get:', err);
