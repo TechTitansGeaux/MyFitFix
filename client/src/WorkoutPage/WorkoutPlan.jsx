@@ -16,6 +16,7 @@ function WorkoutPlan() {
   const [pastDate, setPastDate] = useState(moment().format('YYYY-MM-DD'));
   const [pastWorkout, setPastWorkout] = useState([]);
   const [front, setFront] = useState(true); // show front or back
+  const [exercise, setExercise] = useState(true); // show exercises or stretches
 
   // const findPastDate = (newDate) => {
   //   setPastDate(newDate);
@@ -36,8 +37,19 @@ function WorkoutPlan() {
   };
 
   const handleSearch = (e, muscle) => {
-    axios
-      .get('/workout/exercise', { params: { muscle: `${muscle}` } })
+    if (exercise) {
+      axios
+        .get('/workout/exercise', { params: { muscle: `${muscle}` } })
+        .then((response) => {
+          console.log(e, muscle);
+          setExerciseResults(response.data);
+        })
+        .catch((err) => {
+          console.error('cannot get:', err);
+        });
+    } else {
+      axios
+      .get('/workout/stretches', { params: { muscle: `${muscle}` } })
       .then((response) => {
         console.log(e, muscle);
         setExerciseResults(response.data);
@@ -45,6 +57,7 @@ function WorkoutPlan() {
       .catch((err) => {
         console.error('cannot get:', err);
       });
+    }
   };
 
 
@@ -307,13 +320,15 @@ function WorkoutPlan() {
         <div className='ml-8 max-w-lg h-30 bg-gradient-to-tr from-sky-600 from-10%  via-sky-400 to-sky-50 to-40% ... rounded overflow-hidden shadow-lg row-span-2 '>
           <div className='px-6 py-4'>
             <div className='flex justify-center py-5'>
+
               <h2
                 className='text-2xl text-black hover:text-orange-500 font-bold'
                 align='left'
               >
-                Search for Exercises
+                Search for Exercises/Stretches
               </h2>
             </div>
+            <div> {exercise ? (<h2>Exercises</h2>) : (<h2>Stretches</h2>)} </div>
             <div className='min-h-fit search-input'>
               <form>
                 <input
@@ -327,6 +342,8 @@ function WorkoutPlan() {
                 <button type="button" className='w-fit  bg-slate-400 border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 font-bold tracking-wider active:text-white transform hover:scale-110 px-1 ml-4 mr-4' onClick={(e) => handleSearchType(e)}>Search</button>
 
                 <button type="button" className='w-fit  bg-slate-400 border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 font-bold tracking-wider active:text-white transform hover:scale-110 px-1 ml-4 mr-4' onClick={() => {setFront(!front)}}>Toggle Front/Back</button>
+
+                <button type="button" className='w-fit  bg-slate-400 border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 font-bold tracking-wider active:text-white transform hover:scale-110 px-1 ml-4 mr-4' onClick={() => {setExercise(!exercise)}}>Toggle Exercises/Stretches</button>
 
                 <div className='flex justify-around ml-25 mr-25'>
 
