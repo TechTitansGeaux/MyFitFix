@@ -2,73 +2,57 @@ import axios from 'axios';
 import React from 'react';
 import { useState, useEffect } from 'react';
 import '../ProgressGoals/ProgressDataVisuals.css';
-import { LineChart, Line, PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';
+import {
+  LineChart,
+  Line,
+  PieChart,
+  Pie,
+  Cell,
+  Tooltip,
+  ResponsiveContainer,
+} from 'recharts';
 
-////////// PROGRESS DATA VISUAL COMPONENT ///////////////
+///////////// MY PROGRESS DATA VISUAL COMPONENT ///////////////
 const ProgressDataVisuals = ({ user, dailyBurn, goals }) => {
   const [goalsUpdate, setGoalsUpdate] = useState([]);
   const [progressUpdate, setProgressUpdate] = useState([]);
   const [totalCaloriesBurned, setTotalCaloriesBurned] = useState([]);
 
-  // const [weight, setWeight] = useState(0);
-  console.log('user props data =>', user);
-  // console.log('dailyBurn props data =>', dailyBurn);
-  console.log('goalsUpdate state data =>', goalsUpdate);
-  console.log('goals prop ProgressDataVisuals.jsx data =>', goals);
-
   ///// PRE-POPULATED DATA FOR CHARTS
-  // pie chart calories burned // in state as progressUpdate
-  const pieDataCalories = [
+  // initial pie chart calories burned // in state below
+  const initialPieDataCalories = [
     { name: 'Total Calories Burned', value: 2600, color: '#0EA5E9' },
     { name: 'Calories to Goal', value: 550, color: '#B2E4FB' },
   ];
+  const [pieDataCalories, setPieDataCalories] = useState(
+    initialPieDataCalories
+  );
 
-  // Line Data calorie data // in state as progressUpdate
-  const lineDataCalories = [
-    {
-      calories: 256,
-    },
-    {
-      calories: 150,
-    },
-  ];
-
-  // pie chart weight data // in state as progressUpdate
-  const pieDataWeight = [
+  // initial pie chart weight data // in state below
+  const initialPieDataWeight = [
     { name: 'Total Weight Lost', value: 15, color: '#F59E0B' },
     { name: 'Pounds to Goal', value: 35, color: '#FCE7C5' },
   ];
+  const [pieDataWeight, setPieDataWeight] = useState(initialPieDataWeight);
+
+  // Line Data calorie data // in state as progressUpdate
+  const lineDataCalories = [{ calories: 256 }, { calories: 150 }];
 
   // line chart weight data // in state as progressUpdate
   const lineDataWeight = [
-    {
-      weight: -5,
-    },
-    {
-      weight: 3,
-    },
-    {
-      weight: 1,
-    },
-    {
-      weight: -1,
-    },
+    { weight: -5 },
+    { weight: 3 },
+    { weight: 1 },
+    { weight: -1 },
   ];
 
   // CALCULATE TOTAL CALORIES BURNED
   const updateTotalCalories = () => {
     return progressUpdate.map((progressObj) => {
-      console.log('user._id', user._id);
-      console.log('progressObj.user', progressObj);
       if (progressObj.user === user._id) {
         progressObj.lineDataCalories.reduce((totalCals, curr) => {
           totalCals += curr.calories;
-          setTotalCaloriesBurned(totalCals + dailyBurn);
-          console.log(
-            'total calories ------>',
-            totalCals,
-            totalCals + dailyBurn
-          );
+          setTotalCaloriesBurned(totalCals);
           return totalCals;
         }, 0);
       }
@@ -81,44 +65,44 @@ const ProgressDataVisuals = ({ user, dailyBurn, goals }) => {
     return totalWeightLoss;
   }, 0);
 
-  //// FUNCTIONS TO RENDER VIEW BELOW
   //function finds goals to view
   const findGoals = () => {
     axios
       .get(`/goals`)
       .then((response) => {
-        console.log('response data from findCalories', response.data);
+        // console.log('response data from findCalories', response.data);
         setGoalsUpdate([...response.data]);
       })
       .catch((err) => {
-        console.log('find Calories FAILED', err);
+        console.error('find Calories FAILED', err);
       });
   };
 
-  //function finds progress stats to view
+  //function finds progress stats for view
   const findProgress = () => {
     axios
       .get(`/progress`)
       .then((response) => {
-        console.log('response data from findProgess', response.data);
+        // console.log('response data from findProgess', response.data);
         setProgressUpdate([...response.data]);
       })
-      .then(() => {
-        updateTotalCalories();
-      })
+      // .then(() => {
+      //   updateTotalCalories();
+      // })
       .catch((err) => {
-        console.log('find Calories FAILED', err);
+        console.error('find Calories FAILED', err);
       });
   };
 
+  //function updates progress stats to DB
   const updateProgress = () => {
     axios
       .post('/progress', {
         user: user._id,
         lineDataCalories: lineDataCalories,
-        pieDataCalories: pieDataCalories,
+        pieDataCalories: pieDataCalories.initialPieDataCalories,
         lineDataWeight: lineDataWeight,
-        pieDataWeight: pieDataWeight,
+        pieDataWeight: pieDataWeight.initialPieDataWeight,
       })
       .then((response) => {
         // console.log('SUCCESS: update Progress from Axios Post to DB, in ProgressDataVisuals.jsx:', response);
@@ -134,11 +118,12 @@ const ProgressDataVisuals = ({ user, dailyBurn, goals }) => {
     updateProgress();
     findGoals();
     findProgress();
+    updateTotalCalories();
   }, []);
   /////////////////////
 
-  console.log('total calories burned', totalCaloriesBurned);
   console.log('daily burn', dailyBurn);
+  console.log('goals update', goalsUpdate);
 
   return (
     <div className='flex-col-container'>
@@ -188,7 +173,8 @@ const ProgressDataVisuals = ({ user, dailyBurn, goals }) => {
             {/* CHECK total calories Dynamic value*/}
             <span>
               <h3 className='font-bold text-3xl text-sky-500 '>
-                {totalCaloriesBurned}
+                {dailyBurn}
+                {/* {totalCaloriesBurned} */}
               </h3>
               <p>calories</p>
             </span>
@@ -221,7 +207,6 @@ const ProgressDataVisuals = ({ user, dailyBurn, goals }) => {
             <span>
               <h3 className='font-bold text-3xl text-amber-500 '>
                 {pieDataWeight[1].value}
-                {console.log('goals update in return', goalsUpdate.goalWeight)}
               </h3>
               <p>lbs to goal</p>
             </span>
