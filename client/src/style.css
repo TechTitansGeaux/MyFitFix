@@ -162,7 +162,8 @@ input[type="range"]:focus::-moz-range-thumb {
 
 
 
-/* Front Human body svg file*/
+/* Front/Back Human body svg file*/
+
 .st0 {
   fill:#216EFF;
 }
@@ -186,16 +187,18 @@ st17 calves
 st18 middle_back
 st19 lower_back */
 
-.st2 {
+path.st2 {
   fill:#216EFF;
+  cursor: pointer;
 }
 
-.st2:hover {
+path.st2:hover {
   fill:#ffa621;
 }
 
 .st3 {
   fill:#216EFF;
+  cursor: pointer;
 }
 
 .st3:hover {
@@ -204,6 +207,7 @@ st19 lower_back */
 
 .st4 {
   fill:#216EFF;
+  cursor: pointer;
 }
 
 .st4:hover {
@@ -212,6 +216,7 @@ st19 lower_back */
 
 .st5 {
   fill:#216EFF;
+  cursor: pointer;
 }
 
 .st5:hover {
@@ -220,6 +225,7 @@ st19 lower_back */
 
 .st6 {
   fill:#216EFF;
+  cursor: pointer;
 }
 
 .st6:hover {
@@ -228,6 +234,7 @@ st19 lower_back */
 
 .st7 {
   fill:#216EFF;
+  cursor: pointer;
 }
 
 .st7:hover {
@@ -236,6 +243,7 @@ st19 lower_back */
 
 .st8 {
   fill:#216EFF;
+  cursor: pointer;
 }
 
 .st8:hover {
@@ -244,6 +252,7 @@ st19 lower_back */
 
 .st9 {
   fill:#216EFF;
+  cursor: pointer;
 }
 
 .st9:hover {
@@ -252,6 +261,7 @@ st19 lower_back */
 
 .st10 {
   fill:#216EFF;
+  cursor: pointer;
 }
 
 .st10:hover {
@@ -260,6 +270,7 @@ st19 lower_back */
 
 .st11 {
   fill:#216EFF;
+  cursor: pointer;
 }
 
 .st11:hover {
@@ -268,6 +279,7 @@ st19 lower_back */
 
 .st12 {
   fill:#216EFF;
+  cursor: pointer;
 }
 
 .st12:hover {
@@ -276,6 +288,7 @@ st19 lower_back */
 
 .st13 {
   fill:#216EFF;
+  cursor: pointer;
 }
 
 .st13:hover {
@@ -284,6 +297,7 @@ st19 lower_back */
 
 .st14 {
   fill:#216EFF;
+  cursor: pointer;
 }
 .st14:hover {
   fill:#ffa621;
@@ -291,6 +305,7 @@ st19 lower_back */
 
 .st15 {
   fill:#216EFF;
+  cursor: pointer;
 }
 
 .st15:hover {
@@ -299,6 +314,7 @@ st19 lower_back */
 
 .st16 {
   fill:#216EFF;
+  cursor: pointer;
 }
 
 .st16:hover {
@@ -307,6 +323,7 @@ st19 lower_back */
 
 .st17 {
   fill:#216EFF;
+  cursor: pointer;
 }
 
 .st17:hover {
@@ -315,6 +332,7 @@ st19 lower_back */
 
 .st18 {
   fill:#216EFF;
+  cursor: pointer;
 }
 
 .st18:hover {
@@ -323,6 +341,7 @@ st19 lower_back */
 
 .st19 {
   fill:#216EFF;
+  cursor: pointer;
 }
 
 .st19:hover {
