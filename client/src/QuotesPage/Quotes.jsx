@@ -41,8 +41,10 @@ const Quotes = () => {
         const quoteGenView = document.getElementById('quoteGen');
         const allQuotesView = document.getElementById('allQuotes');
         if (Array.from(quoteGenView.classList).includes('hide')) {
-          quoteGenView.classList.remove('hide').add('show');
-          allQuotesView.classList.remove('show').add('hide');
+          quoteGenView.classList.remove('hide')
+          quoteGenView.classList.add('show');
+          allQuotesView.classList.remove('show')
+          allQuotesView.classList.add('hide');
         }
       })
       .catch((err) => {
@@ -87,12 +89,12 @@ const Quotes = () => {
   useEffect(() => {
     getAllQuotes()
       .then((quotes) => {
-        setAllQuotes(quotes.data);
+        setAllQuotes(quotes.data.reverse());
       })
       .catch((err) => {
         console.log('error sending request for all quotes', err);
       })
-  }, [])
+  }, [quote])
 
   return (
     <div className='grid grid-cols-4 grid-rows-2'>
@@ -199,7 +201,7 @@ const Quotes = () => {
 
       {/* START QUOTES COMPONENT */}
       <div className="ml-52">
-        <div id="notification" class="notification hide" >
+        <div id="notification" className="notification hide" >
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>
           <p>Quote has been saved!</p>
           <button id="close" onClick={ () => { close() }} >close</button>
@@ -213,18 +215,17 @@ const Quotes = () => {
               <div style={{ width: '600px', height: '700px', textAlign: 'center'}} >
                 <h1 className="text-2xl text-sky-500 font-bold pt-5 mb-16 pb-4" >Quotes</h1>
                 <button className="rounded-full ... bg-sky-500" onClick={() => { generateQuote() }} >generate</button>
-                <div id="quoteGen" class="hide">
+                <div id="quoteGen" className="hide">
                   {/* className='margin-hori-sm py-2 focus:outline-none dark:text-white justify-start hover:text-white focus:bg-sky-500 bg-amber-500 focus:text-white font-semibold hover:bg-sky-500 text-white rounded items-center space-x-6 w-48 min-h-max' */}
                   <h6 className="text-lg text-sky-500 pt-4 mb-16 pb-4" >{ quote }</h6>
                   { quoteInput }
                 </div>
-                <div id="allQuotes" class="show">
-                  {/* {
+                <div id="allQuotes" className="show">
+                  {
                     allQuotes.map((quote, i) => {
                       return <QuoteItem key={i} quote={quote}/>
                     })
-                  } */}
-
+                  }
                 </div>
 
               </div>
