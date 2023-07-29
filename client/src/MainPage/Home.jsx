@@ -207,18 +207,20 @@ function Home() {
       .catch((err) => console.log(err, 'Request failed'));
   }, [journalMessage]);
 
-  //Effect for getting goals data
+  // Effect for getting goals data
   useEffect(() => {
     axios
       .get('/goals')
-      .then(({ goalsData }) => {
-          console.log('goalsData from DB ===>', goalsData)
-          setGoals(goalsData);
+      .then((goals) => {
+        // console.log('goalsData from DB ===>', goals.data);
+        setGoals(goals.data);
       })
       .catch((err) => {
         console.error('Failed to get goals data:', err);
       });
-  }, [goals]);
+  }, [load]);
+
+  // console.log('goals HOME.jsx state data', goals);
 
   // LINES 137 & 145 have onclick properties that don't function for nav close // creates console error // Invalid event handler property 'onclick'
   return (
@@ -637,11 +639,7 @@ function Home() {
         ref={progressStatsSection}
         className='flex justify-center col-span-2'
       >
-        <ProgressDataVisuals
-          user={user}
-          dailyBurn={dailyBurn}
-          setGoals={setGoals}
-        />
+        <ProgressDataVisuals user={user} dailyBurn={dailyBurn} goals={goals} />
       </section>
       <Goals
         user={user}

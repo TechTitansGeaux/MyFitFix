@@ -3,7 +3,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
-const Goals = ({ user, dailyBurn, handleScrollClick }) => {
+const Goals = ({ user, handleScrollClick }) => {
   // Navigate to Home page
   const navigate = useNavigate();
   const [showGoals, setShowGoals] = useState(false);
@@ -22,7 +22,7 @@ const Goals = ({ user, dailyBurn, handleScrollClick }) => {
   };
 
   const submitGoals = () => {
-    console.log('Goals Saved');
+    // console.log('Goals Saved');
     setShowGoals(true);
     setShowInput(false);
     axios
@@ -32,7 +32,7 @@ const Goals = ({ user, dailyBurn, handleScrollClick }) => {
         goalWeight: sliderNumber.weightSlider,
       })
       .then((response) => {
-        console.log('SUCCESS: Goals saved from Axios Post to DB:', response);
+        // console.log('SUCCESS: Goals saved from Axios Post to DB:', response);
       })
       .catch((err) => {
         console.error('ERROR. Failed to update Goals from Axios Post', err);
@@ -44,7 +44,7 @@ const Goals = ({ user, dailyBurn, handleScrollClick }) => {
     axios
       .get('/goals')
       .then((goals) => {
-        console.log('goalsData from DB ===>', goals.data);
+        // console.log('goalsData from DB ===>', goals.data);
         setGoals(goals.data);
 
       })
@@ -53,7 +53,7 @@ const Goals = ({ user, dailyBurn, handleScrollClick }) => {
       });
   }, [showGoals]);
 
-  console.log('goals from state =>', goals);
+  // console.log('goals from state in GOALS.JSX =>', goals);
 
   return (
     <>
