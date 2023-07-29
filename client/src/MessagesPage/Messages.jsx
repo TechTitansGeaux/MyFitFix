@@ -29,6 +29,7 @@ function Messages() {
   const [isUserOnline, setIsUserOnline] = useState(false);
   // state variable for selected recipient user
   const [selectedUser, setSelectedUser] = useState('');
+  const [selectedUserSocketId, setSelectedUserSocketId] = useState('');
   // state variable for previous messages with selected user
   const [previousMessages, setPreviousMessages] = useState([]);
   const [refresher, setRefresher] = useState(0);
@@ -113,27 +114,35 @@ function Messages() {
       // determine if username of any online user matches input
       if (usersOnline[i].name === inputUser) {
         // set selected user on state to target
-        setSelectedUser(usersOnline[i]);
+        setSelectedUserSocketId(usersOnline[i].userID);
         // set isUserOnline to true
         setIsUserOnline(true);
+      }
+    }
+    // iterate through users in db
+    for (let i = 0; i < allUsers.length; i++) {
+      // determine if input matches any name
+      if (inputUser === allUsers[i].name) {
+        // set selectedUser to that user
+        setSelectedUser(allUsers[i]);
       }
     }
     console.log(isUserOnline, '<--- are they on');
   };
 
   // Function for if user was not online
-  const selectOfflineUser = (inputUser) => {
-    if (selectedUser === '') {
-      // iterate through users in db
-      for (let i = 0; i < allUsers.length; i++) {
-        // determine if input matches any name
-        if (inputUser === allUsers[i].name) {
-          // set selectedUser to that user
-          setSelectedUser(allUsers[i]);
-        }
-      }
-    }
-  };
+  // const selectOfflineUser = (inputUser) => {
+  //   if (selectedUser === '') {
+  //     // iterate through users in db
+  //     for (let i = 0; i < allUsers.length; i++) {
+  //       // determine if input matches any name
+  //       if (inputUser === allUsers[i].name) {
+  //         // set selectedUser to that user
+  //         setSelectedUser(allUsers[i]);
+  //       }
+  //     }
+  //   }
+  // };
 
   // if usersOnline has changed, need to invoke select User to get info with socketID
   // useEffect(() => {
@@ -176,27 +185,31 @@ function Messages() {
       // send message through socket
       socket.emit('dm', {
         text,
-        recipient: selectedUser.userID,
+        recipient: selectedUserSocketId,
       });
     }
     // declare variable to catch the recipients USER id, NOT socket id
-    let recipientId;
-    // iterate through all users in database
-    for (let i = 0; i < allUsers.length; i++) {
-      // determine if any have same name as online user
-      if (allUsers[i].name === selectedUser.name) {
-        // grab their id
-        recipientId = allUsers[i]._id;
-      }
-      // now clear selected user?
-      // setSelectedUser('');
-    }
+    // let recipientId;
+    // // iterate through all users in database
+    // for (let i = 0; i < allUsers.length; i++) {
+    //   // determine if any have same name as online user
+    //   if (allUsers[i].name === selectedUser.name) {
+    //     // grab their id
+    //     recipientId = allUsers[i]._id;
+    //   }
+    //   // now clear selected user?
+    //   // setSelectedUser('');
+    // }
     // also save message to the database, regardless of whether recipient is online
     await axios.post('/message', {
       message: message,
       senderName: user.name,
-      recipientId: recipientId,
+      recipientId: selectedUser._id,
     })
+      .then(() => {
+        // clear input
+        setMessage('');
+      })
       .catch((err) => {
         console.error('Failed axios POST message: ', err);
       });
@@ -241,7 +254,7 @@ function Messages() {
         Send Message
       </button>
       <h5>
-        Message:
+        New Message!:
         {messageReceived}
       </h5>
       <h5>
