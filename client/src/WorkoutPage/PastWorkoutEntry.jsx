@@ -21,5 +21,5 @@ function PastWorkoutEntry( { workout } ){
   )
 };
 
-export default PastWorkoutEntry
+export default PastWorkoutEntry;
 
