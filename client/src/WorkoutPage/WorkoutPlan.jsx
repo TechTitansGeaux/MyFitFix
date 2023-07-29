@@ -322,24 +322,19 @@ function WorkoutPlan() {
             <div className='flex justify-center py-5'>
 
               <h2
-                className='text-2xl text-black hover:text-orange-500 font-bold'
+                className='text-2xl text-black font-bold'
                 align='left'
               >
                 Search for Exercises/Stretches
               </h2>
             </div>
-            <div> {exercise ? (<h2>Exercises</h2>) : (<h2>Stretches</h2>)} </div>
+            <div> {exercise ? (<h2 className='text-2xl text-black font-bold'
+                align='left'>Exercises</h2>) :
+                (<h2 className='text-2xl text-black hover:text-orange-500 font-bold'
+                align='left'>Stretches</h2>)} </div>
+
             <div className='min-h-fit search-input'>
               <form>
-                <input
-                  type='text'
-                  placeholder='biceps'
-                  className='w-full border border-sky-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 hover:border-blue-700 hover:border-lg'
-                  onChange={(e) => {
-                    setMuscle(e.target.value);
-                  }}
-                />
-                <button type="button" className='w-fit  bg-slate-400 border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 font-bold tracking-wider active:text-white transform hover:scale-110 px-1 ml-4 mr-4' onClick={(e) => handleSearchType(e)}>Search</button>
 
                 <button type="button" className='w-fit  bg-slate-400 border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 font-bold tracking-wider active:text-white transform hover:scale-110 px-1 ml-4 mr-4' onClick={() => {setFront(!front)}}>Toggle Front/Back</button>
 
