@@ -22,9 +22,7 @@ const Goals = ({ user, handleScrollClick }) => {
   };
 
   const submitGoals = () => {
-    // console.log('Goals Saved');
-    setShowGoals(true);
-    setShowInput(false);
+
     axios
       .post('/goals', {
         user: user._id,
@@ -33,6 +31,12 @@ const Goals = ({ user, handleScrollClick }) => {
       })
       .then((response) => {
         // console.log('SUCCESS: Goals saved from Axios Post to DB:', response);
+        setShowGoals(true);
+        setShowInput(false);
+        // setSliderNumber({
+        //   goalCaloriesBurned: sliderNumber.calorieSlider,
+        //   goalWeight: sliderNumber.weightSlider,
+        // });
       })
       .catch((err) => {
         console.error('ERROR. Failed to update Goals from Axios Post', err);
@@ -46,7 +50,6 @@ const Goals = ({ user, handleScrollClick }) => {
       .then((goals) => {
         // console.log('goalsData from DB ===>', goals.data);
         setGoals(goals.data);
-
       })
       .catch((err) => {
         console.error('Failed to get goals data:', err);
@@ -123,9 +126,7 @@ const Goals = ({ user, handleScrollClick }) => {
               Total Weight Loss Goal:{' '}
               <span className='text-amber-500 font-semibold'>
                 {goals.map((goal) =>
-                  goal.user === user._id
-                    ? goal.goalWeight + ' lbs'
-                    : null
+                  goal.user === user._id ? goal.goalWeight + ' lbs' : null
                 )}
               </span>
             </div>
@@ -137,6 +138,16 @@ const Goals = ({ user, handleScrollClick }) => {
               }}
             >
               See Progress Stats
+            </button>
+            <button
+              className='margin-hori-sm py-2 focus:outline-none dark:text-white justify-start hover:text-white focus:bg-sky-500 bg-amber-500 focus:text-white font-semibold hover:bg-sky-500 text-white rounded items-center space-x-6 w-48 min-h-max'
+              onClick={() => {
+                // scroll to progress view OR navigate back to home dashboard
+                setShowGoals(false);
+                setShowInput(true);
+              }}
+            >
+              Save New Goals
             </button>
           </div>
         </div>

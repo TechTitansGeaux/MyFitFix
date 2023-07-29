@@ -125,6 +125,7 @@ const ProgressDataVisuals = ({ user, dailyBurn, goals }) => {
   console.log('daily burn', dailyBurn);
   console.log('goals update', goalsUpdate);
 
+  ///////////////////// RENDERING COMPONENT TO DASHBOARD ///////////////////////////
   return (
     <div className='flex-col-container'>
       <h2 className='font-bold text-3xl text-black'>My Progress</h2>
