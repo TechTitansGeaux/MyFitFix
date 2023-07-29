@@ -21,10 +21,14 @@
 }
 
 section {
-  margin: 1em auto;
-  padding-bottom: 8em;
+  margin: 4em auto;
+  padding-bottom: 12em;
 }
 
+.nav-logo{
+  width: 80%;
+  margin-bottom: 1em;
+}
 
 /* ///// HOME DASHBOARD */
 /* RANGE SLIDERS */
@@ -111,9 +115,52 @@ input[type="range"]:focus::-moz-range-thumb {
     flex-direction: column;
   }
   section {
-    margin: .25em auto;
+    margin: 4em auto;
   }
 }
+
+#notification {
+  border-radius: 0.2rem;
+  width: 290px;
+  height: auto;
+  z-index: 100;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  background-color: rgb(86, 227, 255);
+
+
+
+}
+
+#close:hover {
+  color: blue;
+}
+
+.notification-show {
+  animation: notify 400ms ease-in-out forwards;
+  display: flex;
+}
+
+@keyframes notify {
+  0% {
+    opacity: 0;
+    /* top: 0; */
+  }
+  5% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    /* top: 2rem; */
+  }
+}
+
+
 
 /* Front Human body svg file*/
 .st0 {
@@ -131,7 +178,13 @@ st9 neck
 st10 calves
 st11 traps
 st12 triceps
-st13 lats */
+st13 lats
+st14 glutes
+st15 traps
+st16 hamstrings
+st17 calves
+st18 middle_back
+st19 lower_back */
 
 .st2 {
   fill:#216EFF;
@@ -229,6 +282,49 @@ st13 lats */
   fill:#ffa621;
 }
 
+.st14 {
+  fill:#216EFF;
+}
+.st14:hover {
+  fill:#ffa621;
+}
 
+.st15 {
+  fill:#216EFF;
+}
 
+.st15:hover {
+  fill:#ffa621;
+}
 
+.st16 {
+  fill:#216EFF;
+}
+
+.st16:hover {
+  fill:#ffa621;
+}
+
+.st17 {
+  fill:#216EFF;
+}
+
+.st17:hover {
+  fill:#ffa621;
+}
+
+.st18 {
+  fill:#216EFF;
+}
+
+.st18:hover {
+  fill:#ffa621;
+}
+
+.st19 {
+  fill:#216EFF;
+}
+
+.st19:hover {
+  fill:#ffa621;
+}

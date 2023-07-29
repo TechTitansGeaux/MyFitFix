@@ -5,7 +5,7 @@ function Login() {
 
   return (
     <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md pt-40">
-      <div className="bg-gradient-to-t from-sky-600 from-10%  via-sky-400 to-sky-50 to-40% py-8 shadow rounded-lg sm:px10 drop-shadow-md">
+      <div className="bg-gradient-to-t from-sky-400 from-10%  via-sky-200 to-sky-50 to-40% py-8 shadow rounded-lg sm:px10 drop-shadow-md">
         <div>
           <img className="mt-10" src="https://cdn.discordapp.com/attachments/187823430295355392/1091709350189473903/FitFix-PhotoRoom.png"></img>
           <div className="mt-10 mb-10 text-3xl">
