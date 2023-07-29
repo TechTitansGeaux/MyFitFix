@@ -60,7 +60,7 @@ app.use('/message', messageRoutes);
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: 'http://localhost:8020',
+    origin: '*',
   },
 });
 
@@ -87,7 +87,7 @@ getOnlineList();
   // })
   // when dm event happens
   socket.on('dm', ({ text, recipient }) => {
-    socket.join(recipient);
+    // socket.join(recipient);
     // broadcast directly to recipient
     socket.to(recipient).emit('dm', {
       text,
