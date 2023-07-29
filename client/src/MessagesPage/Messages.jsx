@@ -35,6 +35,10 @@ function Messages() {
   const [refresher, setRefresher] = useState(0);
   // state variable for user we are trying to find to message
   const [searchUser, setSearchUser] = useState('');
+  // state variable for incoming dm sender
+  const [incomingSender, setIncomingSender] = useState('');
+  // new message display variable
+  const [newMessage, setNewMessage] = useState('');
 
   console.log(allUsers, '<---- all users in db')
   // console.log(user._id, '<----- my id');
@@ -103,9 +107,12 @@ function Messages() {
   useEffect(() => {
     socket.on('dm', (data) => {
       setMessageReceived(data.text);
+      setIncomingSender(data.name);
+      // console.log(data, '<--- data name from incoming dm')
+      setNewMessage(`New Message from ${data.name}!: ${data.text}`);
     });
   }, [socket, refresher]);
-
+console.log(incomingSender, '<---incoming sender')
   // Function to handle when an online user is clicked
   const selectUser = (inputUser) => {
     // first, determine if online and if socket emit needs to happen
@@ -188,18 +195,6 @@ function Messages() {
         recipient: selectedUserSocketId,
       });
     }
-    // declare variable to catch the recipients USER id, NOT socket id
-    // let recipientId;
-    // // iterate through all users in database
-    // for (let i = 0; i < allUsers.length; i++) {
-    //   // determine if any have same name as online user
-    //   if (allUsers[i].name === selectedUser.name) {
-    //     // grab their id
-    //     recipientId = allUsers[i]._id;
-    //   }
-    //   // now clear selected user?
-    //   // setSelectedUser('');
-    // }
     // also save message to the database, regardless of whether recipient is online
     await axios.post('/message', {
       message: message,
@@ -254,8 +249,7 @@ function Messages() {
         Send Message
       </button>
       <h5>
-        New Message!:
-        {messageReceived}
+        {newMessage}
       </h5>
       <h5>
         Previous messages:

@@ -93,6 +93,7 @@ getOnlineList();
       text,
       // identify room by id
       from: socket.id,
+      name: socket.handshake.auth.name
     });
   });
 

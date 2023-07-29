@@ -25,7 +25,6 @@ router.get('/:senderId/:recipientId', async (req, res) => {
   // use mongoose method to find
   await Message.find({senderId, recipientId})
     .then((messagesArray) => {
-      console.log(messagesArray, '<----result from get messages router')
       res.status(200).send(messagesArray);
     })
     .catch((err) => {
