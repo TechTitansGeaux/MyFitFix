@@ -1,26 +1,20 @@
 import axios from 'axios';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-const Goals = ({
-  user,
-  ateTotal,
-  dailyBurn,
-  dailyWorkout,
-  handleScrollClick,
-}) => {
+const Goals = ({ user, dailyBurn, handleScrollClick }) => {
   // Navigate to Home page
   const navigate = useNavigate();
   const [showGoals, setShowGoals] = useState(false);
   const [showInput, setShowInput] = useState(true);
-  const [currGoals, setCurrGoals] = useState([]);
+  const [goals, setGoals] = useState([]);
 
+  // initialSliderState must declared before sliderNumber state hook
   const initialSliderState = {
     calorieSlider: 0,
     weightSlider: 0,
   };
-
   const [sliderNumber, setSliderNumber] = useState(initialSliderState);
 
   const handleChangeSlider = (e) => {
@@ -29,8 +23,8 @@ const Goals = ({
 
   const submitGoals = () => {
     console.log('Goals Saved');
-    setShowGoals(!showGoals);
-    setShowInput(!showGoals);
+    setShowGoals(true);
+    setShowInput(false);
     axios
       .post('/goals', {
         user: user._id,
@@ -38,15 +32,28 @@ const Goals = ({
         goalWeight: sliderNumber.weightSlider,
       })
       .then((response) => {
-        console.log(
-          'SUCCESS: Goals saved from Axios Post to DB:',
-          response.data
-        );
+        console.log('SUCCESS: Goals saved from Axios Post to DB:', response);
       })
       .catch((err) => {
         console.error('ERROR. Failed to update Goals from Axios Post', err);
       });
   };
+
+  // Effect for getting goals data
+  useEffect(() => {
+    axios
+      .get('/goals')
+      .then((goals) => {
+        console.log('goalsData from DB ===>', goals.data);
+        setGoals(goals.data);
+
+      })
+      .catch((err) => {
+        console.error('Failed to get goals data:', err);
+      });
+  }, [showGoals]);
+
+  console.log('goals from state =>', goals);
 
   return (
     <>
@@ -103,12 +110,24 @@ const Goals = ({
         <div className='alert alert-dismissible fade show fixed bottom-0 right-0 left-0 z-[1030] w-full items-center justify-between bg-neutral-900 py-4 px-6 text-center text-white'>
           <div className='flex-hori center-content'>
             <div className='margin-hori-sm'>
-              Total Calories Burned:{' '}
-              <span className='text-amber-500 font-semibold'>DYNAMIC SUM</span>
+              Total Calories Goal:{' '}
+              <span className='text-amber-500 font-semibold'>
+                {goals.map((goal) =>
+                  goal.user === user._id
+                    ? goal.goalCaloriesBurned + ' cals'
+                    : null
+                )}
+              </span>
             </div>
             <div className='margin-hori-sm'>
-              Total Pounds Lost:{' '}
-              <span className='text-amber-500 font-semibold'>DYNAMIC SUM</span>
+              Total Weight Loss Goal:{' '}
+              <span className='text-amber-500 font-semibold'>
+                {goals.map((goal) =>
+                  goal.user === user._id
+                    ? goal.goalWeight + ' lbs'
+                    : null
+                )}
+              </span>
             </div>
             <button
               className='margin-hori-sm py-2 focus:outline-none dark:text-white justify-start hover:text-white focus:bg-sky-500 bg-amber-500 focus:text-white font-semibold hover:bg-sky-500 text-white rounded items-center space-x-6 w-48 min-h-max'

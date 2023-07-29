@@ -13,27 +13,29 @@ function Home() {
   const [load, setLoad] = useState(true);
   const [user, setUser] = useState({});
   const [ateTotal, setAteTotal] = useState(0);
-  const [dailyBurn, setDailyBurn] = useState("");
+  const [dailyBurn, setDailyBurn] = useState('');
   const [dailyWorkout, setDailyWorkout] = useState([]);
-  const [journalMessage, setJournalMessage] = useState("");
-  const [icon, setIcon] = useState("");
-  const [workoutIcon, setWorkoutIcon] = useState("");
+  const [journalMessage, setJournalMessage] = useState('');
+  const [icon, setIcon] = useState('');
+  const [workoutIcon, setWorkoutIcon] = useState('');
+  const [goals, setGoals] = useState([]);
 
   // Smooth Scrolls to Progress Stats on click
   const progressStatsSection = useRef(null);
-  const handleScrollClick = () => progressStatsSection.current.scrollIntoView({"behavior": "smooth"});
+  const handleScrollClick = () =>
+    progressStatsSection.current.scrollIntoView({ behavior: 'smooth' });
 
-  let todaysDate = moment().format("YYYY-MM-DD");
+  let todaysDate = moment().format('YYYY-MM-DD');
 
   const logoutOfApp = () => {
     axios
-      .get("/auth/logout")
+      .get('/auth/logout')
       .then(() => {
-        alert("You are logged out");
-        navigate("/");
+        alert('You are logged out');
+        navigate('/');
       })
       .catch((err) => {
-        console.error("Failed to logout:", err);
+        console.error('Failed to logout:', err);
       });
   };
 
@@ -47,7 +49,7 @@ function Home() {
   // Effect for getting a user
   useEffect(() => {
     axios
-      .get("/dashboard/user")
+      .get('/dashboard/user')
       .then(({ data }) => {
         setUser(data[0]);
       })
@@ -59,24 +61,24 @@ function Home() {
   //Effect for getting their total calories ate
   useEffect(() => {
     axios
-      .get("dashboard/caloriesIn")
+      .get('dashboard/caloriesIn')
       .then(({ data }) => {
         if (data.length !== 0) {
           const foodList = data[0].foodList;
           getTotalCals(foodList);
         } else {
-          setAteTotal("0 calories");
+          setAteTotal('0 calories');
         }
       })
       .catch((err) => {
-        console.error("Failed to get caloriesIn:", err);
+        console.error('Failed to get caloriesIn:', err);
       });
   }, [user]);
 
   //Effect for getting total calories burned
   useEffect(() => {
     axios
-      .get("dashboard/caloriesBurned")
+      .get('dashboard/caloriesBurned')
       .then(({ data }) => {
         if (data.length !== 0) {
           const calBurned = data[0].caloriesBurned;
@@ -86,64 +88,64 @@ function Home() {
         }
       })
       .catch((err) => {
-        console.error("Failed to get caloriesBurned:", err);
+        console.error('Failed to get caloriesBurned:', err);
       });
   }, [ateTotal]);
 
   // Effect for getting the Daily Workout
   useEffect(() => {
     axios
-      .get("dashboard/workouts")
+      .get('dashboard/workouts')
       .then(({ data }) => {
         if (data.length !== 0) {
           setDailyWorkout(data[0].exercise);
           setWorkoutIcon(
             <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              className="inline-block ml-3"
+              xmlns='http://www.w3.org/2000/svg'
+              width='24'
+              height='24'
+              className='inline-block ml-3'
             >
               <path
-                fill="#27ae60"
-                d="M22 13c0 5.523-4.477 10-10 10S2 18.523 2 13 6.477 3 12 3s10 4.477 10 10z"
+                fill='#27ae60'
+                d='M22 13c0 5.523-4.477 10-10 10S2 18.523 2 13 6.477 3 12 3s10 4.477 10 10z'
               />
               <path
-                fill="#2ecc71"
-                d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10z"
+                fill='#2ecc71'
+                d='M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10z'
               />
               <path
-                fill="#27ae60"
-                d="m16 9-6 6-2.5-2.5-2.125 2.1 2.5 2.5 2 2 .125.1 8.125-8.1L16 9z"
+                fill='#27ae60'
+                d='m16 9-6 6-2.5-2.5-2.125 2.1 2.5 2.5 2 2 .125.1 8.125-8.1L16 9z'
               />
               <path
-                fill="#ecf0f1"
-                d="m16 8-6 6-2.5-2.5-2.125 2.1 2.5 2.5 2 2 .125.1 8.125-8.1L16 8z"
+                fill='#ecf0f1'
+                d='m16 8-6 6-2.5-2.5-2.125 2.1 2.5 2.5 2 2 .125.1 8.125-8.1L16 8z'
               />
             </svg>
           );
         } else {
-          const dummyWorkout = [{ name: "Exercise", set: "0", rep: "0" }];
+          const dummyWorkout = [{ name: 'Exercise', set: '0', rep: '0' }];
           setDailyWorkout(dummyWorkout);
           setWorkoutIcon(
             <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 64 64"
-              className="inline-block ml-3"
+              xmlns='http://www.w3.org/2000/svg'
+              width='24'
+              height='24'
+              viewBox='0 0 64 64'
+              className='inline-block ml-3'
             >
               <path
-                fill="#ffc048"
-                d="M32 3.4A28.59 28.59 0 0 0 3.4 32 28.59 28.59 0 0 0 32 60.6 28.59 28.59 0 0 0 60.6 32 28.59 28.59 0 0 0 32 3.4Zm0 49.2a4.32 4.32 0 1 1 4.31-4.31A4.32 4.32 0 0 1 32 52.6ZM37.23 17 35.6 39a.6.6 0 0 1-.6.56h-6a.6.6 0 0 1-.6-.56l-1.63-22a5.24 5.24 0 1 1 10.46 0Z"
-                data-name="Layer 35"
+                fill='#ffc048'
+                d='M32 3.4A28.59 28.59 0 0 0 3.4 32 28.59 28.59 0 0 0 32 60.6 28.59 28.59 0 0 0 60.6 32 28.59 28.59 0 0 0 32 3.4Zm0 49.2a4.32 4.32 0 1 1 4.31-4.31A4.32 4.32 0 0 1 32 52.6ZM37.23 17 35.6 39a.6.6 0 0 1-.6.56h-6a.6.6 0 0 1-.6-.56l-1.63-22a5.24 5.24 0 1 1 10.46 0Z'
+                data-name='Layer 35'
               />
             </svg>
           );
         }
       })
       .catch((err) => {
-        console.error("Failed to get workout:", err);
+        console.error('Failed to get workout:', err);
       });
   }, [dailyBurn]);
 
@@ -154,56 +156,69 @@ function Home() {
       .then((response) => {
         if (response.data.length !== 0) {
           setJournalMessage(
-            "All done. You have submitted your journal entry for today."
+            'All done. You have submitted your journal entry for today.'
           );
           setIcon(
             <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              className="inline-block ml-3"
+              xmlns='http://www.w3.org/2000/svg'
+              width='24'
+              height='24'
+              className='inline-block ml-3'
             >
               <path
-                fill="#27ae60"
-                d="M22 13c0 5.523-4.477 10-10 10S2 18.523 2 13 6.477 3 12 3s10 4.477 10 10z"
+                fill='#27ae60'
+                d='M22 13c0 5.523-4.477 10-10 10S2 18.523 2 13 6.477 3 12 3s10 4.477 10 10z'
               />
               <path
-                fill="#2ecc71"
-                d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10z"
+                fill='#2ecc71'
+                d='M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10z'
               />
               <path
-                fill="#27ae60"
-                d="m16 9-6 6-2.5-2.5-2.125 2.1 2.5 2.5 2 2 .125.1 8.125-8.1L16 9z"
+                fill='#27ae60'
+                d='m16 9-6 6-2.5-2.5-2.125 2.1 2.5 2.5 2 2 .125.1 8.125-8.1L16 9z'
               />
               <path
-                fill="#ecf0f1"
-                d="m16 8-6 6-2.5-2.5-2.125 2.1 2.5 2.5 2 2 .125.1 8.125-8.1L16 8z"
+                fill='#ecf0f1'
+                d='m16 8-6 6-2.5-2.5-2.125 2.1 2.5 2.5 2 2 .125.1 8.125-8.1L16 8z'
               />
             </svg>
           );
         } else {
           setJournalMessage(
-            "You have not completed a journal entry for today."
+            'You have not completed a journal entry for today.'
           );
           setIcon(
             <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 64 64"
-              className="inline-block ml-3"
+              xmlns='http://www.w3.org/2000/svg'
+              width='24'
+              height='24'
+              viewBox='0 0 64 64'
+              className='inline-block ml-3'
             >
               <path
-                fill="#ffc048"
-                d="M32 3.4A28.59 28.59 0 0 0 3.4 32 28.59 28.59 0 0 0 32 60.6 28.59 28.59 0 0 0 60.6 32 28.59 28.59 0 0 0 32 3.4Zm0 49.2a4.32 4.32 0 1 1 4.31-4.31A4.32 4.32 0 0 1 32 52.6ZM37.23 17 35.6 39a.6.6 0 0 1-.6.56h-6a.6.6 0 0 1-.6-.56l-1.63-22a5.24 5.24 0 1 1 10.46 0Z"
-                data-name="Layer 35"
+                fill='#ffc048'
+                d='M32 3.4A28.59 28.59 0 0 0 3.4 32 28.59 28.59 0 0 0 32 60.6 28.59 28.59 0 0 0 60.6 32 28.59 28.59 0 0 0 32 3.4Zm0 49.2a4.32 4.32 0 1 1 4.31-4.31A4.32 4.32 0 0 1 32 52.6ZM37.23 17 35.6 39a.6.6 0 0 1-.6.56h-6a.6.6 0 0 1-.6-.56l-1.63-22a5.24 5.24 0 1 1 10.46 0Z'
+                data-name='Layer 35'
               />
             </svg>
           );
         }
       })
-      .catch((err) => console.log(err, "Request failed"));
+      .catch((err) => console.log(err, 'Request failed'));
   }, [journalMessage]);
+
+  //Effect for getting goals data
+  useEffect(() => {
+    axios
+      .get('/goals')
+      .then(({ goalsData }) => {
+          console.log('goalsData from DB ===>', goalsData)
+          setGoals(goalsData);
+      })
+      .catch((err) => {
+        console.error('Failed to get goals data:', err);
+      });
+  }, [goals]);
 
   // LINES 137 & 145 have onclick properties that don't function for nav close // creates console error // Invalid event handler property 'onclick'
   return (
@@ -624,16 +639,13 @@ function Home() {
       >
         <ProgressDataVisuals
           user={user}
-          ateTotal={ateTotal}
           dailyBurn={dailyBurn}
-          dailyWorkout={dailyWorkout}
+          setGoals={setGoals}
         />
       </section>
       <Goals
         user={user}
-        ateTotal={ateTotal}
         dailyBurn={dailyBurn}
-        dailyWorkout={dailyWorkout}
         handleScrollClick={handleScrollClick}
       />
     </div>

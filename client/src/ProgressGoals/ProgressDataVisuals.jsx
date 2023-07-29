@@ -1,51 +1,33 @@
 import axios from 'axios';
 import React from 'react';
+import { useState } from 'react';
 import '../ProgressGoals/ProgressDataVisuals.css';
 import { LineChart, Line, PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';
 
-// Test Data
-/**
- * {
- * date:  from CaloriesBurnedScehma data
- * }
- */
-const lineData = [
+
+
+
+
+const lineDataWeight = [
   {
     date: 'Page E',
-    calories: 4800,
-    weight: 245,
+    weight: -5,
   },
   {
     date: 'Page F',
-    calories: 3800,
-    weight: 240,
+    weight: 3,
   },
   {
     date: 'Page G',
-    calories: 4300,
-    weight: 241,
+    weight: 1,
   },
   {
     date: 'Monday',
-    calories: 2400,
-    weight: 242,
-  },
-  {
-    date: 'Page B',
-    calories: 1398,
-    weight: 239,
-  },
-  {
-    date: 'Page C',
-    calories: 2290,
-    weight: 235,
-  },
-  {
-    date: 'Page D',
-    calories: 2000,
-    weight: 236,
-  },
+    weight: -1,
+  }
 ];
+
+
 
 // pie chart calories fake data
 const pieDataCalories = [
@@ -53,14 +35,40 @@ const pieDataCalories = [
   { name: 'Calories to Goal', value: 550, color: '#B2E4FB' },
 ];
 
-// pie chart calories fake data
+// pie chart weight fake data
 const pieDataWeight = [
   { name: 'Total Weight Lost', value: 15, color: '#F59E0B' },
   { name: 'Pounds to Goal', value: 35, color: '#FCE7C5' },
 ];
 
 
-const ProgressDataVisuals = () => {
+const ProgressDataVisuals = ({ user, dailyBurn, setGoals }) => {
+  console.log('user props data =>', user);
+  console.log('goals from props ==>', setGoals);
+  console.log('dailyBurn props data =>', dailyBurn);
+
+  // Line Data
+  const lineDataCalories = [
+    {
+      calories: dailyBurn,
+    }
+  ];
+
+  // const [ totalCaloriesBurned, setTotalCaloriesBurned ] = useState(0)
+
+  // CALCULATE TOTAL CALORIES BURNED
+  const totalCaloriesBurned = lineDataCalories.reduce((totalCals, curr) => {
+    totalCals += curr.calories;
+    // setTotalCaloriesBurned(totalCals);
+    return totalCals + dailyBurn;
+  }, 0);
+
+  // CALCULATE TOTAL CALORIES BURNED
+  const totalWeightLost = lineDataWeight.reduce((totalWeightLoss, curr) => {
+    totalWeightLoss += curr.weight;
+    return totalWeightLoss;
+  }, 0);
+
   return (
     <div className='flex-col-container'>
       <h2 className='font-bold text-3xl text-black'>My Progress</h2>
@@ -68,7 +76,9 @@ const ProgressDataVisuals = () => {
         {/** CALORIE PIE CHART */}
         <div className='data-pie-graph-container'>
           <div className='text-container'>
-            <h3 className='font-semibold text-xl text-black'>Calories Burned Goal</h3>
+            <h3 className='font-semibold text-xl text-black'>
+              Calories Burned Goal
+            </h3>
             {/* 1500 Needs to be Dynamic*/}
             <span>
               <h3 className='font-bold text-3xl text-sky-500'>
@@ -104,15 +114,17 @@ const ProgressDataVisuals = () => {
             <h3 className='font-semibold text-xl text-black'>
               Total Calories Burned
             </h3>
-            {/* 5000 Needs to be Dynamic*/}
+            {/* CHECK total calories Dynamic value*/}
             <span>
-              <h3 className='font-bold text-3xl text-sky-500 '>5000</h3>
+              <h3 className='font-bold text-3xl text-sky-500 '>
+                {totalCaloriesBurned}
+              </h3>
               <p>calories</p>
             </span>
           </div>
           <div className='line-graph'>
             <ResponsiveContainer width='100%' height='100%'>
-              <LineChart width={300} height={100} data={lineData}>
+              <LineChart width={300} height={100} data={lineDataCalories}>
                 <Tooltip labelStyle={{ display: 'none' }} />
                 <Line
                   type='monotone'
@@ -123,7 +135,7 @@ const ProgressDataVisuals = () => {
                 />
               </LineChart>
             </ResponsiveContainer>
-            <h3 className='font-bold text-md text-sky-500'>THIS WEEK</h3>
+            <h3 className='font-bold text-md text-sky-500'>PER WORKOUT</h3>
           </div>
         </div>
       </div>
@@ -131,7 +143,9 @@ const ProgressDataVisuals = () => {
         {/** WEIGHT LOSS PIE CHART */}
         <div className='data-pie-graph-container'>
           <div className='text-container'>
-            <h3 className='font-semibold text-xl text-black'>Weight Loss Goal</h3>
+            <h3 className='font-semibold text-xl text-black'>
+              Weight Loss Goal
+            </h3>
             {/* 1500 Needs to be Dynamic*/}
             <span>
               <h3 className='font-bold text-3xl text-amber-500 '>
@@ -167,15 +181,17 @@ const ProgressDataVisuals = () => {
             <h3 className='font-semibold text-xl text-black'>
               Total Weight Lost
             </h3>
-            {/* 15 Needs to be Dynamic*/}
+            {/* CHECK WEIGHT DYNAMIC VALUE*/}
             <span>
-              <h3 className='font-bold text-3xl text-amber-500 '>-15</h3>
+              <h3 className='font-bold text-3xl text-amber-500 '>
+                {totalWeightLost}
+              </h3>
               <p>pounds</p>
             </span>
           </div>
           <div className='line-graph'>
             <ResponsiveContainer className='mt-12' width='100%' height='50%'>
-              <LineChart width={300} height={100} data={lineData}>
+              <LineChart width={300} height={100} data={lineDataWeight}>
                 <Tooltip labelStyle={{ display: 'none' }} />
                 <Line
                   type='monotone'
@@ -186,12 +202,12 @@ const ProgressDataVisuals = () => {
                 />
               </LineChart>
             </ResponsiveContainer>
-            <h3 className='font-bold text-md text-amber-500 '>THIS WEEK</h3>
+            <h3 className='font-bold text-md text-amber-500 '>PER WEIGH IN</h3>
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default ProgressDataVisuals;

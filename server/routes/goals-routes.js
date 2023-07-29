@@ -20,8 +20,8 @@ router.get('/', (req, res) => {
 })
 
 // GET handler to retrieve Goals of a current user from the DB
-router.get('/', (req, res) => {
-})
+// router.get('/', (req, res) => {
+// })
 
 // POST handler to save or update goals in the DB
 router.post("/", (req, res) => {
