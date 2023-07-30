@@ -310,6 +310,15 @@ function WorkoutPlan() {
             <p class="text-base leading-4">Messages</p>
             </button>
 
+                          {/* Feed List Item */}
+  <button className="flex dark:text-white justify-start items-center space-x-6 hover:text-white focus:bg-sky-500 focus:text-white hover:bg-sky-500 text-gray-600 rounded py-3 pl-4 w-full" onClick={() => navigate('/feed')}>
+    <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-home">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z"></path>
+      <polyline points="9 22 9 12 15 12 15 22"></polyline>
+    </svg>
+    <p className="text-base leading-4">Feed</p>
+  </button>
+
             {/* Divider */}
             <div class="w-full px-4">
               <hr class="border-gray-100 dark:border-gray-700  w-full" />
