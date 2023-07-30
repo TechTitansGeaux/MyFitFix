@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import io from 'socket.io-client';
 import MessageItem from './MessageItem';
+import LandingPage from './LandingPage';
 
 const URL = 'http://localhost:3000';
 const socket = io(URL, { autoConnect: false });
@@ -40,6 +41,8 @@ function Messages() {
   const [incomingSender, setIncomingSender] = useState('');
   // new message stamp
   const [newMessage, setNewMessage] = useState('');
+  // state variable for whether landing page should render
+  const [noMessages, setNoMessages] = useState(true);
 
   console.log(usersOnline, '<------- users online');
 
@@ -104,6 +107,7 @@ function Messages() {
       setIncomingSender(data.name);
       // console.log(data, '<--- data name from incoming dm')
       setNewMessage('new message!');
+      setNoMessages(false);
     });
   }, [socket, refresher]);
 
@@ -150,6 +154,7 @@ function Messages() {
             return new Date(a.createdAt) - new Date(b.createdAt);
           });
       setPreviousMessages(allMessagesSorted);
+      setNoMessages(false);
     }
 };
 
@@ -364,6 +369,7 @@ function Messages() {
           </div>
         </div>
         <div ref={messagesEndRef} />
+        {noMessages && <LandingPage />}
         {/* Find User */}
         <div className="findUserContainer dmSearch fixed bottom-0 right-0">
           <h5>
