@@ -215,8 +215,8 @@ function WorkoutPlan() {
 
   return (
     <div className=' grid grid-cols-5'>
-      <div class="flex row-span-2 h-screen">
-        <div class="bg-white dark:bg-gray-800  xl:hidden flex text-gray-800 hover:text-black focus:outline-none focus:text-black justify-between w-full p-6 items-center">
+      <div class="flex row-span-2">
+        <div class="bg-white dark:bg-gray-800  xl:hidden flex text-gray-800 hover:text-black focus:outline-none focus:text-black justify-between w-full p-6 items-center h-screen">
 
           <div aria-label="toggler" class="flex justify-center items-center">
             <button id="open" onclick="showNav(true)" aria-label="open" class="hidden text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800">
