@@ -5,23 +5,7 @@ import axios from 'axios';
 
 function MessageItem({message, incomingSender, user, messageReceived, deleteMessage}) {
   dayjs.extend(relativeTime);
-  // if message is incoming, display on left, if outgoing display right
-  // let display;
-  // const updateView = (message) => {
-  //   // determine who message is from
-  //   if (message.name === user) {
 
-  //   }
-  // }
-
-  // if theres a new message, display this
-  // const newDisplay = () => {
-  //   // determine if new message
-  //   if (messageReceived !== '') {
-  //     return 'just now!';
-  //   }
-  // };
-  // console.log(message._id, '<--- a message object id');
   return (
     <div>
       <p>

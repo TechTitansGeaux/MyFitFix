@@ -10,10 +10,6 @@ const socket = io(URL, { autoConnect: false });
 
 function Messages() {
   const navigate = useNavigate();
-  // socket.onAny((event, ...args) => {
-  //   getOnlineUsers();
-  //   console.log(event, args);
-  // });
 
   // create variable on state for current user
   const [user, setUser] = useState({});
