@@ -2,11 +2,30 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { formatDistanceToNow } from 'date-fns';
 
-const Entry = ({ entry, onLike, onRepost }) => {
+const Entry = ({ entry, onLike, currentUserId }) => {
   const [users, setUsers] = useState([]);
   const [entryUser, setEntryUser] = useState(null);
   const [liked, setLiked] = useState(false);
-  const [reposted, setReposted] = useState(false);
+  const [likeCounts, setLikeCounts] = useState(0);;
+
+  // Function to fetch the latest user data from the server
+  const fetchEntryData = () => {
+    axios.get('/following').then((response) => {
+      const entries = response.data;
+
+      // Calculate likes for all users
+      const likes = {};
+      entries.forEach((entry) => {
+        likes[entry.user] = entry.likes.length;
+      });
+      setLikeCounts(likes);
+    });
+  };
+
+  // Fetch user data on component mount
+  useEffect(() => {
+    fetchEntryData();
+  }, []);
 
   // Function to fetch all users from the server
   const fetchUsers = async () => {
@@ -31,12 +50,21 @@ const Entry = ({ entry, onLike, onRepost }) => {
   }, [users, entry.user]);
 
   const handleLike = () => {
-    onLike(entry.user);
+    onLike(entry._id);
+    setLiked(!liked);
+    setLikeCounts((prevCounts) => (liked ? prevCounts - 1 : prevCounts + 1)); // Update likeCounts state based on liked state
   };
 
-  const handleRepost = () => {
-    onRepost(entry.user);
-  };
+  useEffect(() => {
+    // Set the liked state based on whether the current user has liked this entry
+    if (liked) {
+      setLiked(true);
+    } else {
+      setLiked(false);
+    }
+    // Set the likeCounts state to the number of likes for this entry
+    setLikeCounts(entry.likes);
+  }, [currentUserId, entry.likes]);
 
   return (
     <div className="entry">
@@ -48,13 +76,11 @@ const Entry = ({ entry, onLike, onRepost }) => {
       )}
       <p>{entry.entry}</p>
       <p>Date: {formatDistanceToNow(new Date(entry.date), { addSuffix: true })}</p>
-      <p>Likes: {entry.likes.length}</p>
-      <p>Reposts: {entry.reposts.length}</p>
+      <p>Likes: {likeCounts}</p>
 
-      {/* Like and Repost Buttons */}
+      {/* Like Button */}
       <div>
         <button onClick={handleLike}>{liked ? 'Unlike' : 'Like'}</button>
-        <button onClick={handleRepost}>{reposted ? 'Unrepost' : 'Repost'}</button>
       </div>
     </div>
   );

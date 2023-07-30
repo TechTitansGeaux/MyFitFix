@@ -71,10 +71,8 @@ const WorkoutEntrySchema = new Schema({
 const JournalEntrySchema = new Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   entry: String,
-  images: [{ type: String }],
   date: { type: Date, default: Date.now },
-  likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-  reposts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+  likes: { type: Number, required: true },
   interactions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
 });
 

@@ -101,31 +101,18 @@ const Feed = () => {
   };
 
 
-  // Function to handle liking a journal entry
-  const handleLike = (entryId) => {
-    axios
-      .post(`/journal-entry/like/${entryId}`)
-      .then((response) => {
-        // Emit the updated entry data to the server
-        socket.emit('like', response.data);
-      })
-      .catch((error) => {
-        console.error('Error liking entry:', error);
-      });
-  };
-
-  // Function to handle reposting a journal entry
-  const handleRepost = (entryId) => {
-    axios
-      .post(`/journal-entry/repost/${entryId}`)
-      .then((response) => {
-        // Emit the updated entry data to the server
-        socket.emit('repost', response.data);
-      })
-      .catch((error) => {
-        console.error('Error reposting entry:', error);
-      });
-  };
+ // Function to handle liking a journal entry
+ const handleLike = (entryId) => {
+  axios
+    .post(`/feed/like/${entryId}`)
+    .then((response) => {
+      // Emit the updated entry data to the server
+      socket.emit('like', response.data);
+    })
+    .catch((error) => {
+      console.error('Error liking entry:', error);
+    });
+};
 
   return (
     <div className='feed-container'>
@@ -272,18 +259,19 @@ const Feed = () => {
         </div>
 
         {/* Display the journal entries */}
-        <div className="feed-entries">
-          {entries.map((entry) => (
-            <Entry
-              key={entry._id}
-              entry={entry}
-              onLike={handleLike}
-              onRepost={handleRepost}
-            />
-          ))}
-          {/* Infinite scroll */}
-          <button onClick={loadMoreEntries}>Load More</button>
-        </div>
+      <div className="feed-entries">
+        {currentUser && entries.map((entry) => (
+          <Entry
+            key={entry._id}
+            entry={entry}
+            onLike={handleLike}
+            currentUserId={currentUser._id}
+          />
+        ))}
+        {/* Infinite scroll */}
+        <button onClick={loadMoreEntries}>Load More</button>
+      </div>
+
 
         {/* Notifications */}
         <div className="notifications">
