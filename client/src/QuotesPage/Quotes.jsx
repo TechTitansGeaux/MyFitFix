@@ -213,11 +213,10 @@ const Quotes = () => {
           <div style={{ width: '600px', height: '420px', margin: 'auto'}} >
             <div className="bg-gradient-to-t from-sky-600 from-10% via-sky-400 to-sky-50 to-40% ... rounded-lg drop-shadow-md ">
               <div style={{ width: '600px', height: '700px', textAlign: 'center'}} >
-                <h1 className="text-2xl text-sky-500 font-bold pt-5 mb-16 pb-4" >Quotes</h1>
-                <button type="button" className='w-fit  bg-slate-400 border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 font-bold tracking-wider active:text-white transform hover:scale-110 px-1 ml-4 mr-4' onClick={() => { generateQuote() }} >generate</button>
+                <h1 className="text-2xl text-sky-500 font-bold pt-5 mb-2 pb-4" >Quotes</h1>
+                <button type="button" className='w-fit bg-slate-400 border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 font-bold tracking-wider active:text-white transform hover:scale-110 px-1 ml-4 mr-4' onClick={() => { generateQuote() }} >generate</button>
                 <div id="quoteGen" className="hide">
-                  {/* className='margin-hori-sm py-2 focus:outline-none dark:text-white justify-start hover:text-white focus:bg-sky-500 bg-amber-500 focus:text-white font-semibold hover:bg-sky-500 text-white rounded items-center space-x-6 w-48 min-h-max' */}
-                  <h6 className="text-lg text-sky-500 pt-4 mb-16 pb-4" >{ quote }</h6>
+                  <h6 className="text-lg text-sky-500 pt-4 mb-2 pb-4" >{ quote }</h6>
                   { quoteInput }
                 </div>
                 <div id="allQuotes" className="show">
