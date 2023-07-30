@@ -39,4 +39,16 @@ router.post('/saveQuote', (req, res) => {
     })
 })
 
+router.delete('/deleteQuote:quoteId', (req, res) => {
+  const { quoteId } = req.params;
+  // console.log(quoteId);
+  Quotes.deleteOne({_id: quoteId})
+    .then(() => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.log('error removing quote from database: ', err);
+    })
+})
+
 module.exports = router;
