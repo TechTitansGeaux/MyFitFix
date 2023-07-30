@@ -37,10 +37,31 @@ pre {
   display: flex;
   flex-direction: row;
   width: 45em;
-  height: 12em;
+  height: 13em;
   gap: 10px;
 }
 
+.input-row-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  min-height: 2em;
+  gap: 10px;
+}
+
+.text-input {
+  max-width: 10rem;
+  padding: 0 8px;
+}
+
+.small-text {
+  font-size: small;
+  font-variant: small-caps;
+}
+
+.p-goals {
+  padding-top: 5px;
+}
 /* DATA VISUALIZATION */
 
 .data-pie-graph-container,

@@ -19,11 +19,18 @@ function Home() {
   const [icon, setIcon] = useState('');
   const [workoutIcon, setWorkoutIcon] = useState('');
   const [goals, setGoals] = useState([]);
+  const [progress, setProgress] = useState([]);
 
-  // Smooth Scrolls to Progress Stats on click
+
   const progressStatsSection = useRef(null);
-  const handleScrollClick = () =>
-    progressStatsSection.current.scrollIntoView({ behavior: 'smooth' });
+
+  // Refresh on Update stats
+  const handleScrollClick = () => {
+    window.location.reload()
+    // Smooth Scrolls to Progress Stats on click
+        // progressStatsSection.current.scrollIntoView({ behavior: 'smooth' });
+
+  }
 
   let todaysDate = moment().format('YYYY-MM-DD');
 
@@ -220,14 +227,29 @@ function Home() {
       });
   }, [load]);
 
+  // Effect for getting progress data
+  useEffect(() => {
+    axios
+      .get(`/progress`)
+      .then((response) => {
+        // console.log('response data from findProgess', response.data);
+        setProgress([...response.data]);
+      })
+      // .then(() => {
+      //   updateTotalCalories();
+      // })
+      .catch((err) => {
+        console.error('find Calories FAILED', err);
+      });
+  }, [load]);
   // console.log('goals HOME.jsx state data', goals);
 
   // LINES 137 & 145 have onclick properties that don't function for nav close // creates console error // Invalid event handler property 'onclick'
   return (
     <div className='grid grid-cols-4 grid-rows-1'>
       {/* START OF NAVIGATION BAR */}
-      <div className='flex row-span-2'>
-        <div className='bg-white dark:bg-gray-800  xl:hidden flex text-gray-800 hover:text-black focus:outline-none focus:text-black justify-between w-full p-6 items-center h-screen'>
+      <div className='flex row-span-2 '>
+        <div className='bg-white dark:bg-gray-800  xl:hidden flex text-gray-800 hover:text-black focus:outline-none focus:text-black justify-between w-full p-6 items-center h-screen '>
           {/* <div aria-label="toggler" className="flex justify-center items-center">
             <button id="open" onclick="showNav(true)" aria-label="open" className="hidden text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -246,9 +268,9 @@ function Home() {
         </div>
         <div
           id='Main'
-          className='bg-white dark:bg-gray-800  transform xl:translate-x-0 ease-in-out transition duration-500 flex justify-start items-start w-full sm:w-72 flex-col h-full'
+          className='bg-white dark:bg-gray-800  transform xl:translate-x-0 ease-in-out transition duration-500 flex justify-start items-start w-full sm:w-72 flex-col'
         >
-          <button className='hidden xl:flex text-gray-800 dark:text-white hover:text-black focus:outline-none focus:text-black justify-start px-6 pt-6 items-center space-x-3 w-full'>
+          <button className='hidden xl:flex text-gray-800 dark:text-white hover:text-black focus:outline-none focus:text-black justify-start px-6 pt-6 items-center space-x-3 w-full '>
             {/* <svg
               width='34'
               height='34'
@@ -498,14 +520,28 @@ function Home() {
               <p className='text-base leading-4'>Messages</p>
             </button>
 
-              {/* Feed List Item */}
-  <button className="flex dark:text-white justify-start items-center space-x-6 hover:text-white focus:bg-sky-500 focus:text-white hover:bg-sky-500 text-gray-600 rounded py-3 pl-4 w-full" onClick={() => navigate('/feed')}>
-    <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-home">
-      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z"></path>
-      <polyline points="9 22 9 12 15 12 15 22"></polyline>
-    </svg>
-    <p className="text-base leading-4">Feed</p>
-  </button>
+            {/* Feed List Item */}
+            <button
+              className='flex dark:text-white justify-start items-center space-x-6 hover:text-white focus:bg-sky-500 focus:text-white hover:bg-sky-500 text-gray-600 rounded py-3 pl-4 w-full'
+              onClick={() => navigate('/feed')}
+            >
+              <svg
+                width='24'
+                height='24'
+                xmlns='http://www.w3.org/2000/svg'
+                viewBox='0 0 24 24'
+                fill='none'
+                stroke='currentColor'
+                strokeWidth='2'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                className='feather feather-home'
+              >
+                <path d='M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z'></path>
+                <polyline points='9 22 9 12 15 12 15 22'></polyline>
+              </svg>
+              <p className='text-base leading-4'>Feed</p>
+            </button>
 
             {/* Divider */}
             <div className='w-full px-4'>
@@ -648,11 +684,17 @@ function Home() {
         ref={progressStatsSection}
         className='flex justify-center col-span-2'
       >
-        <ProgressDataVisuals user={user} dailyBurn={dailyBurn} goals={goals} />
+        <ProgressDataVisuals
+          user={user}
+          dailyBurn={dailyBurn}
+          goals={goals}
+          progress={progress}
+        />
       </section>
       <Goals
         user={user}
         dailyBurn={dailyBurn}
+        goals={goals}
         handleScrollClick={handleScrollClick}
       />
     </div>
