@@ -33,12 +33,12 @@ const Quotes = () => {
   }
 
   const editQuote = () => {
-    setQuoteInput(<input value={quote} className="w-full border border-sky-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 hover:border-blue-700" type='text' onChange={e => quoteSetter(e.target.value)}></input>);
+    setQuoteInput(<input style={{marginBottom: '10px'}} value={quote} className="w-full border border-sky-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 hover:border-blue-700" type='text' onChange={e => quoteSetter(e.target.value)}></input>);
   }
 
   const quoteSetter = (quote) => {
     setQuote(quote)
-    setQuoteInput(<input value={quote} className="w-full border border-sky-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 hover:border-blue-700" type='text' onChange={e => quoteSetter(e.target.value)}></input>)
+    setQuoteInput(<input style={{marginBottom: '10px'}} value={quote} className="w-full border border-sky-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 hover:border-blue-700" type='text' onChange={e => quoteSetter(e.target.value)}></input>)
   }
 
 
@@ -436,7 +436,7 @@ const Quotes = () => {
             <div style={{ width: '600px', height: '700px', textAlign: 'center', padding: '25px' }} >
               <div className="bg-sky-50 rounded-lg drop-shadow-md">
                 <h1 className="text-2xl text-sky-500 font-bold pt-5 mb-2 pb-4" >Quotes</h1>
-                <button type="button" className='w-fit bg-slate-400 border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 font-bold tracking-wider active:text-white transform hover:scale-110 px-1 ml-4 mr-4' onClick={() => { generateQuote() }} >generate</button>
+                <button style={{marginBottom: '10px'}} type="button" className='w-fit bg-slate-400 border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 font-bold tracking-wider active:text-white transform hover:scale-110 px-1 ml-4 mr-4' onClick={() => { generateQuote() }} >generate</button>
               </div>
               <br></br>
               <div id="quoteGen" className="bg-sky-50 rounded-lg drop-shadow-md hide">
