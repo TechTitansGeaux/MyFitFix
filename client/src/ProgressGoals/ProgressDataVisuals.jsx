@@ -185,7 +185,6 @@ const ProgressDataVisuals = ({ user, dailyBurn, goals, progress }) => {
           type='number'
           min='75'
           step='1'
-          className='form-control'
           placeholder='Type Weight '
           onChange={handleChange}
           onKeyDown={(e) => (e.key === 'Enter' ? handleSubmit(e) : null)}
