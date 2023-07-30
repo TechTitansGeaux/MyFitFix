@@ -89,25 +89,27 @@ router.post('/like/:journalId', (req, res) => {
   const { journalId } = req.params;
   const { _id } = req.user;
 
-  Journal.findByIdAndUpdate(journalId, { $addToSet: { likes: _id }, $addToSet: { interactions: _id } }) // Add the user ID to interactions array
-    .then(() => {
+  Journal.findByIdAndUpdate(
+    journalId,
+    {
+      $addToSet: { likes: _id, interactions: _id }, // Add the user ID to both likes and interactions arrays
+    },
+    { new: true } // This option returns the updated journal entry
+  )
+    .then((updatedEntry) => {
+      if (!updatedEntry) {
+        return res.status(404).json({ error: 'Journal entry not found.' });
+      }
+
       // Notify the journal owner about the like
-      Journal.findById(journalId)
-        .then((journalEntry) => {
-          if (journalEntry) {
-            const notification = new Notification({
-              user: journalEntry.user,
-              journalEntry: journalId,
-              type: 'like',
-            });
-            notification.save();
-          }
-          res.sendStatus(200);
-        })
-        .catch((err) => {
-          console.error(err);
-          res.sendStatus(500);
-        });
+      const notification = new Notification({
+        user: updatedEntry.user,
+        journalEntry: journalId,
+        type: 'like',
+      });
+      notification.save();
+
+      res.sendStatus(200);
     })
     .catch((err) => {
       console.error(err);

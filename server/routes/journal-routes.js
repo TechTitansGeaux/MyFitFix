@@ -20,17 +20,24 @@ router.get('/user/:userId', (req, res) => {
 
 
 
-// This will SAVE journal entry on the selected date into the database
+// Assuming you have required the necessary modules and models
+
+// POST - Add Journal Entry
 router.post('/', async (req, res) => {
   const { entry, date, images } = req.body;
   const { _id } = req.user;
 
+  if (!entry) {
+    return res.status(400).json({ error: 'Entry are required fields.' });
+  }
+
   try {
-    const journalEntry = await Journal.create(
-      { user: _id, date: date },
-      { entry: entry, images: images },
-      { upsert: true, new: true }
-    );
+    const journalEntry = await Journal.create({
+      user: _id,
+      entry: entry,
+      date: date,
+      likes: 0, // Initial likes count
+    });
 
     res.sendStatus(200);
   } catch (error) {
@@ -38,6 +45,7 @@ router.post('/', async (req, res) => {
     res.sendStatus(500);
   }
 });
+
 
 
 // This will RETRIEVE the specific journal entry from this date from the database
@@ -110,7 +118,7 @@ router.post('/like/:journalId', (req, res) => {
 });
 
 // Unlike a Journal Entry
-router.post('/interact/:journalId/unlike', async (req, res) => {
+router.post('/unlike/:journalId', async (req, res) => {
   const { journalId } = req.params;
   const { _id } = req.user;
 
@@ -170,7 +178,7 @@ router.post('/repost/:journalId', async (req, res) => {
 });
 
 // Unrepost a Journal Entry
-router.post('/interact/:journalId/unrepost', async (req, res) => {
+router.post('/unrepost/:journalId/unrepost', async (req, res) => {
   const { journalId } = req.params;
   const { _id } = req.user;
 
