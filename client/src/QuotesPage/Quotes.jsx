@@ -13,9 +13,23 @@ const Quotes = () => {
   const [ allQuotes, setAllQuotes ] = useState([]);
 
 
-
+  const deleteQuote = (quoteId) => {
+    axios.delete(`/quotes/deleteQuote${quoteId}`)
+      .then(() => {
+        getAllQuotes();
+      })
+      .catch((err) => {
+        console.log('error sending request to delete quote: ', err);
+      })
+  }
   const getAllQuotes = () => {
-    return axios.get('/quotes/allQuotes');
+    axios.get('/quotes/allQuotes')
+      .then((quotes) => {
+        setAllQuotes(quotes.data.reverse());
+      })
+      .catch((err) => {
+        console.log('error sending request for all quotes', err);
+      })
   }
 
   const editQuote = () => {
@@ -88,12 +102,6 @@ const Quotes = () => {
 
   useEffect(() => {
     getAllQuotes()
-      .then((quotes) => {
-        setAllQuotes(quotes.data.reverse());
-      })
-      .catch((err) => {
-        console.log('error sending request for all quotes', err);
-      })
   }, [quote])
 
   return (
@@ -220,38 +228,37 @@ const Quotes = () => {
           {/* Quotes box */}
 
           <div style={{ width: '600px', minHeight: '420px', margin: 'auto', overflow: 'hidden', overflowY: 'scroll' }} >
-              <div style={{ width: '600px', height: '700px', textAlign: 'center'}} >
+            <div style={{ width: '600px', height: '700px', textAlign: 'center', padding: '25px' }} >
+              <div className="bg-sky-50 rounded-lg drop-shadow-md">
                 <h1 className="text-2xl text-sky-500 font-bold pt-5 mb-2 pb-4" >Quotes</h1>
                 <button type="button" className='w-fit bg-slate-400 border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 font-bold tracking-wider active:text-white transform hover:scale-110 px-1 ml-4 mr-4' onClick={() => { generateQuote() }} >generate</button>
-                <div id="quoteGen" className="hide">
-                  <h6 className="text-lg text-sky-500 pt-4 mb-2 pb-4" >{ quote }</h6>
-                  { quoteInput }
-                </div>
-                <div id="allQuotes" className="show">
-                  {
-                    allQuotes.map((quote, i) => {
-                      return <QuoteItem key={i} quote={quote}/>
-                    })
-                  }
-                </div>
-
               </div>
+              <br></br>
+              <div id="quoteGen" className="bg-sky-50 rounded-lg drop-shadow-md hide">
+                <h6 className="text-lg text-sky-500 pt-4 mb-2 pb-4" >{ quote }</h6>
+                { quoteInput }
+                <form>
+                  <button type="button" onClick={ () => { saveQuote() }} className="shadow-2xl text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" >
+                    <svg width="15" height="20" xmlns="http://www.w3.org/2000/svg" className="inline-block" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32" d="M380.93 57.37A32 32 0 0 0 358.3 48H94.22A46.21 46.21 0 0 0 48 94.22v323.56A46.21 46.21 0 0 0 94.22 464h323.56A46.36 46.36 0 0 0 464 417.78V153.7a32 32 0 0 0-9.37-22.63zM256 416a64 64 0 1 1 64-64 63.92 63.92 0 0 1-64 64zm48-224H112a16 16 0 0 1-16-16v-64a16 16 0 0 1 16-16h192a16 16 0 0 1 16 16v64a16 16 0 0 1-16 16z" /></svg>
+                    <span className="inline-block ml-3">Save Quote</span>
+                  </button>
+                  <button type="button" onClick={ () => { editQuote() }} className="shadow-2xl text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" >
+                    <svg width="15" height="20" xmlns="http://www.w3.org/2000/svg" className="inline-block" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32" d="M364.13 125.25 87 403l-23 45 44.99-23 277.76-277.13-22.62-22.62zm56.56-56.56-22.62 22.62 22.62 22.63 22.62-22.63a16 16 0 0 0 0-22.62h0a16 16 0 0 0-22.62 0z" /></svg>
+                    <span className="inline-block ml-3">Edit Quote</span>
+                  </button>
+                </form>
+              </div>
+              <div id="allQuotes" className="show">
+                {
+                  allQuotes.map((quote, i) => {
+                    return <QuoteItem key={i} quote={quote} deleteQuote={deleteQuote}/>
+                  })
+                }
+              </div>
+            </div>
           </div>
-          <form>
-            <button type="button" onClick={ () => { saveQuote() }} className="shadow-2xl text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" >
-              <svg width="15" height="20" xmlns="http://www.w3.org/2000/svg" className="inline-block" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32" d="M380.93 57.37A32 32 0 0 0 358.3 48H94.22A46.21 46.21 0 0 0 48 94.22v323.56A46.21 46.21 0 0 0 94.22 464h323.56A46.36 46.36 0 0 0 464 417.78V153.7a32 32 0 0 0-9.37-22.63zM256 416a64 64 0 1 1 64-64 63.92 63.92 0 0 1-64 64zm48-224H112a16 16 0 0 1-16-16v-64a16 16 0 0 1 16-16h192a16 16 0 0 1 16 16v64a16 16 0 0 1-16 16z" /></svg>
-              <span className="inline-block ml-3">Save Quote</span>
-            </button>
-            <button type="button" onClick={ () => { editQuote() }} className="shadow-2xl text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" >
-              <svg width="15" height="20" xmlns="http://www.w3.org/2000/svg" className="inline-block" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32" d="M364.13 125.25 87 403l-23 45 44.99-23 277.76-277.13-22.62-22.62zm56.56-56.56-22.62 22.62 22.62 22.63 22.62-22.63a16 16 0 0 0 0-22.62h0a16 16 0 0 0-22.62 0z" /></svg>
-              <span className="inline-block ml-3">Edit Quote</span>
-            </button>
-          </form>
-
         </div>
       </div>
-
-
     </div>
   )
 }
