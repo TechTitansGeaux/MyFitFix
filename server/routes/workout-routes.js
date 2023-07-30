@@ -112,6 +112,23 @@ Workout.deleteOne({ date: date, user: _id })
 })
 });
 
+  // delete all workouts
+  router.delete('/workouts', (req, res) => {
+    const { _id } = req.user;
+    Workout.deleteMany({ user: _id })
+      .then((delObj) => {
+        if (delObj) {
+          res.status(200);
+        } else {
+          res.sendStatus(404);
+        }
+      })
+      .catch((err) => {
+        console.error('failed to delete all', err);
+        res.sendStatus(500);
+      })
+  });
+
   // router.put('/update', (req, res) => {
   //   // console.log(req.body);
   //   const { reps, set, name , date } = req.body;
