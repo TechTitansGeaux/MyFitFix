@@ -110,7 +110,7 @@ function CalorieIntake() {
           <h1 className="text-2xl text-sky-500 font-bold pt-5 mb-16 pb-4">Meal Tracker</h1>
         </div>
         {/* <svg className="flex-shrink-0"></svg> */}
-        <label for="Measurement" className="block text-sm font-medium text-sky-500">Select Date</label>
+        <label htmlFor="Measurement" className="block text-sm font-medium text-sky-500">Select Date</label>
         <input
           type="date"
           id="caloriesIn"
@@ -123,11 +123,11 @@ function CalorieIntake() {
         ></input>
         <form>
           <div className="pt-1">
-            <label for="Measurement" className="block text-sm font-medium text-sky-500">Product Weight (g):</label>
+            <label htmlFor="Measurement" className="block text-sm font-medium text-sky-500">Product Weight (g):</label>
             <input id='foodWeight' className="w-full border border-sky-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 hover:border-blue-700" type='number' onChange={e => setWeight(e.target.value)}></input>
           </div>
           <div className="pt-3">
-            <label for="Ingredient" className="block text-sm font-medium text-sky-500">Ingredient:</label>
+            <label htmlFor="Ingredient" className="block text-sm font-medium text-sky-500">Ingredient:</label>
             <input id='foodProduct' className="w-full border border-sky-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 hover:border-blue-700" type='text' onChange={e => setProduct(e.target.value)}></input>
             <div className="py-4">
               <button className="w-full border border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 font-bold tracking-wider active:text-white transform hover:scale-110 px-1 ml-2" type='button' onClick={() => {
@@ -160,7 +160,7 @@ function CalorieIntake() {
           </div>
         </div>
         <div>
-          <div class='flex justify-evenly mt-7'>
+          <div className='flex justify-evenly mt-7'>
             <br></br>
             <button type='button' className="w-full border border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 font-bold active:text-white transform hover:scale-110 px-1 mr-2" onClick={() => handleDBSave()}>Save</button>
             <button type='button' className="w-full border border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 font-bold active:text-white transform hover:scale-110 px-1 mr-2" onClick={() => handleDBDelete()}>Delete</button>
