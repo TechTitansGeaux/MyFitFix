@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { formatDistanceToNow } from 'date-fns';
 
-const Entry = ({ entry }) => {
+const Entry = ({ entry, onLike, onRepost }) => {
   const [users, setUsers] = useState([]);
   const [entryUser, setEntryUser] = useState(null);
+  const [liked, setLiked] = useState(false);
+  const [reposted, setReposted] = useState(false);
 
   // Function to fetch all users from the server
   const fetchUsers = async () => {
@@ -27,6 +30,14 @@ const Entry = ({ entry }) => {
     }
   }, [users, entry.user]);
 
+  const handleLike = () => {
+    onLike(entry.user);
+  };
+
+  const handleRepost = () => {
+    onRepost(entry.user);
+  };
+
   return (
     <div className="entry">
       {entryUser && (
@@ -36,8 +47,15 @@ const Entry = ({ entry }) => {
         </div>
       )}
       <p>{entry.entry}</p>
-      {/* Display other details like date, likes, reposts, and interaction buttons */}
-      {/* Add logic to handle interactions like likes and reposts */}
+      <p>Date: {formatDistanceToNow(new Date(entry.date), { addSuffix: true })}</p>
+      <p>Likes: {entry.likes.length}</p>
+      <p>Reposts: {entry.reposts.length}</p>
+
+      {/* Like and Repost Buttons */}
+      <div>
+        <button onClick={handleLike}>{liked ? 'Unlike' : 'Like'}</button>
+        <button onClick={handleRepost}>{reposted ? 'Unrepost' : 'Repost'}</button>
+      </div>
     </div>
   );
 };

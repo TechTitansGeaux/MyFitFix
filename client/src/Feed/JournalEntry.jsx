@@ -21,8 +21,21 @@ function JournalEntry() {
 
   //------FUNCTIONS: CLIENT-SIDE AXIOS REQUESTS-----
 
-  // This function retrieves the current user's google ID
+  // This function submits a journal entry to the DB
+  const publishJournalEntry = () => {
+    // Alerting a user that they have successfully submitted a journal entry
+    alert('Your entry has been published.');
 
+    // Sending an axios POST request to submit the journal entry
+    axios
+      .post('/journal-entry', { entry })
+      .then((response) => {
+        console.log('This journal was published:', response);
+        // Reset the text box to its placeholder text
+        setEntry('');
+      })
+      .catch((err) => console.error('Error publishing journal entry:', err));
+  };
 
   // This function loads a previous journal entry from the DB into the current textbox
   const showEntry = (date) => {
@@ -176,6 +189,15 @@ function JournalEntry() {
             <p class="text-base leading-4">Messages</p>
             </button>
 
+              {/* Feed List Item */}
+  <button className="flex dark:text-white justify-start items-center space-x-6 hover:text-white focus:bg-sky-500 focus:text-white hover:bg-sky-500 text-gray-600 rounded py-3 pl-4 w-full" onClick={() => navigate('/feed')}>
+    <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-home">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z"></path>
+      <polyline points="9 22 9 12 15 12 15 22"></polyline>
+    </svg>
+    <p className="text-base leading-4">Feed</p>
+  </button>
+
             {/* Divider */}
             <div class="w-full px-4">
               <hr class="border-gray-100 dark:border-gray-700  w-full" />
@@ -194,78 +216,49 @@ function JournalEntry() {
 
       <div class="ml-52">
         {/* START JOURNAL COMPONENT */}
-        <div className='mt-20 ml-100 sm:w-full  '>
-
-          {/* Placing Calendar and Trash box in columns */}
-
-          <div className='flex justify-right ml-20'>
-            {/* <div class ="grid grid-cols-2">  */}
-            {/* CALENDAR */}
-
-            <ul class="flex bg-white border-solid border border-stone-300">
-              <li class="flex-1 border-solid border border-stone-300">
-                <div name="calendar">
-                  <input type="date"
-                    id="start"
-                    name="journal-start"
-                    min="2023-01-01"
-                    max="2026-01-01"
-                    value={date}
-                    class="text-xl h-full ml-3 mr-3 cursor-pointer"
-                    onChange={(e) => { setDate(e.target.value); showEntry(e.target.value); }}>
-                  </input>
-                </div>
-              </li>
-              <li class="flex-1 border-solid border border-stone-300 ">
-                <div>
-
-                  {/* Delete Button */}
-                  <button class="inline-flex items-center justify-right w-9 h-9 mr-10 ml-10 text-gray-700 transition-colors duration-150 bg-white rounded-full focus:shadow-outline hover:bg-gray-200" onClick={() => { deleteEntry(); }}>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" width="24" height="24" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="m112 112 20 320c.95 18.49 14.4 32 32 32h184c17.67 0 30.87-13.51 32-32l20-320" /><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M80 112h352" /><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M192 112V72h0a23.93 23.93 0 0 1 24-24h80a23.93 23.93 0 0 1 24 24h0v40m-64 64v224m-72-224 8 224m136-224-8 224" /></svg>
-                  </button>
-                </div>
-              </li>
-            </ul>
-
-
-
-
-
-            {/* </div> */}
-
-          </div>
-          <br></br>
-
+        <div className="mt-20 ml-100 sm:w-full">
           {/* Message Box */}
-          <div name="messageBox" className='flex justify-right ml-20'>
+          <div name="messageBox" className="flex justify-right ml-20">
             <form>
               <label htmlFor="multiLineInput">
-                <textarea rows="15"
+                <textarea
+                  rows="15"
                   cols="70"
-                  class=" shadow-2xl block p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  class="shadow-2xl block p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   name="entryBox"
-                  value={entryBox}
-                  onChange={(e) => { setEntry(e.target.value); setEntryBox(e.target.value); }}
-                  onClick={selectDate}
-                  placeholder="Write your thoughts here...">
-                </textarea>
+                  value={entry}
+                  onChange={(e) => setEntry(e.target.value)}
+                  placeholder="Write your thoughts here..."
+                />
               </label>
 
-              <br></br>
+              <br />
 
-              <button class="shadow-2xl text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" onClick={(e) => { submitJournalEntry(); e.preventDefault(); }}>
-                <svg width="15" height="20" xmlns="http://www.w3.org/2000/svg" class="inline-block" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M380.93 57.37A32 32 0 0 0 358.3 48H94.22A46.21 46.21 0 0 0 48 94.22v323.56A46.21 46.21 0 0 0 94.22 464h323.56A46.36 46.36 0 0 0 464 417.78V153.7a32 32 0 0 0-9.37-22.63zM256 416a64 64 0 1 1 64-64 63.92 63.92 0 0 1-64 64zm48-224H112a16 16 0 0 1-16-16v-64a16 16 0 0 1 16-16h192a16 16 0 0 1 16 16v64a16 16 0 0 1-16 16z" /></svg>
-                <span class="inline-block ml-3">Save Entry</span>
+              <button
+                class="shadow-2xl text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+                onClick={(e) => {
+                  publishJournalEntry();
+                  e.preventDefault();
+                }}
+              >
+                <svg width="15" height="20" xmlns="http://www.w3.org/2000/svg" class="inline-block" viewBox="0 0 512 512">
+                  <path
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="32"
+                    d="M380.93 57.37A32 32 0 0 0 358.3 48H94.22A46.21 46.21 0 0 0 48 94.22v323.56A46.21 46.21 0 0 0 94.22 464h323.56A46.36 46.36 0 0 0 464 417.78V153.7a32 32 0 0 0-9.37-22.63zM256 416a64 64 0 1 1 64-64 63.92 63.92 0 0 1-64 64zm48-224H112a16 16 0 0 1-16-16v-64a16 16 0 0 1 16-16h192a16 16 0 0 1 16 16v64a16 16 0 0 1-16 16z"
+                  />
+                </svg>
+                <span class="inline-block ml-3">Publish Entry</span>
               </button>
             </form>
           </div>
-
         </div>
       </div>
-
-
     </div>
-  )
+  );
 }
 
 export default JournalEntry;

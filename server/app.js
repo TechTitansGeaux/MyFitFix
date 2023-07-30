@@ -15,7 +15,7 @@ const passport = require('passport');
 const path = require('path');
 const feedRoutes = require('./routes/feed-routes');
 const userRoutes = require('./routes/user-routes');
-const quotesRoutes = require('./routes/quotes-routes')
+const quotesRoutes = require('./routes/quotes-routes');
 const messageRoutes = require('./routes/message-routes');
 
 require('dotenv').config();
@@ -57,7 +57,6 @@ app.use('/users', userRoutes);
 app.use('/quotes', quotesRoutes);
 app.use('/message', messageRoutes);
 
-
 // socket io server
 const server = http.createServer(app);
 const io = new Server(server, {
@@ -73,16 +72,15 @@ io.on('connection', (socket) => {
   // send list of all users
   const getOnlineList = () => {
     const users = [];
-    for (let [id, socket] of io.of("/").sockets) {
+    for (let [id, socket] of io.of('/').sockets) {
       users.push({
         userID: id,
         name: socket.name,
       });
     }
     io.emit('users', users);
-};
-getOnlineList();
-
+  };
+  getOnlineList();
 
   // socket.on('send_message', (data) => {
   //   socket.broadcast.emit('receive_message', data.message)
@@ -102,7 +100,52 @@ getOnlineList();
   // socket.on('join_room', (data) => {
   //   socket.join(data)
   // })
-})
+
+  /**FOR JOURNAL ENTRIES */
+
+  // Save new journal entry to the database
+  socket.on('newJournalEntry', (newEntryData) => {
+    const newEntry = new db.Journal(newEntryData);
+
+    newEntry.save((err, savedEntry) => {
+      if (err) {
+        // Handle error
+        console.error('Error saving new journal entry:', err);
+      } else {
+        // Emit the 'newJournalEntry' event with the saved entry data
+        io.emit('newJournalEntry', savedEntry);
+      }
+    });
+  });
+
+  // Delete journal entry from the database
+  socket.on('deletedJournalEntry', (deletedEntryId) => {
+    db.Journal.findByIdAndDelete(deletedEntryId, (err, deletedEntry) => {
+      if (err) {
+        // Handle error
+        console.error('Error deleting journal entry:', err);
+      } else {
+        // Emit the 'deletedJournalEntry' event with the deleted entry ID
+        io.emit('deletedJournalEntry', deletedEntryId);
+      }
+    });
+  });
+
+  // Handle like event
+  socket.on('like', (data) => {
+    // Update the database with the like
+    // Emit the updated entry data to all connected clients
+    io.emit('updateEntry', data);
+  });
+
+  // Handle repost event
+  socket.on('repost', (data) => {
+    // Update the database with the repost
+    // Emit the updated entry data to all connected clients
+    io.emit('updateEntry', data);
+  });
+
+});
 
 // register middleware to add username
 io.use((socket, next) => {

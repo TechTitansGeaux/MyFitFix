@@ -85,11 +85,11 @@ router.post('/post-journal', (req, res) => {
 });
 
 // 6. POST - Like a Journal Entry
-router.post('/interact/:journalId/like', (req, res) => {
+router.post('/like/:journalId', (req, res) => {
   const { journalId } = req.params;
   const { _id } = req.user;
 
-  Journal.findByIdAndUpdate(journalId, { $addToSet: { likes: _id } })
+  Journal.findByIdAndUpdate(journalId, { $addToSet: { likes: _id }, $addToSet: { interactions: _id } }) // Add the user ID to interactions array
     .then(() => {
       // Notify the journal owner about the like
       Journal.findById(journalId)
@@ -116,7 +116,7 @@ router.post('/interact/:journalId/like', (req, res) => {
 });
 
 // 7. POST - Unlike a Journal Entry
-router.post('/interact/:journalId/unlike', (req, res) => {
+router.post('/unlike/:journalId/', (req, res) => {
   const { journalId } = req.params;
   const { _id } = req.user;
 
@@ -129,11 +129,11 @@ router.post('/interact/:journalId/unlike', (req, res) => {
 });
 
 // 8. POST - Repost a Journal Entry
-router.post('/interact/:journalId/repost', (req, res) => {
+router.post('/repost/:journalId', (req, res) => {
   const { journalId } = req.params;
   const { _id } = req.user;
 
-  Journal.findByIdAndUpdate(journalId, { $addToSet: { reposts: _id } })
+  Journal.findByIdAndUpdate(journalId, { $addToSet: { reposts: _id }, $addToSet: { interactions: _id } }) // Add the user ID to interactions array
     .then(() => {
       // Notify the journal owner about the repost
       Journal.findById(journalId)

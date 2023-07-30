@@ -1,13 +1,32 @@
 const router = require('express').Router();
 const { Journal, User, Notification } = require('../db/index.js');
 
+
+// get all journal entries for a user
+router.get('/user/:userId', (req, res) => {
+  const userId = req.params.userId;
+
+  Journal.find({ user: userId })
+    .populate('user')
+    .exec((err, journalEntries) => {
+      if (err) {
+        // Handle error
+        res.status(500).json({ error: 'Error fetching journal entries' });
+      } else {
+        res.status(200).json(journalEntries);
+      }
+    });
+});
+
+
+
 // This will SAVE journal entry on the selected date into the database
 router.post('/', async (req, res) => {
   const { entry, date, images } = req.body;
   const { _id } = req.user;
 
   try {
-    const journalEntry = await Journal.findOneAndUpdate(
+    const journalEntry = await Journal.create(
       { user: _id, date: date },
       { entry: entry, images: images },
       { upsert: true, new: true }
@@ -19,6 +38,7 @@ router.post('/', async (req, res) => {
     res.sendStatus(500);
   }
 });
+
 
 // This will RETRIEVE the specific journal entry from this date from the database
 router.get('/:date', async (req, res) => {
@@ -59,37 +79,34 @@ router.delete('/:date', async (req, res) => {
 });
 
 // Like a Journal Entry
-router.post('/interact/:journalId/like', async (req, res) => {
+router.post('/like/:journalId', (req, res) => {
   const { journalId } = req.params;
   const { _id } = req.user;
 
-  try {
-    const journalEntry = await Journal.findById(journalId);
-
-    if (!journalEntry) {
-      return res.status(404).json({ error: 'Journal entry not found' });
-    }
-
-    if (journalEntry.likes.includes(_id)) {
-      return res.status(400).json({ error: 'You have already liked this journal entry' });
-    }
-
-    journalEntry.likes.push(_id);
-    await journalEntry.save();
-
-    // Notify the journal owner about the like
-    const notification = new Notification({
-      user: journalEntry.user,
-      journalEntry: journalId,
-      type: 'like',
+  Journal.findByIdAndUpdate(journalId, { $addToSet: { likes: _id }, $addToSet: { interactions: _id } }) // Add the user ID to interactions array
+    .then(() => {
+      // Notify the journal owner about the like
+      Journal.findById(journalId)
+        .then((journalEntry) => {
+          if (journalEntry) {
+            const notification = new Notification({
+              user: journalEntry.user,
+              journalEntry: journalId,
+              type: 'like',
+            });
+            notification.save();
+          }
+          res.sendStatus(200);
+        })
+        .catch((err) => {
+          console.error(err);
+          res.sendStatus(500);
+        });
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
     });
-    await notification.save();
-
-    res.sendStatus(200);
-  } catch (error) {
-    console.error(error);
-    res.sendStatus(500);
-  }
 });
 
 // Unlike a Journal Entry
@@ -119,7 +136,7 @@ router.post('/interact/:journalId/unlike', async (req, res) => {
 });
 
 // Repost a Journal Entry
-router.post('/interact/:journalId/repost', async (req, res) => {
+router.post('/repost/:journalId', async (req, res) => {
   const { journalId } = req.params;
   const { _id } = req.user;
 
