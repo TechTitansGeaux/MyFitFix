@@ -1,6 +1,7 @@
 const express = require('express');
 const authRoutes = require('./routes/auth-routes');
 const goalsRoutes = require('./routes/goals-routes');
+const progressRoutes = require('./routes/progress-routes');
 const journalRoutes = require('./routes/journal-routes');
 const dashboardRoutes = require('./routes/dashboard-routes');
 const cbRoutes = require('./routes/cb-routes');
@@ -50,6 +51,7 @@ app.use('/nutrition', nutritionRoutes);
 app.use('/cb', cbRoutes);
 app.use('/workout', workoutRoutes);
 app.use('/goals', goalsRoutes);
+app.use('/progress', progressRoutes);
 app.use('/feed', feedRoutes);
 app.use('/users', userRoutes);
 app.use('/quotes', quotesRoutes);
@@ -59,7 +61,7 @@ app.use('/message', messageRoutes);
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: 'http://localhost:8020',
+    origin: '*',
   },
 });
 
@@ -85,12 +87,13 @@ io.on('connection', (socket) => {
   // })
   // when dm event happens
   socket.on('dm', ({ text, recipient }) => {
-    socket.join(recipient);
+    // socket.join(recipient);
     // broadcast directly to recipient
     socket.to(recipient).emit('dm', {
       text,
       // identify room by id
       from: socket.id,
+      name: socket.handshake.auth.name
     });
   });
 

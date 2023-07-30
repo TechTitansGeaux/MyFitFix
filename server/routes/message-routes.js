@@ -25,12 +25,26 @@ router.get('/:senderId/:recipientId', async (req, res) => {
   // use mongoose method to find
   await Message.find({senderId, recipientId})
     .then((messagesArray) => {
-      console.log(messagesArray, '<----result from get messages router')
       res.status(200).send(messagesArray);
     })
     .catch((err) => {
       console.error('Failed to GET messages by sender/recipient IDs: ', err);
       res.sendStatus(500);
+    });
+});
+
+// DELETE a message by messageID
+router.delete('/:_id', async (req, res) => {
+  // access messageID
+  const { _id } = req.params;
+  // use mongoose method to find and delete
+  Message.findOneAndDelete({_id})
+    .then((resObj) => {
+      console.log(resObj, '<---- response from delete message');
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.error('Failed to DELETE message: ', err);
     });
 })
 

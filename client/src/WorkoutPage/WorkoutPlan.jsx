@@ -4,6 +4,7 @@ import moment from 'moment';
 import WorkoutList from './WorkoutList';
 import SearchEntry from './SearchEntry.jsx';
 import PastWorkoutEntry from './PastWorkoutEntry';
+import AllPastWorkoutEntries from './AllPastWorkoutEntries';
 import '../style.css';
 import { useNavigate } from 'react-router-dom';
 import BodyFront from './body-front.jsx';
@@ -16,6 +17,8 @@ function WorkoutPlan() {
   const [pastDate, setPastDate] = useState(moment().format('YYYY-MM-DD'));
   const [pastWorkout, setPastWorkout] = useState([]);
   const [front, setFront] = useState(true); // show front or back
+  const [exercise, setExercise] = useState(true); // show exercises or stretches
+  const [allPastWorkouts, setAllPastWorkouts] = useState([]); // show all past workouts
 
   // const findPastDate = (newDate) => {
   //   setPastDate(newDate);
@@ -36,30 +39,29 @@ function WorkoutPlan() {
   };
 
   const handleSearch = (e, muscle) => {
-    axios
-      .get('/workout/exercise', { params: { muscle: `${muscle}` } })
-      .then((response) => {
-        console.log(e, muscle);
-        setExerciseResults(response.data);
-      })
-      .catch((err) => {
-        console.error('cannot get:', err);
-      });
-  };
-
-
-  const handleSearchType = (e) => {
-    axios
+    if (exercise) {
+      axios
+        .get('/workout/exercise', { params: { muscle: `${muscle}` } })
+        .then((response) => {
+          console.log(e, muscle);
+          setExerciseResults(response.data);
+        })
+        .catch((err) => {
+          console.error('cannot get:', err);
+        });
+    } else {
+      axios
       .get('/workout/stretches', { params: { muscle: `${muscle}` } })
       .then((response) => {
         console.log(e, muscle);
         setExerciseResults(response.data);
+        setPastWorkout([]);
       })
       .catch((err) => {
         console.error('cannot get:', err);
       });
+    }
   };
-
 
   const getPastWorkout = () => {
     axios
@@ -70,6 +72,17 @@ function WorkoutPlan() {
       })
       .catch((err) => {
         console.error('unable to get past workout:', err);
+      });
+  };
+
+  const getAllPastWorkouts = () => {
+    axios
+      .get('/workout/workouts')
+      .then((response) => {
+        setAllPastWorkouts(response.data);
+      })
+      .catch((err) => {
+        console.error('unable to get all past workouts:', err);
       });
   };
 
@@ -305,28 +318,28 @@ function WorkoutPlan() {
           Plan Your Workout{' '}
         </h1>
         <div className='ml-8 max-w-lg h-30 bg-gradient-to-tr from-sky-600 from-10%  via-sky-400 to-sky-50 to-40% ... rounded overflow-hidden shadow-lg row-span-2 '>
-          <div className='px-6 py-4'>
-            <div className='flex justify-center py-5'>
+          <div className='px-6 py-2'>
+            <div className='flex justify-center py-2'>
+
               <h2
-                className='text-2xl text-black hover:text-orange-500 font-bold'
+                className='text-2xl text-black font-bold'
                 align='left'
               >
-                Search for Exercises
+                Search for Exercises/Stretches
               </h2>
             </div>
+            <div className='flex justify-center'>
+              {exercise ? (<h2 className='text-2xl text-black font-bold'
+                align='left'>Exercises</h2>) :
+                (<h2 className='text-2xl text-black hover:text-orange-500 font-bold'
+                align='left'>Stretches</h2>)} </div>
+
             <div className='min-h-fit search-input'>
               <form>
-                <input
-                  type='text'
-                  placeholder='biceps'
-                  className='w-full border border-sky-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 hover:border-blue-700 hover:border-lg'
-                  onChange={(e) => {
-                    setMuscle(e.target.value);
-                  }}
-                />
-                <button type="button" className='w-fit  bg-slate-400 border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 font-bold tracking-wider active:text-white transform hover:scale-110 px-1 ml-4 mr-4' onClick={(e) => handleSearchType(e)}>Search</button>
 
                 <button type="button" className='w-fit  bg-slate-400 border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 font-bold tracking-wider active:text-white transform hover:scale-110 px-1 ml-4 mr-4' onClick={() => {setFront(!front)}}>Toggle Front/Back</button>
+
+                <button type="button" className='w-fit  bg-slate-400 border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 font-bold tracking-wider active:text-white transform hover:scale-110 px-1 ml-4 mr-4' onClick={() => {setExercise(!exercise)}}>Toggle Exercises/Stretches</button>
 
                 <div className='flex justify-around ml-25 mr-25'>
 
@@ -377,6 +390,13 @@ function WorkoutPlan() {
                       >
                         Search For Workout
                       </button>
+                      <button
+                        type='button'
+                        className='w-fit  bg-slate-400 border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 font-bold tracking-wider active:text-white transform hover:scale-110 px-1 ml-4 mr-4'
+                        onClick={() => getAllPastWorkouts()}
+                      >
+                        Search For All Workouts
+                      </button>
                     </td>
                     <td>
                       <button
@@ -394,6 +414,10 @@ function WorkoutPlan() {
                 <div className='mb-8'>
                   {pastWorkout.map((workout) => (
                     <PastWorkoutEntry workout={workout} key={workout.name} />
+                  ))}
+
+                  {allPastWorkouts.map((workouts) => (
+                    <AllPastWorkoutEntries workouts={workouts} key={workouts.date}/>
                   ))}
                 </div>
               </div>

@@ -1,11 +1,6 @@
 const router = require('express').Router();
 const {
-  User,
   Goals,
-  CaloriesIn,
-  CaloriesBurned,
-  Workout,
-  Journal,
 } = require("../db/index.js");
 
 // GET handler to all Goals from the DB // FOR TESTING
@@ -20,8 +15,8 @@ router.get('/', (req, res) => {
 })
 
 // GET handler to retrieve Goals of a current user from the DB
-router.get('/', (req, res) => {
-})
+// router.get('/', (req, res) => {
+// })
 
 // POST handler to save or update goals in the DB
 router.post("/", (req, res) => {

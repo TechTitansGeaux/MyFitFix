@@ -8,7 +8,6 @@ function PastWorkoutEntry( { workout } ){
 
   return (
  <table class="w-full table-fixed">
-
   <tbody>
     <tr>
       <td>{workout.name}</td>
@@ -21,5 +20,5 @@ function PastWorkoutEntry( { workout } ){
   )
 };
 
-export default PastWorkoutEntry
+export default PastWorkoutEntry;
 

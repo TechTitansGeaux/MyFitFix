@@ -24,7 +24,7 @@ router.get('/exercise', (req, res) => {
     });
 
   });
-  // get stretches
+  // get stretches from api
   router.get('/stretches', (req, res) => {
     const { muscle } = req.query;
        const options = {
@@ -80,7 +80,20 @@ router.get('/exercise', (req, res) => {
       console.error("failed to retrieve from db:", err);
       res.sendStatus(500);
     })
-  })
+  });
+
+  // get all workouts
+  router.get('/workouts', (req, res) => {
+    const { _id } = req.user;
+    Workout.find({ user: _id }).sort({ date: -1 })
+    .then((workoutObj) => {
+      res.status(200).send(workoutObj);
+    })
+    .catch((err) => {
+      console.error("failed to GET workouts from db:", err);
+      res.sendStatus(500);
+    });
+  });
 
   router.delete('/workouts/:date', (req, res) => {
     const { date } = req.params;
@@ -97,7 +110,7 @@ Workout.deleteOne({ date: date, user: _id })
   console.log('Failed to DELETE', err);
   res.sendStatus(500);
 })
-})
+});
 
   // router.put('/update', (req, res) => {
   //   // console.log(req.body);
