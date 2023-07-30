@@ -248,7 +248,7 @@ const Quotes = () => {
                   </button>
                 </form>
               </div>
-              <div id="allQuotes" className="show">
+              <div id="allQuotes" className="show" style={{ position: 'absolute', top: '250px', width: '550px' }}>
                 {
                   allQuotes.map((quote, i) => {
                     return <QuoteItem key={i} quote={quote} deleteQuote={deleteQuote}/>
