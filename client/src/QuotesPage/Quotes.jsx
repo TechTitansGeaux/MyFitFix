@@ -1,18 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import QuoteItem from './QuoteItem.jsx';
 // import moment from 'moment';
 
 const Quotes = () => {
   const navigate = useNavigate();
 
 
-  const [ quote, setQuote ] = useState('click generate to generate quote');
+  const [ quote, setQuote ] = useState('click generate to generate new quote');
   const [ quoteInput, setQuoteInput ] = useState('');
+  const [ allQuotes, setAllQuotes ] = useState([]);
+
+
+
+  const getAllQuotes = () => {
+    return axios.get('/quotes/allQuotes');
+  }
 
   const editQuote = () => {
     setQuoteInput(<input value={quote} className="w-full border border-sky-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 hover:border-blue-700" type='text' onChange={e => quoteSetter(e.target.value)}></input>);
-
   }
 
   const quoteSetter = (quote) => {
@@ -30,9 +37,22 @@ const Quotes = () => {
           setQuoteInput('');
         }
       })
+      .then(() => {
+        const quoteGenView = document.getElementById('quoteGen');
+        const allQuotesView = document.getElementById('allQuotes');
+        if (Array.from(quoteGenView.classList).includes('hide')) {
+          quoteGenView.classList.remove('hide')
+          quoteGenView.classList.add('show');
+          allQuotesView.classList.remove('show')
+          allQuotesView.classList.add('hide');
+        }
+      })
       .catch((err) => {
         console.log('error sending request to generate quote', err)
       })
+
+
+
   }
 
   const saveQuote = () => {
@@ -42,7 +62,17 @@ const Quotes = () => {
           setQuoteInput('');
         }
         const notification = document.getElementById('notification');
-        notification.classList.add('notification-show')
+        notification.classList.remove('hide');
+        notification.classList.add('show');
+
+        const quoteGenView = document.getElementById('quoteGen');
+        const allQuotesView = document.getElementById('allQuotes');
+        quoteGenView.classList.remove('show')
+        quoteGenView.classList.add('hide');
+        allQuotesView.classList.remove('hide')
+        allQuotesView.classList.add('show');
+
+        setQuote('click generate to generate new quote');
         // console.log(data);
       })
       .catch((err) => {
@@ -50,6 +80,21 @@ const Quotes = () => {
       })
   }
 
+  const close = () => {
+    const notification = document.getElementById('notification');
+    notification.classList.remove('show')
+    notification.classList.add('hide');
+  }
+
+  useEffect(() => {
+    getAllQuotes()
+      .then((quotes) => {
+        setAllQuotes(quotes.data.reverse());
+      })
+      .catch((err) => {
+        console.log('error sending request for all quotes', err);
+      })
+  }, [quote])
 
   return (
     <div className='grid grid-cols-4 grid-rows-2'>
@@ -163,12 +208,12 @@ const Quotes = () => {
       </div>
       {/* END NAV BAR */}
 
+      {/* START QUOTES COMPONENT */}
       <div className="ml-52">
-        {/* START QUOTES COMPONENT */}
-        <div id="notification" >
+        <div id="notification" className="notification hide" >
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>
           <p>Quote has been saved!</p>
-          <button id="close" >close</button>
+          <button id="close" onClick={ () => { close() }} >close</button>
         </div>
         <div className='mt-20 ml-100 sm:w-full'>
 
@@ -177,11 +222,20 @@ const Quotes = () => {
           <div style={{ width: '600px', height: '420px', margin: 'auto'}} >
             <div className="bg-gradient-to-t from-sky-600 from-10% via-sky-400 to-sky-50 to-40% ... rounded-lg drop-shadow-md ">
               <div style={{ width: '600px', height: '700px', textAlign: 'center'}} >
-                <h1 className="text-2xl text-sky-500 font-bold pt-5 mb-16 pb-4" >Quotes</h1>
-                {/* className='margin-hori-sm py-2 focus:outline-none dark:text-white justify-start hover:text-white focus:bg-sky-500 bg-amber-500 focus:text-white font-semibold hover:bg-sky-500 text-white rounded items-center space-x-6 w-48 min-h-max' */}
-                <button className="rounded-full ... bg-sky-500" onClick={() => { generateQuote() }} >generate</button>
-                <h6 className="text-lg text-sky-500 pt-4 mb-16 pb-4" >{ quote }</h6>
-                { quoteInput }
+                <h1 className="text-2xl text-sky-500 font-bold pt-5 mb-2 pb-4" >Quotes</h1>
+                <button type="button" className='w-fit bg-slate-400 border-sky-300 rounded-lg shadow-lg hover:bg-orange-500 active:bg-orange-900 font-bold tracking-wider active:text-white transform hover:scale-110 px-1 ml-4 mr-4' onClick={() => { generateQuote() }} >generate</button>
+                <div id="quoteGen" className="hide">
+                  <h6 className="text-lg text-sky-500 pt-4 mb-2 pb-4" >{ quote }</h6>
+                  { quoteInput }
+                </div>
+                <div id="allQuotes" className="show">
+                  {
+                    allQuotes.map((quote, i) => {
+                      return <QuoteItem key={i} quote={quote}/>
+                    })
+                  }
+                </div>
+
               </div>
             </div>
             <form>

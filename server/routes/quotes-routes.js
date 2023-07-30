@@ -15,6 +15,17 @@ router.get('/genQuote', (req, res) => {
 
 })
 
+router.get('/allQuotes', (req, res) => {
+  const { _id } = req.user;
+  Quotes.find({user: _id})
+    .then((quotes) => {
+      res.send(quotes);
+    })
+    .catch((err) => {
+      console.log('error finding all quotes: ', err);
+    })
+})
+
 router.post('/saveQuote', (req, res) => {
   const { _id } = req.user;
   const { quote } = req.body;
