@@ -96,7 +96,7 @@ const ProgressDataVisuals = ({ user, dailyBurn, goals, progress }) => {
     axios
       .get(`/progress`)
       .then((response) => {
-        console.log('response data from findProgess', response.data);
+        // console.log('response data from findProgess', response.data);
         setProgressUpdate([...response.data]);
       })
       .catch((err) => {
@@ -165,11 +165,6 @@ const ProgressDataVisuals = ({ user, dailyBurn, goals, progress }) => {
   // ];
   // const [pieDataWeight, setPieDataWeight] = useState(initialPieDataWeight);
 
-  // console.log('goalsUpdate state ===>', goalsUpdate);
-  // console.log('workoutCals state ===>', workoutCals);
-  // console.log('dailyBurn from props >>>', dailyBurn);
-  // console.log('goals from props >>>', goals);
-  // console.log('progress from props >>>', progress);
 
   ///////////////////// RENDERING COMPONENT TO DASHBOARD ///////////////////////////
   return (
