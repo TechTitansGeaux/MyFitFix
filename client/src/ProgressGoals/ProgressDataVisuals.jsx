@@ -14,21 +14,18 @@ import {
 
 ///////////// MY PROGRESS DATA VISUAL COMPONENT ///////////////
 const ProgressDataVisuals = ({ user, dailyBurn, goals, progress }) => {
+  const [submit, setSubmit] = useState(false);
   const [weightUpdate, setWeightUpdate] = useState('');
   const [goalsUpdate, setGoalsUpdate] = useState(goals);
   const [progressUpdate, setProgressUpdate] = useState([]);
-  const [workoutCals, setWorkoutCals] = useState([]);
+  // const [workoutCals, setWorkoutCals] = useState([]);
   const [totalCaloriesBurned, setTotalCaloriesBurned] = useState([]);
 
-  // CALCULATES CALORIES LEFT FROM GOAL
-  const calorieGoal = () => {
-    return goals.length > 0 ? goals[0].goalCaloriesBurned : null;
-  };
 
   ///// PRE-POPULATED DATA FOR CHARTS
   // initial pie chart calories burned // in state below
   const initialPieDataCalories = [
-    { name: 'Total Calories Burned', value: 0, color: '#0EA5E9' },
+    { name: 'Total Calories Burned', value: 30, color: '#0EA5E9' },
     { name: 'Calories to Goal', value: 100, color: '#B2E4FB' },
   ];
   const [pieDataCalories, setPieDataCalories] = useState(
@@ -52,13 +49,15 @@ const ProgressDataVisuals = ({ user, dailyBurn, goals, progress }) => {
   ];
 
   // line chart weight data // in state as progressUpdate
-  const lineDataWeight = [
+  const initialLineDataWeight = [
     { pounds: 1 },
     { pounds: 3 },
     { pounds: -2 },
     { pounds: 1 },
-    { pounds: -2 },
+    { pounds: -3 },
   ];
+
+  const [lineDataWeight, setLineDataWeight] = useState(initialLineDataWeight);
 
   // CALCULATE TOTAL CALORIES BURNED
   const updateTotalCalories = () => {
@@ -123,32 +122,6 @@ const ProgressDataVisuals = ({ user, dailyBurn, goals, progress }) => {
       });
   };
 
-  //function updates progress stats to DB
-  const updateProgress = () => {
-    const pieCalUpdate = [
-      { name: 'Total Calories Burned', value: dailyBurn, color: '#0EA5E9' },
-      {
-        name: 'Calories to Goal',
-        value: goals[0].goalCaloriesBurned - dailyBurn,
-        color: '#B2E4FB',
-      },
-    ];
-    axios
-      .post('/progress', {
-        user: user._id,
-        lineDataCalories: lineDataCalories,
-        pieDataCalories: pieCalUpdate,
-        lineDataWeight: lineDataWeight,
-        pieDataWeight: pieDataWeight,
-      })
-      .then((response) => {
-        // console.log('SUCCESS: update Progress from Axios Post to DB, in ProgressDataVisuals.jsx:', response);
-      })
-      .catch((err) => {
-        console.error('ERROR. Failed to update Goals from Axios Post', err);
-      });
-  };
-
   //////////////////////
   //update the view
   useEffect(() => {
@@ -156,12 +129,12 @@ const ProgressDataVisuals = ({ user, dailyBurn, goals, progress }) => {
     findGoals();
     findProgress();
     updateTotalCalories();
+
     // setWorkoutCals((prevCals) => [...prevCals, { "calories": dailyBurn }])
   }, []);
 
   useEffect(() => {
-
-  }, [])
+  }, [submit])
   /////////////////////
 
   // weigh-in function to handle user input
@@ -169,11 +142,34 @@ const ProgressDataVisuals = ({ user, dailyBurn, goals, progress }) => {
     setWeightUpdate(e.target.value);
   };
 
-  console.log('goalsUpdate state ===>', goalsUpdate);
-  console.log('workoutCals state ===>', workoutCals);
-  console.log('dailyBurn from props >>>', dailyBurn);
-  console.log('goals from props >>>', goals);
-  console.log('progress from props >>>', progress);
+   // submits weight to state
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSubmit(true)
+    console.log('conform to lineDataWeight', { pounds: weightUpdate });
+    let weightLeft = goals.length > 0 ? goals[0].goalWeight - weightUpdate : null; // weight change update
+    // let weightLost = goals.length > 0 ? weightUpdate : null; // weight change update
+    // console.log('weightlost variable', weightLost)
+    setLineDataWeight([...lineDataWeight, { pounds: -weightUpdate }]);
+    setPieDataWeight([
+      { name: 'Total Weight Lost', value: totalWeightLost * -1, color: '#F59E0B' },
+      { name: 'Pounds to Goal', value: weightLeft, color: '#FCE7C5' },
+    ]);
+    setWeightUpdate('');
+
+  };
+
+  // const initialPieDataWeight = [
+    // { name: 'Total Weight Lost', value: 0, color: '#F59E0B' },
+    // { name: 'Pounds to Goal', value: 100, color: '#FCE7C5' },
+  // ];
+  // const [pieDataWeight, setPieDataWeight] = useState(initialPieDataWeight);
+
+  // console.log('goalsUpdate state ===>', goalsUpdate);
+  // console.log('workoutCals state ===>', workoutCals);
+  // console.log('dailyBurn from props >>>', dailyBurn);
+  // console.log('goals from props >>>', goals);
+  // console.log('progress from props >>>', progress);
 
   ///////////////////// RENDERING COMPONENT TO DASHBOARD ///////////////////////////
   return (
@@ -185,7 +181,7 @@ const ProgressDataVisuals = ({ user, dailyBurn, goals, progress }) => {
           type='number'
           min='75'
           step='1'
-          placeholder='Type Weight '
+          placeholder='lbs Losts '
           onChange={handleChange}
           onKeyDown={(e) => (e.key === 'Enter' ? handleSubmit(e) : null)}
           value={weightUpdate}
@@ -195,7 +191,7 @@ const ProgressDataVisuals = ({ user, dailyBurn, goals, progress }) => {
           className='margin-hori-sm py-2 focus:outline-none dark:text-white justify-start hover:text-white focus:bg-sky-500 bg-amber-500 focus:text-white font-semibold hover:bg-sky-500 text-white rounded items-center space-x-6 w-48 min-h-max'
           onClick={(e) => handleSubmit(e)}
         >
-          <b>UPDATE WEIGH-IN</b>
+          <b>UPDATE lbs LOST</b>
         </button>
       </div>
       <div className='flex-row-container'>
@@ -214,7 +210,7 @@ const ProgressDataVisuals = ({ user, dailyBurn, goals, progress }) => {
               </h3>
               <p className='p-goals'>
                 <b>{goals.length > 0 ? goals[0].goalCaloriesBurned : null} </b>
-                <span className='small-text'>calories burned goal</span>
+                <span className='small-text'>calories - to burn goal</span>
               </p>
             </span>
           </div>
@@ -276,17 +272,19 @@ const ProgressDataVisuals = ({ user, dailyBurn, goals, progress }) => {
         <div className='data-pie-graph-container'>
           <div className='text-container'>
             <h3 className='font-semibold text-xl text-black'>
-              Goal to Weight Remaining
+              Goal Weight Remaining
             </h3>
             {/* 1500 Needs to be Dynamic*/}
             <span>
               <h3 className='font-bold text-3xl text-amber-500 '>
                 {/* {pieDataWeight[1].value} */}
-                {goals.length > 0 ? goals[0].goalWeight : null}
+                {goals.length > 0
+                  ? goals[0].goalWeight + totalWeightLost
+                  : null}
               </h3>
               <p className='p-goals'>
                 <b>{goals.length > 0 ? goals[0].goalWeight : null} </b>
-                <span className='small-text'>weight loss goal</span>
+                <span className='small-text'>pounds - to lose goal</span>
               </p>
             </span>
           </div>
@@ -338,7 +336,7 @@ const ProgressDataVisuals = ({ user, dailyBurn, goals, progress }) => {
                 />
               </LineChart>
             </ResponsiveContainer>
-            <h3 className='font-bold text-md text-amber-500 '>PER WEIGH IN</h3>
+            <h3 className='font-bold text-md text-amber-500 '>PER UPDATE</h3>
           </div>
         </div>
       </div>
