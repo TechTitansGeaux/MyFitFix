@@ -68,13 +68,16 @@ const WorkoutEntrySchema = new Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 });
 
-const JournalEntrySchema = new Schema({
-  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  entry: String,
-  date: { type: Date, default: Date.now },
-  likes: { type: Number, required: true },
-  interactions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-});
+const JournalEntrySchema = new Schema(
+  {
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    entry: String,
+    date: { type: Date, default: Date.now },
+    likes: { type: Number, required: true },
+    interactions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+  },
+  { timestamps: true }
+);
 
 const NotificationSchema = new Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },

@@ -20,8 +20,6 @@ const Feed = () => {
 
   const navigate = useNavigate();
 
-  const socket = io('http://localhost:8020'); // Connect to the server's socket
-
   useEffect(() => {
 
     // Fetch the current user data
@@ -32,41 +30,41 @@ const Feed = () => {
     }).catch((error) => {
       console.error('Error fetching current user:', error);
     });
-
-    const socket = io('http://localhost:8020');
-
-    socket.on('connect', () => {
-      console.log('Connected to Socket.IO server');
-    });
-
-    // Handle new journal entry event
-    socket.on('newJournalEntry', (newEntryData) => {
-      setEntries((prevEntries) => [newEntryData, ...prevEntries]);
-    });
-
-
-    // Handle deleted journal entry event
-    socket.on('deletedJournalEntry', (deletedEntryId) => {
-      setEntries((prevEntries) => prevEntries.filter((entry) => entry._id !== deletedEntryId));
-    });
-
-    // Clean up the Socket.IO connection on unmount
-    return () => {
-      socket.disconnect();
-    };
   }, []);
 
   // Function to load more journal entries with infinite scroll
   const loadMoreEntries = () => {
-    setPage((prevPage) => prevPage + 1);
+    axios
+    .get(`feed/${feedType}`)
+    .then((response) => {
+      setEntries(
+        // sorts posts with the most recent at the top of void feed
+        response.data.sort((a, b) =>
+          b.createdAt > a.createdAt ? 1 : b.createdAt < a.createdAt ? -1 : 0
+        )
+      );
+    })
+    .catch((err) => {
+      console.error("Error in useEffect axios.get request ===>", err);
+    });
   };
 
   useEffect(() => {
     // Fetch the journal entries based on the feed type and current page
-    axios.get(`feed/${feedType}?page=${page}`).then((response) => {
-      setEntries((prevEntries) => [...prevEntries, ...response.data]);
+    axios
+    .get(`feed/${feedType}`)
+    .then((response) => {
+      setEntries(
+        // sorts posts with the most recent at the top of void feed
+        response.data.sort((a, b) =>
+          b.createdAt > a.createdAt ? 1 : b.createdAt < a.createdAt ? -1 : 0
+        )
+      );
+    })
+    .catch((err) => {
+      console.error("Error in useEffect axios.get request ===>", err);
     });
-  }, [feedType, page]);
+  }, [feedType]);
 
   // Function to handle follow user
   const handleFollow = (userId) => {
@@ -276,8 +274,8 @@ const Feed = () => {
         {/* Notifications */}
         <div className="notifications">
           {/* Add your notification content here */}
-          {/* For example: */}
           <p>New notifications will appear here...</p>
+          <Notifications />
         </div>
 
         {/* User Search */}
