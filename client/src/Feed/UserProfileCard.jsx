@@ -1,48 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const UserProfileCard = ({ user, onFollow, onUnfollow, followerCount, followingCount, currentUser }) => {
-
-  const [followerCounts, setFollowerCounts] = useState({});
-  const [followingCounts, setFollowingCounts] = useState({});
-
-  // Function to fetch the latest user data from the server
-  const fetchUserData = () => {
-    axios.get('/users').then((response) => {
-      const users = response.data;
-
-      // Calculate follower and following counts for all users
-      const followers = {};
-      const following = {};
-      users.forEach((user) => {
-        followers[user._id] = user.followers.length;
-        following[user._id] = user.following.length;
-      });
-      setFollowerCounts(followers);
-      setFollowingCounts(following);
-    });
-  };
+const UserProfileCard = ({ user, onFollow, onUnfollow, currentUser }) => {
+  const [followerCount, setFollowerCount] = useState(user.followers.length || 0);
+  const [followingCount, setFollowingCount] = useState(user.following.length || 0);
 
   const handleFollow = () => {
     onFollow(user._id);
+    setFollowerCount(prevCount => prevCount + 1); // Increment follower count locally
   };
 
   const handleUnfollow = () => {
     onUnfollow(user._id);
+    setFollowerCount(prevCount => prevCount - 1); // Decrement follower count locally
   };
 
-    // Fetch user data on component mount
-    useEffect(() => {
-      fetchUserData();
-    }, []);
+  useEffect(() => {
+    // Update the follower and following counts whenever the user prop changes
+    setFollowerCount(user.followers.length || 0);
+    setFollowingCount(user.following.length || 0);
+  }, [user]);
 
   return (
     <div className="user_profile_card">
       <h3>User Profile</h3>
       <img src={user.thumbnail} alt="User Thumbnail" />
       <p>{user.name}</p>
-      <p>Followers: {followerCounts[user._id] || 0}</p>
-      <p>Following: {followingCounts[user._id] || 0}</p>
+      <p>Followers: {followerCount}</p>
+      <p>Following: {followingCount}</p>
       {user._id !== currentUser._id && (
         <div>
           {user.followers.includes(currentUser._id) ? (

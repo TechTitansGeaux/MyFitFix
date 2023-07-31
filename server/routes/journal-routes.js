@@ -18,13 +18,11 @@ router.get('/user/:userId', (req, res) => {
     });
 });
 
-
-
 // Assuming you have required the necessary modules and models
 
 // POST - Add Journal Entry
 router.post('/', async (req, res) => {
-  const { entry, date, images } = req.body;
+  const { entry, date } = req.body;
   const { _id } = req.user;
 
   if (!entry) {
@@ -48,8 +46,8 @@ router.post('/', async (req, res) => {
 
 
 
-// This will RETRIEVE the specific journal entry from this date from the database
-router.get('/:date', async (req, res) => {
+// This will RETRIEVE the specific journal entry from this :journalId from the database
+router.get('/:journalId', async (req, res) => {
   const { date } = req.params;
   const { _id } = req.user;
 
@@ -67,8 +65,8 @@ router.get('/:date', async (req, res) => {
   }
 });
 
-// This will DELETE the specific journal entry from the date from the database
-router.delete('/:date', async (req, res) => {
+// This will DELETE the specific journal entry from the :journalId from the database
+router.delete('/:journalId', async (req, res) => {
   const { date } = req.params;
   const { _id } = req.user;
 

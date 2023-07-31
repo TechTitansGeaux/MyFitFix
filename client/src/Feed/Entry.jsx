@@ -2,30 +2,30 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { formatDistanceToNow } from 'date-fns';
 
-const Entry = ({ entry, onLike, currentUserId }) => {
+const Entry = ({ entry, onLike, onUnlike, currentUserId }) => {
   const [users, setUsers] = useState([]);
   const [entryUser, setEntryUser] = useState(null);
   const [liked, setLiked] = useState(false);
-  const [likeCounts, setLikeCounts] = useState(0);;
+  const [likeCounts, setLikeCounts] = useState(0);
 
   // Function to fetch the latest user data from the server
   const fetchEntryData = () => {
-    axios.get('/following').then((response) => {
+    axios.get(`feed/public`).then((response) => {
       const entries = response.data;
+      console.log(entries, '<----HERE');
 
       // Calculate likes for all users
-      const likes = {};
+      let likesCount = 0;
       entries.forEach((entry) => {
-        likes[entry.user] = entry.likes.length;
+        likesCount += entry.likes;
       });
-      setLikeCounts(likes);
     });
   };
 
   // Fetch user data on component mount
   useEffect(() => {
     fetchEntryData();
-  }, []);
+  }, [onLike, onUnlike]);
 
   // Function to fetch all users from the server
   const fetchUsers = async () => {
@@ -51,20 +51,23 @@ const Entry = ({ entry, onLike, currentUserId }) => {
 
   const handleLike = () => {
     onLike(entry._id);
-    setLiked(!liked);
-    setLikeCounts((prevCounts) => (liked ? prevCounts - 1 : prevCounts + 1)); // Update likeCounts state based on liked state
+    setLiked(true);
+    setLikeCounts((prevCounts) => prevCounts + 1); // Update likeCounts state to increment by 1
+  };
+
+  const handleUnlike = () => {
+    onUnlike(entry._id);
+    setLiked(false);
+    setLikeCounts((prevCounts) => prevCounts - 1); // Update likeCounts state to decrement by 1
   };
 
   useEffect(() => {
     // Set the liked state based on whether the current user has liked this entry
-    if (liked) {
-      setLiked(true);
-    } else {
-      setLiked(false);
-    }
+    setLiked(currentUserId && entry.likes === currentUserId);
     // Set the likeCounts state to the number of likes for this entry
     setLikeCounts(entry.likes);
   }, [currentUserId, entry.likes]);
+
 
   return (
     <div className="entry">
@@ -75,12 +78,16 @@ const Entry = ({ entry, onLike, currentUserId }) => {
         </div>
       )}
       <p>{entry.entry}</p>
-      <p>Date: {formatDistanceToNow(new Date(entry.date), { addSuffix: true })}</p>
       <p>Likes: {likeCounts}</p>
-
+      <p>{formatDistanceToNow(new Date(entry.date), { addSuffix: true })}</p>
+      
       {/* Like Button */}
       <div>
-        <button onClick={handleLike}>{liked ? 'Unlike' : 'Like'}</button>
+        {liked ? (
+          <button onClick={handleUnlike}>Unlike</button>
+        ) : (
+          <button onClick={handleLike}>Like</button>
+        )}
       </div>
     </div>
   );
