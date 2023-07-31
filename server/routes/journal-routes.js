@@ -18,8 +18,6 @@ router.get('/user/:userId', (req, res) => {
     });
 });
 
-
-
 // Assuming you have required the necessary modules and models
 
 // POST - Add Journal Entry

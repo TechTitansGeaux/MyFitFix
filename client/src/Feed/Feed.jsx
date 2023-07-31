@@ -2,17 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Entry from './Entry';
-import Notifications from './Notifications';
 import UserSearch from './UserSearch';
 import UserProfileCard from './UserProfileCard';
-import io from 'socket.io-client';
 
 import './Feed.css';
 
 const Feed = () => {
   const [feedType, setFeedType] = useState('public'); // 'public' or 'following'
   const [entries, setEntries] = useState([]);
-  const [page, setPage] = useState(1);
   // create state variable for the current user
   const [currentUser, setCurrentUser] = useState(null);
   const [followerCount, setFollowerCount] = useState(0); // State variable for follower count
@@ -21,7 +18,6 @@ const Feed = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-
     // Fetch the current user data
     axios.get('/users/user').then((response) => {
       setCurrentUser(response.data);
@@ -32,36 +28,46 @@ const Feed = () => {
     });
   }, []);
 
-  // Function to load more journal entries with infinite scroll
-  const loadMoreEntries = () => {
-    axios
-    .get(`feed/${feedType}`)
+ // Function to fetch the journal entries based on the feed type and current page
+ const fetchEntries = () => {
+  axios.get(`feed/${feedType}`)
     .then((response) => {
       setEntries(
-        // sorts posts with the most recent at the top of void feed
         response.data.sort((a, b) =>
           b.createdAt > a.createdAt ? 1 : b.createdAt < a.createdAt ? -1 : 0
         )
       );
     })
     .catch((err) => {
-      console.error("Error in useEffect axios.get request ===>", err);
+      console.error('Error in axios.get request:', err);
     });
+};
+
+// Fetch initial entries on component mount
+useEffect(() => {
+  fetchEntries();
+
+  // Set interval to fetch entries every 3 seconds
+  const interval = setInterval(() => {
+    fetchEntries();
+  }, 5000);
+
+  // Clear the interval when the component is unmounted
+  return () => {
+    clearInterval(interval);
   };
+}, [feedType]);
 
   useEffect(() => {
     // Fetch the journal entries based on the feed type and current page
-    axios
-    .get(`feed/${feedType}`)
-    .then((response) => {
+    axios.get(`feed/public`).then((response) => {
       setEntries(
         // sorts posts with the most recent at the top of void feed
         response.data.sort((a, b) =>
           b.createdAt > a.createdAt ? 1 : b.createdAt < a.createdAt ? -1 : 0
         )
       );
-    })
-    .catch((err) => {
+    }).catch((err) => {
       console.error("Error in useEffect axios.get request ===>", err);
     });
   }, [feedType]);
@@ -69,48 +75,45 @@ const Feed = () => {
   // Function to handle follow user
   const handleFollow = (userId) => {
     // Make API call to update the following status on the server
-    axios.post(`/users/follow/${userId}`)
-      .then(() => {
-        // Update the currentUser state to reflect the new following relationship
-        setCurrentUser((prevCurrentUser) => ({
-          ...prevCurrentUser,
-          following: [...prevCurrentUser.following, userId],
-        }));
-      })
-      .catch((error) => {
-        console.error('Error following user:', error);
-      });
+    axios.post(`/users/follow/${userId}`).then(() => {
+      // Update the currentUser state to reflect the new following relationship
+      setCurrentUser((prevCurrentUser) => ({
+        ...prevCurrentUser,
+        following: [...prevCurrentUser.following, userId],
+      }));
+    }).catch((error) => {
+      console.error('Error following user:', error);
+    });
   };
 
   // Function to handle unfollow user
   const handleUnfollow = (userId) => {
     // Make API call to update the following status on the server
-    axios.post(`/users/unfollow/${userId}`)
-      .then(() => {
-        // Update the currentUser state to reflect the removed following relationship
-        setCurrentUser((prevCurrentUser) => ({
-          ...prevCurrentUser,
-          following: prevCurrentUser.following.filter((id) => id !== userId),
-        }));
-      })
-      .catch((error) => {
-        console.error('Error unfollowing user:', error);
-      });
+    axios.post(`/users/unfollow/${userId}`).then(() => {
+      // Update the currentUser state to reflect the removed following relationship
+      setCurrentUser((prevCurrentUser) => ({
+        ...prevCurrentUser,
+        following: prevCurrentUser.following.filter((id) => id !== userId),
+      }));
+    }).catch((error) => {
+      console.error('Error unfollowing user:', error);
+    });
   };
 
-
- // Function to handle liking a journal entry
- const handleLike = (entryId) => {
-  axios
-    .post(`/feed/like/${entryId}`)
-    .then((response) => {
-      // Emit the updated entry data to the server
-      socket.emit('like', response.data);
-    })
-    .catch((error) => {
+  // Function to handle liking a journal entry
+  const handleLike = (entryId) => {
+    axios.post(`/feed/like/${entryId}`).catch((error) => {
       console.error('Error liking entry:', error);
     });
-};
+  };
+
+  // Function to handle unliking a journal entry
+  const handleUnlike = (entryId) => {
+    axios.post(`/feed/unlike/${entryId}`).catch((error) => {
+      console.error('Error unliking entry:', error);
+    });
+  };
+
 
   return (
     <div className='feed-container'>
@@ -240,7 +243,7 @@ const Feed = () => {
           />
         )}
 
-        {/* Toggle between public and following feed */}
+        {/* Toggle between public and following feed
         <div className="feed-toggle">
           <button
             className={feedType === 'public' ? 'active' : ''}
@@ -254,7 +257,7 @@ const Feed = () => {
           >
             Following Feed
           </button>
-        </div>
+        </div> */}
 
         {/* Display the journal entries */}
       <div className="feed-entries">
@@ -263,20 +266,13 @@ const Feed = () => {
             key={entry._id}
             entry={entry}
             onLike={handleLike}
+            onUnlike={handleUnlike}
             currentUserId={currentUser._id}
           />
         ))}
         {/* Infinite scroll */}
-        <button onClick={loadMoreEntries}>Load More</button>
+        {/* <button onClick={loadMoreEntries}>Load More</button> */}
       </div>
-
-
-        {/* Notifications */}
-        <div className="notifications">
-          {/* Add your notification content here */}
-          <p>New notifications will appear here...</p>
-          <Notifications />
-        </div>
 
         {/* User Search */}
         <div className="user-search">

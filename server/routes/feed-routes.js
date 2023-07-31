@@ -92,7 +92,8 @@ router.post('/like/:journalId', (req, res) => {
   Journal.findByIdAndUpdate(
     journalId,
     {
-      $addToSet: { likes: _id, interactions: _id }, // Add the user ID to both likes and interactions arrays
+      $addToSet: { interactions: _id }, // Add the user ID to the interactions array
+      $inc: { likes: 1 }, // Increment the likes field by 1
     },
     { new: true } // This option returns the updated journal entry
   )
@@ -117,18 +118,30 @@ router.post('/like/:journalId', (req, res) => {
     });
 });
 
+
 // 7. POST - Unlike a Journal Entry
 router.post('/unlike/:journalId/', (req, res) => {
   const { journalId } = req.params;
   const { _id } = req.user;
 
-  Journal.findByIdAndUpdate(journalId, { $pull: { likes: _id } })
-    .then(() => res.sendStatus(200))
+  Journal.findByIdAndUpdate(
+    journalId,
+    { $pull: { likes: _id } }, // Remove the user ID from the likes array
+    { new: true } // This option returns the updated journal entry
+  )
+    .then((updatedEntry) => {
+      if (!updatedEntry) {
+        return res.status(404).json({ error: 'Journal entry not found.' });
+      }
+
+      res.sendStatus(200);
+    })
     .catch((err) => {
       console.error(err);
       res.sendStatus(500);
     });
 });
+
 
 // 8. POST - Repost a Journal Entry
 router.post('/repost/:journalId', (req, res) => {
