@@ -5,7 +5,8 @@ import io from 'socket.io-client';
 import MessageItem from './MessageItem';
 import LandingPage from './LandingPage';
 
-const URL = 'http://localhost:3000';
+// changed this from 3000 to 8020
+const URL = 'http://localhost:8020';
 const socket = io(URL, { autoConnect: false });
 
 function Messages() {

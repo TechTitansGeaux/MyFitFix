@@ -154,10 +154,11 @@ io.use((socket, next) => {
   next();
 });
 
-// set socket io server to listen on a separate port
-server.listen(3000, () => {
-  console.log('Socket.io server is running!');
-});
+// commented this out to get working on one server
+// // set socket io server to listen on a separate port
+// server.listen(3000, () => {
+//   console.log('Socket.io server is running!');
+// });
 
 //Create home route
 // app.get('/', (req, res) => {
@@ -170,6 +171,7 @@ app.get('*', (req, res) => {
 });
 
 //Listens to the app server convos (aka listening to request)
-app.listen(8020, () => {
+// try changing from app.listen to server.listen
+server.listen(8020, () => {
   console.log('app now listening for request at:', 'http://localhost:8020');
 });
