@@ -22,6 +22,7 @@ The **Feed** options allows you to see and like other Journal entries from other
 
 ## Setup and Starting Up (Development)
 For anyone that is looking to work with this app, here are the things you will need to get started
+- Ensure node version 18.
 - When forked down, make sure to run npm install to get all the dependencies that you will need for the project.
   - NOTE: passport has a bug on the latest version where req.session.regenerate is not a function. To fix this make sure to uninstall passport and run this command: `npm install --save passport@0.5`
 - To start the server, run `sudo mongod` (needed to start mongodb service in Ubuntu) in a terminal (THIS PROJECT IS SET TO WORK WITH MONGODB)
@@ -46,6 +47,23 @@ Here is the tech stack for this project
 - Styling: TailwindCSS
 - WebSockets: socket.io, socket.io-client, cors
 - Calorie display/tracker: recharts
+
+## Contributors
+Thanks to all the following people for contributing to this project:
+
+**Original Contributors**:
+
+- [@JordanMan](https://github.com/jordan-mann)
+- [@SophiaRosely](https://github.com/sophiarosely)
+- [@NeilShapiro](https://github.com/neilthemippy)
+- [@AndrewVaquez](https://github.com/dREWbxKewb)
+
+**Additional Contributors**:
+- [@EdwardCooper](https://github.com/cooptothe)
+- [@BernieJanuary](https://github.com/janvierjr)
+- [@BenjaminKlein](https://github.com/Benjaminklein99)
+- [@SamsonThai](https://github.com/skanda108)
+- [@JackieWisdom](https://github.com/wisdomjackie)
 
 ## Contact Us
 - With any troubleshooting, please feel free to reach out via Github Issues @ https://github.com/powerpuffyall/MyFitFix/issues
